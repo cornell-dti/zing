@@ -1,5 +1,4 @@
 {
-  "include": ["src/**/*.ts"],
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitReturns": true,
@@ -7,8 +6,10 @@
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "es2017",
-    "resolveJsonModule": true
+    "target": "es2017"
   },
-  "compileOnSave": true
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ]
 }
