@@ -1,11 +1,14 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "@core": ["src/modules/Core/"],
-            "@core/*": ["src/modules/Core/*"],
-            "Home": ["src/modules/Home/"],
-            "Home/*": ["src/modules/Home/*"]
-        }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@assets/*": ["src/assets/*"],
+      "@core": ["src/modules/Core/"],
+      "@core/*": ["src/modules/Core/*"],
+      "Home": ["src/modules/Home/"],
+      "Home/*": ["src/modules/Home/*"],
+      "Survey": ["src/modules/Survey/"],
+      "Survey/*": ["src/modules/Survey/*"]
     }
+  }
 }
