@@ -1,5 +1,5 @@
 import * as functions from "firebase-functions";
-import { FirestoreSurveyDataDoc } from "../../types/firestore-types";
+import { FirestoreSurveyDataDoc } from "./firestore-types";
 import { db } from "./db";
 
 type SurveyData = {
