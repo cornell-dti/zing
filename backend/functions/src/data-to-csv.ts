@@ -15,9 +15,10 @@ const createSurveyCsv = async (
 	data: Data,
 	context: functions.https.CallableContext
 ): Promise<void> => {
+	const { surveyDocId } = data;
 	const surveySnapshot = await db
 		.collection("surveys")
-		.doc(data.surveyDocId)
+		.doc(surveyDocId)
 		.collection("survey_responses")
 		.get();
 
@@ -39,7 +40,7 @@ const createSurveyCsv = async (
 
 	const outputCsv = await parseAsync(surveyDocs, { fields });
 
-	const filename = `class_.csv`;
+	const filename = `responses_${surveyDocId}.csv`;
 	const tempFile = path.join(os.tmpdir(), filename);
 
 	return new Promise<void>((resolve, reject) => {
