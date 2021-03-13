@@ -1,7 +1,7 @@
-import * as functions from "firebase-functions";
-import createSurveyCsv from "./data-to-csv";
-import addResponse from "./add-response";
+import addResponse from "./users/add-response";
+import createCourse from "./courses/create-course";
+import createSurveyCsv from "./courses/data-to-csv";
 
-export const generateInputCsv = functions.https.onCall(createSurveyCsv);
-
-export const addStudentResponse = functions.https.onCall(addResponse);
+export const newCourse = createCourse;
+export const newSurvey = addResponse;
+export const newCsv = createSurveyCsv;
