@@ -1,15 +1,8 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
-import { FirestoreSurveyDoc, FirestoreCourseDoc } from "../firestore-types";
+import { FirestoreSurveyDoc } from "../firestore-types";
+import { idInCourseList } from "../utils";
 import { db } from "../db";
-
-const idInCourseList = (
-	id: string,
-	docSnapshot: FirebaseFirestore.DocumentSnapshot<FirebaseFirestore.DocumentData>
-): boolean => {
-	const { studentList } = docSnapshot.data() as FirestoreCourseDoc;
-	return studentList.includes(id);
-};
 
 const addResponse = functions.https.onRequest(
 	async (request: functions.https.Request, response: functions.Response) => {
