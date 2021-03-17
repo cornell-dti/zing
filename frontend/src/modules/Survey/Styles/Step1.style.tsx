@@ -4,6 +4,7 @@ import { colors, h1, h2, h3, StyledComponent } from '@core'
 
 import logo from '@assets/img/whitelogo.svg'
 import teamPic from '@assets/img/teamwork.svg'
+import whiteBackground from '@assets/img/whiterectangle.png'
 
 const Logo = ({ className }: StyledComponent) => (
   <div className={className}>
@@ -19,6 +20,13 @@ const TeamPic = ({ className }: StyledComponent) => (
     <img src={teamPic} alt="teamPic" />
   </div>
 )
+
+// const WhiteBackground = ({ className }: StyledComponent) => (
+//   <div className={className}>
+//     <img src={whiteBackground} alt="whiteBackground" />
+//   </div>
+// )
+
 export const StyledTeamPic = styled(TeamPic)`
   max-width: 100%;
   margin-top: 108px;
@@ -41,36 +49,9 @@ const panel = css`
   align-items: center;
 `
 
-const fullPanel = css`
-  ${panel};
-  height: 100%;
-  width: 100%;
-`
-
-const halfPanel = css`
-  ${panel};
-  height: 100%;
-  width: 50%;
-`
-
-export const StyledLeftPanel = styled.div`
-  ${halfPanel};
-  background: linear-gradient(
-    162.9deg,
-    #c794ee 0.78%,
-    #d9b6f6 27.99%,
-    #e8d6fb 55.75%,
-    #f6f3ff 101.78%
-  );
-`
-
 export const StyledWhiteActionText = styled.text`
   ${h3};
   color: ${colors.white};
-`
-
-export const StyledRightPanel = styled.div`
-  ${halfPanel};
 `
 
 export const StyledTitleWrapper = styled.div`
@@ -88,3 +69,7 @@ export const StyledWelcomeText = styled.text`
   font-weight: 300;
   color: ${colors.darkpurple};
 `
+// export const StyledWhiteBackground = styled(WhiteBackground)`
+//   max-width: 100%;
+//   margin-top: 108px;
+// `

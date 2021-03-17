@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { StyledContainer1, StyledContainer2 } from 'Survey/Styles/Survey.style'
-import { Step0 } from 'Survey/Components'
+import { Step0, Step1 } from 'Survey/Components'
 
 export const Survey = () => {
   const [currStep, setCurrStep] = useState(0)
@@ -14,7 +14,12 @@ export const Survey = () => {
       />
     </StyledContainer1>
   ) : currStep === 1 ? (
-    <StyledContainer2></StyledContainer2>
+    <StyledContainer2>
+      <Step1
+        gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
+        gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
+      />
+    </StyledContainer2>
   ) : (
     <div></div>
   )
