@@ -13,6 +13,8 @@ export const Survey = () => {
           gotoPrevStep={() => {}}
           gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
         />
+      ) : currStep === 1 ? (
+        <div></div>
       ) : (
         <div></div>
       )}
