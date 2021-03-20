@@ -22,12 +22,14 @@ export const StyledPrevButton = styled(GoNextPrevButton)`
   position: absolute;
   bottom: 13%;
   margin-left: 3%;
+  cursor: pointer;
 `
 
 export const StyledNextButton = styled(GoNextPrevButton)`
   position: absolute;
   bottom: 13%;
   margin-left: 74%;
+  cursor: pointer;
 `
 
 export const StyledProgressBar = styled(ProgressBar)`
