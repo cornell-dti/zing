@@ -17,3 +17,11 @@ export interface ButtonProps extends Common {
   labelStyle?: { [key in string]: string }
   onClick: () => void
 }
+
+export interface GoToButtonProps extends Common {
+  className?: string | undefined
+  label?: string | React.Component
+  labelStyle?: { [key in string]: string }
+  src: string
+  onClick: () => void
+}

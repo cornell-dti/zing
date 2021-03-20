@@ -3,9 +3,8 @@ import styled, { css } from 'styled-components'
 import { colors, h1, h2, h3, StyledComponent } from '@core'
 
 import logo from '@assets/img/purplelogo.svg'
-import prev from '@assets/img/prev.svg'
-import next from '@assets/img/next.svg'
 import progress from '@assets/img/progressbarstep1.svg'
+import { GoNextPrevButton } from '@core'
 
 const Logo = ({ className }: StyledComponent) => (
   <div className={className}>
@@ -18,6 +17,18 @@ const ProgressBar = ({ className }: StyledComponent) => (
     <img src={progress} alt="progress" />
   </div>
 )
+
+export const StyledPrevButton = styled(GoNextPrevButton)`
+  position: absolute;
+  bottom: 13%;
+  margin-left: 3%;
+`
+
+export const StyledNextButton = styled(GoNextPrevButton)`
+  position: absolute;
+  bottom: 13%;
+  margin-left: 74%;
+`
 
 export const StyledProgressBar = styled(ProgressBar)`
   justify-content: left;
