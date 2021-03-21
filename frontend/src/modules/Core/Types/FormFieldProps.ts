@@ -25,3 +25,16 @@ export interface GoToButtonProps extends Common {
   src: string
   onClick: () => void
 }
+
+export interface RadioButtonProps extends Common {
+  onClick: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onClickLabel?: (s: string) => void
+  value: string
+  name: string
+}
+
+export interface RadioButtonsProps extends Common {
+  values: string[]
+  onClick: (e: React.ChangeEvent<HTMLInputElement>) => void // to set state of user information in index.tsx
+  onClickLabel?: (s: string) => void // to set state when label is clicked
+}
