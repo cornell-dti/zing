@@ -16,17 +16,20 @@ export const RadioButton = ({
     backgroundImage: `url(${background})`,
     width: 548,
   }
+  // nested this way so that the whole container is clickable
   return (
-    <StyledContainer style={containerStyle}>
-      <input
-        type="radio"
-        value={value}
-        name={name}
-        onChange={onClick}
-        style={radioStyle}
-      />
-      <StyledLabel> {value} </StyledLabel>
-    </StyledContainer>
+    <StyledLabel>
+      <StyledContainer style={containerStyle}>
+        <input
+          type="radio"
+          value={value}
+          name={name}
+          onChange={onClick}
+          style={radioStyle}
+        />
+        {value}
+      </StyledContainer>
+    </StyledLabel>
   )
 }
 
