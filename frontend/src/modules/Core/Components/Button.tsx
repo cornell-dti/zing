@@ -1,7 +1,12 @@
 import React from 'react'
+import { Button as MaterialUIButton } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
 import { ButtonProps } from '@core/Types/FormFieldProps'
-import { StyledLabel, StyledContainer } from '@core/Styles/Button.style'
+import {
+  defaultContainerStyle,
+  defaultLabelStyle,
+} from '@core/Styles/Button.style'
 
 export const Button = ({
   containerStyle = {},
@@ -9,10 +14,24 @@ export const Button = ({
   label,
   onClick,
   disabled = false,
+  ...buttonProps
 }: ButtonProps) => {
+  const classes = makeStyles({
+    container: Object.assign({}, defaultContainerStyle, containerStyle),
+    input: Object.assign({}, defaultLabelStyle, labelStyle),
+  })()
+
   return (
-    <StyledContainer style={containerStyle} onClick={onClick}>
-      <StyledLabel style={labelStyle}>{label}</StyledLabel>
-    </StyledContainer>
+    <MaterialUIButton
+      classes={{
+        root: classes.container,
+        label: classes.input,
+      }}
+      onClick={onClick}
+      disabled={disabled}
+      {...buttonProps}
+    >
+      {label}
+    </MaterialUIButton>
   )
 }

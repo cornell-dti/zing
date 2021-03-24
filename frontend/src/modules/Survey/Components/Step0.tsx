@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 
+import { NameField, EmailField } from '@core'
 import {
   StyledContainer,
   StyledLeftPanel,
   StyledRightPanel,
+  StyledFields,
   StyledLogo,
   StyledWhiteActionText,
   StyledTeamPic,
@@ -11,18 +13,18 @@ import {
   StyledHeaderText,
   StyledWelcomeText,
 } from 'Survey/Styles/Step0.style'
-import { NameField, EmailField, GetConnectedButton } from '@core'
+import { GetConnectedButton } from 'Survey/Components/UIElements/GetConnectedButton'
 import { StepProps } from 'Survey/Types'
 
 export const Step0 = ({ gotoNextStep }: StepProps) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
 
-  const containerStyle = {
-    borderBottom: '1px solid #F1E8FE',
+  const textContainerStyle = {
+    margin: '0.75rem 0',
   }
 
-  const inputStyle = {
+  const textInputStyle = {
     fontWeight: '600',
     color: '#E5CEFA',
   }
@@ -41,22 +43,24 @@ export const Step0 = ({ gotoNextStep }: StepProps) => {
           <StyledHeaderText>Hi,</StyledHeaderText>
           <StyledWelcomeText>Welcome to Zing!</StyledWelcomeText>
         </StyledTitleWrapper>
-        <NameField
-          containerStyle={containerStyle}
-          inputStyle={inputStyle}
-          value={name}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setName(e.target.value)
-          }
-        />
-        <EmailField
-          containerStyle={containerStyle}
-          inputStyle={inputStyle}
-          value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
-        />
+        <StyledFields>
+          <NameField
+            containerStyle={textContainerStyle}
+            inputStyle={textInputStyle}
+            value={name}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
+          />
+          <EmailField
+            containerStyle={textContainerStyle}
+            inputStyle={textInputStyle}
+            value={email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
+          />
+        </StyledFields>
         <GetConnectedButton onClick={gotoNextStep} />
       </StyledRightPanel>
     </StyledContainer>
