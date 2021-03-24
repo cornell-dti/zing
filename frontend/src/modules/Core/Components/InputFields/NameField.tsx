@@ -8,7 +8,6 @@ export const NameField = ({
   inputStyle,
   placeholder = 'Name',
   value,
-  onKeyPress,
   onChange,
   disabled,
 }: InputProps) => {
@@ -16,7 +15,6 @@ export const NameField = ({
     <InputField
       containerStyle={containerStyle}
       inputStyle={inputStyle}
-      onKeyPress={onKeyPress}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
