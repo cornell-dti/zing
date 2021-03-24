@@ -1,38 +1,20 @@
 import React, { useState } from 'react'
-import { StepProps } from 'Survey/Types'
+import { StyledContainer, StyledText } from 'Survey/Styles/Step2.style'
 
-import {
-  StyledContainer,
-  StyledLogo,
-  StyledCongratulationsWrapper,
-  StyledLogoWrapper,
-  StyledCongratulationsText,
-  StyledFullPanel,
-  StyledCheck,
-  StyledContactText,
-  StyledContactWrapper,
-} from 'Survey/Styles/Step2.style'
+import { StudyHoursSlider } from 'Survey/Components/UIElements/StudyHoursSlider'
 
 export const Step2 = () => {
+  const [hours, setHours] = useState<number | number[]>(0)
   return (
     <StyledContainer>
-      <StyledFullPanel>
-        <StyledLogoWrapper>
-          <StyledLogo />
-          <StyledCongratulationsWrapper>
-            <StyledCheck />
-            <StyledCongratulationsText>
-              Congratulations on completing the form! You should receive an
-              email with your team members shortly.
-            </StyledCongratulationsText>
-          </StyledCongratulationsWrapper>
-        </StyledLogoWrapper>
-        <StyledContactWrapper>
-          <StyledContactText>
-            Contact ***@cornell.edu with any questions.
-          </StyledContactText>
-        </StyledContactWrapper>
-      </StyledFullPanel>
+      <StyledText>
+        How much time do you spend on this course outside of class time, in
+        hours per week?
+      </StyledText>
+      <StudyHoursSlider
+        value={hours}
+        onChange={(e, newVal) => setHours(newVal)}
+      />
     </StyledContainer>
   )
 }

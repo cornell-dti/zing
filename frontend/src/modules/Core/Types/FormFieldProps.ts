@@ -38,3 +38,24 @@ export interface SliderProps extends Common {
   value: number | Array<number>
   onChange: (e: React.ChangeEvent<any>, value: number | number[]) => void
 }
+
+export interface GoToButtonProps extends Common {
+  className?: string | undefined
+  label?: string | React.Component
+  labelStyle?: { [key in string]: string }
+  src: string
+  onClick: () => void
+}
+
+export interface RadioButtonProps extends Common {
+  onClick: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onClickLabel?: (s: string) => void
+  value: string
+  name: string
+}
+
+export interface RadioButtonsProps extends Common {
+  values: string[]
+  onClick: (e: React.ChangeEvent<HTMLInputElement>) => void // to set state of user information in index.tsx
+  onClickLabel?: (s: string) => void // to set state when label is clicked
+}

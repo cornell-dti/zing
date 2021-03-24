@@ -1,27 +1,45 @@
 import React, { useState } from 'react'
 
-import { StyledContainer } from 'Survey/Styles/Survey.style'
+import { StyledContainer1, StyledContainer2 } from 'Survey/Styles/Survey.style'
+import { StepTemplate } from 'Survey/Components/StepTemplate'
 import { Step0 } from 'Survey/Components/Step0'
-import { Step4 } from 'Survey/Components/Step4'
+import { Step1 } from 'Survey/Components/Step1'
+import { Step2 } from 'Survey/Components/Step2'
+import { Step3 } from 'Survey/Components/Step3'
 
 export const Survey = () => {
   const [currStep, setCurrStep] = useState(0)
 
-  return (
-    <StyledContainer>
-      {currStep === 0 ? (
-        <Step4
-          gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
-          gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
-        />
-      ) : currStep === 4 ? (
-        <Step4
-          gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
-          gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
-        />
-      ) : (
-        <></>
-      )}
-    </StyledContainer>
+  return currStep === 0 ? (
+    <StyledContainer1>
+      <Step0
+        gotoPrevStep={() => {}}
+        gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
+      />
+    </StyledContainer1>
+  ) : currStep === 1 ? (
+    <StyledContainer2>
+      <StepTemplate
+        gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
+        gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
+      >
+        <Step1 />
+      </StepTemplate>
+    </StyledContainer2>
+  ) : currStep === 2 ? (
+    <StyledContainer2>
+      <StepTemplate
+        gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
+        gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
+      >
+        <Step2 />
+      </StepTemplate>
+    </StyledContainer2>
+  ) : currStep === 3 ? (
+    <StyledContainer2>
+      <Step3 />
+    </StyledContainer2>
+  ) : (
+    <div></div>
   )
 }

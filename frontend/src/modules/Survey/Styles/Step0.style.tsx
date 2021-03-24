@@ -5,7 +5,7 @@ import { colors, h1, h2, h3, StyledComponent } from '@core'
 import logo from '@assets/img/whitelogo.svg'
 import teamPic from '@assets/img/teamwork.svg'
 
-export { StyledInnerContainer as StyledContainer } from 'Survey/Styles/Survey.style'
+export { StyledContainer } from 'Survey/Styles/StepTemplate.style'
 
 const Logo = ({ className }: StyledComponent) => (
   <div className={className}>
