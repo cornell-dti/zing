@@ -8,7 +8,6 @@ export const EmailField = ({
   inputStyle,
   placeholder = 'Email',
   value,
-  onKeyPress,
   onChange,
   disabled,
 }: InputProps) => {
@@ -16,7 +15,6 @@ export const EmailField = ({
     <InputField
       containerStyle={containerStyle}
       inputStyle={inputStyle}
-      onKeyPress={onKeyPress}
       value={value}
       onChange={onChange}
       type="email"
