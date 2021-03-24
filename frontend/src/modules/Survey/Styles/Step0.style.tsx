@@ -5,46 +5,31 @@ import { colors, h1, h2, h3, StyledComponent } from '@core'
 import logo from '@assets/img/whitelogo.svg'
 import teamPic from '@assets/img/teamwork.svg'
 
+export { StyledInnerContainer as StyledContainer } from 'Survey/Styles/Survey.style'
+
 const Logo = ({ className }: StyledComponent) => (
   <div className={className}>
     <img src={logo} alt="logo" />
   </div>
 )
 export const StyledLogo = styled(Logo)`
-  margin: 40px;
+  margin: 2.5rem;
 `
 
 const TeamPic = ({ className }: StyledComponent) => (
   <div className={className}>
-    <img src={teamPic} alt="teamPic" />
+    <img src={teamPic} alt="teamPic" width="100%" />
   </div>
 )
 export const StyledTeamPic = styled(TeamPic)`
   max-width: 100%;
-  margin-top: 108px;
-`
-
-export const StyledContainer = styled.div`
-  height: 80%;
-  width: 80%;
-  background-color: ${colors.white};
-  box-shadow: -10px -10px 150px rgba(0, 0, 0, 0.1),
-    10px 10px 150px rgba(0, 0, 0, 0.1);
-
-  display: flex;
+  margin-top: 8rem;
 `
 
 const panel = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-`
-
-const fullPanel = css`
-  ${panel};
-  height: 100%;
-  width: 100%;
 `
 
 const halfPanel = css`
@@ -55,6 +40,7 @@ const halfPanel = css`
 
 export const StyledLeftPanel = styled.div`
   ${halfPanel};
+  align-items: center;
   background: linear-gradient(
     162.9deg,
     #c794ee 0.78%,
@@ -67,10 +53,19 @@ export const StyledLeftPanel = styled.div`
 export const StyledWhiteActionText = styled.text`
   ${h3};
   color: ${colors.white};
+  text-align: center;
 `
 
 export const StyledRightPanel = styled.div`
   ${halfPanel};
+  box-sizing: border-box;
+  padding: 0 6rem;
+`
+
+export const StyledFields = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 6rem 0;
 `
 
 export const StyledTitleWrapper = styled.div`
