@@ -11,51 +11,51 @@ export const body = css`
 export const h1 = css`
   ${body};
   @media ${device.mobileS} {
-    font-size: 36px;
-    line-height: 48px;
+    font-size: 2.25rem;
+    line-height: 3rem;
   }
 
   @media ${device.tablet} {
-    font-size: 72px;
-    line-height: 96px;
+    font-size: 4.5rem;
+    line-height: 6rem;
   } ;
 `
 
 export const h2 = css`
   ${body};
   @media ${device.mobileS} {
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 1.67rem;
+    line-height: 2rem;
   }
 
   @media ${device.tablet} {
-    font-size: 36px;
-    line-height: 48px;
+    font-size: 2.25rem;
+    line-height: 3rem;
   } ;
 `
 
 export const h3 = css`
   ${body};
   @media ${device.mobileS} {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 1.25rem;
+    line-height: 1.67rem;
   }
 
   @media ${device.tablet} {
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 1.67rem;
+    line-height: 2rem;
   } ;
 `
 
 export const h4 = css`
   ${body};
   @media ${device.mobileS} {
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 0.75rem;
+    line-height: 1rem;
   }
 
   @media ${device.tablet} {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 1.25rem;
+    line-height: 1.67rem;
   } ;
 `

@@ -1,7 +1,12 @@
 import React from 'react'
+import { TextField } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
 import { InputProps } from '@core/Types/FormFieldProps'
-import { StyledInput, StyledContainer } from '@core/Styles/InputField.style'
+import {
+  defaultContainerStyle,
+  defaultInputStyle,
+} from '@core/Styles/InputField.style'
 
 export const InputField = ({
   containerStyle = {},
@@ -11,19 +16,23 @@ export const InputField = ({
   disabled = false,
   value,
   onChange,
-  onKeyPress = () => {},
+  ...inputProps
 }: InputProps) => {
+  const classes = makeStyles({
+    container: Object.assign({}, defaultContainerStyle, containerStyle),
+    input: Object.assign({}, defaultInputStyle, inputStyle),
+  })()
+
   return (
-    <StyledContainer style={containerStyle}>
-      <StyledInput
-        onKeyPress={onKeyPress}
-        disabled={disabled}
-        style={inputStyle}
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
-    </StyledContainer>
+    <TextField
+      className={classes.container}
+      inputProps={{ className: classes.input }}
+      placeholder={placeholder}
+      type={type}
+      disabled={disabled}
+      value={value}
+      onChange={onChange}
+      {...inputProps}
+    />
   )
 }
