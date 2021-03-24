@@ -12,6 +12,7 @@ export const RadioButton = ({
 }: RadioButtonProps) => {
   const containerStyle = {
     display: 'flex',
+    justifyContent: 'flex-start',
     padding: '0 1rem',
 
     background: '#FFFFFF',
@@ -38,7 +39,6 @@ export const RadioButton = ({
 
 const radioStyle = {
   margin: '1rem',
-
   cursor: 'pointer',
   color: 'white',
 }
