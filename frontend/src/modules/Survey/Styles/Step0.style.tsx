@@ -80,6 +80,6 @@ export const StyledHeaderText = styled.text`
 
 export const StyledWelcomeText = styled.text`
   ${h2};
-  font-weight: 300;
+  font-weight: 400;
   color: ${colors.darkpurple};
 `
