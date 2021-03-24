@@ -12,6 +12,7 @@ const defaultContainerStyle = css`
 
 export const StyledContainer = styled.div`
   ${defaultContainerStyle}
+  cursor: pointer;
 `
 
 const defaultLabelStyle = css`
