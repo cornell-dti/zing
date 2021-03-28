@@ -6,6 +6,7 @@ import { Step0 } from 'Survey/Components/Step0'
 import { Step1 } from 'Survey/Components/Step1'
 import { Step2 } from 'Survey/Components/Step2'
 import { Step3 } from 'Survey/Components/Step3'
+import { StepFinal } from 'Survey/Components/StepFinal'
 
 export const Survey = () => {
   const [currStep, setCurrStep] = useState(0)
@@ -37,7 +38,16 @@ export const Survey = () => {
     </StyledContainer2>
   ) : currStep === 3 ? (
     <StyledContainer2>
-      <Step3 />
+      <StepTemplate
+        gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
+        gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
+      >
+        <Step3 />
+      </StepTemplate>
+    </StyledContainer2>
+  ) : currStep === 4 ? (
+    <StyledContainer2>
+      <StepFinal />
     </StyledContainer2>
   ) : (
     <div></div>
