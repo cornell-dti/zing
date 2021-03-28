@@ -30,6 +30,7 @@ const createSurveyCsv = functions.https.onRequest(
 				.collection("surveys")
 				.get();
 
+			// prettier-ignore
 			const surveyDocs = surveySnapshot.docs.map(
 				(doc: DocumentSnapshot) => doc.data()
 			);
@@ -55,11 +56,10 @@ const createSurveyCsv = functions.https.onRequest(
 							},
 						})
 						.then(() => {
-							response
-								.status(200)
-								.send(
-									`Successfully converted responses for ${courseId} to a CSV file.`
-								);
+							response.status(200).send(
+								`Successfully converted responses\
+									 for ${courseId} to a CSV file.`
+							);
 							resolve();
 						})
 						.catch((error) => {

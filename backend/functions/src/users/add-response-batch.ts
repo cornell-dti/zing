@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 import * as functions from "firebase-functions";
 import * as csv from "csv-parser";
 import * as fs from "fs";
