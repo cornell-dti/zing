@@ -34,15 +34,10 @@ const addResponse = functions.https.onRequest(
 			};
 			const courseRef = db.collection("courses").doc(courseId);
 			await courseRef.get().then((docSnapshot) => {
-				if (
-					docSnapshot.exists &&
-					idInCourseList(studentId, docSnapshot)
-				) {
+				if (docSnapshot.exists && idInCourseList(studentId, docSnapshot)) {
 					courseRef.onSnapshot((doc) => {
 						doc.ref.update({
-							completed: admin.firestore.FieldValue.arrayUnion(
-								studentId
-							),
+							completed: admin.firestore.FieldValue.arrayUnion(studentId),
 						});
 						doc.ref.collection("surveys").add(survey);
 					});

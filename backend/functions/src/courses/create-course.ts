@@ -11,6 +11,7 @@ const createCourse = functions.https.onRequest(
 				studentList,
 				completed: [],
 			};
+			// prettier-ignore
 			await db
 				.collection("courses")
 				.doc(courseId)
