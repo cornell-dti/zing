@@ -11,3 +11,6 @@ functions/typings/
 
 # Node.js dependency directory
 functions/node_modules/
+
+# Groupeng code
+groupeng/src/__pycache__
