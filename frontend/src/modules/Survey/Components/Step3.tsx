@@ -5,6 +5,7 @@ import {
   StyledText,
   StyledCalendarWrapper,
   StyledTextField,
+  StyledCalendarLabel,
 } from 'Survey/Styles/Step3.style'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const Step3 = () => {
-  const defaultGradDate = '2024-05'
+  const defaultGradDate = '2024/05'
   const [gradDate, setGradDate] = React.useState<string>(defaultGradDate)
   const classes = useStyles()
 
@@ -31,6 +32,7 @@ export const Step3 = () => {
     <StyledContainer>
       <StyledText>When are you graduating?</StyledText>
       <StyledCalendarWrapper>
+        <StyledCalendarLabel>Month/Year</StyledCalendarLabel>
         <form className={classes.container} noValidate>
           <StyledTextField
             id="date"
