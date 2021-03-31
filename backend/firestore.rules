@@ -1,8 +1,11 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    match /courses/{courseId} {
+      allow write: if !exists(/databases/$(database)/documents/courses/{courseId});
+    }
     match /{document=**} {
-      allow read, write: if false;
+      allow read: if true;
     }
   }
 }
