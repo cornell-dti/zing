@@ -19,7 +19,6 @@ const seedSurveyData = functions.https.onRequest(
 	async (request: functions.https.Request, response: functions.Response) => {
 		try {
 			const { courseId } = request.body;
-			console.log(courseId);
 			const courseRef = db.collection("courses").doc(courseId);
 			await courseRef.get().then((docSnapshot) => {
 				if (docSnapshot.exists) {
