@@ -14,9 +14,9 @@ import {
   StyledWelcomeText,
 } from 'Survey/Styles/Step0.style'
 import { GetConnectedButton } from 'Survey/Components/UIElements/GetConnectedButton'
-import { StepProps } from 'Survey/Types'
+import { StepTemplateProps } from 'Survey/Types'
 
-export const Step0 = ({ gotoNextStep }: StepProps) => {
+export const Step0 = ({ gotoNextStep }: StepTemplateProps) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
 
