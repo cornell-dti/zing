@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { StepProps } from 'Survey/Types'
+import { StepTemplateProps } from 'Survey/Types'
 import {
   StyledContainer,
   StyledWrapper,
@@ -11,7 +11,7 @@ import {
 import prev from '@assets/img/prev.svg'
 import next from '@assets/img/next.svg'
 
-export const StepTemplate: FunctionComponent<StepProps> = ({
+export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
   gotoPrevStep,
   gotoNextStep,
   children,

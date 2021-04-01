@@ -1,4 +1,10 @@
-export interface StepProps {
+export interface StepTemplateProps {
   gotoPrevStep: () => void
   gotoNextStep: () => void
+}
+
+export interface StepProps {
+  question?: string // for radio button screen
+  questionList?: string[] // for radio button screen
+  setAnswer: (arg: string) => void
 }
