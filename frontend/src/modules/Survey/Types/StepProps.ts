@@ -1,6 +1,8 @@
 export interface StepTemplateProps {
   gotoPrevStep: () => void
   gotoNextStep: () => void
+  stepNumber: number
+  totalSteps: number
 }
 
 export interface StepProps {
