@@ -13,7 +13,7 @@ export const Survey = () => {
 
   // step 1 props
   const ethnicityQuestion = 'What do you identify as?'
-  const [ethnicityAnswer, setEthnicityAnswer] = useState('no ethnicity ans')
+  const [ethnicityAnswer, setEthnicityAnswer] = useState('')
   const ethnicityList: string[] = [
     'American Indian/Alaskan Native',
     'Asian',
@@ -26,7 +26,7 @@ export const Survey = () => {
 
   // step 7 props
   const locationQuestion = 'Are you studying remotely this semester?'
-  const [locationAnswer, setLocationAnswer] = useState('no loc ans')
+  const [locationAnswer, setLocationAnswer] = useState('')
   const locationList: string[] = [
     "No, I'm on campus",
     'Yes, I’m outside of Ithaca, but still in the US',
@@ -35,12 +35,12 @@ export const Survey = () => {
 
   // step 8 props
   const groupPrefQuestion = 'How do you prefer studying with groups this year?'
-  const [groupPrefAnswer, setGroupPrefAnswer] = useState('no grppref ans')
+  const [groupPrefAnswer, setGroupPrefAnswer] = useState('')
   const groupPrefList: string[] = ['Online', 'In-person', 'Both']
 
   // step 9 props
   const studyTimeQuestion = 'When do you prefer studying for this course?'
-  const [studyTimeAnswer, setStudyTimeAnswer] = useState('no studytime ans')
+  const [studyTimeAnswer, setStudyTimeAnswer] = useState('')
   const studyTimeList: string[] = [
     'Morning (8am-12pm)',
     'Early Afternoon (12pm-4pm)',
@@ -51,7 +51,7 @@ export const Survey = () => {
 
   // step 10 props
   const assignmentQuestion = 'You have an assignment. When do you start it?'
-  const [assignmentAnswer, setAssignmentAnswer] = useState('no assignment ans')
+  const [assignmentAnswer, setAssignmentAnswer] = useState('')
   const assignmentList: string[] = [
     'Immediately, the day you get it',
     'Early, but not immediately',
