@@ -11,6 +11,7 @@ import { StepFinal } from 'Survey/Components/StepFinal'
 export const Survey = () => {
   const [currStep, setCurrStep] = useState(0)
 
+  // step 1 props
   const ethnicityQuestion = 'What do you identify as?'
   const [ethnicityAnswer, setEthnicityAnswer] = useState('no ethnicity ans')
   const ethnicityList: string[] = [
@@ -23,6 +24,7 @@ export const Survey = () => {
     'Other',
   ]
 
+  // step 7 props
   const locationQuestion = 'Are you studying remotely this semester?'
   const [locationAnswer, setLocationAnswer] = useState('no loc ans')
   const locationList: string[] = [
@@ -31,10 +33,12 @@ export const Survey = () => {
     'Yes, I’m in a country outside the US',
   ]
 
+  // step 8 props
   const groupPrefQuestion = 'How do you prefer studying with groups this year?'
   const [groupPrefAnswer, setGroupPrefAnswer] = useState('no grppref ans')
   const groupPrefList: string[] = ['Online', 'In-person', 'Both']
 
+  // step 9 props
   const studyTimeQuestion = 'When do you prefer studying for this course?'
   const [studyTimeAnswer, setStudyTimeAnswer] = useState('no studytime ans')
   const studyTimeList: string[] = [
@@ -45,6 +49,7 @@ export const Survey = () => {
     'Late (12am-4am)',
   ]
 
+  // step 10 props
   const assignmentQuestion = 'You have an assignment. When do you start it?'
   const [assignmentAnswer, setAssignmentAnswer] = useState('no assignment ans')
   const assignmentList: string[] = [
