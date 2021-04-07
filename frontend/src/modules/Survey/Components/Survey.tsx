@@ -6,80 +6,60 @@ import { Step0 } from 'Survey/Components/Step0'
 import { Step3 } from 'Survey/Components/Step3'
 import { StepRadio } from 'Survey/Components/StepRadio'
 import { StepFinal } from 'Survey/Components/StepFinal'
+import {
+  getLetter,
+  sendSurveyData,
+  surveyData,
+} from 'Survey/Components/FuncsAndConsts/SurveyFunctions'
+import { group } from 'node:console'
 
 export const Survey = () => {
   const [currStep, setCurrStep] = useState(0)
+  const questions = require('./FuncsAndConsts/Questions.json')
 
-  // step 1 props
-  const ethnicityQuestion = 'What do you identify as?'
+  // state props
+  // step 1
   const [ethnicityAnswer, setEthnicityAnswer] = useState('')
-  const ethnicityList: string[] = [
-    'American Indian/Alaskan Native',
-    'Asian',
-    'Black or African American',
-    'Hispanic/Latino',
-    'Native Hawaiian/Other Pacific Islander',
-    'White',
-    'Other',
-  ]
 
-  // step 2 props
-  const pronounQuestions = 'What are your pronouns?'
+  // step 2
   const [pronounAnswer, setPronounAnswer] = useState('')
-  const PronounList: string[] = [
-    'She/Her',
-    'He/Him',
-    'They/Them',
-    'I prefer not to say',
-  ]
 
-  // step 4 props
-  const collegeQuestion = 'Which college are you in?'
+  // step 3
+  const [gradAnswer, setGradAnswer] = useState('')
+
+  // step 4
   const [collegeAnswer, setCollegeAnswer] = useState('')
-  const collegeList: string[] = [
-    'Architecture, Art and Planning',
-    'Arts & Sciences',
-    'Agriculture & Life Sciences',
-    'Human Ecology',
-    'SC Johnson College of Business',
-    'Engineering',
-  ]
 
-  // step 5 props
-  const locationQuestion = 'Are you studying remotely this semester?'
+  // step 5
   const [locationAnswer, setLocationAnswer] = useState('')
-  const locationList: string[] = [
-    "No, I'm on campus",
-    'Yes, I’m outside of Ithaca, but still in the US',
-    'Yes, I’m in a country outside the US',
-  ]
 
-  // step 6 props
-  const groupPrefQuestion = 'How do you prefer studying with groups this year?'
+  // step 6
   const [groupPrefAnswer, setGroupPrefAnswer] = useState('')
-  const groupPrefList: string[] = ['Online', 'In-person', 'Both']
 
-  // step 7 props
-  const studyTimeQuestion = 'When do you prefer studying for this course?'
+  // step 7
   const [studyTimeAnswer, setStudyTimeAnswer] = useState('')
-  const studyTimeList: string[] = [
-    'Morning (8am-12pm)',
-    'Early Afternoon (12pm-4pm)',
-    'Late Afternoon (4pm-8pm)',
-    'Evening (8pm-12am)',
-    'Late (12am-4am)',
-  ]
 
-  // step 8 props
-  const assignmentQuestion = 'You have an assignment. When do you start it?'
+  // step 8
   const [assignmentAnswer, setAssignmentAnswer] = useState('')
-  const assignmentList: string[] = [
-    'Immediately, the day you get it',
-    'Early, but not immediately',
-    'Midway',
-    'Late, the day before',
-    'I don’t / I submit late.',
-  ]
+
+  // last step's Next button handles sending data
+  function finalNext() {
+    const surveyDataObj: surveyData = {
+      courseId: 'zf101-2021sp', // hard coded
+      fullName: 'Zing Person', // hard coded
+      studentId: 'a1',
+      identity: getLetter(ethnicityAnswer, false),
+      pronoun: getLetter(pronounAnswer, false),
+      graduation: getLetter(gradAnswer, true),
+      college: getLetter(collegeAnswer, false),
+      remote: getLetter(locationAnswer, false),
+      mode: getLetter(groupPrefAnswer, false),
+      time: getLetter(studyTimeAnswer, false),
+      start: getLetter(assignmentAnswer, false),
+    }
+    sendSurveyData(surveyDataObj)
+    setCurrStep(currStep + 1)
+  }
 
   return currStep === 0 ? (
     <StyledContainer1>
@@ -99,9 +79,10 @@ export const Survey = () => {
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          question={ethnicityQuestion}
-          questionList={ethnicityList}
+          questionList={questions.step1}
           setAnswer={setEthnicityAnswer}
+          key={String(currStep)}
+          currentAnswer={ethnicityAnswer}
         />
       </StepTemplate>
     </StyledContainer2>
@@ -114,9 +95,10 @@ export const Survey = () => {
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          question={pronounQuestions}
-          questionList={PronounList}
+          currentAnswer={pronounAnswer}
+          questionList={questions.step2}
           setAnswer={setPronounAnswer}
+          key={String(currStep)}
         />
       </StepTemplate>
     </StyledContainer2>
@@ -128,7 +110,7 @@ export const Survey = () => {
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
-        <Step3 />
+        <Step3 currentAnswer={gradAnswer} setAnswer={setGradAnswer} />
       </StepTemplate>
     </StyledContainer2>
   ) : currStep === 4 ? (
@@ -140,9 +122,10 @@ export const Survey = () => {
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          question={collegeQuestion}
-          questionList={collegeList}
+          currentAnswer={collegeAnswer}
+          questionList={questions.step4}
           setAnswer={setCollegeAnswer}
+          key={String(currStep)}
         />
       </StepTemplate>
     </StyledContainer2>
@@ -155,9 +138,10 @@ export const Survey = () => {
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          question={locationQuestion}
-          questionList={locationList}
+          currentAnswer={locationAnswer}
+          questionList={questions.step5}
           setAnswer={(ans: string) => setLocationAnswer(ans)}
+          key={String(currStep)}
         />
       </StepTemplate>
     </StyledContainer2>
@@ -170,9 +154,10 @@ export const Survey = () => {
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          question={groupPrefQuestion}
-          questionList={groupPrefList}
+          currentAnswer={groupPrefAnswer}
+          questionList={questions.step6}
           setAnswer={(ans: string) => setGroupPrefAnswer(ans)}
+          key={String(currStep)}
         />
       </StepTemplate>
     </StyledContainer2>
@@ -185,9 +170,10 @@ export const Survey = () => {
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          question={studyTimeQuestion}
-          questionList={studyTimeList}
+          currentAnswer={studyTimeAnswer}
+          questionList={questions.step7}
           setAnswer={(ans: string) => setStudyTimeAnswer(ans)}
+          key={String(currStep)}
         />
       </StepTemplate>
     </StyledContainer2>
@@ -197,18 +183,27 @@ export const Survey = () => {
         stepNumber={currStep}
         totalSteps={8}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
-        gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
+        gotoNextStep={finalNext}
       >
         <StepRadio
-          question={assignmentQuestion}
-          questionList={assignmentList}
+          currentAnswer={assignmentAnswer}
+          questionList={questions.step8}
           setAnswer={(ans: string) => setAssignmentAnswer(ans)}
+          key={String(currStep)}
         />
       </StepTemplate>
     </StyledContainer2>
   ) : currStep === 9 ? (
     <StyledContainer2>
       <StepFinal />
+      <p>{getLetter(ethnicityAnswer, false)}</p>
+      <p>{getLetter(pronounAnswer, false)}</p>
+      <p>{getLetter(gradAnswer, true)}</p>
+      <p>{getLetter(collegeAnswer, false)}</p>
+      <p>{getLetter(locationAnswer, false)}</p>
+      <p>{getLetter(groupPrefAnswer, false)}</p>
+      <p>{getLetter(studyTimeAnswer, false)}</p>
+      <p>{getLetter(assignmentAnswer, false)}</p>
     </StyledContainer2>
   ) : null
 }
