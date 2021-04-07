@@ -22,7 +22,7 @@ const panel = css`
   flex-direction: column;
 `
 
-const fullPanel = css`
+export const fullPanel = css`
   ${panel};
   height: 100%;
   width: 100%;
@@ -34,8 +34,12 @@ export const StyledFullPanel = styled.div`
   padding: 1rem;
 `
 
+export const StyledFullPanelNoPadding = styled.div`
+  ${fullPanel}
+`
+
 export const StyledContainer = styled.div`
-  height: 80%;
+  height: 85%;
   width: 80%;
   background-color: ${colors.white};
   box-shadow: -10px -10px 150px rgba(0, 0, 0, 0.1),
