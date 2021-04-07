@@ -8,6 +8,7 @@ import {
   StyledCalendarLabel,
 } from 'Survey/Styles/Step3.style'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { StepProps } from 'Survey/Types/StepProps'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,31 +24,29 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const Step3 = () => {
-  const defaultGradDate = '2024/05'
-  const [gradDate, setGradDate] = React.useState<string>(defaultGradDate)
+export const Step3 = ({ setAnswer, currentAnswer }: StepProps) => {
   const classes = useStyles()
 
   return (
     <StyledContainer>
       <StyledText>When are you graduating?</StyledText>
       <StyledCalendarWrapper>
-        <StyledCalendarLabel>Month/Year</StyledCalendarLabel>
+        <StyledCalendarLabel>MM/DD/YYYY</StyledCalendarLabel>
         <form className={classes.container} noValidate>
           <StyledTextField
             id="date"
-            type="month"
-            defaultValue={defaultGradDate}
+            type="date"
+            value={currentAnswer}
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
             }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setGradDate(e.target.value)
+              // console.log(e.target.value)
+              setAnswer(e.target.value)
             }
           />
         </form>
-        {/* <text>{gradDate}</text> */}
       </StyledCalendarWrapper>
     </StyledContainer>
   )
