@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors, h2, h3 } from '@core'
+import { colors, h2, h4 } from '@core'
 
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
@@ -10,7 +10,11 @@ export const StyledContainer = styled.div`
 
 export const StyledText = styled.text`
   ${h2};
-  color: ${colors.black};
+  color: ${colors.darkpurple};
+`
+export const StyledCalendarLabel = styled.text`
+  ${h4};
+  color: ${colors.darkpurple};
 `
 
 export const StyledCalendarWrapper = styled.div`
