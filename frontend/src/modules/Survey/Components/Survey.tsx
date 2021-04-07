@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { StyledContainer1, StyledContainer2 } from 'Survey/Styles/Survey.style'
 import { StepTemplate } from 'Survey/Components/StepTemplate'
 import { Step0 } from 'Survey/Components/Step0'
-import { Step2 } from 'Survey/Components/Step2'
 import { Step3 } from 'Survey/Components/Step3'
 import { StepRadio } from 'Survey/Components/StepRadio'
 import { StepFinal } from 'Survey/Components/StepFinal'
@@ -24,7 +23,7 @@ export const Survey = () => {
     'Other',
   ]
 
-  // step 4 props
+  // step 2 props
   const pronounQuestions = 'What are your pronouns?'
   const [pronounAnswer, setPronounAnswer] = useState('')
   const PronounList: string[] = [
@@ -34,7 +33,7 @@ export const Survey = () => {
     'I prefer not to say',
   ]
 
-  // step 6 props
+  // step 4 props
   const collegeQuestion = 'Which college are you in?'
   const [collegeAnswer, setCollegeAnswer] = useState('')
   const collegeList: string[] = [
@@ -46,7 +45,7 @@ export const Survey = () => {
     'Engineering',
   ]
 
-  // step 7 props
+  // step 5 props
   const locationQuestion = 'Are you studying remotely this semester?'
   const [locationAnswer, setLocationAnswer] = useState('')
   const locationList: string[] = [
@@ -55,12 +54,12 @@ export const Survey = () => {
     'Yes, I’m in a country outside the US',
   ]
 
-  // step 8 props
+  // step 6 props
   const groupPrefQuestion = 'How do you prefer studying with groups this year?'
   const [groupPrefAnswer, setGroupPrefAnswer] = useState('')
   const groupPrefList: string[] = ['Online', 'In-person', 'Both']
 
-  // step 9 props
+  // step 7 props
   const studyTimeQuestion = 'When do you prefer studying for this course?'
   const [studyTimeAnswer, setStudyTimeAnswer] = useState('')
   const studyTimeList: string[] = [
@@ -71,7 +70,7 @@ export const Survey = () => {
     'Late (12am-4am)',
   ]
 
-  // step 10 props
+  // step 8 props
   const assignmentQuestion = 'You have an assignment. When do you start it?'
   const [assignmentAnswer, setAssignmentAnswer] = useState('')
   const assignmentList: string[] = [
@@ -151,7 +150,7 @@ export const Survey = () => {
     <StyledContainer2>
       <StepTemplate
         stepNumber={currStep}
-        totalSteps={9}
+        totalSteps={10}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
@@ -166,7 +165,7 @@ export const Survey = () => {
     <StyledContainer2>
       <StepTemplate
         stepNumber={currStep}
-        totalSteps={9}
+        totalSteps={10}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
@@ -181,7 +180,7 @@ export const Survey = () => {
     <StyledContainer2>
       <StepTemplate
         stepNumber={currStep}
-        totalSteps={9}
+        totalSteps={10}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
@@ -196,7 +195,7 @@ export const Survey = () => {
     <StyledContainer2>
       <StepTemplate
         stepNumber={currStep}
-        totalSteps={9}
+        totalSteps={10}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
