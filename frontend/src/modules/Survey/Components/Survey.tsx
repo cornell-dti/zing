@@ -24,6 +24,28 @@ export const Survey = () => {
     'Other',
   ]
 
+  // step 4 props
+  const pronounQuestions = 'What are your pronouns?'
+  const [pronounAnswer, setPronounAnswer] = useState('')
+  const PronounList: string[] = [
+    'She/Her',
+    'He/Him',
+    'They/Them',
+    'I prefer not to say',
+  ]
+
+  // step 6 props
+  const collegeQuestion = 'Which college are you in?'
+  const [collegeAnswer, setCollegeAnswer] = useState('')
+  const collegeList: string[] = [
+    'Architecture, Art and Planning',
+    'Arts & Sciences',
+    'Agriculture & Life Sciences',
+    'Human Ecology',
+    'SC Johnson College of Business',
+    'Engineering',
+  ]
+
   // step 7 props
   const locationQuestion = 'Are you studying remotely this semester?'
   const [locationAnswer, setLocationAnswer] = useState('')
@@ -64,7 +86,7 @@ export const Survey = () => {
     <StyledContainer1>
       <Step0
         stepNumber={currStep}
-        totalSteps={10}
+        totalSteps={9}
         gotoPrevStep={() => {}}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       />
@@ -73,7 +95,7 @@ export const Survey = () => {
     <StyledContainer2>
       <StepTemplate
         stepNumber={currStep}
-        totalSteps={10}
+        totalSteps={9}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
@@ -88,29 +110,48 @@ export const Survey = () => {
     <StyledContainer2>
       <StepTemplate
         stepNumber={currStep}
-        totalSteps={10}
+        totalSteps={9}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
-        <Step2 />
+        <StepRadio
+          question={pronounQuestions}
+          questionList={PronounList}
+          setAnswer={setPronounAnswer}
+        />
       </StepTemplate>
     </StyledContainer2>
   ) : currStep === 3 ? (
     <StyledContainer2>
       <StepTemplate
         stepNumber={currStep}
-        totalSteps={10}
+        totalSteps={9}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <Step3 />
       </StepTemplate>
     </StyledContainer2>
-  ) : currStep === 7 ? (
+  ) : currStep === 4 ? (
     <StyledContainer2>
       <StepTemplate
         stepNumber={currStep}
-        totalSteps={10}
+        totalSteps={9}
+        gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
+        gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
+      >
+        <StepRadio
+          question={collegeQuestion}
+          questionList={collegeList}
+          setAnswer={setCollegeAnswer}
+        />
+      </StepTemplate>
+    </StyledContainer2>
+  ) : currStep === 5 ? (
+    <StyledContainer2>
+      <StepTemplate
+        stepNumber={currStep}
+        totalSteps={9}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
@@ -121,11 +162,11 @@ export const Survey = () => {
         />
       </StepTemplate>
     </StyledContainer2>
-  ) : currStep === 8 ? (
+  ) : currStep === 6 ? (
     <StyledContainer2>
       <StepTemplate
         stepNumber={currStep}
-        totalSteps={10}
+        totalSteps={9}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
@@ -136,11 +177,11 @@ export const Survey = () => {
         />
       </StepTemplate>
     </StyledContainer2>
-  ) : currStep === 9 ? (
+  ) : currStep === 7 ? (
     <StyledContainer2>
       <StepTemplate
         stepNumber={currStep}
-        totalSteps={10}
+        totalSteps={9}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
@@ -151,11 +192,11 @@ export const Survey = () => {
         />
       </StepTemplate>
     </StyledContainer2>
-  ) : currStep === 10 ? (
+  ) : currStep === 8 ? (
     <StyledContainer2>
       <StepTemplate
         stepNumber={currStep}
-        totalSteps={10}
+        totalSteps={9}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
@@ -166,18 +207,9 @@ export const Survey = () => {
         />
       </StepTemplate>
     </StyledContainer2>
-  ) : currStep === 11 ? (
+  ) : currStep === 9 ? (
     <StyledContainer2>
       <StepFinal />
     </StyledContainer2>
-  ) : (
-    <StyledContainer2>
-      <StepTemplate
-        stepNumber={currStep}
-        totalSteps={10}
-        gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
-        gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
-      />
-    </StyledContainer2>
-  )
+  ) : null
 }
