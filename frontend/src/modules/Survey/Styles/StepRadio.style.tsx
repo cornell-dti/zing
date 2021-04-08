@@ -9,7 +9,7 @@ export const StyledContainer = styled.div`
 export const StyledRadioButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 1rem;
+  padding-top: 1.5rem;
   justify-content: center;
   align-items: center;
 `
@@ -25,4 +25,5 @@ export const StyledTitleWrapper = styled.div`
 export const StyledWelcomeText = styled.text`
   ${h2};
   font-weight: 500;
+  line-height: 10px;
 `
