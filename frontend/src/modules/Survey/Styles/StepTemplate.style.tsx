@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 import logo from '@assets/img/purplelogo.svg'
 import progress from '@assets/img/progressbarstep1.svg'
-import { colors, StyledComponent } from '@core'
+import { colors, h2, h4, StyledComponent } from '@core'
 import { GoNextPrevButton } from 'Survey/Components/UIElements/GoNextPrevButton'
 
 const Logo = ({ className }: StyledComponent) => (
@@ -32,6 +32,7 @@ export const StyledFullPanel = styled.div`
   ${fullPanel}
   box-sizing: border-box;
   padding: 1rem;
+  position: relative;
 `
 
 export const StyledFullPanelNoPadding = styled.div`
@@ -51,6 +52,15 @@ export const StyledContainer = styled.div`
 export const StyledWrapper = styled.div`
   display: flex;
 `
+export const StyledHeaderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+export const StyledLogoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+`
 
 export const StyledPrevButton = styled(GoNextPrevButton)`
   cursor: pointer;
@@ -67,3 +77,16 @@ export const StyledProgressBar = styled(ProgressBar)`
 `
 
 export const StyledLogo = styled(Logo)``
+
+export const StyledErrorWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: flex-end;
+`
+
+export const StyledErrorText = styled.text`
+  ${h4};
+  color: ${colors.red};
+  position: absolute;
+`

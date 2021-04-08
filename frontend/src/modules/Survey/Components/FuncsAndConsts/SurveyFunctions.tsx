@@ -1,7 +1,6 @@
 import { domainToASCII } from 'node:url'
 import React from 'react'
 const axios = require('axios')
-var cors = require('cors')
 
 export type surveyData = {
   courseId: string
@@ -51,10 +50,7 @@ export async function sendSurveyData(data: surveyData) {
     }*/
 
   axios
-    .post(
-      'https://cors-anywhere.herokuapp.com/https://us-central1-zing-backend.cloudfunctions.net/newSurvey',
-      data
-    )
+    .post('https://us-central1-zing-backend.cloudfunctions.net/newSurvey', data)
     .then(
       (response: any) => {
         console.log(response)
