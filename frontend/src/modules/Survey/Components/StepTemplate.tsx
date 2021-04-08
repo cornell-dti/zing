@@ -55,7 +55,7 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
               </StyledErrorWrapper>
             ) : null}
           </StyledHeaderWrapper>
-          <StyledWrapper style={{ height: '82%' }}>{children}</StyledWrapper>
+          <StyledWrapper style={{ height: '80%' }}>{children}</StyledWrapper>
           <StyledWrapper style={{ height: '10%' }}>
             <StyledPrevButton
               className="prev"
