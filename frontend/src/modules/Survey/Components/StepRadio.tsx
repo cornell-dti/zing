@@ -5,7 +5,7 @@ import {
   StyledWelcomeText,
   StyledRadioButtonsWrapper,
   StyledRadioButtons,
-} from 'Survey/Styles/Step1.style'
+} from 'Survey/Styles/StepRadio.style'
 import { StepProps } from 'Survey/Types/StepProps'
 
 export const StepRadio: FunctionComponent<StepProps> = ({

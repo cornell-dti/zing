@@ -3,6 +3,7 @@ export interface StepTemplateProps {
   gotoNextStep: () => void
   stepNumber: number
   totalSteps: number
+  currentAnswer: string
 }
 
 export interface StepProps {

@@ -31,18 +31,15 @@ export const Step3 = ({ setAnswer, currentAnswer }: StepProps) => {
     <StyledContainer>
       <StyledText>When are you graduating?</StyledText>
       <StyledCalendarWrapper>
-        <StyledCalendarLabel>MM/DD/YYYY</StyledCalendarLabel>
+        {/* <StyledCalendarLabel>MM/DD/YYYY</StyledCalendarLabel> */}
         <form className={classes.container} noValidate>
           <StyledTextField
             id="date"
             type="date"
             value={currentAnswer}
             className={classes.textField}
-            InputLabelProps={{
-              shrink: true,
-            }}
+            required={true}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              // console.log(e.target.value)
               setAnswer(e.target.value)
             }
           />
