@@ -5,7 +5,7 @@ import { ButtonProps } from '@core/Types/FormFieldProps'
 
 export const GetConnectedButton = ({ onClick }: ButtonProps) => {
   const containerStyle = {
-    background: 'linear-gradient(296.38deg, #cd9cf2 5.53%, #e8d6fb 96.38%)',
+    background: 'linear-gradient(296.38deg, #CD9CF2 5.53%, #E8D6FB 96.38%)',
     borderRadius: '40px',
     width: '50%',
     minWidth: 'fit-content',
