@@ -9,7 +9,7 @@ export const StyledContainer = styled.div`
 export const StyledRadioButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 0.5rem;
+  padding-top: 1.5rem;
   justify-content: center;
   align-items: center;
 `

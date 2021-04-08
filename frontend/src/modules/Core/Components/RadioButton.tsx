@@ -70,7 +70,7 @@ export const RadioButton = ({
 }
 
 const radioStyle = {
-  margin: '0.92rem',
+  margin: '1rem',
   cursor: 'pointer',
   color: 'white',
 }

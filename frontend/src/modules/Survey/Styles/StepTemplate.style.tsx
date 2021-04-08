@@ -38,7 +38,7 @@ export const fullPanel = css`
 export const StyledFullPanel = styled.div`
   ${fullPanel}
   box-sizing: border-box;
-  padding: 1.2rem;
+  padding: 2rem;
   position: relative;
 `
 
@@ -60,7 +60,7 @@ export const StyledWrapper = styled.div`
   display: flex;
 `
 export const StyledHeaderWrapper = styled.div`
-  height: 10%;
+  height: 5%;
   display: flex;
   flex-direction: column;
 `
