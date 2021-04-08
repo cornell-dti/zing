@@ -12,6 +12,7 @@ import {
   StyledLogoWrapper,
   StyledErrorWrapper,
   StyledErrorText,
+  StyledErrorIcon,
 } from 'Survey/Styles/StepTemplate.style'
 import prev from '@assets/img/prev.svg'
 import next from '@assets/img/next.svg'
@@ -42,18 +43,19 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
         <ProgressBar stepNumber={stepNumber} totalSteps={totalSteps} />
         <StyledFullPanel>
           <StyledHeaderWrapper>
-            <StyledLogoWrapper style={{ height: '10%' }}>
+            <StyledLogoWrapper style={{ height: '8%' }}>
               <StyledLogo />
             </StyledLogoWrapper>
             {showError ? (
               <StyledErrorWrapper>
+                <StyledErrorIcon />
                 <StyledErrorText>
                   Please respond to the following question
                 </StyledErrorText>
               </StyledErrorWrapper>
             ) : null}
           </StyledHeaderWrapper>
-          <StyledWrapper style={{ height: '80%' }}>{children}</StyledWrapper>
+          <StyledWrapper style={{ height: '82%' }}>{children}</StyledWrapper>
           <StyledWrapper style={{ height: '10%' }}>
             <StyledPrevButton
               className="prev"
