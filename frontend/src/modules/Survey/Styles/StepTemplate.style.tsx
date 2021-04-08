@@ -38,7 +38,7 @@ export const fullPanel = css`
 export const StyledFullPanel = styled.div`
   ${fullPanel}
   box-sizing: border-box;
-  padding: 2rem;
+  padding: 1.5rem;
   position: relative;
 `
 
@@ -47,7 +47,7 @@ export const StyledFullPanelNoPadding = styled.div`
 `
 
 export const StyledContainer = styled.div`
-  height: 85%;
+  height: 86%;
   width: 80%;
   background-color: ${colors.white};
   box-shadow: -10px -10px 150px rgba(0, 0, 0, 0.1),
@@ -60,14 +60,13 @@ export const StyledWrapper = styled.div`
   display: flex;
 `
 export const StyledHeaderWrapper = styled.div`
-  height: 5%;
+  height: 7%;
   display: flex;
   flex-direction: column;
 `
 export const StyledLogoWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
 `
 
 export const StyledPrevButton = styled(GoNextPrevButton)`
