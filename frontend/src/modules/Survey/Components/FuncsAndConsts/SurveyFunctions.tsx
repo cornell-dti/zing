@@ -35,22 +35,11 @@ export function getLetter(ans: string, isDate: boolean) {
 }
 
 export async function sendSurveyData(data: surveyData) {
-  /*
-      courseId: data.courseId,
-      fullName: data.fullName,
-      studentId: data.studentId,
-      identity: data.identity,
-      pronoun: data.pronoun,
-      graduation: data.graduation,
-      college: data.college,
-      remote: data.remote,
-      mode: data.mode,
-      time: data.time,
-      start: data.start,
-    }*/
-
   axios
-    .post('https://us-central1-zing-backend.cloudfunctions.net/newSurvey', data)
+    .post(
+      'https://cors-anywhere.herokuapp.com/https://us-central1-zing-backend.cloudfunctions.net/newSurvey',
+      data
+    )
     .then(
       (response: any) => {
         console.log(response)

@@ -26,16 +26,29 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
   gotoNextStep,
   children,
 }) => {
-  // TODO: incorporate currentAnswer
   const [showError, setShowError] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('foo')
+  const years = require('./FuncsAndConsts/YearInfo.json')
+  const youngestYear = Number(years.youngestYear)
+  const oldestYear = Number(years.oldestYear)
+
+  // form validation
   function handleNext() {
-    console.log('this is current answer: ' + currentAnswer)
-    if (currentAnswer !== '') {
-      gotoNextStep()
-      setShowError(false)
-    } else {
+    if (currentAnswer === '') {
+      setErrorMsg('Please respond to the following question')
       setShowError(true)
+      return
     }
+    if (stepNumber === 3) {
+      const inputtedYear = Number(currentAnswer.substring(0, 4))
+      if (inputtedYear - youngestYear >= 1 || inputtedYear - oldestYear <= -1) {
+        setErrorMsg('Please enter a valid graduation date')
+        setShowError(true)
+        return
+      }
+    }
+    gotoNextStep()
+    setShowError(false)
   }
   return (
     <StyledContainer>
@@ -49,9 +62,7 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
             {showError ? (
               <StyledErrorWrapper>
                 <StyledErrorIcon />
-                <StyledErrorText>
-                  Please respond to the following question
-                </StyledErrorText>
+                <StyledErrorText>{errorMsg}</StyledErrorText>
               </StyledErrorWrapper>
             ) : null}
           </StyledHeaderWrapper>
