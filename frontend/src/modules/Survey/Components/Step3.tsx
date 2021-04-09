@@ -31,7 +31,7 @@ export const Step3 = ({ setAnswer, currentAnswer }: StepProps) => {
     <StyledContainer>
       <StyledText>When are you graduating?</StyledText>
       <StyledCalendarWrapper>
-        {/* <StyledCalendarLabel>MM/DD/YYYY</StyledCalendarLabel> */}
+        {/* <StyledCalendarLabel>{currentAnswer}</StyledCalendarLabel> */}
         <form className={classes.container} noValidate>
           <StyledTextField
             id="date"
