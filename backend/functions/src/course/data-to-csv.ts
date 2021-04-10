@@ -22,12 +22,15 @@ const fields = [
 
 const createSurveyCsv = functions.https.onRequest(
 	async (request: functions.https.Request, response: functions.Response) => {
+		response.header("Access-Control-Allow-Origin", "*");
+		response.header("Content-Type", "application/json");
+		response.header("Access-Control-Allow-Headers", "Content-Type");
 		try {
 			const { courseId } = request.body;
 			const surveySnapshot = await db
-				.collection("courses")
+				.collection("course")
 				.doc(courseId)
-				.collection("surveys")
+				.collection("survey")
 				.get();
 
 			// prettier-ignore

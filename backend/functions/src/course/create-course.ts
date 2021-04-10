@@ -4,6 +4,9 @@ import { db } from "../db";
 
 const createCourse = functions.https.onRequest(
 	async (request: functions.https.Request, response: functions.Response) => {
+		response.header("Access-Control-Allow-Origin", "*");
+		response.header("Content-Type", "application/json");
+		response.header("Access-Control-Allow-Headers", "Content-Type");
 		try {
 			const { courseId, courseName, studentList } = request.body;
 			const course: FirestoreCourseDoc = {
@@ -13,7 +16,7 @@ const createCourse = functions.https.onRequest(
 			};
 			// prettier-ignore
 			await db
-				.collection("courses")
+				.collection("course")
 				.doc(courseId)
 				.set(course, { merge: true });
 			response
