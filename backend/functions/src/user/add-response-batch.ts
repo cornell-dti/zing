@@ -8,10 +8,10 @@ import { db } from "../db";
 
 const batchWrite = (
 	data: FirestoreSurveyDoc[],
-	surveysRef: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>
+	surveyCollectionRef: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>
 ) => {
 	data.forEach((doc) => {
-		surveysRef.add(doc);
+		surveyCollectionRef.add(doc);
 	});
 };
 
@@ -19,19 +19,19 @@ const seedSurveyData = functions.https.onRequest(
 	async (request: functions.https.Request, response: functions.Response) => {
 		try {
 			const { courseId } = request.body;
-			const courseRef = db.collection("courses").doc(courseId);
+			const courseRef = db.collection("course").doc(courseId);
 			await courseRef.get().then((docSnapshot) => {
 				if (docSnapshot.exists) {
 					courseRef.onSnapshot((doc) => {
 						const batch = db.batch();
-						const surveysRef = doc.ref.collection("surveys");
+						const surveyCollectionRef = doc.ref.collection("survey");
 						const results: FirestoreSurveyDoc[] = [];
 						fs.createReadStream("../mock_survey.csv")
 							.pipe(csv())
 							.on("data", (data) => results.push(data))
 							.on("end", () => {
 								console.log(`result: ${results[0]}`);
-								batchWrite(results, surveysRef);
+								batchWrite(results, surveyCollectionRef);
 							});
 						batch.commit();
 					});

@@ -1,7 +1,7 @@
-import addResponse from "./users/add-response";
-import createCourse from "./courses/create-course";
-import createSurveyCsv from "./courses/data-to-csv";
-import seedSurveyData from "./users/add-response-batch";
+import addResponse from "./user/add-response";
+import createCourse from "./course/create-course";
+import createSurveyCsv from "./course/data-to-csv";
+import seedSurveyData from "./user/add-response-batch";
 
 export const newCourse = createCourse;
 export const newSurvey = addResponse;
