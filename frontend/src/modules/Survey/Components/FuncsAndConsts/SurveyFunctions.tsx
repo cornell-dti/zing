@@ -30,16 +30,14 @@ export function getLetter(ans: string, isDate: boolean) {
     case '2024':
       return 'd'
     default:
-      return 'Form validation is broken / user is entering a weird date'
+      alert('Form validation is broken; somehow, user is entering a weird date')
+      return ''
   }
 }
 
 export async function sendSurveyData(data: surveyData) {
   axios
-    .post(
-      'https://cors-anywhere.herokuapp.com/https://us-central1-zing-backend.cloudfunctions.net/newSurvey',
-      data
-    )
+    .post('https://us-central1-zing-backend.cloudfunctions.net/newSurvey', data)
     .then(
       (response: any) => {
         console.log(response)

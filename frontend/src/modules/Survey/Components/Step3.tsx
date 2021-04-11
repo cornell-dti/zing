@@ -6,6 +6,9 @@ import {
   StyledCalendarWrapper,
   StyledTextField,
   StyledCalendarLabel,
+  StyledErrorWrapper,
+  StyledErrorIcon,
+  StyledErrorText,
 } from 'Survey/Styles/Step3.style'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { StepProps } from 'Survey/Types/StepProps'
@@ -24,14 +27,19 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const Step3 = ({ setAnswer, currentAnswer }: StepProps) => {
+export const Step3 = ({ showError, setAnswer, currentAnswer }: StepProps) => {
   const classes = useStyles()
 
   return (
     <StyledContainer>
       <StyledText>When are you graduating?</StyledText>
       <StyledCalendarWrapper>
-        {/* <StyledCalendarLabel>{currentAnswer}</StyledCalendarLabel> */}
+        {showError ? (
+          <StyledErrorWrapper>
+            <StyledErrorIcon />
+            <StyledErrorText>Please select a valid date</StyledErrorText>
+          </StyledErrorWrapper>
+        ) : null}
         <form className={classes.container} noValidate>
           <StyledTextField
             id="date"
