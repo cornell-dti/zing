@@ -5,10 +5,15 @@ import {
   StyledWelcomeText,
   StyledRadioButtonsWrapper,
   StyledRadioButtons,
+  StyledErrorWrapper,
+  StyledErrorIcon,
+  StyledErrorText,
 } from 'Survey/Styles/StepRadio.style'
 import { StepProps } from 'Survey/Types/StepProps'
 
 export const StepRadio: FunctionComponent<StepProps> = ({
+  setShowError,
+  showError,
   currentAnswer,
   setAnswer,
   questionList,
@@ -28,6 +33,12 @@ export const StepRadio: FunctionComponent<StepProps> = ({
         </StyledWelcomeText>
       </StyledTitleWrapper>
       <StyledRadioButtonsWrapper>
+        {showError ? (
+          <StyledErrorWrapper>
+            <StyledErrorIcon />
+            <StyledErrorText>Please select an item to continue</StyledErrorText>
+          </StyledErrorWrapper>
+        ) : null}
         <StyledRadioButtons
           currentAnswer={currentAnswer}
           values={questionList}

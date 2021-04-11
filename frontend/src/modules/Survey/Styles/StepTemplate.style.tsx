@@ -4,7 +4,6 @@ import logo from '@assets/img/purplelogo.svg'
 import progress from '@assets/img/progressbarstep1.svg'
 import { colors, h2, h4, StyledComponent } from '@core'
 import { GoNextPrevButton } from 'Survey/Components/UIElements/GoNextPrevButton'
-import errorIcon from '@assets/img/erroricon.svg'
 
 const Logo = ({ className }: StyledComponent) => (
   <div className={className}>
@@ -15,12 +14,6 @@ const Logo = ({ className }: StyledComponent) => (
 const ProgressBar = ({ className }: StyledComponent) => (
   <div className={className}>
     <img src={progress} alt="progress" />
-  </div>
-)
-
-const ErrorIcon = ({ className }: StyledComponent) => (
-  <div className={className}>
-    <img src={errorIcon} alt="errorIcon" />
   </div>
 )
 
@@ -84,19 +77,3 @@ export const StyledProgressBar = styled(ProgressBar)`
 `
 
 export const StyledLogo = styled(Logo)``
-
-export const StyledErrorIcon = styled(ErrorIcon)``
-
-export const StyledErrorWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-content: center;
-`
-
-export const StyledErrorText = styled.text`
-  ${h4};
-  color: ${colors.red};
-  padding-left: 0.5rem;
-  font-weight: 500;
-  position: relative;
-`

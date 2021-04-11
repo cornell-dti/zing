@@ -10,9 +10,6 @@ import {
   StyledFullPanelNoPadding,
   StyledHeaderWrapper,
   StyledLogoWrapper,
-  StyledErrorWrapper,
-  StyledErrorText,
-  StyledErrorIcon,
 } from 'Survey/Styles/StepTemplate.style'
 import prev from '@assets/img/prev.svg'
 import next from '@assets/img/next.svg'
@@ -25,30 +22,37 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
   gotoPrevStep,
   gotoNextStep,
   children,
+  setShowError,
 }) => {
-  const [showError, setShowError] = useState(false)
-  const [errorMsg, setErrorMsg] = useState('foo')
   const years = require('./FuncsAndConsts/YearInfo.json')
   const youngestYear = Number(years.youngestYear)
   const oldestYear = Number(years.oldestYear)
+  const [isShowingError, setisShowingError] = useState(false)
 
   // form validation
   function handleNext() {
     if (currentAnswer === '') {
-      setErrorMsg('Please respond to the following question')
-      setShowError(true)
+      if (!isShowingError) {
+        setShowError()
+        setisShowingError(true)
+      }
       return
     }
     if (stepNumber === 3) {
       const inputtedYear = Number(currentAnswer.substring(0, 4))
       if (inputtedYear - youngestYear >= 1 || inputtedYear - oldestYear <= -1) {
-        setErrorMsg('Please enter a valid graduation date')
-        setShowError(true)
+        if (!isShowingError) {
+          setShowError()
+          setisShowingError(true)
+        }
         return
       }
     }
+    if (isShowingError) {
+      setShowError()
+      setisShowingError(false)
+    }
     gotoNextStep()
-    setShowError(false)
   }
   return (
     <StyledContainer>
@@ -56,15 +60,10 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
         <ProgressBar stepNumber={stepNumber} totalSteps={totalSteps} />
         <StyledFullPanel>
           <StyledHeaderWrapper>
+            {/* <p>{String(isShowingError)}</p> */}
             <StyledLogoWrapper style={{ height: '8%' }}>
               <StyledLogo />
             </StyledLogoWrapper>
-            {showError ? (
-              <StyledErrorWrapper>
-                <StyledErrorIcon />
-                <StyledErrorText>{errorMsg}</StyledErrorText>
-              </StyledErrorWrapper>
-            ) : null}
           </StyledHeaderWrapper>
           <StyledWrapper style={{ height: '82%' }}>{children}</StyledWrapper>
           <StyledWrapper style={{ height: '10%' }}>
