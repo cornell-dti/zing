@@ -20,15 +20,18 @@ export function getLetter(ans: string, isDate: boolean) {
   if (!isDate) {
     return String.fromCharCode(Number(ans) + 64).toLowerCase()
   }
-  switch (ans.slice(0, 4)) {
-    case '2021':
+  const oy = getOldestGradYear()
+  switch (Number(ans)) {
+    case oy:
       return 'a'
-    case '2022':
+    case oy + 1:
       return 'b'
-    case '2023':
+    case oy + 2:
       return 'c'
-    case '2024':
+    case oy + 3:
       return 'd'
+    case oy + 4:
+      return 'e'
     default:
       alert('Form validation is broken; somehow, user is entering a weird date')
       return ''
@@ -53,9 +56,9 @@ export function getYoungestGradYear() {
   const year = now.getFullYear()
   const month = now.getMonth()
   if (month > 4) {
-    return year + 4
+    return year + 5
   } else {
-    return year + 3
+    return year + 4
   }
 }
 
