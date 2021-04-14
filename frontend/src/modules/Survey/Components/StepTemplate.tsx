@@ -14,6 +14,10 @@ import {
 import prev from '@assets/img/prev.svg'
 import next from '@assets/img/next.svg'
 import ProgressBar from './UIElements/ProgressBar'
+import {
+  getYoungestGradYear,
+  getOldestGradYear,
+} from 'Survey/Components/FuncsAndConsts/SurveyFunctions'
 
 export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
   currentAnswer,
@@ -24,9 +28,8 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
   children,
   setShowError,
 }) => {
-  const years = require('./FuncsAndConsts/YearInfo.json')
-  const youngestYear = Number(years.youngestYear)
-  const oldestYear = Number(years.oldestYear)
+  const youngestYear = getYoungestGradYear()
+  const oldestYear = getOldestGradYear()
   const [isShowingError, setisShowingError] = useState(false)
 
   // form validation
@@ -39,7 +42,7 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
       return
     }
     if (stepNumber === 3) {
-      const inputtedYear = Number(currentAnswer.substring(0, 4))
+      const inputtedYear = Number(currentAnswer)
       if (inputtedYear - youngestYear >= 1 || inputtedYear - oldestYear <= -1) {
         if (!isShowingError) {
           setShowError()
@@ -54,6 +57,15 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
     }
     gotoNextStep()
   }
+
+  function handlePrev() {
+    if (isShowingError) {
+      setShowError()
+      setisShowingError(false)
+    }
+    gotoPrevStep()
+  }
+
   return (
     <StyledContainer>
       <StyledFullPanelNoPadding>
@@ -70,7 +82,7 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
             <StyledPrevButton
               className="prev"
               src={prev}
-              onClick={gotoPrevStep}
+              onClick={handlePrev}
             />
             <StyledNextButton
               className="next"
