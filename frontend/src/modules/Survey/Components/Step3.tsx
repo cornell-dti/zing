@@ -27,20 +27,20 @@ export const Step3 = ({ showError, setAnswer, currentAnswer }: StepProps) => {
       height: 48,
       padding: '0 30px',
       '& .MuiInput-underline:before': {
-        borderBottomColor: colors.darkpurple, // Semi-transparent underline
+        borderBottomColor: colors.lightviolet, // Semi-transparent underline
       },
       '& .MuiInput-underline:hover:before': {
         borderBottomColor: colors.lightviolet, // Solid underline on hover
       },
       '& .MuiInput-underline:after': {
-        borderBottomColor: colors.darkpurple, // Solid underline on focus
+        borderBottomColor: colors.lightviolet, // Solid underline on focus
       },
       '& .MuiInputBase-root': {
         color: colors.lightviolet,
       },
-      // '& .MuiInputBase-root:focus': {
-      //   color: colors.lightviolet,
-      // },
+      '& .MuiInputBase-root:focus': {
+        color: colors.lightviolet,
+      },
     },
   }
 

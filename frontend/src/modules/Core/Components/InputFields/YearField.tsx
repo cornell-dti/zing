@@ -19,7 +19,12 @@ export const YearField = ({
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
-      type="number"
+      type="text"
+      onKeyPress={(event: any) => {
+        if (!/[0-9]/.test(event.key)) {
+          event.preventDefault()
+        }
+      }}
     />
   )
 }
