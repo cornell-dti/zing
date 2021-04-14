@@ -43,7 +43,11 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
     }
     if (stepNumber === 3) {
       const inputtedYear = Number(currentAnswer)
-      if (inputtedYear - youngestYear >= 1 || inputtedYear - oldestYear <= -1) {
+      if (
+        inputtedYear - youngestYear >= 1 || // youngest year bound
+        inputtedYear - oldestYear <= -1 || // oldest year bound
+        String(inputtedYear) !== currentAnswer // check for alphabetical letters
+      ) {
         if (!isShowingError) {
           setShowError()
           setisShowingError(true)
