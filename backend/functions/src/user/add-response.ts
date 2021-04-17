@@ -6,13 +6,15 @@ import { db } from "../db";
 
 const addResponse = functions.https.onRequest(
 	async (request: functions.https.Request, response: functions.Response) => {
-		response.header("Access-Control-Allow-Origin", "*");
-		response.header("Content-Type", "application/json");
-		response.header("Access-Control-Allow-Headers", "Content-Type");
-		if (request.method != "POST") {
-			response.status(403).send("Forbidden");
+		response.set("Access-Control-Allow-Origin", "*");
+		if (request.method === "OPTIONS") {
+			// Send response to OPTIONS requests
+			response.set("Access-Control-Allow-Methods", "POST");
+			response.set("Access-Control-Allow-Headers", "Content-Type");
+			response.status(204).send("");
+		} else {
+			addOrUpdateSurvey(request, response);
 		}
-		addOrUpdateSurvey(request, response);
 	}
 );
 

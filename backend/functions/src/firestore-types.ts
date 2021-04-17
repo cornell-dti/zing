@@ -3,7 +3,7 @@ export type FirestoreSurveyDoc = {
 	studentId: string;
 	identity: "a" | "b" | "c" | "d" | "e" | "f" | "g";
 	pronoun: "a" | "b" | "c" | "d";
-	graduation: "a" | "b" | "c" | "d";
+	graduation: "a" | "b" | "c" | "d" | "e";
 	college: "a" | "b" | "c" | "d" | "e" | "f" | "g";
 	remote: "a" | "b" | "c";
 	mode: "a" | "b" | "c";
