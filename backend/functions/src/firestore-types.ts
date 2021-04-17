@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export type FirestoreSurveyDoc = {
 	fullName: string;
 	studentId: string;
@@ -12,7 +13,12 @@ export type FirestoreSurveyDoc = {
 };
 
 export type FirestoreCourseDoc = {
-	courseName: string;
 	studentList: string[];
 	completed: string[];
+};
+
+export type FirestoreUserDoc = {
+	email: string;
+	name: string;
+	course: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>[];
 };
