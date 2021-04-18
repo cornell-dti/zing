@@ -1,1 +1,1 @@
-export { CreateGroupForm } from './Components/Form'
+export { CreateGroupForm } from 'CreateGroup/Components/Form'

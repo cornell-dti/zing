@@ -2,7 +2,9 @@ import React from 'react'
 
 import styled, { css } from 'styled-components'
 import logo from '@assets/img/purplelogo.svg'
-import { colors, h2, h4, StyledComponent } from '@core'
+import { colors, h2, h3, StyledComponent } from '@core'
+import bg2 from '@assets/img/bg2.svg'
+import { Question } from 'CreateGroup/Components/Question'
 
 const Logo = ({ className }: StyledComponent) => (
   <div className={className}>
@@ -56,3 +58,36 @@ export const StyledLogoWrapper = styled.div`
 `
 
 export const StyledLogo = styled(Logo)``
+
+export const StyledOuterContainer = styled.div`
+  height: 100%;
+  background-image: url(${bg2});
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+export const StyledText = styled.text`
+  ${h3};
+  font-weight: 500;
+  line-height: 10px;
+`
+
+export const StyledTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+export const StyledQuestion = styled(Question)``
+
+export const StyledQuestionsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.25rem;
+  justify-content: center;
+  align-items: center;
+`
