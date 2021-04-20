@@ -15,10 +15,15 @@ export type FirestoreSurveyDoc = {
 export type FirestoreCourseDoc = {
 	studentList: string[];
 	completed: string[];
+	creator: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>;
 };
 
 export type FirestoreUserDoc = {
 	email: string;
 	name: string;
-	course: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>[];
+	course: string[];
+};
+
+export type FirestoreGroupConfigDoc = {
+	groupSize: string;
 };

@@ -24,7 +24,6 @@ const createSurveyCsv = functions.https.onRequest(
 	async (request: functions.https.Request, response: functions.Response) => {
 		response.set("Access-Control-Allow-Origin", "*");
 		if (request.method === "OPTIONS") {
-			// Send response to OPTIONS requests
 			response.set("Access-Control-Allow-Methods", "POST");
 			response.set("Access-Control-Allow-Headers", "Content-Type");
 			response.status(204).send("");
