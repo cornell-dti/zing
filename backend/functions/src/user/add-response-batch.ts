@@ -30,7 +30,6 @@ const seedSurveyData = functions.https.onRequest(
 							.pipe(csv())
 							.on("data", (data) => results.push(data))
 							.on("end", () => {
-								console.log(`result: ${results[0]}`);
 								batchWrite(results, surveyCollectionRef);
 							});
 						batch.commit();
