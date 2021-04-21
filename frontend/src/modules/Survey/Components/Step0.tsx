@@ -108,11 +108,6 @@ export const Step0 = ({
         <StyledFields>
           {/* <StyledErrorWrapper> */}
           <StyledNameField
-            endAdornment={
-              error === errorEnum.NAME || error === errorEnum.BOTH
-                ? errorIcon
-                : null
-            }
             key={'name'}
             MuiColor={nameColor}
             containerStyle={textContainerStyle}
@@ -122,12 +117,6 @@ export const Step0 = ({
               setName(e.target.value)
             }
           />
-
-          {/* {error === errorEnum.NAME || error === errorEnum.BOTH ? (
-            <StyledErrorIcon />
-          ) : null} */}
-          {/* </StyledErrorWrapper> */}
-          {/* <StyledErrorWrapper> */}
           <StyledEmailField
             endAdornment={
               error === errorEnum.EMAIL || error === errorEnum.BOTH

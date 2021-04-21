@@ -2,8 +2,7 @@ import React from 'react'
 import { TextField, ThemeProvider, createMuiTheme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import styled from 'styled-components'
-import { colors } from '@core'
-import Montserrat from '@assets/fonts/Montserrat-Regular.ttf'
+import { colors, montesseratFont } from '@core'
 import { InputProps } from '@core/Types/FormFieldProps'
 import {
   defaultContainerStyle,
@@ -36,20 +35,9 @@ const StyledErrorTextField = styled(TextField)`
 },
 `
 
-/** imported font so MuiTheme can insert it into the TextField */
-const montesserat: any = {
-  fontFamily: 'Montserrat',
-  fontStyle: 'normal',
-  fontDisplay: 'swap',
-  fontWeight: 500,
-  src: `
-    local('Montserrat-Regular'),
-    url(${Montserrat}) format('ttf')
-  `,
-}
-
 /** Generic InputField component for more specific fields to customize */
 export const InputField = ({
+  fullWidth,
   endAdornment,
   key,
   MuiColor = colors.darkpurple,
@@ -67,25 +55,29 @@ export const InputField = ({
     input: Object.assign({}, defaultInputStyle, inputStyle),
   })()
   console.log(MuiColor)
+
+  /** Error icon that is attached as a endAndornment to the textfield when error
+   * occurs */
   const icon = <ErrorIconOutline style={{ fill: colors.red }} />
 
-  const defaultTheme = createMuiTheme({
+  const inputFieldTheme = createMuiTheme({
     typography: {
       fontFamily: 'Montserrat',
     },
     overrides: {
       MuiCssBaseline: {
         '@global': {
-          '@font-face': [montesserat],
+          '@font-face': [montesseratFont],
         },
       },
     },
   })
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={inputFieldTheme}>
       {MuiColor !== colors.red ? (
         <StyledTextField
+          fullWidth={fullWidth}
           key={key}
           className={classes.container}
           inputProps={{ className: classes.input }}

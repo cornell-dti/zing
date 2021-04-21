@@ -5,6 +5,7 @@ import { InputField } from '@core/Components/InputField'
 import { InputProps } from '@core/Types/FormFieldProps'
 
 export const EmailField = ({
+  fullWidth = true,
   endAdornment,
   key = 'default',
   MuiColor = colors.darkpurple,
@@ -17,6 +18,7 @@ export const EmailField = ({
 }: InputProps) => {
   return (
     <InputField
+      fullWidth={fullWidth}
       endAdornment={endAdornment}
       key={key}
       MuiColor={MuiColor}

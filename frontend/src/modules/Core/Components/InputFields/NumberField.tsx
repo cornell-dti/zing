@@ -4,6 +4,7 @@ import { InputField } from '@core/Components/InputField'
 import { InputProps } from '@core/Types/FormFieldProps'
 
 export const NumberField = ({
+  fullWidth = true,
   containerStyle,
   inputStyle,
   placeholder = '0',
@@ -13,6 +14,7 @@ export const NumberField = ({
 }: InputProps) => {
   return (
     <InputField
+      fullWidth={fullWidth}
       containerStyle={containerStyle}
       inputStyle={inputStyle}
       value={value}

@@ -1,9 +1,12 @@
 import React from 'react'
 
+import { colors } from '@core'
 import { InputField } from '@core/Components/InputField'
 import { InputProps } from '@core/Types/FormFieldProps'
 
 export const YearField = ({
+  MuiColor = colors.darkpurple,
+  fullWidth = true,
   containerStyle,
   inputStyle,
   placeholder = 'Graduation Year',
@@ -13,6 +16,8 @@ export const YearField = ({
 }: InputProps) => {
   return (
     <InputField
+      MuiColor={MuiColor}
+      fullWidth={fullWidth}
       containerStyle={containerStyle}
       inputStyle={inputStyle}
       value={value}

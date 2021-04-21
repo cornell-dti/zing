@@ -5,6 +5,7 @@ import { InputField } from '@core/Components/InputField'
 import { InputProps } from '@core/Types/FormFieldProps'
 
 export const NameField = ({
+  fullWidth = true,
   key,
   MuiColor = colors.darkpurple,
   containerStyle,
@@ -17,6 +18,7 @@ export const NameField = ({
   console.log('name field key: ' + key)
   return (
     <InputField
+      fullWidth={fullWidth}
       key={key}
       MuiColor={MuiColor}
       containerStyle={containerStyle}
