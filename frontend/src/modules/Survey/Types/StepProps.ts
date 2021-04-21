@@ -15,3 +15,11 @@ export interface StepProps {
   showError: boolean
   setShowError: () => void
 }
+
+export interface Step0Props {
+  setName: (arg: string) => void
+  setEmail: (arg: string) => void
+  name: string
+  email: string
+  gotoNextStep: () => void
+}

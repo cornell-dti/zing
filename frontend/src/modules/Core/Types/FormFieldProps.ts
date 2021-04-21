@@ -5,6 +5,9 @@ interface Common {
 }
 
 export interface InputProps extends Common {
+  endAdornment?: JSX.Element // icon that may appear at the end of the field
+  key?: string // for id of component
+  MuiColor?: string // for editing underline and stuff for MUI component
   inputStyle?: { [key in string]: any }
   type?: string
   placeholder?: string

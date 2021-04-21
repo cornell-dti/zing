@@ -18,6 +18,10 @@ export const Survey = () => {
   const questions = require('./FuncsAndConsts/Questions.json')
 
   // state props
+  // step 0
+  const [nameAnswer, setNameAnswer] = useState('')
+  const [emailAnswer, setEmailAnswer] = useState('')
+
   // step 1
   const [ethnicityAnswer, setEthnicityAnswer] = useState('')
 
@@ -64,11 +68,10 @@ export const Survey = () => {
   return currStep === 0 ? (
     <StyledContainer1>
       <Step0
-        setShowError={() => setShowError(!showError)}
-        currentAnswer={'foo'} // TODO: make name and email later or smth else
-        stepNumber={currStep}
-        totalSteps={8}
-        gotoPrevStep={() => {}}
+        name={nameAnswer} // TODO: make name and email later or smth else
+        email={emailAnswer}
+        setName={(arg: string) => setNameAnswer(arg)}
+        setEmail={(arg: string) => setEmailAnswer(arg)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       />
     </StyledContainer1>

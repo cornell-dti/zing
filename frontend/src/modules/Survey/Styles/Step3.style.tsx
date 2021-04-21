@@ -17,7 +17,7 @@ export const StyledContainer = styled.div`
 
 export const StyledText = styled.text`
   ${h2};
-  color: ${colors.darkpurple};
+  color: ${colors.black};
   font-weight: 500;
   line-height: 10px;
 `

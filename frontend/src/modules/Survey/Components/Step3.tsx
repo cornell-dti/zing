@@ -20,6 +20,13 @@ import {
 export const Step3 = ({ showError, setAnswer, currentAnswer }: StepProps) => {
   const textContainerStyle = {
     margin: '0.75rem 0',
+  }
+
+  const textInputStyle = {
+    font: h2,
+    fontWeight: 800,
+    color: colors.darkpurple,
+    textAlign: 'center',
     root: {
       background: 'white',
       borderRadius: 3,
@@ -42,11 +49,6 @@ export const Step3 = ({ showError, setAnswer, currentAnswer }: StepProps) => {
         color: colors.lightviolet,
       },
     },
-  }
-
-  const textInputStyle = {
-    fontWeight: '800',
-    color: '#E5CEFA',
   }
 
   return (

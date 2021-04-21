@@ -1,9 +1,12 @@
 import React from 'react'
 
+import { colors } from '@core'
 import { InputField } from '@core/Components/InputField'
 import { InputProps } from '@core/Types/FormFieldProps'
 
 export const NameField = ({
+  key,
+  MuiColor = colors.darkpurple,
   containerStyle,
   inputStyle,
   placeholder = 'Name',
@@ -11,8 +14,11 @@ export const NameField = ({
   onChange,
   disabled,
 }: InputProps) => {
+  console.log('name field key: ' + key)
   return (
     <InputField
+      key={key}
+      MuiColor={MuiColor}
       containerStyle={containerStyle}
       inputStyle={inputStyle}
       value={value}

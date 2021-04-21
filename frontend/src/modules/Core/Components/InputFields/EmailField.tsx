@@ -1,9 +1,13 @@
 import React from 'react'
 
+import { colors } from '@core'
 import { InputField } from '@core/Components/InputField'
 import { InputProps } from '@core/Types/FormFieldProps'
 
 export const EmailField = ({
+  endAdornment,
+  key = 'default',
+  MuiColor = colors.darkpurple,
   containerStyle,
   inputStyle,
   placeholder = 'Email',
@@ -13,6 +17,9 @@ export const EmailField = ({
 }: InputProps) => {
   return (
     <InputField
+      endAdornment={endAdornment}
+      key={key}
+      MuiColor={MuiColor}
       containerStyle={containerStyle}
       inputStyle={inputStyle}
       value={value}
