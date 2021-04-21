@@ -27,7 +27,7 @@ export const StyledQuestionText = styled.div`
   font-weight: 500;
   line-height: 10px;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
 `
 
 export const StyledErrorIcon = styled(ErrorIcon)``
@@ -36,7 +36,7 @@ export const StyledErrorWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
 `
 
 export const StyledErrorText = styled.text`
