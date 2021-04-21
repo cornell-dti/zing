@@ -9,7 +9,6 @@ import {
   StyledEverythingWrapper,
   StyledYearFieldWrapper,
 } from 'Survey/Styles/Step3.style'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { StepProps } from 'Survey/Types/StepProps'
 import {
   getYoungestGradYear,
@@ -29,7 +28,7 @@ export const Step3 = ({ showError, setAnswer, currentAnswer }: StepProps) => {
     color: showError ? colors.red : colors.darkpurple,
     textAlign: 'center',
     root: {
-      background: 'white',
+      background: colors.white,
       borderRadius: 3,
       border: 0,
       height: 48,

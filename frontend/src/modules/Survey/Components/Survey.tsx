@@ -16,6 +16,7 @@ export const Survey = () => {
   const [showError, setShowError] = useState(false)
   const [currStep, setCurrStep] = useState(0)
   const questions = require('./FuncsAndConsts/Questions.json')
+  const totalSteps = 8
 
   // state props
   // step 0
@@ -78,15 +79,14 @@ export const Survey = () => {
   ) : currStep === 1 ? (
     <StyledContainer2>
       <StepTemplate
-        setShowError={() => setShowError(!showError)}
+        setShowError={(b) => setShowError(b)}
         currentAnswer={ethnicityAnswer}
         stepNumber={currStep}
-        totalSteps={8}
+        totalSteps={totalSteps}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          setShowError={() => setShowError(!showError)}
           showError={showError}
           questionList={questions.step1}
           setAnswer={setEthnicityAnswer}
@@ -98,15 +98,14 @@ export const Survey = () => {
   ) : currStep === 2 ? (
     <StyledContainer2>
       <StepTemplate
-        setShowError={() => setShowError(!showError)}
+        setShowError={(b) => setShowError(b)}
         currentAnswer={pronounAnswer}
         stepNumber={currStep}
-        totalSteps={8}
+        totalSteps={totalSteps}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          setShowError={() => setShowError(!showError)}
           showError={showError}
           currentAnswer={pronounAnswer}
           questionList={questions.step2}
@@ -118,15 +117,14 @@ export const Survey = () => {
   ) : currStep === 3 ? (
     <StyledContainer2>
       <StepTemplate
-        setShowError={() => setShowError(!showError)}
+        setShowError={(b) => setShowError(b)}
         currentAnswer={gradAnswer}
         stepNumber={currStep}
-        totalSteps={8}
+        totalSteps={totalSteps}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <Step3
-          setShowError={() => setShowError(!showError)}
           showError={showError}
           currentAnswer={gradAnswer}
           setAnswer={setGradAnswer}
@@ -136,15 +134,14 @@ export const Survey = () => {
   ) : currStep === 4 ? (
     <StyledContainer2>
       <StepTemplate
-        setShowError={() => setShowError(!showError)}
+        setShowError={(b) => setShowError(b)}
         currentAnswer={collegeAnswer}
         stepNumber={currStep}
-        totalSteps={8}
+        totalSteps={totalSteps}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          setShowError={() => setShowError(!showError)}
           showError={showError}
           currentAnswer={collegeAnswer}
           questionList={questions.step4}
@@ -156,15 +153,14 @@ export const Survey = () => {
   ) : currStep === 5 ? (
     <StyledContainer2>
       <StepTemplate
-        setShowError={() => setShowError(!showError)}
+        setShowError={(b) => setShowError(b)}
         currentAnswer={locationAnswer}
         stepNumber={currStep}
-        totalSteps={8}
+        totalSteps={totalSteps}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          setShowError={() => setShowError(!showError)}
           showError={showError}
           currentAnswer={locationAnswer}
           questionList={questions.step5}
@@ -176,15 +172,14 @@ export const Survey = () => {
   ) : currStep === 6 ? (
     <StyledContainer2>
       <StepTemplate
-        setShowError={() => setShowError(!showError)}
+        setShowError={(b) => setShowError(b)}
         currentAnswer={groupPrefAnswer}
         stepNumber={currStep}
-        totalSteps={8}
+        totalSteps={totalSteps}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          setShowError={() => setShowError(!showError)}
           showError={showError}
           currentAnswer={groupPrefAnswer}
           questionList={questions.step6}
@@ -196,15 +191,14 @@ export const Survey = () => {
   ) : currStep === 7 ? (
     <StyledContainer2>
       <StepTemplate
-        setShowError={() => setShowError(!showError)}
+        setShowError={(b) => setShowError(b)}
         currentAnswer={studyTimeAnswer}
         stepNumber={currStep}
-        totalSteps={8}
+        totalSteps={totalSteps}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       >
         <StepRadio
-          setShowError={() => setShowError(!showError)}
           showError={showError}
           currentAnswer={studyTimeAnswer}
           questionList={questions.step7}
@@ -216,15 +210,14 @@ export const Survey = () => {
   ) : currStep === 8 ? (
     <StyledContainer2>
       <StepTemplate
-        setShowError={() => setShowError(!showError)}
+        setShowError={(b) => setShowError(b)}
         currentAnswer={assignmentAnswer}
         stepNumber={currStep}
-        totalSteps={8}
+        totalSteps={totalSteps}
         gotoPrevStep={() => setCurrStep((currStep) => currStep - 1)}
         gotoNextStep={finalNext}
       >
         <StepRadio
-          setShowError={() => setShowError(!showError)}
           showError={showError}
           currentAnswer={assignmentAnswer}
           questionList={questions.step8}

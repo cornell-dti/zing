@@ -5,7 +5,7 @@ import { HOME_PATH, SURVEY_PATH, CREATE_GROUP_PATH } from '@core'
 
 import { Home } from 'Home'
 import { Survey } from 'Survey'
-import { CreateGroupForm } from 'CreateGroup'
+import { CreateGroupForm } from '../src/modules/CreateGroup/Components/Form'
 import './App.css'
 
 const App = () => {

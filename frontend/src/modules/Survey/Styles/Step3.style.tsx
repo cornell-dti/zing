@@ -18,7 +18,7 @@ export const StyledText = styled.text`
 export const StyledEverythingWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 4rem;
+  margin-top: 2rem;
   justify-content: center;
   align-items: center;
 `

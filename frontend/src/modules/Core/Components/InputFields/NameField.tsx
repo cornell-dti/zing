@@ -14,6 +14,7 @@ export const NameField = ({
   value,
   onChange,
   disabled,
+  error,
 }: InputProps) => {
   console.log('name field key: ' + key)
   return (
@@ -27,6 +28,7 @@ export const NameField = ({
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
+      error={error}
     />
   )
 }

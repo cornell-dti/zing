@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import { NameField, EmailField, colors } from '@core'
 import {
   StyledContainer,
   StyledLeftPanel,
@@ -19,8 +20,6 @@ import {
 } from 'Survey/Styles/Step0.style'
 import { GetConnectedButton } from 'Survey/Components/UIElements/GetConnectedButton'
 import { Step0Props } from 'Survey/Types'
-import { colors } from '@core'
-import errorIcon from '@assets/img/erroricon.svg'
 
 export const Step0 = ({
   name,
@@ -63,6 +62,7 @@ export const Step0 = ({
   }
 
   function handleNext() {
+    if (name === '' || email === '') setHasError(true)
     // may want to change this to first + last name validation later
     // TODO: change this to some regex magic @Shi Chong
     if (name === '' && email === '') {
@@ -91,6 +91,7 @@ export const Step0 = ({
     gotoNextStep()
   }
 
+  const [hasError, setHasError] = useState(false)
   return (
     <StyledContainer>
       <StyledLeftPanel>
@@ -116,13 +117,9 @@ export const Step0 = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setName(e.target.value)
             }
+            error={hasError && name === '' ? 'Please enter your name' : ''}
           />
           <StyledEmailField
-            endAdornment={
-              error === errorEnum.EMAIL || error === errorEnum.BOTH
-                ? errorIcon
-                : null
-            }
             key={'email'}
             MuiColor={emailColor}
             containerStyle={textContainerStyle}
@@ -131,6 +128,7 @@ export const Step0 = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEmail(e.target.value)
             }
+            error={hasError && email === '' ? 'Please enter your email' : ''}
           />
           {/* {error === errorEnum.EMAIL || error === errorEnum.BOTH ? (
             <StyledErrorIcon />

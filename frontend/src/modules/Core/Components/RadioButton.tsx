@@ -40,7 +40,6 @@ export const RadioButton = ({
   function handleOnClick(e: React.ChangeEvent<HTMLInputElement>) {
     onClick(e)
     setClickedIndex(index)
-    console.log(index)
   }
 
   return (

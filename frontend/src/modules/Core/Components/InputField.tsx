@@ -44,6 +44,7 @@ export const InputField = ({
   containerStyle = {},
   inputStyle = {},
   type = 'input',
+  error = '',
   placeholder,
   disabled = false,
   value,

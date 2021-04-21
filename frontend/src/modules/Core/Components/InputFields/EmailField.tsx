@@ -15,6 +15,7 @@ export const EmailField = ({
   value,
   onChange,
   disabled,
+  error,
 }: InputProps) => {
   return (
     <InputField
@@ -29,6 +30,7 @@ export const EmailField = ({
       type="email"
       placeholder={placeholder}
       disabled={disabled}
+      error={error}
     />
   )
 }
