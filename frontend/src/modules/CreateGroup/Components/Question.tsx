@@ -2,6 +2,7 @@ import React, { useState, FunctionComponent } from 'react'
 import { NameField, NumberField, colors } from '@core'
 import styled, { css } from 'styled-components'
 import { QuestionProps } from '../Types/QuestionType'
+import { colors } from '@core'
 
 export const Question = ({
   setAnswer,
@@ -11,7 +12,7 @@ export const Question = ({
 }: QuestionProps) => {
   const textInputStyle = {
     fontWeight: '500',
-    color: '#CE9EF2',
+    color: colors.darkpurple,
   }
   if (isNumber)
     return (
