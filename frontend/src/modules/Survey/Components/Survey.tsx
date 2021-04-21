@@ -50,7 +50,7 @@ export const Survey = () => {
   function finalNext() {
     const surveyDataObj: surveyData = {
       courseId: 'zf101-2021sp', // hard coded
-      fullName: 'Zing Person', // hard coded
+      fullName: nameAnswer, // hard coded
       studentId: 'a1',
       identity: getLetter(ethnicityAnswer, false),
       pronoun: getLetter(pronounAnswer, false),
@@ -68,7 +68,7 @@ export const Survey = () => {
   return currStep === 0 ? (
     <StyledContainer1>
       <Step0
-        name={nameAnswer} // TODO: make name and email later or smth else
+        name={nameAnswer}
         email={emailAnswer}
         setName={(arg: string) => setNameAnswer(arg)}
         setEmail={(arg: string) => setEmailAnswer(arg)}
@@ -236,6 +236,7 @@ export const Survey = () => {
   ) : currStep === 9 ? (
     <StyledContainer2>
       <StepFinal />
+      {/* FOR DEBUGGING NETWORKING + ANSWERS */}
       <p>{getLetter(ethnicityAnswer, false)}</p>
       <p>{getLetter(pronounAnswer, false)}</p>
       <p>{getLetter(gradAnswer, true)}</p>
