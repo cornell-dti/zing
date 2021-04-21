@@ -9,6 +9,8 @@
       "Home/*": ["src/modules/Home/*"],
       "CreateGroup": ["src/modules/CreateGroup/"],
       "CreateGroup/*": ["src/modules/CreateGroup/*"],
+      "Login": ["src/modules/Login/"],
+      "Login/*": ["src/modules/Login/*"],
       "Survey": ["src/modules/Survey/"],
       "Survey/*": ["src/modules/Survey/*"]
     }
