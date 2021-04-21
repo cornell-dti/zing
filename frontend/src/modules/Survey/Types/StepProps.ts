@@ -4,7 +4,7 @@ export interface StepTemplateProps {
   stepNumber: number
   totalSteps: number
   currentAnswer: string
-  setShowError: () => void
+  setShowError: (b: boolean) => void
 }
 
 export interface StepProps {
@@ -13,5 +13,4 @@ export interface StepProps {
   key?: string
   currentAnswer: string
   showError: boolean
-  setShowError: () => void
 }

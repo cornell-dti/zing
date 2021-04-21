@@ -29,7 +29,7 @@ export const StyledCalendarLabel = styled.text`
 export const StyledCalendarWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 4rem;
+  margin-top: 2rem;
   justify-content: center;
   align-items: center;
 `

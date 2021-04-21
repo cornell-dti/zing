@@ -1,6 +1,5 @@
 import React from 'react'
-import { colors, h2, body } from '@core'
-import { YearField } from '@core'
+import { colors } from '@core'
 import {
   StyledContainer,
   StyledText,
@@ -10,7 +9,6 @@ import {
   StyledErrorIcon,
   StyledErrorText,
 } from 'Survey/Styles/Step3.style'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { StepProps } from 'Survey/Types/StepProps'
 import {
   getYoungestGradYear,
@@ -21,7 +19,7 @@ export const Step3 = ({ showError, setAnswer, currentAnswer }: StepProps) => {
   const textContainerStyle = {
     margin: '0.75rem 0',
     root: {
-      background: 'white',
+      background: colors.white,
       borderRadius: 3,
       border: 0,
       height: 48,
@@ -46,7 +44,7 @@ export const Step3 = ({ showError, setAnswer, currentAnswer }: StepProps) => {
 
   const textInputStyle = {
     fontWeight: '800',
-    color: '#E5CEFA',
+    color: colors.lightviolet,
   }
 
   return (

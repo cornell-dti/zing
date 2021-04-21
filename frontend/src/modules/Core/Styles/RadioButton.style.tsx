@@ -8,11 +8,19 @@ const defaultContainerStyle = css`
   align-items: center;
   color: ${colors.black};
   width: 100%;
+  cursor: pointer;
 `
 
 export const StyledContainer = styled.div`
   ${defaultContainerStyle}
-  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 1rem;
+
+  background: ${colors.white};
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 11px;
+  margin-bottom: 1rem;
 `
 
 const defaultLabelStyle = css`

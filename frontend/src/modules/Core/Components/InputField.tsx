@@ -12,6 +12,7 @@ export const InputField = ({
   containerStyle = {},
   inputStyle = {},
   type = 'input',
+  error = '',
   placeholder,
   disabled = false,
   value,
@@ -25,6 +26,8 @@ export const InputField = ({
 
   return (
     <TextField
+      error={error !== ''}
+      helperText={error}
       className={classes.container}
       inputProps={{ className: classes.input }}
       placeholder={placeholder}

@@ -8,6 +8,7 @@ export interface InputProps extends Common {
   inputStyle?: { [key in string]: any }
   type?: string
   placeholder?: string
+  error?: string
   value: string
   onChange: (e: React.ChangeEvent<any>) => void
 }

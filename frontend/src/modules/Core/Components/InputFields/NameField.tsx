@@ -10,6 +10,7 @@ export const NameField = ({
   value,
   onChange,
   disabled,
+  error,
 }: InputProps) => {
   return (
     <InputField
@@ -19,6 +20,7 @@ export const NameField = ({
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
+      error={error}
     />
   )
 }
