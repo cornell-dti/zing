@@ -229,14 +229,6 @@ export const Survey = () => {
   ) : currStep === 9 ? (
     <StyledContainer2>
       <StepFinal />
-      <p>{getLetter(ethnicityAnswer, false)}</p>
-      <p>{getLetter(pronounAnswer, false)}</p>
-      <p>{getLetter(gradAnswer, true)}</p>
-      <p>{getLetter(collegeAnswer, false)}</p>
-      <p>{getLetter(locationAnswer, false)}</p>
-      <p>{getLetter(groupPrefAnswer, false)}</p>
-      <p>{getLetter(studyTimeAnswer, false)}</p>
-      <p>{getLetter(assignmentAnswer, false)}</p>
     </StyledContainer2>
   ) : null
 }

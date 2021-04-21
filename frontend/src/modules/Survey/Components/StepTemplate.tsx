@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent } from 'react'
 import { StepTemplateProps } from 'Survey/Types'
 import {
   StyledContainer,
@@ -28,10 +28,8 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
   children,
   setShowError,
 }) => {
-  const [isShowingError, setisShowingError] = useState(false)
-  const years = require('./FuncsAndConsts/YearInfo.json')
-  const youngestYear = Number(years.youngestYear)
-  const oldestYear = Number(years.oldestYear)
+  const youngestYear = getYoungestGradYear()
+  const oldestYear = getOldestGradYear()
 
   const handlePrev = () => {
     setShowError(false)
