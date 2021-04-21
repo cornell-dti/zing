@@ -14,28 +14,18 @@ export const RadioButton = ({
   key,
   checked,
 }: RadioButtonProps) => {
-  const containerStyle = {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    padding: '0 1rem',
-
-    background: '#FFFFFF',
-    boxShadow: '2px 2px 8px rgba(0, 0, 0, 0.15)',
-    borderRadius: '11px',
-    marginBottom: '1rem',
-  }
-  function handleOnClick(e: React.ChangeEvent<HTMLInputElement>) {
+  const handleOnClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     onClick(e)
     setClickedIndex(index)
-    console.log(index)
   }
+
   // if the value is the same as the currentAnswer, check by default
   // (pre-existing answer from before)
   if (value === currentAnswer) {
     return (
       <StyledLabel>
         {/* {nested this way so that the whole container is clickable} */}
-        <StyledContainer style={containerStyle}>
+        <StyledContainer>
           <input
             type="radio"
             value={value}
@@ -53,7 +43,7 @@ export const RadioButton = ({
     // no match for currentAnswer with values
     return (
       <StyledLabel>
-        <StyledContainer style={containerStyle}>
+        <StyledContainer>
           <input
             type="radio"
             value={value}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { NameField, EmailField } from '@core'
+import { NameField, EmailField, colors } from '@core'
 import {
   StyledContainer,
   StyledLeftPanel,
@@ -14,19 +14,28 @@ import {
   StyledWelcomeText,
 } from 'Survey/Styles/Step0.style'
 import { GetConnectedButton } from 'Survey/Components/UIElements/GetConnectedButton'
-import { StepTemplateProps } from 'Survey/Types'
 
-export const Step0 = ({ gotoNextStep }: StepTemplateProps) => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-
+export const Step0 = ({
+  gotoNextStep,
+  name,
+  email,
+  setName,
+  setEmail,
+}: Step0Props) => {
   const textContainerStyle = {
     margin: '0.75rem 0',
   }
 
   const textInputStyle = {
     fontWeight: '600',
-    color: '#E5CEFA',
+    color: colors.lightviolet,
+  }
+
+  const [hasError, setHasError] = useState(false)
+
+  const handleNext = () => {
+    if (name === '' || email === '') setHasError(true)
+    else gotoNextStep()
   }
 
   return (
@@ -51,6 +60,7 @@ export const Step0 = ({ gotoNextStep }: StepTemplateProps) => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setName(e.target.value)
             }
+            error={hasError && name === '' ? 'Please enter your name' : ''}
           />
           <EmailField
             containerStyle={textContainerStyle}
@@ -59,10 +69,19 @@ export const Step0 = ({ gotoNextStep }: StepTemplateProps) => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEmail(e.target.value)
             }
+            error={hasError && email === '' ? 'Please enter your email' : ''}
           />
         </StyledFields>
-        <GetConnectedButton onClick={gotoNextStep} />
+        <GetConnectedButton onClick={handleNext} />
       </StyledRightPanel>
     </StyledContainer>
   )
+}
+
+interface Step0Props {
+  name: string
+  email: string
+  setName: (n: string) => void
+  setEmail: (e: string) => void
+  gotoNextStep: () => void
 }

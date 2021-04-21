@@ -1,8 +1,7 @@
 import React, { useState, FunctionComponent } from 'react'
 import {
   StyledContainer,
-  StyledTitleWrapper,
-  StyledWelcomeText,
+  StyledQuestionText,
   StyledRadioButtonsWrapper,
   StyledRadioButtons,
   StyledErrorWrapper,
@@ -12,7 +11,6 @@ import {
 import { StepProps } from 'Survey/Types/StepProps'
 
 export const StepRadio: FunctionComponent<StepProps> = ({
-  setShowError,
   showError,
   currentAnswer,
   setAnswer,
@@ -27,11 +25,9 @@ export const StepRadio: FunctionComponent<StepProps> = ({
   }
   return (
     <StyledContainer>
-      <StyledTitleWrapper>
-        <StyledWelcomeText>
-          {questionList !== undefined ? questionList[0] : 'Error'}
-        </StyledWelcomeText>
-      </StyledTitleWrapper>
+      <StyledQuestionText>
+        {questionList !== undefined ? questionList[0] : 'Error'}
+      </StyledQuestionText>
       <StyledRadioButtonsWrapper>
         {showError ? (
           <StyledErrorWrapper>
