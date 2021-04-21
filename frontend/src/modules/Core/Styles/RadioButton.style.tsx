@@ -21,6 +21,7 @@ export const StyledContainer = styled.div`
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
   border-radius: 11px;
   margin-bottom: 1rem;
+  box-sizing: border-box;
 `
 
 const defaultLabelStyle = css`
