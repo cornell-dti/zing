@@ -2,7 +2,6 @@ import React, { useState, FunctionComponent } from 'react'
 import { NameField, NumberField, colors } from '@core'
 import styled, { css } from 'styled-components'
 import { QuestionProps } from '../Types/QuestionType'
-import { colors } from '@core'
 
 export const Question = ({
   setAnswer,
