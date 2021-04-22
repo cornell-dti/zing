@@ -44,6 +44,19 @@ export const StyledContainer = styled.div`
   display: flex;
 `
 
+export const StyledQuestionWrapper = styled.div`
+  height: 88%;
+  width: 80%;
+  padding-left: 1.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  position: relative;
+  background: #f6f3ff;
+  border-radius: 20px;
+  display: flex;
+  margin: 0.5rem;
+`
+
 export const StyledWrapper = styled.div`
   display: flex;
 `
@@ -72,7 +85,7 @@ export const StyledOuterContainer = styled.div`
 export const StyledText = styled.text`
   ${h3};
   font-weight: 500;
-  line-height: 10px;
+  line-height: 20px;
 `
 
 export const StyledTextWrapper = styled.div`

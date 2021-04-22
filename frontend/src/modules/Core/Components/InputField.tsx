@@ -91,7 +91,9 @@ export const InputField = ({
         />
       ) : (
         <StyledErrorTextField
+          error
           key={key}
+          helperText={error}
           className={classes.container}
           inputProps={{ className: classes.input }}
           placeholder={placeholder}

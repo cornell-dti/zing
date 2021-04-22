@@ -107,7 +107,6 @@ export const Step0 = ({
           <StyledWelcomeText>Welcome to Zing!</StyledWelcomeText>
         </StyledTitleWrapper>
         <StyledFields>
-          {/* <StyledErrorWrapper> */}
           <StyledNameField
             key={'name'}
             MuiColor={nameColor}
@@ -130,10 +129,6 @@ export const Step0 = ({
             }
             error={hasError && email === '' ? 'Please enter your email' : ''}
           />
-          {/* {error === errorEnum.EMAIL || error === errorEnum.BOTH ? (
-            <StyledErrorIcon />
-          ) : null} */}
-          {/* </StyledErrorWrapper> */}
         </StyledFields>
         <GetConnectedButton onClick={handleNext} />
       </StyledRightPanel>
