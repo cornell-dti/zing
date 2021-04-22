@@ -20,6 +20,16 @@ export const StyledContainer = styled.div`
     10px 10px 150px rgba(0, 0, 0, 0.1);
 `
 
+export const StyledCenter = styled.div`
+  height: 100%;
+  margin: 0 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+`
+
 export const StyledHeader = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,6 +50,6 @@ export const StyledWelcomeText = styled.text`
 export const StyledFields = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
-  width: 400px;
 `
