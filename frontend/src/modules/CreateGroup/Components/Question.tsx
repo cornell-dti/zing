@@ -9,6 +9,7 @@ import {
 
 export const Question = ({
   fullWidth,
+  error = '',
   question,
   setAnswer,
   value,
@@ -24,7 +25,8 @@ export const Question = ({
       <StyledQuestionContainer>
         <StyledText>{question}</StyledText>
         <NumberField
-          containerStyle={{ width: '15%' }}
+          error={error}
+          containerStyle={{ width: error !== '' ? '45%' : '15%' }}
           inputStyle={textInputStyle}
           placeholder={'0'}
           value={value}
@@ -39,6 +41,7 @@ export const Question = ({
       <StyledQuestionContainer>
         <StyledText>{question}</StyledText>
         <NameField
+          error={error}
           fullWidth={fullWidth}
           inputStyle={textInputStyle}
           placeholder={placeholder}

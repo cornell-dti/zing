@@ -11,9 +11,12 @@ export const NumberField = ({
   value,
   onChange,
   disabled,
+  error = '',
 }: InputProps) => {
+  // console.log('we are also here ' + error)
   return (
     <InputField
+      error={error}
       fullWidth={fullWidth}
       containerStyle={containerStyle}
       inputStyle={inputStyle}

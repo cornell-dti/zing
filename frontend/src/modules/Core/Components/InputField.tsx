@@ -55,7 +55,6 @@ export const InputField = ({
     container: Object.assign({}, defaultContainerStyle, containerStyle),
     input: Object.assign({}, defaultInputStyle, inputStyle),
   })()
-  console.log(MuiColor)
 
   /** Error icon that is attached as a endAndornment to the textfield when error
    * occurs */
@@ -76,7 +75,7 @@ export const InputField = ({
 
   return (
     <ThemeProvider theme={inputFieldTheme}>
-      {MuiColor !== colors.red ? (
+      {error === '' ? (
         <StyledTextField
           fullWidth={fullWidth}
           key={key}
@@ -92,6 +91,7 @@ export const InputField = ({
       ) : (
         <StyledErrorTextField
           error
+          fullWidth={fullWidth}
           key={key}
           helperText={error}
           className={classes.container}

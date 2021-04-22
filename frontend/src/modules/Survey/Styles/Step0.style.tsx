@@ -112,10 +112,10 @@ export const StyledErrorText = styled.text`
 
 export const StyledNameField = styled(NameField)`
   display: flex;
-  flex: 1;
 `
+
+export const StyledTextFieldWrapper = styled.div``
 
 export const StyledEmailField = styled(EmailField)`
   display: flex;
-  flex: 1;
 `

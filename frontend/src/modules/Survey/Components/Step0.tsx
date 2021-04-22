@@ -17,6 +17,7 @@ import {
   StyledErrorText,
   StyledNameField,
   StyledEmailField,
+  StyledTextFieldWrapper,
 } from 'Survey/Styles/Step0.style'
 import { GetConnectedButton } from 'Survey/Components/UIElements/GetConnectedButton'
 import { Step0Props } from 'Survey/Types'
@@ -30,10 +31,10 @@ export const Step0 = ({
 }: Step0Props) => {
   /** Enums for the 4 types of validation errors that can occur on step 0 **/
   const errorEnum = {
-    NONE: 0,
-    NAME: 1,
-    EMAIL: 2,
-    BOTH: 3,
+    NONE: '',
+    NAME: 'Please enter your name',
+    EMAIL: 'Please enter your email',
+    BOTH: 'Please enter your name and email',
   }
   /** the current error encountered */
   const [error, setError] = useState(errorEnum.NONE)
@@ -61,37 +62,36 @@ export const Step0 = ({
         : colors.darkpurple,
   }
 
+  function calculatePadding(nameOrEmail: string): string {
+    if (error === errorEnum.BOTH || error === nameOrEmail) {
+      return '0'
+    } else {
+      return '1.4'
+    }
+  }
+
   function handleNext() {
-    if (name === '' || email === '') setHasError(true)
-    // may want to change this to first + last name validation later
     // TODO: change this to some regex magic @Shi Chong
     if (name === '' && email === '') {
       console.log('setting both red')
       setError(errorEnum.BOTH)
-      setNameColor(colors.red)
-      setEmailColor(colors.red)
       return
     }
     if (name === '') {
       console.log('setting name red')
       setError(errorEnum.NAME)
-      setNameColor(colors.red)
-      setEmailColor(colors.darkpurple)
       return
     }
     // TODO: change this to some regex magic @Shi Chong
     if (email === '') {
       console.log('setting email red')
       setError(errorEnum.EMAIL)
-      setEmailColor(colors.red)
-      setNameColor(colors.darkpurple)
       return
     }
     setError(errorEnum.NONE)
     gotoNextStep()
   }
 
-  const [hasError, setHasError] = useState(false)
   return (
     <StyledContainer>
       <StyledLeftPanel>
@@ -107,28 +107,49 @@ export const Step0 = ({
           <StyledWelcomeText>Welcome to Zing!</StyledWelcomeText>
         </StyledTitleWrapper>
         <StyledFields>
-          <StyledNameField
-            key={'name'}
-            MuiColor={nameColor}
-            containerStyle={textContainerStyle}
-            inputStyle={nameTextInputStyle}
-            value={name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setName(e.target.value)
-            }
-            error={hasError && name === '' ? 'Please enter your name' : ''}
-          />
-          <StyledEmailField
-            key={'email'}
-            MuiColor={emailColor}
-            containerStyle={textContainerStyle}
-            inputStyle={emailTextInputStyle}
-            value={email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setEmail(e.target.value)
-            }
-            error={hasError && email === '' ? 'Please enter your email' : ''}
-          />
+          <StyledTextFieldWrapper
+            style={{
+              marginBottom: calculatePadding(errorEnum.NAME) + 'rem',
+            }}
+          >
+            <StyledNameField
+              key={'name'}
+              MuiColor={nameColor}
+              containerStyle={textContainerStyle}
+              inputStyle={nameTextInputStyle}
+              value={name}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setName(e.target.value)
+              }
+              // TODO: add extra thing in conditional so that when they type something that is valid, the error goes away
+              error={
+                error === errorEnum.NAME || error === errorEnum.BOTH
+                  ? error
+                  : ''
+              }
+            />
+          </StyledTextFieldWrapper>
+          <StyledTextFieldWrapper
+            style={{
+              marginBottom: calculatePadding(errorEnum.EMAIL) + 'rem',
+            }}
+          >
+            <StyledEmailField
+              key={'email'}
+              MuiColor={emailColor}
+              containerStyle={textContainerStyle}
+              inputStyle={emailTextInputStyle}
+              value={email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
+              error={
+                error === errorEnum.EMAIL || error === errorEnum.BOTH
+                  ? error
+                  : ''
+              }
+            />
+          </StyledTextFieldWrapper>
         </StyledFields>
         <GetConnectedButton onClick={handleNext} />
       </StyledRightPanel>

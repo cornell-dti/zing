@@ -5,6 +5,7 @@ import { InputField } from '@core/Components/InputField'
 import { InputProps } from '@core/Types/FormFieldProps'
 
 export const YearField = ({
+  error = '',
   MuiColor = colors.darkpurple,
   fullWidth = true,
   containerStyle,
@@ -16,6 +17,7 @@ export const YearField = ({
 }: InputProps) => {
   return (
     <InputField
+      error={error}
       MuiColor={MuiColor}
       fullWidth={fullWidth}
       containerStyle={containerStyle}

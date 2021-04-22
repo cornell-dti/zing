@@ -16,7 +16,7 @@ export const NameField = ({
   disabled,
   error,
 }: InputProps) => {
-  console.log('name field key: ' + key)
+  // console.log('we here boys ' + error)
   return (
     <InputField
       fullWidth={fullWidth}
