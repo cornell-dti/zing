@@ -56,7 +56,7 @@ export const InputField = ({
     input: Object.assign({}, defaultInputStyle, inputStyle),
   })()
 
-  const [localValue, setLocalValue] = useState('')
+  const [localValue, setLocalValue] = useState(value)
   /** Error icon that is attached as a endAndornment to the textfield when error
    * occurs */
   const icon = <ErrorIconOutline style={{ fill: colors.red }} />
