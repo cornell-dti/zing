@@ -24,6 +24,11 @@ export const NumberField = ({
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
+      onKeyPress={(event: any) => {
+        if (!/[0-9]/.test(event.key)) {
+          event.preventDefault()
+        }
+      }}
       type="number"
     />
   )

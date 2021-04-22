@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { TextField, ThemeProvider, createMuiTheme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import styled from 'styled-components'
@@ -56,6 +56,7 @@ export const InputField = ({
     input: Object.assign({}, defaultInputStyle, inputStyle),
   })()
 
+  const [localValue, setLocalValue] = useState('')
   /** Error icon that is attached as a endAndornment to the textfield when error
    * occurs */
   const icon = <ErrorIconOutline style={{ fill: colors.red }} />
@@ -84,8 +85,11 @@ export const InputField = ({
           placeholder={placeholder}
           type={type}
           disabled={disabled}
-          value={value}
-          onChange={onChange}
+          value={localValue}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setLocalValue(e.target.value)
+          }
+          onBlur={onChange}
           {...inputProps}
         />
       ) : (
@@ -99,8 +103,11 @@ export const InputField = ({
           placeholder={placeholder}
           type={type}
           disabled={disabled}
-          value={value}
-          onChange={onChange}
+          value={localValue}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setLocalValue(e.target.value)
+          }
+          onBlur={onChange}
           InputProps={{
             endAdornment: icon,
           }}

@@ -13,7 +13,7 @@ import {
   StyledQuestionsWrapper,
 } from '../Styles/FormStyle.style'
 import { SubmitButton } from '../Components/SubmitButton'
-import { group } from 'node:console'
+import { colors } from '@core'
 
 export const CreateGroupForm = () => {
   const [groupName, setGroupName] = useState('')
@@ -26,6 +26,20 @@ export const CreateGroupForm = () => {
   const q1 = 'Name your group:'
   const q2 = 'Total number of people:'
   const q3 = 'People per group:'
+  const q1TextStyle = {
+    fontWeight: '500',
+    color: q1Error !== '' ? colors.red : colors.darkpurple,
+  }
+
+  const q2TextStyle = {
+    fontWeight: '500',
+    color: q2Error !== '' ? colors.red : colors.darkpurple,
+  }
+
+  const q3TextStyle = {
+    fontWeight: '500',
+    color: q3Error !== '' ? colors.red : colors.darkpurple,
+  }
   function handleSubmit() {
     /* need to store errors locally since useStates get updated too slow 
     (after function finishes) */
@@ -95,6 +109,7 @@ export const CreateGroupForm = () => {
                 setAnswer={(arg: string) => setGroupName(arg)}
                 placeholder={placeholder}
                 isNumber={false}
+                inputStyle={q1TextStyle}
               />
             </StyledQuestionWrapper>
             <StyledQuestionWrapper
@@ -108,6 +123,7 @@ export const CreateGroupForm = () => {
                 setAnswer={(arg: string) => setTotalPeople(arg)}
                 placeholder={placeholder}
                 isNumber={true}
+                inputStyle={q2TextStyle}
               />
             </StyledQuestionWrapper>
             <StyledQuestionWrapper
@@ -121,6 +137,7 @@ export const CreateGroupForm = () => {
                 setAnswer={(arg: string) => setStudentsPerGroup(arg)}
                 placeholder={placeholder}
                 isNumber={true}
+                inputStyle={q3TextStyle}
               />
             </StyledQuestionWrapper>
             <SubmitButton onClick={handleSubmit} />

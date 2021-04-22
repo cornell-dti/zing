@@ -15,11 +15,8 @@ export const Question = ({
   value,
   placeholder,
   isNumber,
+  inputStyle,
 }: QuestionProps) => {
-  const textInputStyle = {
-    fontWeight: '500',
-    color: colors.darkpurple,
-  }
   if (isNumber)
     return (
       <StyledQuestionContainer>
@@ -27,7 +24,7 @@ export const Question = ({
         <NumberField
           error={error}
           containerStyle={{ width: error !== '' ? '45%' : '15%' }}
-          inputStyle={textInputStyle}
+          inputStyle={inputStyle}
           placeholder={'0'}
           value={value}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -43,7 +40,7 @@ export const Question = ({
         <NameField
           error={error}
           fullWidth={fullWidth}
-          inputStyle={textInputStyle}
+          inputStyle={inputStyle}
           placeholder={placeholder}
           value={value}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

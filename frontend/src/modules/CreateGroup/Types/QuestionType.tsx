@@ -8,4 +8,5 @@ export type QuestionProps = {
   isNumber: boolean // true if the question is asking for a numerical answer
   placeholder: string // placeholder
   value: string //state value
+  inputStyle: { [key in string]: any } // style for text
 }
