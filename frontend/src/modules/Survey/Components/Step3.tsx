@@ -51,7 +51,7 @@ export const Step3 = ({ showError, setAnswer, currentAnswer }: StepProps) => {
         <StyledYearFieldWrapper>
           <StyledYearField
             error={showError ? ' ' : ''}
-            MuiColor={showError ? colors.red : colors.darkpurple}
+            MuiColor={colors.darkpurple}
             fullWidth={true}
             key={'name'}
             containerStyle={textContainerStyle}
