@@ -40,12 +40,14 @@ export const Login = () => {
               inputStyle={textInputStyle}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              error={''} // Update these with actual errors if login is wrong
             />
             <PasswordField
               containerStyle={textContainerStyle}
               inputStyle={textInputStyle}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              error={''} // Update these with actual errors if login is wrong
             />
           </StyledFields>
           <LoginButton onClick={() => {}} />

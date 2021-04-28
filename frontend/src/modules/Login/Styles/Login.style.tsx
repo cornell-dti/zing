@@ -38,13 +38,13 @@ export const StyledHeader = styled.div`
 
 export const StyledHeaderText = styled.text`
   ${h1};
-  color: ${colors.darkpurple};
+  color: ${colors.black};
 `
 
 export const StyledWelcomeText = styled.text`
   ${h2};
   font-weight: 300;
-  color: ${colors.darkpurple};
+  color: ${colors.black};
 `
 
 export const StyledFields = styled.div`
