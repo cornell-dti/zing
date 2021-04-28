@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from 'react'
+import React, { useEffect, useState, FunctionComponent } from 'react'
 import { NameField, NumberField, colors } from '@core'
 import styled, { css } from 'styled-components'
 import { QuestionProps } from '../Types/QuestionType'
@@ -17,6 +17,16 @@ export const Question = ({
   isNumber,
   inputStyle,
 }: QuestionProps) => {
+  // useEffect( () =>
+  //   if ()
+  // )
+  function onChangeNumber(e: React.ChangeEvent<HTMLInputElement>) {
+    if (Number(e.target.value) < 0) {
+      setAnswer('0')
+    } else {
+      setAnswer(e.target.value)
+    }
+  }
   if (isNumber)
     return (
       <StyledQuestionContainer>
@@ -27,9 +37,7 @@ export const Question = ({
           inputStyle={inputStyle}
           placeholder={'0'}
           value={value}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setAnswer(e.target.value)
-          }
+          onChange={onChangeNumber}
         />
       </StyledQuestionContainer>
     )
