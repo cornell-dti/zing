@@ -8,5 +8,6 @@ module.exports = override(
     ['@core']: path.resolve(__dirname, './src/modules/Core'),
     ['Home']: path.resolve(__dirname, './src/modules/Home'),
     ['Survey']: path.resolve(__dirname, './src/modules/Survey'),
+    ['CreateGroup']: path.resolve(__dirname, './src/modules/CreateGroup'),
   })
 )
