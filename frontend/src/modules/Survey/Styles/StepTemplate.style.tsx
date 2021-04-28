@@ -40,7 +40,7 @@ export const StyledFullPanelNoPadding = styled.div`
 `
 
 export const StyledContainer = styled.div`
-  height: 86%;
+  height: 86.5%;
   width: 80%;
   background-color: ${colors.white};
   box-shadow: -10px -10px 150px rgba(0, 0, 0, 0.1),
@@ -53,7 +53,7 @@ export const StyledWrapper = styled.div`
   display: flex;
 `
 export const StyledHeaderWrapper = styled.div`
-  height: 7%;
+  height: 6%;
   display: flex;
   flex-direction: column;
 `

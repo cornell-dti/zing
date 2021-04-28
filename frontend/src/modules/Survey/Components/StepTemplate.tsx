@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent } from 'react'
 import { StepTemplateProps } from 'Survey/Types'
 import {
   StyledContainer,
@@ -30,15 +30,16 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
 }) => {
   const youngestYear = getYoungestGradYear()
   const oldestYear = getOldestGradYear()
-  const [isShowingError, setisShowingError] = useState(false)
+
+  const handlePrev = () => {
+    setShowError(false)
+    gotoPrevStep()
+  }
 
   // form validation
-  function handleNext() {
+  const handleNext = () => {
     if (currentAnswer === '') {
-      if (!isShowingError) {
-        setShowError()
-        setisShowingError(true)
-      }
+      setShowError(true)
       return
     }
     if (stepNumber === 3) {
@@ -48,26 +49,12 @@ export const StepTemplate: FunctionComponent<StepTemplateProps> = ({
         inputtedYear - oldestYear <= -1 || // oldest year bound
         String(inputtedYear) !== currentAnswer // check for alphabetical letters
       ) {
-        if (!isShowingError) {
-          setShowError()
-          setisShowingError(true)
-        }
+        setShowError(true)
         return
       }
     }
-    if (isShowingError) {
-      setShowError()
-      setisShowingError(false)
-    }
+    setShowError(false)
     gotoNextStep()
-  }
-
-  function handlePrev() {
-    if (isShowingError) {
-      setShowError()
-      setisShowingError(false)
-    }
-    gotoPrevStep()
   }
 
   return (
