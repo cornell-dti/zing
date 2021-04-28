@@ -1,16 +1,14 @@
 import React from 'react'
-import { colors, h2, body } from '@core'
-import { YearField } from '@core'
+import { colors, h2 } from '@core'
 import {
   StyledContainer,
   StyledText,
-  StyledCalendarWrapper,
-  StyledTextField,
+  StyledYearField,
   StyledErrorWrapper,
-  StyledErrorIcon,
   StyledErrorText,
+  StyledEverythingWrapper,
+  StyledYearFieldWrapper,
 } from 'Survey/Styles/Step3.style'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { StepProps } from 'Survey/Types/StepProps'
 import {
   getYoungestGradYear,
@@ -18,59 +16,53 @@ import {
 } from 'Survey/Components/FuncsAndConsts/SurveyFunctions'
 
 export const Step3 = ({ showError, setAnswer, currentAnswer }: StepProps) => {
+  /** styling container for text in yearfield */
   const textContainerStyle = {
     margin: '0.75rem 0',
+  }
+
+  /** styling object for text in yearfield */
+  const textInputStyle = {
+    font: h2,
+    fontWeight: 800,
+    color: showError ? colors.red : colors.darkpurple,
+    textAlign: 'center',
     root: {
-      background: 'white',
+      background: colors.white,
       borderRadius: 3,
       border: 0,
       height: 48,
       padding: '0 30px',
-      '& .MuiInput-underline:before': {
-        borderBottomColor: colors.lightviolet, // Semi-transparent underline
-      },
-      '& .MuiInput-underline:hover:before': {
-        borderBottomColor: colors.lightviolet, // Solid underline on hover
-      },
-      '& .MuiInput-underline:after': {
-        borderBottomColor: colors.lightviolet, // Solid underline on focus
-      },
-      '& .MuiInputBase-root': {
-        color: colors.lightviolet,
-      },
-      '& .MuiInputBase-root:focus': {
-        color: colors.lightviolet,
-      },
     },
-  }
-
-  const textInputStyle = {
-    fontWeight: '800',
-    color: '#E5CEFA',
   }
 
   return (
     <StyledContainer>
       <StyledText>When are you graduating?</StyledText>
-      <StyledCalendarWrapper>
+      <StyledEverythingWrapper>
         {showError ? (
           <StyledErrorWrapper>
-            <StyledErrorIcon />
             <StyledErrorText>
               Please enter a year between {String(getOldestGradYear())} and
               {' ' + String(getYoungestGradYear())}
             </StyledErrorText>
           </StyledErrorWrapper>
         ) : null}
-        <StyledTextField
-          containerStyle={textContainerStyle}
-          inputStyle={textInputStyle}
-          value={currentAnswer}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setAnswer(e.target.value)
-          }
-        />
-      </StyledCalendarWrapper>
+        <StyledYearFieldWrapper>
+          <StyledYearField
+            error={showError ? ' ' : ''}
+            MuiColor={colors.darkpurple}
+            fullWidth={true}
+            key={'name'}
+            containerStyle={textContainerStyle}
+            inputStyle={textInputStyle}
+            value={currentAnswer}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setAnswer(e.target.value)
+            }
+          />
+        </StyledYearFieldWrapper>
+      </StyledEverythingWrapper>
     </StyledContainer>
   )
 }

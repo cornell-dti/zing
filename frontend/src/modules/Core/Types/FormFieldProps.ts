@@ -5,9 +5,14 @@ interface Common {
 }
 
 export interface InputProps extends Common {
+  fullWidth?: boolean // should the inputfield take up the full container?
+  endAdornment?: JSX.Element // icon that may appears at the end of the field
+  key?: string // for id of component
+  MuiColor?: string // for editing underline and stuff for MUI component
   inputStyle?: { [key in string]: any }
   type?: string
   placeholder?: string
+  error: string
   value: string
   onChange: (e: React.ChangeEvent<any>) => void
 }

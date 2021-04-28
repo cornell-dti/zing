@@ -1,5 +1,5 @@
 import { css } from 'styled-components'
-
+import Montserrat from '@assets/fonts/Montserrat-Regular.ttf'
 import { device } from '@core/Constants/Media'
 
 export const body = css`
@@ -59,3 +59,17 @@ export const h4 = css`
     line-height: 1.67rem;
   } ;
 `
+
+/**
+ * Object formatted so MuiTheme can use it to populate component w/ montserrat
+ */
+export const montesseratFont: any = {
+  fontFamily: 'Montserrat',
+  fontStyle: 'normal',
+  fontDisplay: 'swap',
+  fontWeight: 500,
+  src: `
+    local('Montserrat-Regular'),
+    url(${Montserrat}) format('ttf')
+  `,
+}
