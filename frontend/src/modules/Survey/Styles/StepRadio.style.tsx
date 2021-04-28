@@ -22,16 +22,12 @@ export const StyledRadioButtonsWrapper = styled.div`
 
 export const StyledRadioButtons = styled(RadioButtons)``
 
-export const StyledTitleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-export const StyledWelcomeText = styled.text`
+export const StyledQuestionText = styled.div`
   ${h2};
   font-weight: 500;
   line-height: 10px;
+  text-align: center;
+  margin-bottom: 0.25rem;
 `
 
 export const StyledErrorIcon = styled(ErrorIcon)``
@@ -40,7 +36,7 @@ export const StyledErrorWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-content: center;
-  padding-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 `
 
 export const StyledErrorText = styled.text`

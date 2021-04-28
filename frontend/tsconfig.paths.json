@@ -7,6 +7,8 @@
       "@core/*": ["src/modules/Core/*"],
       "Home": ["src/modules/Home/"],
       "Home/*": ["src/modules/Home/*"],
+      "CreateGroup": ["src/modules/CreateGroup/"],
+      "CreateGroup/*": ["src/modules/CreateGroup/*"],
       "Survey": ["src/modules/Survey/"],
       "Survey/*": ["src/modules/Survey/*"]
     }

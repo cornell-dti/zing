@@ -1,34 +1,35 @@
 import React from 'react'
 
-import { colors } from '@core'
 import { InputField } from '@core/Components/InputField'
 import { InputProps } from '@core/Types/FormFieldProps'
 
-export const NameField = ({
+export const NumberField = ({
   fullWidth = true,
-  key,
-  MuiColor = colors.darkpurple,
   containerStyle,
   inputStyle,
-  placeholder = 'Name',
+  placeholder = '0',
   value,
   onChange,
   disabled,
-  error,
+  error = '',
 }: InputProps) => {
-  // console.log('we here boys ' + error)
+  // console.log('we are also here ' + error)
   return (
     <InputField
+      error={error}
       fullWidth={fullWidth}
-      key={key}
-      MuiColor={MuiColor}
       containerStyle={containerStyle}
       inputStyle={inputStyle}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
-      error={error}
+      onKeyPress={(event: any) => {
+        if (!/[0-9]/.test(event.key)) {
+          event.preventDefault()
+        }
+      }}
+      type="number"
     />
   )
 }

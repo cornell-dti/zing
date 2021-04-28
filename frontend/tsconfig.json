@@ -17,5 +17,5 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "config-overrides.js"]
+  "include": ["src", "config-overrides.js", "fonts.d.ts"]
 }

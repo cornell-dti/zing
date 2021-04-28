@@ -1,11 +1,19 @@
 import styled, { css } from 'styled-components'
 
-import { colors, h1, h2, h3, StyledComponent } from '@core'
+import { NameField, EmailField } from '@core'
+import { colors, h1, h2, h3, h4, StyledComponent } from '@core'
 
 import logo from '@assets/img/whitelogo.svg'
 import teamPic from '@assets/img/teamwork.svg'
+import errorIcon from '@assets/img/erroricon.svg'
 
 export { StyledContainer } from 'Survey/Styles/StepTemplate.style'
+
+const ErrorIcon = ({ className }: StyledComponent) => (
+  <div className={className}>
+    <img src={errorIcon} alt="errorIcon" />
+  </div>
+)
 
 const Logo = ({ className }: StyledComponent) => (
   <div className={className}>
@@ -76,11 +84,38 @@ export const StyledTitleWrapper = styled.div`
 
 export const StyledHeaderText = styled.text`
   ${h1};
-  color: ${colors.darkpurple};
+  color: ${colors.black};
 `
 
 export const StyledWelcomeText = styled.text`
   ${h2};
   font-weight: 400;
-  color: ${colors.darkpurple};
+  color: ${colors.black};
+`
+
+export const StyledErrorIcon = styled(ErrorIcon)`
+  padding-top: 1rem;
+`
+
+export const StyledErrorWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+export const StyledErrorText = styled.text`
+  ${h4};
+  color: ${colors.red};
+  padding-left: 0.5rem;
+  font-weight: 500;
+  position: relative;
+`
+
+export const StyledNameField = styled(NameField)`
+  display: flex;
+`
+
+export const StyledTextFieldWrapper = styled.div``
+
+export const StyledEmailField = styled(EmailField)`
+  display: flex;
 `
