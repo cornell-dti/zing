@@ -3,10 +3,15 @@ export interface StepTemplateProps {
   gotoNextStep: () => void
   stepNumber: number
   totalSteps: number
+  currentAnswer: string
+  setShowError: () => void
 }
 
 export interface StepProps {
-  question?: string // for radio button screen
   questionList?: string[] // for radio button screen
   setAnswer: (arg: string) => void
+  key?: string
+  currentAnswer: string
+  showError: boolean
+  setShowError: () => void
 }
