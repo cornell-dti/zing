@@ -11,6 +11,8 @@
       "CreateGroup/*": ["src/modules/CreateGroup/*"],
       "Login": ["src/modules/Login/"],
       "Login/*": ["src/modules/Login/*"],
+      "Signup": ["src/modules/Signup/"],
+      "Signup/*": ["src/modules/Signup/*"],
       "Survey": ["src/modules/Survey/"],
       "Survey/*": ["src/modules/Survey/*"]
     }
