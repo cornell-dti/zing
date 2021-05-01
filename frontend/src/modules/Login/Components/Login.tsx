@@ -9,9 +9,13 @@ import {
   StyledWelcomeText,
   StyledFields,
 } from 'Login/Styles/Login.style'
-import { EmailField, PasswordField } from '@core/Components'
+import {
+  EmailField,
+  PasswordField,
+  PrimaryGradientButton,
+} from '@core/Components'
 import { colors } from '@core/Constants'
-import { LoginButton } from 'Login/Components/UIElements/LoginButton'
+// import { LoginButton } from 'Login/Components/UIElements/LoginButton'
 
 export const Login = () => {
   // Email and password props
@@ -23,6 +27,7 @@ export const Login = () => {
   }
 
   const textInputStyle = {
+    fontWeight: '600',
     color: colors.darkpurple,
   }
 
@@ -50,7 +55,12 @@ export const Login = () => {
               error={''} // Update these with actual errors if login is wrong
             />
           </StyledFields>
-          <LoginButton onClick={() => {}} />
+          <PrimaryGradientButton
+            label="Log In"
+            onClick={() => {
+              /* TODO do something to login */
+            }}
+          />
         </StyledCenter>
       </StyledContainer>
     </StyledBackground>
