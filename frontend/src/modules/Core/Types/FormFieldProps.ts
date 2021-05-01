@@ -1,3 +1,5 @@
+import React from 'react'
+
 interface Common {
   containerStyle?: { [key in string]: any }
   disabled?: boolean
@@ -67,4 +69,13 @@ export interface RadioButtonsProps extends Common {
   onClick: (e: React.ChangeEvent<HTMLInputElement>) => void // to set state of user information in index.tsx
   onClickLabel?: (s: string) => void // to set state when label is clicked
   key: string
+}
+
+export interface CheckboxProps extends Common {
+  checked: boolean
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  key?: string
+  label: string
+  labelPlacement?: 'bottom' | 'end' | 'start' | 'top'
+  labelStyle?: { [key in string]: any }
 }
