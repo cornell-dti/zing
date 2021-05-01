@@ -1,3 +1,4 @@
+export * from '@core/Components/Buttons'
 export * from '@core/Components/InputFields'
 export { Button } from '@core/Components/Button'
 export { InputField } from '@core/Components/InputField'
