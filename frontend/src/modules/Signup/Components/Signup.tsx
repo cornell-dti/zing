@@ -8,7 +8,7 @@ import {
   StyledHeaderText,
   StyledWelcomeText,
   StyledFields,
-} from 'Login/Styles/Login.style'
+} from 'Signup/Styles/Signup.style'
 import {
   EmailField,
   PasswordField,
@@ -16,7 +16,7 @@ import {
 } from '@core/Components'
 import { colors } from '@core/Constants'
 
-export const Login = () => {
+export const Signup = () => {
   // Email and password props
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -35,8 +35,8 @@ export const Login = () => {
       <StyledContainer>
         <StyledCenter>
           <StyledHeader>
-            <StyledHeaderText>Log in</StyledHeaderText>
-            <StyledWelcomeText>Welcome back!</StyledWelcomeText>
+            <StyledHeaderText>Sign up</StyledHeaderText>
+            <StyledWelcomeText>Welcome to Zing!</StyledWelcomeText>
           </StyledHeader>
           <StyledFields>
             <EmailField
@@ -55,9 +55,9 @@ export const Login = () => {
             />
           </StyledFields>
           <PrimaryGradientButton
-            label="Log In"
+            label="Sign Up"
             onClick={() => {
-              /* TODO do something to login */
+              /* TODO do something to sign up */
             }}
           />
         </StyledCenter>
