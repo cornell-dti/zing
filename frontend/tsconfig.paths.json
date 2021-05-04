@@ -10,7 +10,9 @@
       "CreateGroup": ["src/modules/CreateGroup/"],
       "CreateGroup/*": ["src/modules/CreateGroup/*"],
       "Survey": ["src/modules/Survey/"],
-      "Survey/*": ["src/modules/Survey/*"]
+      "Survey/*": ["src/modules/Survey/*"],
+      "Dashboard": ["src/modules/Dashboard/"],
+      "Dashboard/*": ["src/modules/Dashboard/*"]
     }
   }
 }

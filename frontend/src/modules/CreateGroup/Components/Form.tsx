@@ -102,7 +102,7 @@ export const CreateGroupForm = () => {
               style={{ paddingBottom: q1Error === '' ? '1.4rem' : '0rem' }}
             >
               <StyledQuestion
-                error={q1Error === '' ? '' : q1Error}
+                error={q1Error}
                 fullWidth={true}
                 question={q1}
                 value={groupName}
@@ -117,7 +117,7 @@ export const CreateGroupForm = () => {
             >
               <StyledQuestion
                 fullWidth={true}
-                error={q2Error === '' ? '' : q2Error}
+                error={q2Error}
                 question={q2}
                 value={totalPeople}
                 setAnswer={(arg: string) => setTotalPeople(arg)}
@@ -131,7 +131,7 @@ export const CreateGroupForm = () => {
             >
               <StyledQuestion
                 fullWidth={true}
-                error={q3Error === '' ? '' : q3Error}
+                error={q3Error}
                 question={q3}
                 value={studentsPerGroup}
                 setAnswer={(arg: string) => setStudentsPerGroup(arg)}
