@@ -7,6 +7,7 @@ module.exports = override(
     ['@assets']: path.resolve(__dirname, './src/assets'),
     ['@core']: path.resolve(__dirname, './src/modules/Core'),
     ['Home']: path.resolve(__dirname, './src/modules/Home'),
+    ['EditZing']: path.resolve(__dirname, './src/modules/EditZing'),
     ['Survey']: path.resolve(__dirname, './src/modules/Survey'),
     ['CreateGroup']: path.resolve(__dirname, './src/modules/CreateGroup'),
   })
