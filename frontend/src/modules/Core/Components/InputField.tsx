@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { TextField, ThemeProvider, createMuiTheme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import styled from 'styled-components'
-import { colors, montesseratFont } from '@core'
+import { colors, montserratFont } from '@core'
 import { InputProps } from '@core/Types/FormFieldProps'
 import {
   defaultContainerStyle,
@@ -68,7 +68,7 @@ export const InputField = ({
     overrides: {
       MuiCssBaseline: {
         '@global': {
-          '@font-face': [montesseratFont],
+          '@font-face': [montserratFont],
         },
       },
     },
