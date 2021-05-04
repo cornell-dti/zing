@@ -49,6 +49,7 @@ export const InputField = ({
   disabled = false,
   value,
   onChange,
+  isNumber = false,
   ...inputProps
 }: InputProps) => {
   const classes = makeStyles({
@@ -78,6 +79,12 @@ export const InputField = ({
     <ThemeProvider theme={inputFieldTheme}>
       {error === '' ? (
         <StyledTextField
+          onClick={() =>
+            // if number input, make sure its > 0
+            isNumber && Number(localValue) < 0
+              ? setLocalValue('0')
+              : setLocalValue(localValue)
+          }
           fullWidth={fullWidth}
           key={key}
           className={classes.container}
@@ -95,6 +102,12 @@ export const InputField = ({
       ) : (
         <StyledErrorTextField
           error
+          onClick={() =>
+            // if number input, make sure its > 0
+            isNumber && Number(localValue) < 0
+              ? setLocalValue('0')
+              : setLocalValue(localValue)
+          }
           fullWidth={fullWidth}
           key={key}
           helperText={error}
@@ -107,6 +120,7 @@ export const InputField = ({
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setLocalValue(e.target.value)
           }
+          // onChange is really actually an onBlur for optimization
           onBlur={onChange}
           InputProps={{
             endAdornment: icon,

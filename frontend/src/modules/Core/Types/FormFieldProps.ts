@@ -15,6 +15,7 @@ export interface InputProps extends Common {
   error: string
   value: string
   onChange: (e: React.ChangeEvent<any>) => void
+  isNumber?: boolean // is this textinput type taking in only numbers?
 }
 
 export interface ButtonProps extends Common {

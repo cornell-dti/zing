@@ -17,6 +17,7 @@ export const YearField = ({
 }: InputProps) => {
   return (
     <InputField
+      isNumber={true}
       error={error}
       MuiColor={MuiColor}
       fullWidth={fullWidth}
