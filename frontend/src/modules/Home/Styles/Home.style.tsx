@@ -79,6 +79,7 @@ export const StyledRightPanel = styled.div`
   ${halfPanel};
   box-sizing: border-box;
   padding: 0 6rem;
+  gap: 6rem;
 `
 
 export const StyledTitleWrapper = styled.div`
@@ -95,4 +96,10 @@ export const StyledWelcomeText = styled.text`
   ${h2};
   font-weight: 400;
   color: ${colors.black};
+`
+
+export const StyledButtonsWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 12rem;
 `
