@@ -5,13 +5,11 @@ import { GroupGrid } from 'EditZing/UIElements/GroupGrid'
 import { Student } from 'EditZing/Types/Student'
 
 export const Dashboard = () => {
-  const fakeStudentGroup1: Student[] = require('EditZing/fakeData.json')[0]
-  console.log(fakeStudentGroup1)
+  const fakeStudentGroup: Student[] = require('EditZing/fakeData.json')[0]
+  console.log(fakeStudentGroup)
   return (
     <StyledContainer>
-      <Grid spacing={3}>
-        <GroupGrid studentList={fakeStudentGroup1} />
-      </Grid>
+      <Grid spacing={3}>{<GroupGrid studentList={fakeStudentGroup} />}</Grid>
     </StyledContainer>
   )
 }
