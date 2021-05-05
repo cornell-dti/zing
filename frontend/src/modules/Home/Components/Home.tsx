@@ -1,7 +1,36 @@
 import React from 'react'
 
-import { StyledContainer } from 'Home/Styles/Home.style'
+import {
+  StyledBackground,
+  StyledContainer,
+  StyledHeaderText,
+  StyledLeftPanel,
+  StyledLogo,
+  StyledRightPanel,
+  StyledTeacherPic,
+  StyledTitleWrapper,
+  StyledWelcomeText,
+  StyledWhiteActionText,
+} from 'Home/Styles/Home.style'
 
 export const Home = () => {
-  return <StyledContainer />
+  return (
+    <StyledBackground>
+      <StyledContainer>
+        <StyledLeftPanel>
+          <StyledLogo />
+          <StyledWhiteActionText>
+            Create groups, connect students
+          </StyledWhiteActionText>
+          <StyledTeacherPic />
+        </StyledLeftPanel>
+        <StyledRightPanel>
+          <StyledTitleWrapper>
+            <StyledHeaderText>Hi,</StyledHeaderText>
+            <StyledWelcomeText>Welcome to Zing!</StyledWelcomeText>
+          </StyledTitleWrapper>
+        </StyledRightPanel>
+      </StyledContainer>
+    </StyledBackground>
+  )
 }
