@@ -1,7 +1,9 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 import {
   StyledBackground,
+  StyledButtonsWrapper,
   StyledContainer,
   StyledHeaderText,
   StyledLeftPanel,
@@ -12,8 +14,11 @@ import {
   StyledWelcomeText,
   StyledWhiteActionText,
 } from 'Home/Styles/Home.style'
+import { PrimaryGradientButton, WhiteButton } from '@core/Components'
 
 export const Home = () => {
+  const history = useHistory()
+
   return (
     <StyledBackground>
       <StyledContainer>
@@ -29,6 +34,20 @@ export const Home = () => {
             <StyledHeaderText>Hi,</StyledHeaderText>
             <StyledWelcomeText>Welcome to Zing!</StyledWelcomeText>
           </StyledTitleWrapper>
+          <StyledButtonsWrapper>
+            <WhiteButton
+              label="Log In"
+              onClick={() => {
+                history.push('/login')
+              }}
+            />
+            <PrimaryGradientButton
+              label="Sign Up"
+              onClick={() => {
+                history.push('/signup')
+              }}
+            />
+          </StyledButtonsWrapper>
         </StyledRightPanel>
       </StyledContainer>
     </StyledBackground>
