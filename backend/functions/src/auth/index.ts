@@ -38,60 +38,27 @@ export const signUp = functions.https.onRequest(
         .then(async (user) => {
           const userId = user.user?.uid;
           if (!userId) throw new Error("failed to retireve user id.");
-          try {
-            const userDoc: FirestoreUserDoc = {
-              email,
-              name,
-              course: [],
-            };
 
-            const userColRef = db.collection("userdata");
+          const userDoc: FirestoreUserDoc = {
+            email,
+            name,
+            course: [],
+          };
 
-            // prettier-ignore
-            let doc = await userColRef.doc(userId).get();
-            if (doc.exists)
-              return res.status(409).send("Specified email already exists!");
+          const userColRef = db.collection("userdata");
 
-            userColRef.doc(userId).create(userDoc);
+          // prettier-ignore
+          let doc = await userColRef.doc(userId).get();
+          if (doc.exists)
+            return res.status(409).send("Specified email already exists!");
 
-            res.status(200).send(`Successfully created a user for ${name}.`);
-          } catch (error) {
-            console.log(error);
-            res.status(500).send(error);
-          }
+          userColRef.doc(userId).create(userDoc);
+
+          res.status(200).send(`Successfully created a user for ${name}.`);
         })
         .catch((err) => {
-          console.log(err);
+          res.status(500).send(err);
         });
     }
   }
 );
-
-// const testsignup = async () => {
-//   // todo: confirm what information is being passed during account creation.
-//   const email = "anshgodha@hotmail.com";
-//   const password = "acvne8830vw";
-//   const name = "Ansh Godha";
-//   auth.createUserWithEmailAndPassword(email, password).then(async (user) => {
-//     const userId = user.user?.uid;
-//     if (!userId) throw new Error("failed to retireve user id.");
-//     try {
-//       const userDoc: FirestoreUserDoc = {
-//         email,
-//         name,
-//         course: [],
-//       };
-
-//       const userColRef = db.collection("userdata");
-
-//       // prettier-ignore
-//       let doc = await userColRef.doc(userId).get();
-//       if (doc.exists) return;
-//       userColRef.doc(userId).create(userDoc);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   });
-// };
-
-//testsignup();
