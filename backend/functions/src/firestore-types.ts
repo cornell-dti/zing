@@ -15,7 +15,7 @@ export type FirestoreSurveyDoc = {
 export type FirestoreCourseDoc = {
 	studentList: string[];
 	completed: string[];
-	creator: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>;
+	creator: string;
 };
 
 export type FirestoreUserDoc = {
@@ -26,4 +26,6 @@ export type FirestoreUserDoc = {
 
 export type FirestoreGroupConfigDoc = {
 	groupSize: string;
+	studentIdentifier: string;
+	rules: { attribute: string; name: string; values?: string }[];
 };

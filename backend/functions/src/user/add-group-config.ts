@@ -20,10 +20,19 @@ const createGroupConfig = async (
 	response: functions.Response<any>
 ) => {
 	try {
-		const { userEmail, configName, size, overflow } = request.body;
+		const {
+			userEmail,
+			configName,
+			size,
+			overflow,
+			studentIdentifier,
+			rules,
+		} = request.body;
 		const groupSize = size + (overflow ? "+" : "-");
 		const configDoc: FirestoreGroupConfigDoc = {
 			groupSize,
+			studentIdentifier,
+			rules,
 		};
 		const getUserRef = db
 			.collection("userdata")
@@ -38,7 +47,7 @@ const createGroupConfig = async (
 		getUserRef
 			.then((user) => {
 				if (user === null) throw new Error("Nonexistent email");
-				return user.collection("config").doc(configName).create(configDoc);
+				return user.collection("config").doc(configName).set(configDoc);
 			})
 			.then(() => {
 				response
@@ -47,7 +56,7 @@ const createGroupConfig = async (
 			})
 			.catch((error) => {
 				console.log(error);
-				response.status(409).send("Specified user email does not exist!");
+				response.status(404).send("Specified user email does not exist!");
 				return;
 			});
 	} catch (error) {
