@@ -25,6 +25,35 @@ export const Signup = () => {
   const [password, setPassword] = useState('')
   const [isProfessor, setIsProfessor] = useState(false)
 
+  /** Error messages */
+  enum SignupError {
+    NONE = '',
+    NAME = 'Please enter your name',
+    EMAIL = 'Please enter your email',
+    EMAIL_EXISTS = 'Email already exists!',
+    PASS = 'Please enter a password',
+  }
+  const [nameError, setNameError] = useState(SignupError.NONE)
+  const [emailError, setEmailError] = useState(SignupError.NONE)
+  const [passwordError, setPasswordError] = useState(SignupError.NONE)
+
+  const handleSetName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNameError(e.target.value === '' ? SignupError.NAME : SignupError.NONE)
+    setName(e.target.value)
+  }
+
+  const handleSetEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmailError(e.target.value === '' ? SignupError.EMAIL : SignupError.NONE)
+    setEmail(e.target.value)
+  }
+
+  const handleSetPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordError(
+      e.target.value === '' ? SignupError.PASS : SignupError.NONE
+    )
+    setPassword(e.target.value)
+  }
+
   const textContainerStyle = {
     width: '388px',
   }
@@ -32,6 +61,11 @@ export const Signup = () => {
   const textInputStyle = {
     fontWeight: '600',
     color: colors.darkpurple,
+  }
+
+  const textInputErrorStyle = {
+    fontWeight: '600',
+    color: colors.red,
   }
 
   const checkboxLabelStyle = {
@@ -50,24 +84,24 @@ export const Signup = () => {
           <StyledFields>
             <NameField
               containerStyle={textContainerStyle}
-              inputStyle={textInputStyle}
+              inputStyle={nameError ? textInputErrorStyle : textInputStyle}
               value={name}
-              onChange={(e) => setName(e.target.value)}
-              error={''} // TODO error check for signup
+              onChange={handleSetName}
+              error={nameError} // TODO error check for signup
             />
             <EmailField
               containerStyle={textContainerStyle}
-              inputStyle={textInputStyle}
+              inputStyle={emailError ? textInputErrorStyle : textInputStyle}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              error={''} // Update these with actual errors if login is wrong
+              onChange={handleSetEmail}
+              error={emailError} // Update these with actual errors if login is wrong
             />
             <PasswordField
               containerStyle={textContainerStyle}
-              inputStyle={textInputStyle}
+              inputStyle={passwordError ? textInputErrorStyle : textInputStyle}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              error={''} // Update these with actual errors if login is wrong
+              onChange={handleSetPassword}
+              error={passwordError} // Update these with actual errors if login is wrong
             />
             <Checkbox
               labelStyle={checkboxLabelStyle}
