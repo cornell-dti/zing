@@ -12,10 +12,10 @@ import {
   StyledQuestion,
   StyledQuestionsWrapper,
 } from '../Styles/FormStyle.style'
-import { SubmitButton } from '../Components/SubmitButton'
+import { SubmitButton } from './SubmitButton'
 import { colors } from '@core'
 
-export const CreateGroupForm = () => {
+export const CreateZingForm = () => {
   const [groupName, setGroupName] = useState('')
   const [totalPeople, setTotalPeople] = useState('')
   const [studentsPerGroup, setStudentsPerGroup] = useState('')
@@ -23,9 +23,9 @@ export const CreateGroupForm = () => {
   const [q2Error, setQ2Error] = useState('')
   const [q3Error, setQ3Error] = useState('')
   const placeholder = 'Type your answer here...'
-  const q1 = 'Name your group:'
-  const q2 = 'Total number of people:'
-  const q3 = 'People per group:'
+  const q1 = 'Name of Zing:'
+  const q2 = 'Total number of students:'
+  const q3 = 'Students per group:'
   const q1TextStyle = {
     fontWeight: '500',
     color: q1Error !== '' ? colors.red : colors.darkpurple,
@@ -95,7 +95,7 @@ export const CreateGroupForm = () => {
             <StyledLogo />
           </StyledLogoWrapper>
           <StyledTextWrapper>
-            <StyledText>Let's get this party started!</StyledText>
+            <StyledText>Let's create your Zing!</StyledText>
           </StyledTextWrapper>
           <StyledQuestionsWrapper>
             <StyledQuestionWrapper

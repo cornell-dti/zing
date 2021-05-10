@@ -9,6 +9,6 @@ module.exports = override(
     ['Home']: path.resolve(__dirname, './src/modules/Home'),
     ['EditZing']: path.resolve(__dirname, './src/modules/EditZing'),
     ['Survey']: path.resolve(__dirname, './src/modules/Survey'),
-    ['CreateGroup']: path.resolve(__dirname, './src/modules/CreateGroup'),
+    ['CreateZing']: path.resolve(__dirname, './src/modules/CreateZing'),
   })
 )
