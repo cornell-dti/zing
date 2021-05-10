@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 
 import {
   StyledBackground,
@@ -19,6 +20,8 @@ import {
 import { colors } from '@core/Constants'
 
 export const Signup = () => {
+  const history = useHistory()
+
   // Name, email, password, and checked box props
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -37,21 +40,14 @@ export const Signup = () => {
   const [emailError, setEmailError] = useState(SignupError.NONE)
   const [passwordError, setPasswordError] = useState(SignupError.NONE)
 
-  const handleSetName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNameError(e.target.value === '' ? SignupError.NAME : SignupError.NONE)
-    setName(e.target.value)
-  }
-
-  const handleSetEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmailError(e.target.value === '' ? SignupError.EMAIL : SignupError.NONE)
-    setEmail(e.target.value)
-  }
-
-  const handleSetPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswordError(
-      e.target.value === '' ? SignupError.PASS : SignupError.NONE
-    )
-    setPassword(e.target.value)
+  const handleSignup = () => {
+    // Fake signup
+    setNameError(name === '' ? SignupError.NAME : SignupError.NONE)
+    setEmailError(email === '' ? SignupError.EMAIL : SignupError.NONE)
+    setPasswordError(password === '' ? SignupError.PASS : SignupError.NONE)
+    if (name !== '' && email !== '' && password !== '' && isProfessor) {
+      history.push('/dashboard')
+    }
   }
 
   const textContainerStyle = {
@@ -86,36 +82,32 @@ export const Signup = () => {
               containerStyle={textContainerStyle}
               inputStyle={nameError ? textInputErrorStyle : textInputStyle}
               value={name}
-              onChange={handleSetName}
-              error={nameError} // TODO error check for signup
+              onChange={(e) => setName(e.target.value)}
+              error={nameError}
             />
             <EmailField
               containerStyle={textContainerStyle}
               inputStyle={emailError ? textInputErrorStyle : textInputStyle}
               value={email}
-              onChange={handleSetEmail}
-              error={emailError} // Update these with actual errors if login is wrong
+              onChange={(e) => setEmail(e.target.value)}
+              error={emailError}
             />
             <PasswordField
               containerStyle={textContainerStyle}
               inputStyle={passwordError ? textInputErrorStyle : textInputStyle}
               value={password}
-              onChange={handleSetPassword}
-              error={passwordError} // Update these with actual errors if login is wrong
+              onChange={(e) => setPassword(e.target.value)}
+              error={passwordError}
             />
             <Checkbox
               labelStyle={checkboxLabelStyle}
               checked={isProfessor}
               onChange={(e) => setIsProfessor(e.target.checked)}
               label="I am a professor or other groupmaker"
+              required
             />
           </StyledFields>
-          <PrimaryGradientButton
-            label="Sign Up"
-            onClick={() => {
-              /* TODO do something to sign up */
-            }}
-          />
+          <PrimaryGradientButton label="Sign Up" onClick={handleSignup} />
         </StyledCenter>
       </StyledContainer>
     </StyledBackground>

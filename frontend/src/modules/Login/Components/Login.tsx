@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 
 import {
   StyledBackground,
@@ -17,9 +18,29 @@ import {
 import { colors } from '@core/Constants'
 
 export const Login = () => {
+  const history = useHistory()
+
   // Email and password props
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  /** Error messages */
+  enum LoginError {
+    NONE = '',
+    INCORRECT = 'Email or password is incorrect',
+  }
+  const [emailError, setEmailError] = useState(LoginError.NONE)
+  const [passwordError, setPasswordError] = useState(LoginError.NONE)
+
+  const handleLogin = () => {
+    // Fake login
+    if (email === 'hello@cornelldti.org' && password === 'zing') {
+      history.push('/dashboard')
+    } else {
+      setEmailError(LoginError.INCORRECT)
+      setPasswordError(LoginError.INCORRECT)
+    }
+  }
 
   const textContainerStyle = {
     width: '388px',
@@ -28,6 +49,11 @@ export const Login = () => {
   const textInputStyle = {
     fontWeight: '600',
     color: colors.darkpurple,
+  }
+
+  const textInputErrorStyle = {
+    fontWeight: '600',
+    color: colors.red,
   }
 
   return (
@@ -41,25 +67,20 @@ export const Login = () => {
           <StyledFields>
             <EmailField
               containerStyle={textContainerStyle}
-              inputStyle={textInputStyle}
+              inputStyle={emailError ? textInputErrorStyle : textInputStyle}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              error={''} // Update these with actual errors if login is wrong
+              error={emailError}
             />
             <PasswordField
               containerStyle={textContainerStyle}
-              inputStyle={textInputStyle}
+              inputStyle={passwordError ? textInputErrorStyle : textInputStyle}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              error={''} // Update these with actual errors if login is wrong
+              error={passwordError}
             />
           </StyledFields>
-          <PrimaryGradientButton
-            label="Log In"
-            onClick={() => {
-              /* TODO do something to login */
-            }}
-          />
+          <PrimaryGradientButton label="Log In" onClick={handleLogin} />
         </StyledCenter>
       </StyledContainer>
     </StyledBackground>
