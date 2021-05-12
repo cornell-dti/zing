@@ -72,5 +72,5 @@ const getCourseRef = async (courseId: string) => {
 			}
 			return snapshot.ref;
 		});
-}
+};
 export default connectGroupConfig;
