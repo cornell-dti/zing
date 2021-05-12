@@ -13,9 +13,9 @@ export const NumberField = ({
   disabled,
   error = '',
 }: InputProps) => {
-  // console.log('we are also here ' + error)
   return (
     <InputField
+      isNumber={true}
       error={error}
       fullWidth={fullWidth}
       containerStyle={containerStyle}
