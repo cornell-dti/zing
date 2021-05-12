@@ -20,10 +20,10 @@ import math
 
 from .student import Student
 
+
 def sizer_from_dek(dek):
     return GroupSizer(dek.get('group_size'), dek.get('uneven_size'),
                       dek.get('number_of_groups'))
-
 
 
 class GroupSizer:
@@ -47,12 +47,13 @@ class GroupSizer:
                         self._uneven_size = '+'
                     else:
                         self._uneven_size = '-'
-            except ValueError: # group_size is not a bare int
+            except ValueError:  # group_size is not a bare int
                 if group_size[-1] in '+-':
                     self._uneven_size = group_size[-1]
                     self._group_size = int(group_size[:-1])
                 else:
-                    raise Exception("{0} cannot be interpreted as a group size".format(group_size))
+                    raise Exception(
+                        "{0} cannot be interpreted as a group size".format(group_size))
 
     def group_size(self, number_of_students):
         if self._n_groups:
@@ -86,6 +87,7 @@ class GroupSizer:
             self._uneven_size,
             self._n_groups)
 
+
 class SplitSizer:
     def __init__(self, sizer, n_full_class):
         self.sizer = sizer
@@ -103,6 +105,7 @@ class SplitSizer:
 
         return self.sizer.group_size(number_of_students)
 
+
 class Course(object):
     def __init__(self, students, sizer):
         self.students = students
@@ -113,17 +116,18 @@ class Course(object):
         self.n_groups = sizer.n_groups(n)
 
         phantoms_needed = self.group_size * self.n_groups - n
+
         def make_phantom():
             data = dict([(key, None) for key in self.students[0].data.keys()])
             identifier = self.students[0].identifier
             data[identifier] = 'phantom'
-            return Student(data, identifier=identifier, headers =
-                           self.students[0].headers)
+            return Student(data, identifier=identifier, headers=self.students[0].headers)
 
         self.students += [make_phantom() for i in range(phantoms_needed)]
 
     def attr_values(self, attr):
         return remove_none(set(s[attr] for s in self.students))
+
 
 def remove_none(s):
     try:
@@ -132,10 +136,12 @@ def remove_none(s):
         pass
     return s
 
+
 class SubCourse(Course):
     def __init__(self, students, all_students, sizer):
         self.all_students = all_students
-        super(SubCourse, self).__init__(students, SplitSizer(sizer, len(all_students)))
+        super(SubCourse, self).__init__(
+            students, SplitSizer(sizer, len(all_students)))
 
     def attr_values(self, attr):
         return remove_none(set(s[attr] for s in self.all_students))

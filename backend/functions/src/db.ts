@@ -1,6 +1,18 @@
 import * as admin from "firebase-admin";
+import firebase from "firebase/app";
+import "firebase/auth";
 
-admin.initializeApp();
+import * as dotenv from "dotenv";
+dotenv.config();
 
+let firebaseConfig = require("../firebase_config.json");
+let serviceAccount = require("../service_account.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+firebase.initializeApp(firebaseConfig);
 export const storage = admin.storage();
 export const db = admin.firestore();
+export const auth = firebase.auth();

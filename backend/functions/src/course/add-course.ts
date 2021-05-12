@@ -46,7 +46,7 @@ const createCourse = async (
 			const course: FirestoreCourseDoc = {
 				studentList,
 				completed: [],
-				creator: user,
+				creator: user.id,
 			};
 			const groupDocRef = db.collection("course").doc(courseId);
 			groupDocRef
