@@ -19,6 +19,8 @@
     "date-fns": "2.11.1",
     "prop-types": "^15.6.0",
     "react": "^17.0.1",
+    "react-dnd": "^14.0.2",
+    "react-dnd-html5-backend": "^14.0.0",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
