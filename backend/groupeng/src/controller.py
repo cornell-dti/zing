@@ -25,7 +25,7 @@ from .utility import mean, std
 from .rule import make_rule, apply_rules_list, Balance, Distribute
 from .student import load_classlist
 from .course import Course, SubCourse, sizer_from_dek
-from . import input_parser
+from google.cloud import firestore
 
 
 import logging
@@ -44,21 +44,21 @@ class UnevenGroups(Exception):
     pass
 
 
-def run(input_deck, classlist):
+def run(dek, classlist, classname):
     """
-    Run GroupEng as specified by input_deck
+    Run GroupEng as specified by dek
 
     Parameters
     ----------
-    input_deck: filename
-        Input file specifying class information and grouping rules
+    dek: filename
+        Input JSON specifying class information and grouping rules
 
     Output
     ------
     Output files determined by Input deck
     """
-    dek = input_parser.read_input(input_deck)
-    logging.debug('read input deck')
+    dek['student_identifier'] = dek.pop('studentIdentifier')
+    dek['group_size'] = dek.pop('groupSize')
 
     students = load_classlist(classlist, dek.get('student_identifier'))
     logging.debug('read class list')
@@ -68,7 +68,6 @@ def run(input_deck, classlist):
     if 'tries' in dek:
         tries = dek['tries']
     logging.debug('Allowing {} tries to get rules to work'.format(tries))
-
     logging.debug("Using Rules: "+str(dek_rules))
 
     # This adds support for a "Hard" aggregate. If your first rule is
@@ -154,6 +153,7 @@ def run(input_deck, classlist):
     ########################################################################
     # Output
     ########################################################################
+    final_groups = group_to_firestore(all_groups, identifier, classname)
     group_output(all_groups, outfile('groups.csv'), identifier)
 
     # group_output(all_groups, outfile('groups.txt'), identifier, sep = '\n')
@@ -223,6 +223,17 @@ def group_output(groups, outf, identifier, sep=', '):
         outf.write('Group {0}{1}{2}\n'.format(g.group_number, sep,
                                               sep.join([str(s[identifier]) for s in
                                                        students])))
+
+
+def group_to_firestore(groups, identifier, classname):
+    res = {}
+    for g in groups:
+        students = sorted(g.students, key=lambda x: x[identifier])
+        t = list(map(lambda x: x[identifier], students))
+        res[str(g.group_number)] = t
+    db = firestore.Client()
+    db.collection("course").document(classname).set(
+        {"group": res}, merge=True)
 
 
 def student_full_output(students, identifier, outf):
