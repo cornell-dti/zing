@@ -63,7 +63,7 @@ export const h4 = css`
 /**
  * Object formatted so MuiTheme can use it to populate component w/ montserrat
  */
-export const montesseratFont: any = {
+export const montserratFont: any = {
   fontFamily: 'Montserrat',
   fontStyle: 'normal',
   fontDisplay: 'swap',
