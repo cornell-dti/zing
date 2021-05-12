@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { NameField, EmailField, colors } from '@core'
+import { colors } from '@core'
 import {
   StyledContainer,
   StyledLeftPanel,
