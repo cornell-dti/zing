@@ -81,7 +81,7 @@ export const CreateZingForm = () => {
     // now check if there are any outstanding errors
     if (!error1 && !error2 && !error3) {
       // if not go to dashboard and there will be notif waiting for them
-      alert('now you proceed back to dashboard (not implemented yet')
+      alert('now you proceed back to dashboard (not implemented yet)')
     } else {
       // else stay here and show errors
       console.warn('some kind of error')

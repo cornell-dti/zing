@@ -105,6 +105,45 @@
       "start": "b",
       "studentId": "cl88",
       "time": "b"
+    },
+    {
+      "college": "b",
+      "courseId": "zf101-2021sp",
+      "fullName": "Kathryn D.",
+      "graduation": "b",
+      "identity": "b",
+      "mode": "b",
+      "pronoun": "a",
+      "remote": "b",
+      "start": "b",
+      "studentId": "kd888",
+      "time": "b"
+    },
+    {
+      "college": "b",
+      "courseId": "zf101-2021sp",
+      "fullName": "Kathryn D. 2",
+      "graduation": "b",
+      "identity": "b",
+      "mode": "b",
+      "pronoun": "a",
+      "remote": "b",
+      "start": "b",
+      "studentId": "kd888",
+      "time": "b"
+    },
+    {
+      "college": "b",
+      "courseId": "zf101-2021sp",
+      "fullName": "Kathryn D. 3",
+      "graduation": "b",
+      "identity": "b",
+      "mode": "b",
+      "pronoun": "a",
+      "remote": "b",
+      "start": "b",
+      "studentId": "kd888",
+      "time": "b"
     }
   ],
   [
@@ -158,6 +197,127 @@
       "remote": "c",
       "start": "c",
       "studentId": "ja99",
+      "time": "c"
+    }
+  ],
+  [
+    {
+      "college": "d",
+      "courseId": "zf101-2021sp",
+      "fullName": "Brujh M.",
+      "graduation": "d",
+      "identity": "d",
+      "mode": "d",
+      "pronoun": "d",
+      "remote": "d",
+      "start": "d",
+      "studentId": "bm9",
+      "time": "d"
+    },
+    {
+      "college": "c",
+      "courseId": "zf101-2021sp",
+      "fullName": "Deeze N.",
+      "graduation": "c",
+      "identity": "c",
+      "mode": "c",
+      "pronoun": "b",
+      "remote": "c",
+      "start": "c",
+      "studentId": "dn69",
+      "time": "c"
+    },
+    {
+      "college": "c",
+      "courseId": "zf101-2021sp",
+      "fullName": "Hagot E.",
+      "graduation": "c",
+      "identity": "c",
+      "mode": "c",
+      "pronoun": "b",
+      "remote": "d",
+      "start": "d",
+      "studentId": "he42",
+      "time": "d"
+    },
+    {
+      "college": "d",
+      "courseId": "zf101-2021sp",
+      "fullName": "Santa C.",
+      "graduation": "d",
+      "identity": "d",
+      "mode": "d",
+      "pronoun": "b",
+      "remote": "d",
+      "start": "c",
+      "studentId": "sc1",
+      "time": "c"
+    }
+  ],
+  [
+    {
+      "college": "d",
+      "courseId": "zf101-2021sp",
+      "fullName": "Michelle K.",
+      "graduation": "d",
+      "identity": "d",
+      "mode": "d",
+      "pronoun": "d",
+      "remote": "d",
+      "start": "d",
+      "studentId": "bm9",
+      "time": "d"
+    },
+    {
+      "college": "c",
+      "courseId": "zf101-2021sp",
+      "fullName": "Abby S.",
+      "graduation": "c",
+      "identity": "c",
+      "mode": "c",
+      "pronoun": "b",
+      "remote": "c",
+      "start": "c",
+      "studentId": "dn69",
+      "time": "c"
+    },
+    {
+      "college": "c",
+      "courseId": "zf101-2021sp",
+      "fullName": "Sanna V.",
+      "graduation": "c",
+      "identity": "c",
+      "mode": "c",
+      "pronoun": "b",
+      "remote": "d",
+      "start": "d",
+      "studentId": "he42",
+      "time": "d"
+    },
+    {
+      "college": "d",
+      "courseId": "zf101-2021sp",
+      "fullName": "Isa S.",
+      "graduation": "d",
+      "identity": "d",
+      "mode": "d",
+      "pronoun": "b",
+      "remote": "d",
+      "start": "c",
+      "studentId": "sc1",
+      "time": "c"
+    },
+    {
+      "college": "d",
+      "courseId": "zf101-2021sp",
+      "fullName": "Eric G.",
+      "graduation": "d",
+      "identity": "d",
+      "mode": "d",
+      "pronoun": "b",
+      "remote": "d",
+      "start": "c",
+      "studentId": "efg37",
       "time": "c"
     }
   ]
