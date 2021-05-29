@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
+import { useDispatch } from 'react-redux'
 
 import {
   StyledBackground,
@@ -16,9 +17,11 @@ import {
   PrimaryGradientButton,
 } from '@core/Components'
 import { colors } from '@core/Constants'
+import { saveLogin } from '@redux/authSlice'
 
 export const Login = () => {
   const history = useHistory()
+  const dispatch = useDispatch()
 
   // Email and password props
   const [email, setEmail] = useState('')
@@ -35,6 +38,7 @@ export const Login = () => {
   const handleLogin = () => {
     // Fake login
     if (email === 'hello@cornelldti.org' && password === 'zing') {
+      dispatch(saveLogin(email))
       history.push('/dashboard')
     } else {
       setEmailError(LoginError.INCORRECT)
