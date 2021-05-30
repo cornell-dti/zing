@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '@redux/hooks'
 
 import {
   StyledBackground,
@@ -21,7 +21,7 @@ import { saveLogin } from '@redux/authSlice'
 
 export const Login = () => {
   const history = useHistory()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   // Email and password props
   const [email, setEmail] = useState('')
