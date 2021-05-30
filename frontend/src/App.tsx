@@ -1,13 +1,13 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-  
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
 import {
   HOME_PATH,
   LOGIN_PATH,
   SIGNUP_PATH,
   SURVEY_PATH,
   CREATE_ZING_PATH,
-  EDIT_ZING_PATH
+  EDIT_ZING_PATH,
 } from '@core'
 
 import { Home } from 'Home'
