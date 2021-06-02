@@ -26,11 +26,6 @@ export const StyledGroupTextWrapper = styled.div`
 
 export const StyledGroupText = styled.text`
   ${h3};
-  font-weight: 700;
-  color: ${colors.black};
-`
-export const StyledStudentName = styled.text`
-  ${h4};
-  font-weight: 700;
+  font-weight: 800;
   color: ${colors.black};
 `

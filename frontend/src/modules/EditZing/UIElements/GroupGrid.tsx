@@ -22,7 +22,8 @@ import {
 export const GroupGrid = ({
   studentList,
   groupIndex,
-  moveStudent,
+  moveStudentBetweenGrids,
+  moveStudentWithinGrid,
 }: GroupGridProps) => {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -38,7 +39,8 @@ export const GroupGrid = ({
   const [{ isOver }, drop] = useDrop({
     accept: STUDENT_TYPE,
     drop: (item: DnDStudentTransferType, monitor) =>
-      moveStudent(item.studentToMove, item.groupIndex, groupIndex),
+      // console.log('groupgrid'),
+      moveStudentBetweenGrids(item.studentToMove, item.groupIndex, groupIndex),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
@@ -46,14 +48,19 @@ export const GroupGrid = ({
 
   return (
     <Grid item xs={3} className={classes.root}>
-      <StyledGroupContainer ref={drop}>
+      <StyledGroupContainer
+        ref={drop}
+        style={{ opacity: isOver ? '0.6' : '1' }}
+      >
         <StyledGroupTextWrapper>
           <StyledGroupText>{'Group ' + String(groupIndex + 1)}</StyledGroupText>
         </StyledGroupTextWrapper>
-        <Grid container item spacing={3}>
+        <Grid container item spacing={1}>
           {studentList.map((student, index) => (
             <StudentGrid
-              moveStudent={moveStudent}
+              key={index}
+              moveStudentBetweenGrids={moveStudentBetweenGrids}
+              moveStudentWithinGrid={moveStudentWithinGrid}
               studentIndex={index}
               groupIndex={groupIndex}
               student={student}

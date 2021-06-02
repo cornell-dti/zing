@@ -1,4 +1,5 @@
 export const colors = {
+  verylightviolet: '#FCFAFF',
   black: '#222222',
   white: '#FFFFFF',
   darkpurple: '#CE9EF2',

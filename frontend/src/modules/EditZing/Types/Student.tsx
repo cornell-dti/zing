@@ -18,6 +18,7 @@ export type Student = {
 export type DnDStudentTransferType = {
   type: string
   studentToMove: Student
+  studentIndex: number
   groupIndex: number
 }
 

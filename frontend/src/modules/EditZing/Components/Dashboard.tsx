@@ -12,31 +12,52 @@ export const Dashboard = () => {
 
   /** This function moves a student from one grid to a destination grid based
    * on a starting and destination grid index */
-  function moveStudent(
+  function moveStudentBetweenGrids(
     studentToMove: Student,
     startingIndex: number,
     destinationIndex: number
   ): void {
-    // console.log('studentToMove.studentId: ' + studentToMove.studentId)
-    // console.log('before processing:')
-    // console.log(fakeStudentGroups)
     var newData: Student[][] = []
     studentGroups.map((studentList, index) => {
       var groupToPush: Student[] = []
-      if (index == startingIndex) {
+      if (startingIndex == destinationIndex) {
+        groupToPush = studentList
+      } else if (index == startingIndex) {
         groupToPush = studentGroups[startingIndex].filter(
           (student) => student.studentId != studentToMove.studentId
         )
       } else if (index == destinationIndex) {
-        groupToPush = studentGroups[destinationIndex].concat(studentToMove)
+        if (!studentGroups[destinationIndex].includes(studentToMove)) {
+          groupToPush = studentGroups[destinationIndex].concat(studentToMove)
+        } else {
+          groupToPush = studentList
+        }
       } else {
         groupToPush = studentList
       }
       newData.push(groupToPush)
     })
     setStudentGroups(newData)
-    // console.log('post-processing:')
-    // console.log(newData)
+  }
+
+  /** This function rearranges a student within the grid it is currently in */
+  function moveStudentWithinGrid(
+    studentToMove: Student,
+    currentGroupIndex: number,
+    destinationStudentIndex: number
+  ): void {
+    console.log(studentGroups)
+    if (studentGroups[currentGroupIndex].includes(studentToMove)) {
+      studentGroups[currentGroupIndex] = studentGroups[
+        currentGroupIndex
+      ].filter((student) => student.studentId != studentToMove.studentId)
+    }
+    studentGroups[currentGroupIndex].splice(
+      destinationStudentIndex,
+      0,
+      studentToMove
+    )
+    setStudentGroups(studentGroups)
   }
 
   return (
@@ -48,7 +69,8 @@ export const Dashboard = () => {
               key={index}
               studentList={studentGroup}
               groupIndex={index}
-              moveStudent={moveStudent}
+              moveStudentBetweenGrids={moveStudentBetweenGrids}
+              moveStudentWithinGrid={moveStudentWithinGrid}
             />
           ))}
         </Grid>

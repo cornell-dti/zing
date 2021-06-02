@@ -5,10 +5,15 @@ export interface GroupGridProps {
   studentList: Student[]
   /** for naming the group and maybe key?*/
   groupIndex: number
-  moveStudent: (
+  moveStudentBetweenGrids: (
     studentToMove: Student,
     startingIndex: number,
     destinationIndex: number
+  ) => void
+  moveStudentWithinGrid: (
+    studentToMove: Student,
+    currentGroupIndex: number,
+    destinationStudentIndex: number
   ) => void
 }
 
@@ -18,9 +23,14 @@ export interface StudentGridProps {
   groupIndex: number
   /** index of the student in the inner array */
   studentIndex: number
-  moveStudent: (
+  moveStudentBetweenGrids: (
     studentToMove: Student,
     startingIndex: number,
     destinationIndex: number
+  ) => void
+  moveStudentWithinGrid: (
+    studentToMove: Student,
+    currentGroupIndex: number,
+    destinationStudentIndex: number
   ) => void
 }
