@@ -17,9 +17,9 @@ export const Dashboard = () => {
     startingIndex: number,
     destinationIndex: number
   ): void {
-    var newData: Student[][] = []
+    let newData: Student[][] = []
     studentGroups.map((studentList, index) => {
-      var groupToPush: Student[] = []
+      let groupToPush: Student[] = []
       if (startingIndex == destinationIndex) {
         groupToPush = studentList
       } else if (index == startingIndex) {
