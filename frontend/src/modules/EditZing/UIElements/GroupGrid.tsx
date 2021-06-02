@@ -45,8 +45,8 @@ export const GroupGrid = ({
   })
 
   return (
-    <Grid item xs={3} className={classes.root} ref={drop}>
-      <StyledGroupContainer>
+    <Grid item xs={3} className={classes.root}>
+      <StyledGroupContainer ref={drop}>
         <StyledGroupTextWrapper>
           <StyledGroupText>{'Group ' + String(groupIndex + 1)}</StyledGroupText>
         </StyledGroupTextWrapper>
