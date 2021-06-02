@@ -5,46 +5,62 @@ import Paper from '@material-ui/core/Paper'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { GroupGridProps } from 'EditZing/Types/ComponentProps'
 import { colors } from '@core'
+import { DndProvider, useDrop } from 'react-dnd'
+import {
+  Student,
+  STUDENT_TYPE,
+  DnDStudentTransferType,
+} from 'EditZing/Types/Student'
 
 import {
   StyledGroupText,
   StyledGroupTextWrapper,
+  StyledGroupContainer,
 } from 'EditZing/Styles/GeneralStyle.style'
 
-export const GroupGrid = ({ studentList, groupNumber }: GroupGridProps) => {
+/** the equivalent of Column */
+export const GroupGrid = ({
+  studentList,
+  groupIndex,
+  moveStudent,
+}: GroupGridProps) => {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
         flexGrow: 1,
-      },
-      paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
+        background: '#FFFFFF',
+        overflowY: 'scroll' as 'scroll',
       },
     })
   )
-  const GridStyle = {
-    flexGrow: 1,
-    width: '20rem',
-    height: '19rem',
-    background: '#FFFFFF',
-    border: '0.5px solid rgba(205, 156, 242, 0.15)',
-    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.07)',
-    borderRadius: '20px',
-    padding: '2rem',
-    overflow: 'scroll',
-  }
   const classes = useStyles()
+
+  const [{ isOver }, drop] = useDrop({
+    accept: STUDENT_TYPE,
+    drop: (item: DnDStudentTransferType, monitor) =>
+      moveStudent(item.studentToMove, item.groupIndex, groupIndex),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  })
+
   return (
-    <Grid item xs={3} style={GridStyle}>
-      <StyledGroupTextWrapper>
-        <StyledGroupText>{'Group ' + String(groupNumber + 1)}</StyledGroupText>
-      </StyledGroupTextWrapper>
-      <Grid container spacing={3}>
-        {studentList.map((student) => (
-          <StudentGrid student={student} />
-        ))}
-      </Grid>
+    <Grid item xs={3} className={classes.root} ref={drop}>
+      <StyledGroupContainer>
+        <StyledGroupTextWrapper>
+          <StyledGroupText>{'Group ' + String(groupIndex + 1)}</StyledGroupText>
+        </StyledGroupTextWrapper>
+        <Grid container item spacing={3}>
+          {studentList.map((student, index) => (
+            <StudentGrid
+              moveStudent={moveStudent}
+              studentIndex={index}
+              groupIndex={groupIndex}
+              student={student}
+            />
+          ))}
+        </Grid>
+      </StyledGroupContainer>
     </Grid>
   )
 }
