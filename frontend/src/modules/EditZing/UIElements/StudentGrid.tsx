@@ -99,15 +99,7 @@ export const StudentGrid = ({
             className={classes.paper1}
           >
             {student.fullName}
-            <div
-              style={{
-                opacity: determineOpacity(),
-                background: isOver
-                  ? colors.lightviolet
-                  : colors.verylightviolet,
-              }}
-              className={classes.paper2}
-            >
+            <div className={classes.paper2}>
               {genderSVG} {student.pronoun == 'a' ? 'Male' : 'Female'}
             </div>
           </Paper>

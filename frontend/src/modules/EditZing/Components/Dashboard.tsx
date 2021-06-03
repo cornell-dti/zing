@@ -17,22 +17,34 @@ export const Dashboard = () => {
     startingIndex: number,
     destinationIndex: number
   ): void {
+    // guard for if the starting is same as destination
+    if (startingIndex == destinationIndex) {
+      return
+    }
+    // this will replace the old studentGroups stored state
     let newData: Student[][] = []
     studentGroups.map((studentList, index) => {
       let groupToPush: Student[] = []
-      if (startingIndex == destinationIndex) {
-        groupToPush = studentList
-      } else if (index == startingIndex) {
+      // case where the current iterated group is the starting index
+      if (index == startingIndex) {
+        // filter for only students with IDs that are not the studentToMove's
         groupToPush = studentGroups[startingIndex].filter(
           (student) => student.studentId != studentToMove.studentId
         )
-      } else if (index == destinationIndex) {
+      }
+      // case where the current interated group is the destination index
+      else if (index == destinationIndex) {
+        /* based on how drop functions work, we need to first check if the 
+        destination group has the studentToMove in it first and skip it 
+        if it already contains it */
         if (!studentGroups[destinationIndex].includes(studentToMove)) {
           groupToPush = studentGroups[destinationIndex].concat(studentToMove)
         } else {
           groupToPush = studentList
         }
-      } else {
+      }
+      // case where it is neither starting nor destination
+      else {
         groupToPush = studentList
       }
       newData.push(groupToPush)
@@ -46,7 +58,6 @@ export const Dashboard = () => {
     currentGroupIndex: number,
     destinationStudentIndex: number
   ): void {
-    console.log(studentGroups)
     if (studentGroups[currentGroupIndex].includes(studentToMove)) {
       studentGroups[currentGroupIndex] = studentGroups[
         currentGroupIndex
