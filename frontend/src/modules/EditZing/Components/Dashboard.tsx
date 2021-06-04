@@ -17,16 +17,15 @@ export const Dashboard = () => {
     startingIndex: number,
     destinationIndex: number
   ): void {
-    // guard for if the starting is same as destination
-    if (startingIndex == destinationIndex) {
-      return
-    }
-    // this will replace the old studentGroups stored state
+    // the new data to replace the old studentGroups state
     let newData: Student[][] = []
+    // this will replace the old studentGroups stored state
     studentGroups.map((studentList, index) => {
       let groupToPush: Student[] = []
       // case where the current iterated group is the starting index
-      if (index == startingIndex) {
+      if (startingIndex == destinationIndex) {
+        groupToPush = studentList
+      } else if (index == startingIndex) {
         // filter for only students with IDs that are not the studentToMove's
         groupToPush = studentGroups[startingIndex].filter(
           (student) => student.studentId != studentToMove.studentId
@@ -39,12 +38,12 @@ export const Dashboard = () => {
         if it already contains it */
         if (!studentGroups[destinationIndex].includes(studentToMove)) {
           groupToPush = studentGroups[destinationIndex].concat(studentToMove)
-        } else {
+        }
+        // case where it is neither starting nor destination
+        else {
           groupToPush = studentList
         }
-      }
-      // case where it is neither starting nor destination
-      else {
+      } else {
         groupToPush = studentList
       }
       newData.push(groupToPush)
