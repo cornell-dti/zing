@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
+import { useAppDispatch } from '@redux/hooks'
 
 import {
   StyledBackground,
@@ -18,9 +19,11 @@ import {
   PrimaryGradientButton,
 } from '@core/Components'
 import { colors } from '@core/Constants'
+import { saveLogin } from '@redux/authSlice'
 
 export const Signup = () => {
   const history = useHistory()
+  const dispatch = useAppDispatch()
 
   // Name, email, password, and checked box props
   const [name, setName] = useState('')
@@ -46,6 +49,7 @@ export const Signup = () => {
     setEmailError(email === '' ? SignupError.EMAIL : SignupError.NONE)
     setPasswordError(password === '' ? SignupError.PASS : SignupError.NONE)
     if (name !== '' && email !== '' && password !== '' && isProfessor) {
+      dispatch(saveLogin(email))
       history.push('/dashboard')
     }
   }
