@@ -25,7 +25,7 @@ export const Step3 = ({ showError, setAnswer, currentAnswer }: StepProps) => {
   const textInputStyle = {
     font: h2,
     fontWeight: 800,
-    color: showError ? colors.red : colors.darkpurple,
+    color: showError ? colors.red : colors.purple,
     textAlign: 'center',
     root: {
       background: colors.white,
@@ -51,7 +51,7 @@ export const Step3 = ({ showError, setAnswer, currentAnswer }: StepProps) => {
         <StyledYearFieldWrapper>
           <StyledYearField
             error={showError ? ' ' : ''}
-            MuiColor={colors.darkpurple}
+            MuiColor={colors.purple}
             fullWidth={true}
             key={'name'}
             containerStyle={textContainerStyle}
