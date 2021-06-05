@@ -56,7 +56,7 @@ export const Signup = () => {
 
   const textInputStyle = {
     fontWeight: '600',
-    color: colors.darkpurple,
+    color: colors.purple,
   }
 
   const textInputErrorStyle = {
@@ -66,7 +66,7 @@ export const Signup = () => {
 
   const checkboxLabelStyle = {
     fontWeight: '600',
-    color: colors.darkpurple,
+    color: colors.purple,
   }
 
   return (

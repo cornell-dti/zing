@@ -14,9 +14,9 @@ import {
 
 const PurpleCheckbox = withStyles({
   root: {
-    color: colors.darkpurple,
+    color: colors.purple,
     '&$checked': {
-      color: colors.darkpurple,
+      color: colors.purple,
     },
   },
   checked: {},

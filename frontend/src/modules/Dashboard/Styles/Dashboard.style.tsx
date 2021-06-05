@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import logo from '@assets/img/purplelogo.svg'
-import { colors, StyledComponent } from '@core'
-import bg2 from '@assets/img/bg2.svg'
+import { BsChevronDown } from 'react-icons/bs'
+import { colors, StyledComponent, h4 } from '@core'
 
 const Logo = ({ className }: StyledComponent) => (
   <div className={className}>
@@ -10,23 +10,48 @@ const Logo = ({ className }: StyledComponent) => (
 )
 
 export const StyledContainer = styled.div`
-  height: 86%;
-  width: 80%;
+  height: 100%;
+  width: 100%;
   background-color: ${colors.white};
-  box-shadow: -10px -10px 150px rgba(0, 0, 0, 0.1),
-    10px 10px 150px rgba(0, 0, 0, 0.1);
+  box-shadow: -10px -10px 150px rgba(0, 0, 0, 0.05),
+    10px 10px 150px rgba(0, 0, 0, 0.05);
+  border-radius: 30px;
 
   display: flex;
+  flex-direction: column;
 `
 
 export const StyledLogo = styled(Logo)``
 
 export const StyledOuterContainer = styled.div`
   height: 100%;
-  background-image: url(${bg2});
-  background-size: cover;
+  box-sizing: border-box;
 
+  padding: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+export const StyledHeaderMenu = styled.div`
+  height: fit-content;
+
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+export const StyledName = styled.div`
+  ${h4};
+  font-weight: 600;
+  color: ${colors.darkpurple};
+
+  display: flex;
+  align-items: center;
+`
+
+export const StyledArrowDown = styled(BsChevronDown)`
+  margin-left: 0.2rem;
+  cursor: pointer;
 `
