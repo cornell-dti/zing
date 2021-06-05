@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 import logo from '@assets/img/purplelogo.svg'
 import progress from '@assets/img/progressbarstep1.svg'
-import { colors, h2, h4, StyledComponent } from '@core'
+import { colors, StyledComponent } from '@core'
 import { GoNextPrevButton } from 'Survey/Components/UIElements/GoNextPrevButton'
 
 const Logo = ({ className }: StyledComponent) => (

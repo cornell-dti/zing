@@ -1,1 +1,1 @@
-export { CreateZingForm } from 'CreateZing/Components/Form'
+export { CreateZingForm as CreateZing } from 'CreateZing/Components/Form'
