@@ -48,7 +48,7 @@ export const Login = () => {
 
   const textInputStyle = {
     fontWeight: '600',
-    color: colors.darkpurple,
+    color: colors.purple,
   }
 
   const textInputErrorStyle = {
