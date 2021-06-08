@@ -5,11 +5,11 @@ import "firebase/auth";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-let firebaseConfig = require("../firebase_config.json");
-let serviceAccount = require("../service_account.json");
+const firebaseConfig = require("../firebase_config.json");
+const serviceAccount = require("../service_account.json");
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+	credential: admin.credential.cert(serviceAccount),
 });
 
 firebase.initializeApp(firebaseConfig);
