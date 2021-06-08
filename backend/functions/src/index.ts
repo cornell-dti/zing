@@ -5,6 +5,7 @@ import seedSurveyData from "./user/add-response-batch";
 import addUser from "./user/add-user";
 import addGroupConfig from "./user/add-group-config";
 import connectGroupConfig from "./course/connect-group-config";
+import getCourse from "./course/get-course";
 import { signIn, signUp } from "./auth";
 
 export const newCourse = addCourse;
@@ -16,3 +17,4 @@ export const linkConfig = connectGroupConfig;
 export const signUpUser = signUp;
 export const signInUser = signIn;
 export const seedData = seedSurveyData;
+export const listCourse = getCourse;

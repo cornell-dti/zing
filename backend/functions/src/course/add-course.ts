@@ -1,5 +1,5 @@
 import * as functions from "firebase-functions";
-import { FirestoreCourseDoc } from "../firestore-types";
+import { FirestoreCourseDoc, FirestoreUserDoc } from "../firestore-types";
 import { Timestamp } from "@google-cloud/firestore";
 import { db } from "../db";
 
@@ -31,14 +31,15 @@ const createCourse = async (
 				if (userSnapshot === null) {
 					throw new Error("Specified user email does not exist!");
 				}
-				return userSnapshot.docs[0].ref;
+				return userSnapshot.docs[0].ref.get();
 			})
-			.then((user) => {
+			.then((userDoc) => {
+				const { email } = userDoc.data() as FirestoreUserDoc;
 				const course: FirestoreCourseDoc = {
 					name,
 					minGroupSize,
 					dueDate: Timestamp.fromDate(new Date(dueDate)),
-					creator: user.id,
+					creator: email,
 					completed: [],
 				};
 				const courseRef = db.collection("course");
