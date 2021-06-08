@@ -47,7 +47,7 @@ export const GroupGrid = ({
   })
 
   return (
-    <Grid item xs={3} className={classes.root}>
+    <Grid item xs={3}>
       <StyledGroupContainer
         ref={drop}
         style={{ opacity: isOver ? '0.6' : '1' }}
@@ -55,7 +55,7 @@ export const GroupGrid = ({
         <StyledGroupTextWrapper>
           <StyledGroupText>{'Group ' + String(groupIndex + 1)}</StyledGroupText>
         </StyledGroupTextWrapper>
-        <Grid container item spacing={1}>
+        <Grid container spacing={2}>
           {studentList.map((student, index) => (
             <StudentGrid
               key={index}
