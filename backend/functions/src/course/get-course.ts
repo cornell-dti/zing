@@ -27,7 +27,7 @@ const getCourseByUserEmail = async (
 	response: functions.Response<any>
 ) => {
 	try {
-		const { userEmail } = request.body;
+		const { userEmail } = request.query;
 		db.collection("course")
 			.where("creator", "==", userEmail)
 			.get()
