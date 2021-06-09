@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
-import { FirestoreUserDoc } from "../firestore-types";
-import { auth, adminAuth } from "../db";
-import { db } from "../db";
+import { FirestoreUserDoc } from "../../firestore-types";
+import { auth, adminAuth } from "../../db";
+import { db } from "../../db";
 
 // @deprecated.
 export const signIn = functions.https.onRequest(
