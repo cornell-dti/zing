@@ -13,13 +13,13 @@ import ErrorIconOutline from '@material-ui/icons/ErrorOutline'
 /** customized TextInput with themed underlines */
 const StyledTextField = styled(TextField)`
 && .MuiInput-underline:hover::before {
-  border-color: ${(props) => (props.color ? props.color : colors.darkpurple)};
+  border-color: ${(props) => (props.color ? props.color : colors.purple)};
 },
 && .MuiInput-underline:before {
-  border-color: ${(props) => (props.color ? props.color : colors.darkpurple)};
+  border-color: ${(props) => (props.color ? props.color : colors.purple)};
 },
 && .MuiInput-underline:after {
-  border-color: ${(props) => (props.color ? props.color : colors.darkpurple)};
+  border-color: ${(props) => (props.color ? props.color : colors.purple)};
 },
 `
 /** customized TextInput for form validation errors with red underlines */
@@ -40,7 +40,7 @@ export const InputField = ({
   fullWidth,
   endAdornment,
   key,
-  MuiColor = colors.darkpurple,
+  MuiColor = colors.purple,
   containerStyle = {},
   inputStyle = {},
   type = 'input',
