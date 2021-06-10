@@ -128,8 +128,9 @@ def run(dek, classlist, classname):
         # group.make_initial_groups so that it can see the phantoms
         rules = [Distribute(identifier, course, 'phantom')] + rules
 
-        suceeded = apply_rules_list(
+        suceeded, failed_total = apply_rules_list(
             rules, groups, course.students, tries=tries)
+        print(f"suceeded: {suceeded}, failed_total: {failed_total}")
         logging.debug("applied rules")
 
         groups.sort(key=group_sort_key)
@@ -153,7 +154,7 @@ def run(dek, classlist, classname):
     ########################################################################
     # Output
     ########################################################################
-    final_groups = group_to_firestore(all_groups, identifier, classname)
+    group_to_firestore(all_groups, identifier, classname)
     group_output(all_groups, outfile('groups.csv'), identifier)
 
     # group_output(all_groups, outfile('groups.txt'), identifier, sep = '\n')
@@ -226,7 +227,15 @@ def group_output(groups, outf, identifier, sep=', '):
 
 
 def group_to_firestore(groups, identifier, classname):
+    """Store resulting groups from GroupEng to Firestore.
+
+    Keyword arguments:
+    groups -- result from GroupEng algorithm (list of class Group objects)
+    identifier -- the field in student data to be used as a unique identifier
+    classname -- name of the set of groups (aka "zing"s)
+    """
     res = {}
+    #print(f'group length:{len(groups)}')
     for g in groups:
         students = sorted(g.students, key=lambda x: x[identifier])
         t = list(map(lambda x: x[identifier], students))
