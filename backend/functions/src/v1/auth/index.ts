@@ -37,7 +37,7 @@ const getUserDataFromRequest = async (
   return { email: decodedToken.email, uid: decodedToken.uid };
 };
 
-const isAuthorized = async (
+export const isAuthorized = async (
   req: functions.https.Request,
   res: functions.Response,
   next: Function

@@ -26,20 +26,23 @@ export const seedData = seedSurveyData;
  */
 
 import * as express from "express";
+import * as cors from "cors";
+import * as functions from "firebase-functions";
+
 const app = express();
-const port = process.env.PORT || 8000;
 
 // import all routers
 import courseRoutes from "./v2/course/routes";
 
+// Automatically allow cross-origin requests. NEED TO CHANGE.
+app.use(cors({ origin: true }));
+
 // allow for body parsing
 app.use(express.json());
+
+app.get("/test", (req, res) => res.send("yo"));
 
 // set up routes
 app.use("/course", courseRoutes);
 
-// start the express server
-app.listen(port, () => {
-  // tslint:disable-next-line:no-console
-  console.log(`server started at http://localhost:${port}`);
-});
+export const api = functions.https.onRequest(app);
