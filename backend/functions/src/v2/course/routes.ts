@@ -6,9 +6,14 @@ router.post("/add", async (req: express.Request, res: express.Response) => {
   const { courseId, studentList, userEmail } = req.body;
   addCourse(courseId, studentList, userEmail)
     .then(() =>
-      res.status(200).send(`Successfully created a document for ${courseId}`)
+      res
+        .status(200)
+        .json({ success: `Successfully created a document for ${courseId}` })
     )
-    .catch((error) => res.status(409).send(error));
+    .catch((error) => {
+      console.log(error);
+      res.status(409).json({ error: error.message });
+    });
 });
 
 router.post(
@@ -19,7 +24,7 @@ router.post(
       .then(() =>
         res.status(200).send(`Successfully connected config for ${courseId}`)
       )
-      .catch((error) => res.status(409).send(error));
+      .catch((error) => res.status(409).json({ error: error.message }));
   }
 );
 
@@ -31,7 +36,7 @@ router.post(
       .then(() =>
         res.status(200).send(`Successfully created CSV for ${courseId}`)
       )
-      .catch((error) => res.status(409).send(error));
+      .catch((error) => res.status(409).json({ error: error.message }));
   }
 );
 

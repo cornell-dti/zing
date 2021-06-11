@@ -70,7 +70,7 @@ export const connectGroupConfig = (
     });
 };
 
-const createSurveyCsv = async (courseId: string) => {
+export const createSurveyCsv = async (courseId: string) => {
   const fields = [
     "fullName",
     "studentId",
