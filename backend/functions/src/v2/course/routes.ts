@@ -1,6 +1,6 @@
 import * as express from "express";
 const router: express.Router = express.Router();
-import { addCourse, connectGroupConfig } from "./functions";
+import { addCourse, connectGroupConfig, createSurveyCsv } from "./functions";
 
 router.post("/add", async (req: express.Request, res: express.Response) => {
   const { courseId, studentList, userEmail } = req.body;
@@ -18,6 +18,18 @@ router.post(
     connectGroupConfig(userEmail, configName, courseId)
       .then(() =>
         res.status(200).send(`Successfully connected config for ${courseId}`)
+      )
+      .catch((error) => res.status(409).send(error));
+  }
+);
+
+router.post(
+  "/survey-csv",
+  async (req: express.Request, res: express.Response) => {
+    const { courseId } = req.body;
+    createSurveyCsv(courseId)
+      .then(() =>
+        res.status(200).send(`Successfully created CSV for ${courseId}`)
       )
       .catch((error) => res.status(409).send(error));
   }

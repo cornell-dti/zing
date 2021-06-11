@@ -1,6 +1,12 @@
 import * as admin from "firebase-admin";
+import { DocumentSnapshot } from "@google-cloud/firestore";
 import { FirestoreCourseDoc } from "../../firestore-types";
-import { db } from "../../db";
+import { db, storage } from "../../db";
+import { parseAsync } from "json2csv";
+import { v4 as uuidv4 } from "uuid";
+import * as fs from "fs";
+import * as path from "path";
+import * as os from "os";
 
 export const addCourse = async (
   courseId: string,
@@ -62,6 +68,64 @@ export const connectGroupConfig = (
       console.log(error);
       return;
     });
+};
+
+const createSurveyCsv = async (courseId: string) => {
+  const fields = [
+    "fullName",
+    "studentId",
+    "identity",
+    "pronoun",
+    "graduation",
+    "college",
+    "remote",
+    "mode",
+    "time",
+    "start",
+  ];
+
+  try {
+    const surveySnapshot = await db
+      .collection("course")
+      .doc(courseId)
+      .collection("survey")
+      .get();
+
+    // prettier-ignore
+    const surveyDocs = surveySnapshot.docs.map(
+    (doc: DocumentSnapshot) => doc.data()
+  );
+
+    const outputCsv = await parseAsync(surveyDocs, { fields });
+    const filename = `${courseId}.csv`;
+    const tempFile = path.join(os.tmpdir(), filename);
+
+    return new Promise<void>((resolve, reject) => {
+      fs.writeFile(tempFile, outputCsv, (error) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        const bucket = storage.bucket();
+
+        bucket
+          .upload(tempFile, {
+            metadata: {
+              metadata: {
+                firebaseStorageDownloadTokens: uuidv4(),
+              },
+            },
+          })
+          .then(() => resolve())
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 /**
