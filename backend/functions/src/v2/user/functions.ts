@@ -118,7 +118,6 @@ export const createUser = async (email: string, name: string) => {
       name,
       course: [],
     };
-    let docExists = false;
     const userColRef = db.collection("user");
     // prettier-ignore
     await userColRef
@@ -127,7 +126,6 @@ export const createUser = async (email: string, name: string) => {
 			.get()
 			.then((snapshot) => {
 				if (!snapshot.empty) {
-          docExists = true;
 					throw new Error("Specified email already exists!");
 				}
 			});
