@@ -42,7 +42,7 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 
 // set up routes
-app.use("/course", courseRoutes);
-app.use("/user", userRoutes);
+app.use("/v2/course", courseRoutes);
+app.use("/v2/user", userRoutes);
 
 export const api = functions.https.onRequest(app);
