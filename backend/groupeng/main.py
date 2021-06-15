@@ -1,6 +1,3 @@
-import os
-import logging
-import tempfile
 import google.cloud.logging
 from google.cloud import storage, firestore
 from src import controller
@@ -34,9 +31,16 @@ def create_groups(request):
         if not course_doc.exists:
             return "Given className does not exist", 404
         data = course_doc.to_dict()
-        creator, config = data["creator"], data["config"]
-        config_doc = db.collection("userdata").document(
-            creator).collection("config").document(config).get()
+        creatorEmail, config = data["creator"], data["config"]
+        creator_query_result = db.collection("userdata") \
+            .where("email", "==", creatorEmail) \
+            .stream()
+        for doc in creator_query_result:
+            print(f"config name: {config}")
+            config_doc = doc.reference.collection("config") \
+                .document(config) \
+                .get()
+
         if not config_doc.exists:
             return "The config assigned for the class does not exist", 404
         config_data = config_doc.to_dict()
