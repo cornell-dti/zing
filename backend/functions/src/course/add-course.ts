@@ -1,3 +1,4 @@
+import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 import { FirestoreCourseDoc, FirestoreUserDoc } from "../firestore-types";
 import { Timestamp } from "@google-cloud/firestore";
@@ -52,6 +53,9 @@ const createCourse = async (
 							throw new Error("Specified groupID already exists!");
 						}
 						courseRef.add(course).then((doc) => {
+							userDoc.ref.update({
+								course: admin.firestore.FieldValue.arrayUnion(doc.id),
+							});
 							response.status(200).send(doc.id);
 						});
 					});
