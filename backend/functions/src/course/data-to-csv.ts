@@ -60,7 +60,7 @@ const createSurveyCsv = async (
 					reject(error);
 					return;
 				}
-				const bucket = storage.bucket();
+				const bucket = storage.bucket("gs://zing-backend.appspot.com");
 
 				bucket
 					.upload(tempFile, {
