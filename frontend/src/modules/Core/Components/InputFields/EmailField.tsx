@@ -8,7 +8,7 @@ export const EmailField = ({
   fullWidth = true,
   endAdornment,
   key = 'default',
-  MuiColor = colors.darkpurple,
+  MuiColor = colors.purple,
   containerStyle,
   inputStyle,
   placeholder = 'Email',

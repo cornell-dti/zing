@@ -1,8 +1,7 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { useState } from 'react'
 import {
   StyledContainer,
   StyledFullPanel,
-  StyledWrapper,
   StyledLogoWrapper,
   StyledLogo,
   StyledQuestionWrapper,
@@ -28,17 +27,17 @@ export const CreateZingForm = () => {
   const q3 = 'Students per group:'
   const q1TextStyle = {
     fontWeight: '500',
-    color: q1Error !== '' ? colors.red : colors.darkpurple,
+    color: q1Error !== '' ? colors.red : colors.purple,
   }
 
   const q2TextStyle = {
     fontWeight: '500',
-    color: q2Error !== '' ? colors.red : colors.darkpurple,
+    color: q2Error !== '' ? colors.red : colors.purple,
   }
 
   const q3TextStyle = {
     fontWeight: '500',
-    color: q3Error !== '' ? colors.red : colors.darkpurple,
+    color: q3Error !== '' ? colors.red : colors.purple,
   }
   function handleSubmit() {
     /* need to store errors locally since useStates get updated too slow 

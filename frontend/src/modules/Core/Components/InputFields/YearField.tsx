@@ -6,7 +6,7 @@ import { InputProps } from '@core/Types/FormFieldProps'
 
 export const YearField = ({
   error = '',
-  MuiColor = colors.darkpurple,
+  MuiColor = colors.purple,
   fullWidth = true,
   containerStyle,
   inputStyle,

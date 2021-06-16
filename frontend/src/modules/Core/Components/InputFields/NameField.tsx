@@ -7,7 +7,7 @@ import { InputProps } from '@core/Types/FormFieldProps'
 export const NameField = ({
   fullWidth = true,
   key,
-  MuiColor = colors.darkpurple,
+  MuiColor = colors.purple,
   containerStyle,
   inputStyle,
   placeholder = 'Name',

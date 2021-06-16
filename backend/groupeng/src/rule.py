@@ -309,7 +309,7 @@ class Balance(Rule):
                 return True
             elif find_target_and_swap(student, groups):
                 return True
-        except SwapButNotFix:
+        except Exception:
             return False
 
 
