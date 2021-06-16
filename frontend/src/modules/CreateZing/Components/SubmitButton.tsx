@@ -10,7 +10,7 @@ export const SubmitButton = ({ onClick }: ButtonProps) => {
     width: '15%',
     minWidth: 'fit-content',
     alignSelf: 'flex-end',
-    // margin: '0 5.75rem',
+    margin: '1rem',
     marginTop: '0.5rem',
   }
 

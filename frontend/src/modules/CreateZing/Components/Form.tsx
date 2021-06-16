@@ -1,8 +1,10 @@
 import React, { FunctionComponent, useState } from 'react'
+import { useHistory } from 'react-router'
 import {
   StyledContainer,
   StyledFullPanel,
-  StyledWrapper,
+  StyledCalendarWrapper,
+  StyledTextField,
   StyledLogoWrapper,
   StyledLogo,
   StyledQuestionWrapper,
@@ -11,21 +13,25 @@ import {
   StyledTextWrapper,
   StyledQuestion,
   StyledQuestionsWrapper,
+  StyledDueDateQuestion,
 } from '../Styles/FormStyle.style'
 import { SubmitButton } from './SubmitButton'
 import { colors } from '@core'
 
 export const CreateZingForm = () => {
+  const history = useHistory()
+  const [dueDate, setDueDate] = useState<string>('')
   const [groupName, setGroupName] = useState('')
   const [totalPeople, setTotalPeople] = useState('')
   const [studentsPerGroup, setStudentsPerGroup] = useState('')
   const [q1Error, setQ1Error] = useState('')
   const [q2Error, setQ2Error] = useState('')
-  const [q3Error, setQ3Error] = useState('')
+  const [q4Error, setQ4Error] = useState('')
   const placeholder = 'Type your answer here...'
   const q1 = 'Name of Zing:'
   const q2 = 'Total number of students:'
-  const q3 = 'Students per group:'
+  const q3 = 'Due date and time:'
+  const q4 = 'Students per group:'
   const q1TextStyle = {
     fontWeight: '500',
     color: q1Error !== '' ? colors.red : colors.darkpurple,
@@ -36,16 +42,16 @@ export const CreateZingForm = () => {
     color: q2Error !== '' ? colors.red : colors.darkpurple,
   }
 
-  const q3TextStyle = {
+  const q4TextStyle = {
     fontWeight: '500',
-    color: q3Error !== '' ? colors.red : colors.darkpurple,
+    color: q4Error !== '' ? colors.red : colors.darkpurple,
   }
   function handleSubmit() {
     /* need to store errors locally since useStates get updated too slow 
     (after function finishes) */
     var error1: boolean
     var error2: boolean
-    var error3: boolean
+    var error4: boolean
     // name validation
     if (groupName === '') {
       setQ1Error('Please enter a name')
@@ -67,21 +73,27 @@ export const CreateZingForm = () => {
       error2 = false
     }
 
+    // due date validation
+    // TODO: still need to connect endpoint. get date and parse the string
+    // turn it into a Date() and convert it back to string
+    // call https://us-central1-zing-backend.cloudfunctions.net/newCourse after
+    // post req
+
     // students per group validation
     if (Number(studentsPerGroup) <= 0 || studentsPerGroup === '') {
-      setQ3Error('Please enter a valid number')
-      error3 = true
+      setQ4Error('Please enter a valid number')
+      error4 = true
     } else if (Number(totalPeople) < Number(studentsPerGroup)) {
-      setQ3Error('Total people cannot be less than people per group')
-      error3 = true
+      setQ4Error('Total people cannot be less than people per group')
+      error4 = true
     } else {
-      setQ3Error('')
-      error3 = false
+      setQ4Error('')
+      error4 = false
     }
     // now check if there are any outstanding errors
-    if (!error1 && !error2 && !error3) {
+    if (!error1 && !error2 && !error4) {
       // if not go to dashboard and there will be notif waiting for them
-      alert('now you proceed back to dashboard (not implemented yet)')
+      history.push('/dashboard')
     } else {
       // else stay here and show errors
       console.warn('some kind of error')
@@ -127,17 +139,32 @@ export const CreateZingForm = () => {
               />
             </StyledQuestionWrapper>
             <StyledQuestionWrapper
-              style={{ paddingBottom: q3Error === '' ? '1.4rem' : '0rem' }}
+              style={{ paddingBottom: q1Error === '' ? '1.4rem' : '0rem' }}
+            >
+              <StyledCalendarWrapper>
+                <StyledDueDateQuestion
+                  fullWidth={true}
+                  error={q2Error}
+                  question={q3}
+                  value={dueDate}
+                  setAnswer={(arg: string) => setDueDate(arg)}
+                  placeholder={placeholder}
+                  isNumber={true}
+                ></StyledDueDateQuestion>
+              </StyledCalendarWrapper>
+            </StyledQuestionWrapper>
+            <StyledQuestionWrapper
+              style={{ paddingBottom: q4Error === '' ? '1.4rem' : '0rem' }}
             >
               <StyledQuestion
                 fullWidth={true}
-                error={q3Error}
-                question={q3}
+                error={q4Error}
+                question={q4}
                 value={studentsPerGroup}
                 setAnswer={(arg: string) => setStudentsPerGroup(arg)}
                 placeholder={placeholder}
                 isNumber={true}
-                inputStyle={q3TextStyle}
+                inputStyle={q4TextStyle}
               />
             </StyledQuestionWrapper>
             <SubmitButton onClick={handleSubmit} />
