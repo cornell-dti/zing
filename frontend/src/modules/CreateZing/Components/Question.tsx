@@ -17,9 +17,6 @@ export const Question = ({
   isNumber,
   inputStyle,
 }: QuestionProps) => {
-  // useEffect( () =>
-  //   if ()
-  // )
   function onChangeNumber(e: React.ChangeEvent<HTMLInputElement>) {
     if (Number(e.target.value) < 0) {
       setAnswer('0')
