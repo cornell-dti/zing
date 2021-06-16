@@ -1,7 +1,8 @@
 import * as functions from "firebase-functions";
-import { FirestoreUserDoc } from "../firestore-types";
-import { auth, db } from "../db";
+import { FirestoreUserDoc } from "../../firestore-types";
+import { auth, adminAuth, db } from "../../db";
 
+// @deprecated.
 export const signIn = functions.https.onRequest(
 	async (req: functions.https.Request, res: functions.Response) => {
 		res.set("Access-Control-Allow-Origin", "*");
@@ -22,6 +23,43 @@ export const signIn = functions.https.onRequest(
 	}
 );
 
+const getUserDataFromRequest = async (
+	request: functions.https.Request
+): Promise<
+	{ email: string | undefined; uid: string | undefined } | undefined
+> => {
+	const headers = request.headers;
+	if (headers === undefined) return undefined;
+	const idToken = headers["auth-token"];
+	if (typeof idToken !== "string") return undefined;
+	const decodedToken = await adminAuth.verifyIdToken(idToken);
+	return { email: decodedToken.email, uid: decodedToken.uid };
+};
+
+export const isAuthorized = async (
+	req: functions.https.Request,
+	res: functions.Response,
+	next: Function
+) => {
+	const dataResponse = await getUserDataFromRequest(req);
+
+	if (!dataResponse || !dataResponse.email || !dataResponse.uid) {
+		return res.status(440).json({ success: false, err: "Unauthorized" });
+	}
+
+	// Check if user actually exists in our system
+	if (!(await db.collection("userdata").doc(dataResponse.uid).get()).exists) {
+		return res.status(401).json({
+			success: false,
+			err: "This email is not registered.",
+		});
+	}
+
+	res.locals = { user: dataResponse };
+	return next();
+};
+
+// @deprecated. Use user/createUser AFTER creating an account.
 export const signUp = functions.https.onRequest(
 	async (req: functions.https.Request, res: functions.Response) => {
 		res.set("Access-Control-Allow-Origin", "*");

@@ -156,15 +156,12 @@ def run(dek, classlist, classname):
         group_to_firestore(all_groups, classname)
         group_output(all_groups, outfile('groups.csv'), identifier)
 
-        # group_output(all_groups, outfile('groups.txt'), identifier, sep = '\n')
         try:
             print('running statistics')
             print(f'keys: {dek.keys()}')
             statistics(rules, all_groups, balance_rules, classname)
         except Exception as exc:
             print(exc)
-        # student_full_output(students, identifier, outfile('classlist.csv'))
-        # student_augmented_output(students, rules, outfile('details.csv'))
 
         return suceeded
     except Exception as exc:
@@ -172,26 +169,6 @@ def run(dek, classlist, classname):
 
 
 def statistics(rules, groups, balance_rules, classname):
-    #    def failures(r):
-    #        return sum(1 - r.check(g) for g in groups)
-
-    #    for r in rules[1:]:
-    #        n_fail = failures(r)
-    #        if isinstance(r, Balance):
-    #            group_means = sorted([mean(g, r.get_strength) for g in groups])
-    #            attr = r.attribute
-    #            outf.write('{0} groups failed:'.format(n_fail))
-    #            outf.write('{0}: '.format(r))
-    #            outf.write('Class {0} Mean: {1:3.2f}, '.format(
-    #                attr, mean(students, r.get_strength)))
-    #            outf.write('Class {0} Std Dev: {1:3.2f}, '.format(
-    #                attr, std(students, r.get_strength)))
-    #            outf.write('Std Dev of Group {0} Means: {1:3.2f}'.format(
-    #                attr, std(group_means)))
-    #            outf.write('\n\n')
-    #        else:
-    #            outf.write('{0} groups failed: {1}\n\n'.format(n_fail, r))
-
     print("Starting statistics generation:")
 
     group_collection_ref = firestore.Client() \

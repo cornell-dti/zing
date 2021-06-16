@@ -8,9 +8,9 @@ import { withStyles } from '@material-ui/core/styles'
 
 const PurpleRadio = withStyles({
   root: {
-    color: colors.darkpurple,
+    color: colors.purple,
     '&$checked': {
-      color: colors.darkpurple,
+      color: colors.purple,
     },
   },
   checked: {},
