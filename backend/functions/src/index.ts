@@ -33,7 +33,7 @@ const app = express();
 
 // import all routers
 import courseRoutes from "./v2/course/routes";
-import userRoutes from "./v2/course/routes";
+import userRoutes from "./v2/user/routes";
 
 // Automatically allow cross-origin requests. NEED TO CHANGE.
 app.use(cors({ origin: true }));
@@ -42,7 +42,7 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 
 // set up routes
-app.use("/v2/course", courseRoutes);
-app.use("/v2/user", userRoutes);
+app.use("/course", courseRoutes);
+app.use("/user", userRoutes);
 
 export const api = functions.https.onRequest(app);

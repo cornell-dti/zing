@@ -85,4 +85,5 @@ router.post("/create", async (req: express.Request, res: express.Response) => {
     });
 });
 
+router.get("/", (req, res) => res.send("create"));
 export default router;

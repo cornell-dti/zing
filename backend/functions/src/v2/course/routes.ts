@@ -40,4 +40,6 @@ router.post(
   }
 );
 
+router.get("/", (req, res) => res.send("hi"));
+
 export default router;

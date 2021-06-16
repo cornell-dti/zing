@@ -40,7 +40,7 @@ export const createGroupConfig = async (
       });
   } catch (error) {
     console.log(error);
-    throw new Error("Unresolved error: " + error.message);
+    throw new Error("error: " + error.message);
   }
 };
 
@@ -107,7 +107,7 @@ export const addOrUpdateSurvey = async (
     });
   } catch (error) {
     console.log(error);
-    throw new Error("Unhandled error: " + error.message);
+    throw new Error("error: " + error.message);
   }
 };
 
@@ -118,7 +118,7 @@ export const createUser = async (email: string, name: string) => {
       name,
       course: [],
     };
-    const userColRef = db.collection("user");
+    const userColRef = db.collection("userdata");
     // prettier-ignore
     await userColRef
 			.where("email", "==", email)
@@ -132,6 +132,6 @@ export const createUser = async (email: string, name: string) => {
     userColRef.doc().create(userDoc);
   } catch (error) {
     console.log(error);
-    throw new Error("Unhandled error: " + error.message);
+    throw new Error("error: " + error.message);
   }
 };
