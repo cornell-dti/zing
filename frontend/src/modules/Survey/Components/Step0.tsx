@@ -36,8 +36,8 @@ export const Step0 = ({
   /** the current error encountered */
   const [error, setError] = useState(errorEnum.NONE)
   /** color to be passed */
-  const [nameColor, setNameColor] = useState(colors.darkpurple)
-  const [emailColor, setEmailColor] = useState(colors.darkpurple)
+  const [nameColor, setNameColor] = useState(colors.purple)
+  const [emailColor, setEmailColor] = useState(colors.purple)
 
   const textContainerStyle = {
     margin: '0.75rem 0',
@@ -48,7 +48,7 @@ export const Step0 = ({
     color:
       error === errorEnum.NAME || error === errorEnum.BOTH
         ? colors.red
-        : colors.darkpurple,
+        : colors.purple,
   }
 
   const emailTextInputStyle = {
@@ -56,7 +56,7 @@ export const Step0 = ({
     color:
       error === errorEnum.EMAIL || error === errorEnum.BOTH
         ? colors.red
-        : colors.darkpurple,
+        : colors.purple,
   }
 
   function calculatePadding(nameOrEmail: string): string {

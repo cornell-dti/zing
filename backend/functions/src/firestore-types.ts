@@ -1,3 +1,5 @@
+import { Timestamp } from "@google-cloud/firestore";
+
 /* eslint-disable max-len */
 export type FirestoreSurveyDoc = {
 	fullName: string;
@@ -13,9 +15,12 @@ export type FirestoreSurveyDoc = {
 };
 
 export type FirestoreCourseDoc = {
-	studentList: string[];
+	// studentList: string[];
+	name: string;
 	completed: string[];
 	creator: string;
+	dueDate: Timestamp;
+	minGroupSize: number;
 };
 
 export type FirestoreUserDoc = {

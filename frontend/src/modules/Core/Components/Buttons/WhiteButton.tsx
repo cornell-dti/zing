@@ -12,7 +12,7 @@ export const WhiteButton = ({
   ...buttonProps
 }: ButtonProps) => {
   const whiteContainerStyle = {
-    border: `1px solid ${colors.darkpurple}`,
+    border: `1px solid ${colors.purple}`,
     boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.1)',
     alignSelf: 'flex-end',
     padding: '0 1.5rem',
@@ -22,7 +22,7 @@ export const WhiteButton = ({
   }
 
   const whiteLabelStyle = {
-    color: colors.darkpurple,
+    color: colors.purple,
     fontWeight: '600',
     fontSize: '1.5rem',
     textTransform: 'none',
