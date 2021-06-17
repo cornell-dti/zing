@@ -1,2 +1,3 @@
 # VSCode config
 /.vscode
+/backend/functions/firebase-debug.log

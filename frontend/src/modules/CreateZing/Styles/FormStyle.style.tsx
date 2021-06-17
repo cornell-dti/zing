@@ -2,7 +2,7 @@ import React from 'react'
 
 import styled, { css } from 'styled-components'
 import logo from '@assets/img/purplelogo.svg'
-import { colors, h2, h3, StyledComponent } from '@core'
+import { colors, h3, StyledComponent } from '@core'
 import bg2 from '@assets/img/bg2.svg'
 import { Question } from '../Components/Question'
 
