@@ -10,6 +10,7 @@ import {
   EDIT_ZING_PATH,
   DASHBOARD_PATH,
 } from '@core'
+import { PublicRoute, PrivateRoute } from '@core/Components'
 
 import { Home } from 'Home'
 import { Login } from 'Login'
@@ -25,13 +26,14 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path={HOME_PATH} component={Home} />
-        <Route exact path={LOGIN_PATH} component={Login} />
-        <Route exact path={SIGNUP_PATH} component={Signup} />
+        <PublicRoute exact path={HOME_PATH} component={Home} />
+        <PublicRoute exact path={LOGIN_PATH} component={Login} />
+        <PublicRoute exact path={SIGNUP_PATH} component={Signup} />
+        {/* Anyone should be able to access the survey, signed in or not */}
         <Route exact path={SURVEY_PATH} component={Survey} />
-        <Route exact path={CREATE_ZING_PATH} component={CreateZing} />
-        <Route exact path={EDIT_ZING_PATH} component={EditZing} />
-        <Route exact path={DASHBOARD_PATH} component={Dashboard} />
+        <PrivateRoute exact path={CREATE_ZING_PATH} component={CreateZing} />
+        <PrivateRoute exact path={EDIT_ZING_PATH} component={EditZing} />
+        <PrivateRoute exact path={DASHBOARD_PATH} component={Dashboard} />
       </Switch>
     </Router>
   )

@@ -1,46 +1,118 @@
-import React from 'react'
+import React, { useRef, useState, Fragment } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-import { Student } from 'EditZing/Types/Student'
+import {
+  Student,
+  STUDENT_TYPE,
+  DnDStudentTransferType,
+} from 'EditZing/Types/Student'
 import { StudentGridProps } from 'EditZing/Types/ComponentProps'
+import { genderSVG } from 'EditZing/Styles/InlineSVGs'
 import { colors, montserratFont } from '@core'
-
-import { DndProvider, useDrag } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { useDrop, useDrag } from 'react-dnd'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
     },
-    paper: {
-      padding: theme.spacing(1),
-      textAlign: 'center',
+    paper1: {
+      padding: theme.spacing(2),
+      textAlign: 'left',
       color: colors.black,
       fontFamily: 'Montserrat',
       fontWeight: 700,
+      fontSize: 14,
+      background: colors.verylightviolet,
+      border: '0px solid rgba(205, 156, 242, 0.15)',
+      boxShadow: '0px 2px 5px rgba(205, 156, 242, 0.2);',
+      borderRadius: '10px',
+    },
+    paper2: {
+      textAlign: 'left',
+      color: colors.black,
+      fontFamily: 'Montserrat',
+      fontWeight: 400,
+      fontSize: 14,
+      background: colors.verylightviolet,
+      // border: '0px solid rgba(205, 156, 242, 0.15)',
+      // boxShadow: '0px 2px 5px rgba(205, 156, 242, 0.2);',
+      // borderRadius: '10px',
     },
   })
 )
 
-export const StudentGrid = ({ student }: StudentGridProps) => {
+/** the equivalent of MoveableItem */
+export const StudentGrid = ({
+  student,
+  groupIndex,
+  studentIndex,
+  moveStudentBetweenGrids,
+  moveStudentWithinGrid,
+}: StudentGridProps) => {
+  const [isDragging, drag] = useDrag({
+    item: {
+      type: STUDENT_TYPE,
+      groupIndex: groupIndex,
+      studentIndex: studentIndex,
+      studentToMove: student,
+    },
+    type: STUDENT_TYPE,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  })
+
+  const [{ isOver }, drop] = useDrop({
+    accept: STUDENT_TYPE,
+    drop: (item: DnDStudentTransferType, monitor) => {
+      // console.log('studentgrid')
+      moveStudentWithinGrid(item.studentToMove, groupIndex, studentIndex)
+    },
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  })
+
   const classes = useStyles()
 
-  // const [{ isDragging }, drag] = useDrag({
-  //   item: { name: { student }, type: 'Student' },
-  //   collect: (monitor) => ({
-  //     isDragging: monitor.isDragging(),
-  //   }),
-  // })
-
-  // const opacity = isDragging ? 0.4 : 1
+  function determineOpacity() {
+    if (!isDragging) {
+      return '0'
+    } else if (isOver) {
+      return '0.9'
+    } else {
+      return '1.0'
+    }
+  }
 
   return (
-    <React.Fragment>
-      <Grid item xs={6}>
-        <Paper className={classes.paper}>{student.fullName}</Paper>
+    <Fragment>
+      <Grid item xs={6} ref={drop}>
+        <div ref={drag}>
+          <Paper
+            style={{
+              opacity: determineOpacity(),
+              background: isOver ? colors.lightviolet : colors.verylightviolet,
+            }}
+            className={classes.paper1}
+          >
+            {student.fullName}
+            <div
+              className={classes.paper2}
+              style={{
+                opacity: determineOpacity(),
+                background: isOver
+                  ? colors.lightviolet
+                  : colors.verylightviolet,
+              }}
+            >
+              {genderSVG} {student.pronoun == 'a' ? 'Male' : 'Female'}
+            </div>
+          </Paper>
+        </div>
       </Grid>
-    </React.Fragment>
+    </Fragment>
   )
 }
