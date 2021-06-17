@@ -1,8 +1,7 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
-import { FirestoreSurveyDoc } from "../firestore-types";
-import { idInCourseList } from "../utils";
-import { db } from "../db";
+import { FirestoreSurveyDoc } from "../../firestore-types";
+import { db } from "../../db";
 
 const addResponse = functions.https.onRequest(
 	async (request: functions.https.Request, response: functions.Response) => {
@@ -50,7 +49,7 @@ const addOrUpdateSurvey = async (
 		};
 		const courseRef = db.collection("course").doc(courseId);
 		await courseRef.get().then((docSnapshot) => {
-			if (docSnapshot.exists && idInCourseList(studentId, docSnapshot)) {
+			if (docSnapshot.exists) {
 				courseRef.onSnapshot((doc) => {
 					const surveyColRef = doc.ref.collection("survey");
 					surveyColRef
