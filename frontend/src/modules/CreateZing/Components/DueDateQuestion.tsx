@@ -6,10 +6,10 @@ import {
 } from '../Styles/QuestionStyle.style'
 import {
   StyledCalendarWrapper,
+  StyledTextFieldError,
   StyledTextField,
 } from '../Styles/FormStyle.style'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -23,25 +23,38 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const DueDateQuestion = ({
-  error = '',
+  error,
   question,
   setAnswer,
   value,
   placeholder,
-  isNumber,
-  inputStyle,
 }: QuestionProps) => {
-  const defaultGradDate = '2024-05'
   const classes = useStyles()
   return (
     <StyledQuestionContainer>
       <StyledText>{question}</StyledText>
       <StyledCalendarWrapper>
-        <form className={classes.container} noValidate>
-          <StyledTextField
+        {error == '' ? (
+          <form className={classes.container} noValidate>
+            <StyledTextField
+              id="date"
+              type="date"
+              defaultValue={value}
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setAnswer(e.target.value)
+              }
+            />
+          </form>
+        ) : (
+          <StyledTextFieldError
+            error
             id="date"
             type="date"
-            defaultValue={defaultGradDate}
+            defaultValue={value}
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
@@ -49,9 +62,9 @@ export const DueDateQuestion = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setAnswer(e.target.value)
             }
+            helperText={error}
           />
-        </form>
-        <text>{value}</text>
+        )}
       </StyledCalendarWrapper>
     </StyledQuestionContainer>
   )

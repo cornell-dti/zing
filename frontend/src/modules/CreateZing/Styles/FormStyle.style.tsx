@@ -1,13 +1,11 @@
-import React from 'react'
-
 import styled, { css } from 'styled-components'
 import logo from '@assets/img/purplelogo.svg'
-import { colors, h2, h3, StyledComponent } from '@core'
+import { colors, h3, StyledComponent } from '@core'
 import bg2 from '@assets/img/bg2.svg'
 import { Question } from '../Components/Question'
-import { withStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
 import { DueDateQuestion } from 'CreateZing/Components/DueDateQuestion'
+import TextField from '@material-ui/core/TextField'
+import { withStyles } from '@material-ui/core/styles'
 
 const Logo = ({ className }: StyledComponent) => (
   <div className={className}>
@@ -115,7 +113,6 @@ export const StyledCalendarWrapper = styled.div`
   justify-content: left;
   align-items: left;
 `
-
 export const StyledTextField = withStyles({
   root: {
     background: '#f6f3ff',
@@ -141,6 +138,35 @@ export const StyledTextField = withStyles({
     },
     '& .MuiInputBase-root:focus': {
       color: colors.lightviolet,
+    },
+  },
+})(TextField)
+
+export const StyledTextFieldError = withStyles({
+  root: {
+    background: '#f6f3ff',
+    borderRadius: 3,
+    border: 0,
+    height: 48,
+    color: colors.red,
+    '& .MuiInput-underline:before': {
+      color: colors.red,
+      borderBottomColor: colors.red, // Semi-transparent underline
+    },
+    '& .MuiInput-underline:hover:before': {
+      color: colors.red,
+      borderBottomColor: colors.red, // Solid underline on hover
+    },
+    '& .MuiInput-underline:after': {
+      color: colors.red,
+      borderBottomColor: colors.red, // Solid underline on focus
+    },
+    '& .MuiInputBase-root': {
+      color: colors.red,
+      fontWeight: 500,
+    },
+    '& .MuiInputBase-root:focus': {
+      color: colors.red,
     },
   },
 })(TextField)
