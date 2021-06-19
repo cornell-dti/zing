@@ -1,7 +1,7 @@
 import React, { useEffect, useState, FunctionComponent } from 'react'
 import { NameField, NumberField, colors } from '@core'
 import styled, { css } from 'styled-components'
-import { QuestionProps } from '../Types/QuestionType'
+import { HybridQuestionProps } from '../Types/QuestionType'
 import {
   StyledQuestionContainer,
   StyledText,
@@ -9,14 +9,14 @@ import {
 
 export const Question = ({
   fullWidth,
-  error = '',
+  error,
   question,
   setAnswer,
   value,
   placeholder,
   isNumber,
   inputStyle,
-}: QuestionProps) => {
+}: HybridQuestionProps) => {
   function onChangeNumber(e: React.ChangeEvent<HTMLInputElement>) {
     if (Number(e.target.value) < 0) {
       setAnswer('0')

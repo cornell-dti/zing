@@ -4,7 +4,6 @@ import {
   StyledContainer,
   StyledFullPanel,
   StyledCalendarWrapper,
-  StyledTextField,
   StyledLogoWrapper,
   StyledLogo,
   StyledQuestionWrapper,
@@ -26,11 +25,12 @@ export const CreateZingForm = () => {
   const [studentsPerGroup, setStudentsPerGroup] = useState('')
   const [q1Error, setQ1Error] = useState('')
   const [q2Error, setQ2Error] = useState('')
+  const [q3Error, setQ3Error] = useState('')
   const [q4Error, setQ4Error] = useState('')
   const placeholder = 'Type your answer here...'
   const q1 = 'Name of Zing:'
   const q2 = 'Total number of students:'
-  const q3 = 'Due date and time:'
+  const q3 = 'Due date:'
   const q4 = 'Students per group:'
   const q1TextStyle = {
     fontWeight: '500',
@@ -51,6 +51,7 @@ export const CreateZingForm = () => {
     (after function finishes) */
     var error1: boolean
     var error2: boolean
+    var error3: boolean
     var error4: boolean
     // name validation
     if (groupName === '') {
@@ -74,10 +75,20 @@ export const CreateZingForm = () => {
     }
 
     // due date validation
-    // TODO: still need to connect endpoint. get date and parse the string
-    // turn it into a Date() and convert it back to string
-    // call https://us-central1-zing-backend.cloudfunctions.net/newCourse after
-    // post req
+    const nowObj: number = Date.now()
+    const dueYear = Number(dueDate.substr(0, 4))
+    const dueMonth = Number(dueDate.substr(5, 2)) - 1
+    const dueDay = Number(dueDate.substr(8, 2))
+    const dueObj = new Date(dueYear, dueMonth, dueDay)
+    if (dueObj.getTime() < nowObj) {
+      error3 = true
+      setQ3Error('Due date has passed')
+      console.warn(dueObj)
+    } else {
+      error3 = false
+      setQ3Error('')
+      console.warn(dueObj)
+    }
 
     // students per group validation
     if (Number(studentsPerGroup) <= 0 || studentsPerGroup === '') {
@@ -91,7 +102,7 @@ export const CreateZingForm = () => {
       error4 = false
     }
     // now check if there are any outstanding errors
-    if (!error1 && !error2 && !error4) {
+    if (!error1 && !error2 && !error3 && !error4) {
       // if not go to dashboard and there will be notif waiting for them
       history.push('/dashboard')
     } else {
@@ -144,12 +155,11 @@ export const CreateZingForm = () => {
               <StyledCalendarWrapper>
                 <StyledDueDateQuestion
                   fullWidth={true}
-                  error={q2Error}
+                  error={q3Error}
                   question={q3}
                   value={dueDate}
                   setAnswer={(arg: string) => setDueDate(arg)}
                   placeholder={placeholder}
-                  isNumber={true}
                 ></StyledDueDateQuestion>
               </StyledCalendarWrapper>
             </StyledQuestionWrapper>
