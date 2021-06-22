@@ -16,6 +16,8 @@ import {
 } from '../Styles/FormStyle.style'
 import { SubmitButton } from './SubmitButton'
 import { colors } from '@core'
+import { createZing, PostData } from 'CreateZing/NetworkFunctions'
+import { group } from 'node:console'
 
 export const CreateZingForm = () => {
   const history = useHistory()
@@ -83,11 +85,9 @@ export const CreateZingForm = () => {
     if (dueObj.getTime() < nowObj) {
       error3 = true
       setQ3Error('Due date has passed')
-      console.warn(dueObj)
     } else {
       error3 = false
       setQ3Error('')
-      console.warn(dueObj)
     }
 
     // students per group validation
@@ -103,7 +103,14 @@ export const CreateZingForm = () => {
     }
     // now check if there are any outstanding errors
     if (!error1 && !error2 && !error3 && !error4) {
+      const data: PostData = {
+        name: groupName,
+        minGroupSize: Number(studentsPerGroup),
+        dueDate: dueObj.toString(),
+        userEmail: 'foo@zing.com', // TODO: make email not hardcoded
+      }
       // if not go to dashboard and there will be notif waiting for them
+      createZing(data)
       history.push('/dashboard')
     } else {
       // else stay here and show errors
