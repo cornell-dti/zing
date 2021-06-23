@@ -23,7 +23,7 @@ const addOrUpdateSurvey = async (
 ) => {
 	try {
 		const {
-			groupId: courseId,
+			courseId,
 			fullName,
 			studentId,
 			identity,

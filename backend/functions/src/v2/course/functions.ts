@@ -18,9 +18,6 @@ export const addCourse = async (
 			if (snapshot.empty) return null;
 			else {
 				const docRef = snapshot.docs[0].ref;
-				docRef.update({
-					course: admin.firestore.FieldValue.arrayUnion(name),
-				});
 				return docRef;
 			}
 		});
