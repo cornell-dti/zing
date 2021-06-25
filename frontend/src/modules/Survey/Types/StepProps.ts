@@ -1,21 +1,23 @@
+import { Question } from '@core/Types'
+
 export interface StepTemplateProps {
   gotoPrevStep: () => void
   gotoNextStep: () => void
   stepNumber: number
   totalSteps: number
-  currentAnswer: string
+  isStepValid: boolean
   setShowError: (b: boolean) => void
 }
 
 export interface StepProps {
-  questionList?: string[] // for radio button screen
+  question: Question
   setAnswer: (arg: string) => void
   key?: string
   currentAnswer: string
   showError: boolean
 }
 
-export interface Step0Props {
+export interface StepBeginProps {
   setName: (arg: string) => void
   setEmail: (arg: string) => void
   name: string
