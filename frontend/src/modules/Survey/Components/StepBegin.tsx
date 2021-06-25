@@ -13,16 +13,16 @@ import {
   StyledHeaderText,
   StyledWelcomeText,
   StyledTextFieldWrapper,
-} from 'Survey/Styles/Step0.style'
-import { Step0Props } from 'Survey/Types'
+} from 'Survey/Styles/StepBegin.style'
+import { StepBeginProps } from 'Survey/Types'
 
-export const Step0 = ({
+export const StepBegin = ({
   name,
   email,
   setName,
   setEmail,
   gotoNextStep,
-}: Step0Props) => {
+}: StepBeginProps) => {
   /** Enums for the 4 types of validation errors that can occur on step 0 **/
   const errorEnum = {
     NONE: '',
