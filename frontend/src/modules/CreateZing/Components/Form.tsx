@@ -107,7 +107,7 @@ export const CreateZingForm = () => {
         name: groupName,
         minGroupSize: Number(studentsPerGroup),
         dueDate: dueObj.toString(),
-        userEmail: 'foo@zing.com', // TODO: make email not hardcoded
+        userEmail: 'test@test.test', // TODO: make email not hardcoded
       }
       // if not go to dashboard and there will be notif waiting for them
       createZing(data)
