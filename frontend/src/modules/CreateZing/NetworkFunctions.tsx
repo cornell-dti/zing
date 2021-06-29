@@ -1,4 +1,3 @@
-import React from 'react'
 const axios = require('axios')
 
 export interface PostData {
@@ -8,7 +7,7 @@ export interface PostData {
   userEmail: string
 }
 
-export function createZing(data: PostData) {
+export async function createZing(data: PostData) {
   axios
     .post('https://us-central1-zing-backend.cloudfunctions.net/newCourse', data)
     .then(
