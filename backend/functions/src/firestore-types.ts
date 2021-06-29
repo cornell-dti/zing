@@ -17,10 +17,11 @@ export type FirestoreSurveyDoc = {
 export type FirestoreCourseDoc = {
 	// studentList: string[];
 	name: string;
-	completed: string[];
+	completed?: string[];
 	creator: string;
 	dueDate: Timestamp;
 	minGroupSize: number;
+	config: string | null;
 };
 
 export type FirestoreUserDoc = {

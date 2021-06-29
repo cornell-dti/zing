@@ -1,39 +1,36 @@
-import google.cloud.logging
-from google.cloud import storage, firestore
+from google.cloud import logging, storage, firestore
 from src import controller
+import base64
 
 CLASS_BUCKET = "zing-backend.appspot.com"
 
 
-def create_groups(request):
+def subscribe(event, context):
     try:
-        request_json = request.get_json()
-        if request.args and "className" in request.args:
-            class_name = request.args.get("className")
-        elif request_json and "className" in request_json:
-            class_name = request_json["className"]
-        else:
-            return "Parameter className is not specified", 404
-
+        class_doc_id = base64.b64decode(event["data"])
         storage_client = storage.Client()
-        logging_client = google.cloud.logging.Client()
+        logging_client = logging.Client()
         logging_client.get_default_handler()
         logging_client.setup_logging()
 
-        student_file_name = class_name + ".csv"
+        student_file_name = class_doc_id + ".csv"
         source_bucket = storage_client.bucket(CLASS_BUCKET)
         source_blob = source_bucket.blob(student_file_name)
         source_file = f"/tmp/{student_file_name}"
         source_blob.download_to_filename(source_file)
 
         db = firestore.Client()
-        course_doc = db.collection("course").document(class_name).get()
+        course_doc = db.collection("course").document(class_doc_id).get()
         if not course_doc.exists:
-            return "Given className does not exist", 404
+            print("Given course document id does not exist!")
+            return
         data = course_doc.to_dict()
-        creatorEmail, config = data["creator"], data["config"]
+        course_name = data["name"]
+        email = data["creator"]
+        config = data["config"]
+        group_size = str(data["minGroupSize"]) + "+"
         creator_query_result = db.collection("userdata") \
-            .where("email", "==", creatorEmail) \
+            .where("email", "==", email) \
             .stream()
         for doc in creator_query_result:
             print(f"config name: {config}")
@@ -42,16 +39,14 @@ def create_groups(request):
                 .get()
 
         if not config_doc.exists:
-            return "The config assigned for the class does not exist", 404
+            print("The config assigned for the class does not exist")
+            return
         config_data = config_doc.to_dict()
-
-        status = controller.run(config_data, source_file, class_name)
+        config_data["groupSize"] = group_size
+        status = controller.run(config_data, source_file, class_doc_id)
         if not status:
             print('Could not completely meet all rules')
-        # file_name = '{0}_{1}'.format(class_name, "groups.csv")
-        # file_dir = os.path.join(tempfile.gettempdir(), file_name)
-        # destination_blob.upload_from_filename(file_dir)
-        return 'Group generation complete', 200
+            return
+        print(f"Generated grouping for {course_name}")
     except Exception as e:
         print(e)
-        return e, 500

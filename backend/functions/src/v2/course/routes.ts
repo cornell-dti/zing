@@ -1,26 +1,35 @@
 import * as express from "express";
-import { addCourse, connectGroupConfig } from "./functions";
+import {
+	postCourse,
+	patchCourse,
+	deleteCourse,
+	getCourse,
+	groupCourse,
+} from "./functions";
 import { Request, Response } from "express";
 
 // eslint-disable-next-line new-cap
 const router: express.Router = express.Router();
+const internalError = (res: Response, err: any) =>
+	res.status(500).send(err.toString());
 
-router.post("/", async (req: Request, res: Response) => {
-	const { name, minGroupSize, dueDate, userEmail } = req.body;
-	addCourse(name, minGroupSize, dueDate, userEmail)
-		.then(() =>
-			res.status(200).send(`Successfully created a document for ${name}`)
-		)
-		.catch((error) => res.status(409).send(error));
+router.post("/", (req: Request, res: Response) => {
+	postCourse(req, res).catch((err) => internalError(res, err));
 });
 
-router.post("/connect-config", async (req: Request, res: Response) => {
-	const { userEmail, configName, courseId } = req.body;
-	connectGroupConfig(userEmail, configName, courseId)
-		.then(() =>
-			res.status(200).send(`Successfully connected config for ${courseId}`)
-		)
-		.catch((error) => res.status(409).send(error));
+router
+	.get("/:courseDocId", async (req: Request, res: Response) => {
+		getCourse(req, res).catch((err) => internalError(res, err));
+	})
+	.delete("/:courseDocId", async (req: Request, res: Response) => {
+		deleteCourse(req, res).catch((err) => internalError(res, err));
+	})
+	.patch("/:courseDocId", async (req: Request, res: Response) => {
+		patchCourse(req, res).catch((err) => internalError(res, err));
+	});
+
+router.post("/:courseDocId/group", async (req: Request, res: Response) => {
+	groupCourse(req, res).catch((err) => internalError(res, err));
 });
 
 export default router;

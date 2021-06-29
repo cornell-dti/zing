@@ -1,6 +1,5 @@
 #!/bin/bash
 
-gcloud functions deploy create_groups \
- --runtime python38 \
- --trigger-http \
- --allow-unauthenticated 
+gcloud functions deploy subscribe \
+ --trigger-topic groupeng \
+ --runtime python38 

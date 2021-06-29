@@ -42,6 +42,7 @@ const createCourse = async (
 					dueDate: Timestamp.fromDate(new Date(dueDate)),
 					creator: email,
 					completed: [],
+					config: null,
 				};
 				const courseRef = db.collection("course");
 				courseRef
@@ -61,7 +62,6 @@ const createCourse = async (
 					});
 			});
 	} catch (error) {
-		console.log(error);
 		response.status(500).send(error);
 	}
 };
