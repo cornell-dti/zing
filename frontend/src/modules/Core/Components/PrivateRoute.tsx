@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router'
 import { useAppSelector } from '@redux/hooks'
 
 import { RouteProps } from '@core/Types'
-import { LOGIN_PATH } from '@core/Constants'
+import { HOME_PATH } from '@core/Constants'
 
 export const PrivateRoute = ({
   component: Component,
@@ -15,7 +15,7 @@ export const PrivateRoute = ({
     <Route
       {...routeProps}
       render={(props) =>
-        user ? <Component {...props} /> : <Redirect to={LOGIN_PATH} />
+        user ? <Component {...props} /> : <Redirect to={HOME_PATH} />
       }
     />
   )

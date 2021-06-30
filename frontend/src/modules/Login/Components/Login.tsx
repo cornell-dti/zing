@@ -38,7 +38,7 @@ export const Login = () => {
   const handleLogin = () => {
     // Fake login
     if (email === 'hello@cornelldti.org' && password === 'zing') {
-      dispatch(saveLogin(email))
+      //dispatch(saveLogin(email))
       history.push('/dashboard')
     } else {
       setEmailError(LoginError.INCORRECT)

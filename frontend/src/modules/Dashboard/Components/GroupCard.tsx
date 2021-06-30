@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import moment from 'moment'
 import {
   StyledContainer,
@@ -19,6 +20,7 @@ export const GroupCard = ({
   total,
   deadline,
 }: GroupCardProps) => {
+  const history = useHistory()
   return (
     <StyledContainer key={key}>
       <StyledName>{name}</StyledName>
@@ -63,7 +65,9 @@ export const GroupCard = ({
               fontWeight: 600,
               fontSize: '1rem',
             }}
-            onClick={() => {}}
+            onClick={() => {
+              history.push('/editZing')
+            }}
             label={'Match'}
           />
         )}
