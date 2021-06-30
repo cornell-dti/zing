@@ -1,5 +1,5 @@
 import React from 'react'
-import { colors, h1, h2, h3, h4, StyledComponent } from '@core'
+import { colors, h3, h5, StyledComponent } from '@core'
 import styled from 'styled-components'
 
 export const StyledContainer = styled.div`
@@ -20,6 +20,8 @@ export const StyledGroupContainer = styled.div`
 `
 
 export const StyledGroupTextWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
   margin-bottom: 1rem;
 `
 
@@ -27,4 +29,18 @@ export const StyledGroupText = styled.text`
   ${h3};
   font-weight: 800;
   color: ${colors.black};
+  margin-right: 1rem;
+`
+
+export const StyledMetricBox = styled.div`
+  border-radius: 8px;
+  background: ${colors.lightgreen};
+  text-align: center;
+  padding: 0.25rem 0.5rem 0rem 0.5rem;
+`
+
+export const StyledMetricText = styled.text`
+  ${h5};
+  font-weight: 600;
+  color: ${colors.darkgreen};
 `
