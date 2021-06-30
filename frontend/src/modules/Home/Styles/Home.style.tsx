@@ -53,12 +53,12 @@ const panel = css`
 
 const halfPanel = css`
   ${panel};
-  height: 100%;
   width: 50%;
 `
 
 export const StyledLeftPanel = styled.div`
   ${halfPanel};
+  height: 100%;
   align-items: center;
   background: linear-gradient(
     162.9deg,
@@ -77,9 +77,10 @@ export const StyledWhiteActionText = styled.text`
 
 export const StyledRightPanel = styled.div`
   ${halfPanel};
+  height: 80%;
   box-sizing: border-box;
   padding: 0 6rem;
-  gap: 6rem;
+  gap: 4rem;
 `
 
 export const StyledTitleWrapper = styled.div`
@@ -100,6 +101,4 @@ export const StyledWelcomeText = styled.text`
 
 export const StyledButtonsWrapper = styled.div`
   display: flex;
-  gap: 1rem;
-  padding-bottom: 12rem;
 `

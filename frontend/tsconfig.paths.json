@@ -5,6 +5,9 @@
       "@assets/*": ["src/assets/*"],
       "@core": ["src/modules/Core/"],
       "@core/*": ["src/modules/Core/*"],
+      "@redux/*": ["src/redux/*"],
+      "@fire": ["src/firebase/"],
+      "@fire/*": ["src/firebase/*"],
       "Home": ["src/modules/Home/"],
       "Home/*": ["src/modules/Home/*"],
       "CreateZing": ["src/modules/CreateZing/"],
@@ -18,7 +21,9 @@
       "Survey": ["src/modules/Survey/"],
       "Survey/*": ["src/modules/Survey/*"],
       "EditZing": ["src/modules/EditZing/"],
-      "EditZing/*": ["src/modules/EditZing/*"]
+      "EditZing/*": ["src/modules/EditZing/*"],
+      "Dashboard": ["src/modules/Dashboard/"],
+      "Dashboard/*": ["src/modules/Dashboard/*"]
     }
   }
 }
