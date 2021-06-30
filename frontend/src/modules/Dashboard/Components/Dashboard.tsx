@@ -8,6 +8,7 @@ import {
   StyledArrowDown,
 } from 'Dashboard/Styles/Dashboard.style'
 import { Groups } from 'Dashboard/Components/Groups'
+import { useAppSelector } from '@redux/hooks'
 
 export const Dashboard = () => {
   return (
@@ -16,7 +17,7 @@ export const Dashboard = () => {
         <StyledHeaderMenu>
           <StyledLogo />
           <StyledName>
-            N.Matias
+            {useAppSelector((state) => state.auth.user?.displayName)}
             <StyledArrowDown />
           </StyledName>
         </StyledHeaderMenu>
