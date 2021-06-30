@@ -1,4 +1,5 @@
 export const colors = {
+  mediumviolet: '#C794EE',
   verylightviolet: '#FCFAFF',
   black: '#222222',
   white: '#FFFFFF',
@@ -8,4 +9,6 @@ export const colors = {
   paleviolet: '#F7EDFF',
   red: '#FF6584',
   yellow: '#FFFFB1',
+  lightgreen: '#CEF5D6',
+  darkgreen: '#157E2C',
 }

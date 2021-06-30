@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
-import { StyledContainer } from 'EditZing/Styles/DashboardStyle.style'
+import {
+  StyledContainer,
+  StyledLogo,
+  StyledLogoWrapper,
+  StyledText,
+} from 'EditZing/Styles/DashboardStyle.style'
 import { GroupGrid } from 'EditZing/UIElements/GroupGrid'
 import { Student } from 'EditZing/Types/Student'
 import { DndProvider } from 'react-dnd'
@@ -70,8 +75,13 @@ export const Dashboard = () => {
     setStudentGroups(studentGroups)
   }
 
+  // TODO: COURSE SHOULDN'T BE HARDCODED
   return (
     <StyledContainer>
+      <StyledLogoWrapper>
+        <StyledLogo />
+        <StyledText>ZING 101</StyledText>
+      </StyledLogoWrapper>
       <DndProvider backend={HTML5Backend}>
         <Grid container spacing={1}>
           {studentGroups.map((studentGroup, index) => (

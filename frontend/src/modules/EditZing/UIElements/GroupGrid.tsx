@@ -1,22 +1,16 @@
 import React from 'react'
 import { StudentGrid } from 'EditZing/UIElements/StudentGrid'
 import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { GroupGridProps } from 'EditZing/Types/ComponentProps'
-import { colors } from '@core'
-import { DndProvider, useDrop } from 'react-dnd'
-import {
-  Student,
-  STUDENT_TYPE,
-  DnDStudentTransferType,
-} from 'EditZing/Types/Student'
-
+import { useDrop } from 'react-dnd'
+import { STUDENT_TYPE, DnDStudentTransferType } from 'EditZing/Types/Student'
 import {
   StyledGroupText,
   StyledGroupTextWrapper,
   StyledGroupContainer,
-} from 'EditZing/Styles/GeneralStyle.style'
+  StyledMetricBox,
+  StyledMetricText,
+} from 'EditZing/Styles/StudentAndGroupStyle.style'
 
 /** the equivalent of Column */
 export const GroupGrid = ({
@@ -25,17 +19,6 @@ export const GroupGrid = ({
   moveStudentBetweenGrids,
   moveStudentWithinGrid,
 }: GroupGridProps) => {
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      root: {
-        flexGrow: 1,
-        background: '#FFFFFF',
-        overflowY: 'scroll' as 'scroll',
-      },
-    })
-  )
-  const classes = useStyles()
-
   const [{ isOver }, drop] = useDrop({
     accept: STUDENT_TYPE,
     drop: (item: DnDStudentTransferType, monitor) =>
@@ -54,6 +37,9 @@ export const GroupGrid = ({
       >
         <StyledGroupTextWrapper>
           <StyledGroupText>{'Group ' + String(groupIndex + 1)}</StyledGroupText>
+          <StyledMetricBox>
+            <StyledMetricText>6.9</StyledMetricText>
+          </StyledMetricBox>
         </StyledGroupTextWrapper>
         <Grid container spacing={2}>
           {studentList.map((student, index) => (
