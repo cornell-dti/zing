@@ -25,7 +25,7 @@ Grouping rules.  Definitions and functions for fixing groups.
 import logging
 import random
 import re
-from collections import Counter
+from collections import Counter, defaultdict
 from operator import itemgetter
 from .student import attribute_match
 from .group import valid_swap, swap
@@ -35,8 +35,10 @@ from .errors import EmptyMean
 
 log = logging.getLogger('log')
 
+
 def count_items(f):
     return sum(1 for _ in f)
+
 
 def number(students, attribute, values):
     """
@@ -61,36 +63,42 @@ def number(students, attribute, values):
         students = students.students
     return count_items(filter(attribute_match(attribute, values), students))
 
+
 class InvalidValues(Exception):
-    def __init__(self, rule, attribute, bad_values = None):
+    def __init__(self, rule, attribute, bad_values=None):
         self.rule = rule
         self.attribute = attribute
         self.bad_values = bad_values
+
     def __str__(self):
         return "When creating rule: <{0} : {1}>, values: {2} do not exist in \
 class".format(self.rule, self.attribute, list(self.bad_values))
+
 
 class AttributeNotFound(Exception):
     def __init__(self, rule, attribute, all_attributes):
         self.rule = rule
         self.attribute = attribute
         self.all_attributes = all_attributes
+
     def __str__(self):
         return "When creating rule <{0} : {1}> attribute {1} not found in \
 class, valid attributes are: {2}".format(self.rule, self.attribute,
                                          self.all_attributes)
+
 
 class NoValidValues(InvalidValues):
     def __str__(self):
         return "When creating rule: <{0} : {1}>, no values were specified".format(
             self.rule, self.attribute)
 
+
 class Rule(object):
     """
     Base class for all grouping rules
     """
 
-    def __init__(self, attribute, course, values = 'all', weight = None, **kwargs):
+    def __init__(self, attribute, course, values='all', weight=None, **kwargs):
         self.attribute = attribute
 
         if attribute not in course.students[0].headers:
@@ -107,8 +115,6 @@ class Rule(object):
             # fine, just pretend we failed the if
             pass
 
-
-
         try:
             values.__iter__()
         except AttributeError:
@@ -120,7 +126,7 @@ class Rule(object):
             # python 2/3 independent way
             # Match things like (a, b, ...)
             if (hasattr(value, 'capitalize')
-                and re.match("[(].*(, +.*)+[)]", value)):
+                    and re.match("[(].*(, +.*)+[)]", value)):
                 self.values[i] = tuple((v.strip() for v in
                                         value[1:-1].split(',')))
 
@@ -134,11 +140,9 @@ class Rule(object):
             else:
                 flatten.add(value)
 
-
         if not flatten.issubset(all_values.union(set(['phantom']))):
             raise InvalidValues(self.name, attribute,
                                 flatten.difference(all_values))
-
 
         if len(self.values) == 0:
             raise NoValidValues(self.name, attribute)
@@ -149,9 +153,9 @@ class Rule(object):
 
         # weight ignored for now
 
-        self._init(attribute, course, values = 'all', weight = None, **kwargs)
+        self._init(attribute, course, values='all', weight=None, **kwargs)
 
-    def _init(self, attribute, course, values = 'all', weight = None, **kwargs):
+    def _init(self, attribute, course, values='all', weight=None, **kwargs):
         raise NotImplemented
 
     def attribute_match(self, student, attribute=None):
@@ -177,7 +181,6 @@ class Rule(object):
 
         return group.happy
 
-
     def check(self, students):
         if isinstance(students, Group):
             students = students.students
@@ -195,7 +198,8 @@ class Rule(object):
 
 class Cluster(Rule):
     name = 'Cluster'
-    def _init(self, attribute, course, values = 'all', weight = None, **kwargs):
+
+    def _init(self, attribute, course, values='all', weight=None, **kwargs):
         pass
 
     def _check(self, students):
@@ -212,6 +216,7 @@ class Cluster(Rule):
                 def target_group(g):
                     n = number(g, self.attribute, value)
                     return n > 0 and n < len(g.students)
+
                 def target_student(s):
                     return s[self.attribute] and s[self.attribute] not in value
             else:
@@ -220,6 +225,7 @@ class Cluster(Rule):
                 def target_group(g):
                     n = number(g, self.attribute, value)
                     return n == 1 or n > 2
+
                 def target_student(s):
                     return s[self.attribute] and s[self.attribute] in value
 
@@ -231,10 +237,12 @@ class Cluster(Rule):
 
         return success
 
+
 class Balance(Rule):
     name = 'Balance'
-    def _init(self, attribute, course, value = 'all', weight = None, tol = None,
-                 **kwargs):
+
+    def _init(self, attribute, course, value='all', weight=None, tol=None,
+              **kwargs):
         self.mean = utility.mean(course.students, self.get_strength)
         std = utility.std(course.students, self.get_strength)
 
@@ -243,20 +251,22 @@ class Balance(Rule):
             tol = .5
         self.tol = std*tol
 
-
     def get_strength(self, s):
         return s[self.attribute]
+
     def __str__(self):
         return "<Balance : {0} : tol {1}>".format(self.mean, self.tol)
+
     def _check(self, students):
-        try: 
+        try:
             return abs(utility.mean(students, self.get_strength) - self.mean) < self.tol
         # If somehow you don't have a strength for any of the students,
         # consider the group to be failing the rule
         except EmptyMean:
             return False
+
     def permissable_change(self, old, new):
-        try: 
+        try:
             b = (abs(utility.mean(old, self.get_strength) - self.mean) >
                  abs(utility.mean(new, self.get_strength) - self.mean))
         except EmptyMean:
@@ -299,20 +309,24 @@ class Balance(Rule):
                 return True
             elif find_target_and_swap(student, groups):
                 return True
-        except SwapButNotFix:
+        except Exception:
             return False
+
 
 class UnevenGroups(Exception):
     def __str__(self):
         return "Students don't add to number of groups, I haven't added \
 phantoms properly somewhere"
 
+
 class NoTargets(Exception):
     def __init__(self, rule):
         self.rule = rule
+
     def __str__(self):
         return "Could not find target groups while searching rule: {0}".format(
             self.rule)
+
 
 class NumberBased(Rule):
     """
@@ -322,15 +336,14 @@ class NumberBased(Rule):
 
     # note: this is _init not __init__, it is called at the end of __init__ in
     # to do subclass specific init stuff.
-    def _init(self, attribute, course, values = 'all', weight = None,
-                 **kwargs):
+    def _init(self, attribute, course, values='all', weight=None,
+              **kwargs):
         self.group_size = course.group_size
 
         self.numbers = dict([(value, number(course.students, self.attribute,
                              value)) for value in self.values])
         self.values.sort(key=lambda x: self.numbers[x])
         self.n_groups = course.n_groups
-
 
     def valid_directions(self, n, attribute_val):
         up = False
@@ -355,7 +368,7 @@ class NumberBased(Rule):
     def _check(self, students):
         for value in self.values:
             if number(students, self.attribute, value) not in self._target_numbers(
-                value):
+                    value):
                 return False
         return True
 
@@ -371,13 +384,13 @@ class NumberBased(Rule):
             targets = []
             # if we want less of the type this student is, look for groups to
             # send them to.
-            if down: # find groups we could give a student to
+            if down:  # find groups we could give a student to
                 targets.extend(filter(lambda g: self.can_accept(g, my_value),
                                       groups))
             # if we want more of this student, don't try to swap them, one of
             # the other iterations of rule.remedy will try to bring one in.
             if not targets:
-                return False #raise NoTargets(self)
+                return False  # raise NoTargets(self)
             return find_target_and_swap(student, targets)
         return True
 
@@ -389,8 +402,10 @@ class NumberBased(Rule):
             l = l.students
         return Counter(s[self.attribute] for s in l)
 
+
 class Distribute(NumberBased):
     name = 'Distribute'
+
     def _target_numbers(self, value):
         n = self.numbers[value]
         if n % self.n_groups == 0:
@@ -402,6 +417,7 @@ class Distribute(NumberBased):
 
 class Aggregate(NumberBased):
     name = 'Aggregate'
+
     def valid_directions(self, n, attribute_val):
         halfway = self._target_numbers(attribute_val)[1]/2.0
         return n >= halfway, n <= halfway
@@ -435,6 +451,7 @@ class Aggregate(NumberBased):
         def match(s):
             return s[self.attribute] == value or s[self.attribute] == None
         return match
+
     def _is_not(self, value):
         return lambda s: s[self.attribute] != value
 
@@ -446,11 +463,11 @@ class Aggregate(NumberBased):
             return [0, self.group_size]
 
 
-
 class SwapButNotFix:
     def __init__(self, s1, s2):
         self.s1 = s1
         self.s2 = s2
+
 
 def find_target_and_swap(student, targets, target_student=lambda s: True):
     target = find_swap_target(student, targets, target_student)
@@ -459,6 +476,7 @@ def find_target_and_swap(student, targets, target_student=lambda s: True):
         return True
     else:
         return False
+
 
 def find_swap_target(student, targets, target_student=lambda s: True):
     random.shuffle(list(targets))
@@ -470,20 +488,25 @@ def find_swap_target(student, targets, target_student=lambda s: True):
 
     return False
 
+
 def all_happy(groups):
     for group in groups:
         if not group.happy:
             return False
     return True
 
+
 def all_satisfy_rule(groups, rule):
     for group in groups:
         if not group.satisfies_rule(rule):
-            print([s[rule.attribute] for s in group.students])
             return False
     return True
 
+
 def apply_rule(rule, groups, students, tries, mixing, try_number=0):
+    success = True
+    failed = []
+
     if isinstance(rule, Aggregate):
         rule.apply(groups, students)
     else:
@@ -497,7 +520,8 @@ def apply_rule(rule, groups, students, tries, mixing, try_number=0):
 
     if not all_satisfy_rule(groups, rule):
         if try_number < tries:
-            log.debug("Try {}/{} retrying for rule {}".format(try_number, tries, rule))
+            log.debug(
+                "Try {}/{} retrying for rule {}".format(try_number, tries, rule))
             # Do a few random swaps (not allowing new rule breaks),
             # just to mix things up a bit and increase the chances of
             # finding new solutions
@@ -505,36 +529,47 @@ def apply_rule(rule, groups, students, tries, mixing, try_number=0):
                 find_target_and_swap(random.choice(students), groups)
             return apply_rule(rule, groups, students, try_number+1, tries, mixing)
         else:
-            return False
-    else:
-        return True
-
+            failed_group_nums = set()
+            for group in groups:
+                if not group.satisfies_rule(rule):
+                    failed_group_nums.add(group.group_number)
+            #print(f'failed on {rule.attribute}: {failed_group_nums}')
+            success = False
+            failed = (rule.attribute, failed_group_nums)
+    return success, failed
 
 
 def apply_rules_list(rules, groups, students, tries, mixing=20):
     success = True
+    failed_total = defaultdict(set)
     for rule in rules:
-        success = apply_rule(rule, groups, students, tries, mixing) and success
-    return success
+        rule_success, failed = apply_rule(
+            rule, groups, students, tries, mixing)
+        success = rule_success and success
+        if not rule_success:
+            failed_total[failed[0]].update(failed[1])
+    return success, failed_total
 
 
 class RuleNotImplemented(Exception):
     def __init__(self, r):
         self.rule = r
+
     def __str__(self):
         return "Sorry, we don't have a rule named: {0}\ndo you have a typo in \
 your input deck?".format(self.rule)
 
+
 _all_rules = {}
 for rule in [Aggregate, Distribute, Cluster, Balance]:
     _all_rules[rule.name.lower()] = rule
+
 
 def make_rule(input_spec, course):
     rule_name = input_spec['name'].lower()
     if rule_name not in _all_rules:
         raise RuleNotImplemented(rule_name)
     r = _all_rules[rule_name]
-
 
     attribute = input_spec['attribute']
     kwargs = input_spec.copy()

@@ -36,12 +36,12 @@ export const CreateZingForm = () => {
   const q4 = 'Students per group:'
   const q1TextStyle = {
     fontWeight: '500',
-    color: q1Error !== '' ? colors.red : colors.darkpurple,
+    color: q1Error !== '' ? colors.red : colors.purple,
   }
 
   const q2TextStyle = {
     fontWeight: '500',
-    color: q2Error !== '' ? colors.red : colors.darkpurple,
+    color: q2Error !== '' ? colors.red : colors.purple,
   }
 
   const q4TextStyle = {
