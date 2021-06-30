@@ -34,7 +34,7 @@ export const DueDateQuestion = ({
     <StyledQuestionContainer>
       <StyledText>{question}</StyledText>
       <StyledCalendarWrapper>
-        {error == '' ? (
+        {error === '' ? (
           <form className={classes.container} noValidate>
             <StyledTextField
               id="date"
