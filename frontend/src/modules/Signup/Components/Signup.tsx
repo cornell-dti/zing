@@ -49,7 +49,7 @@ export const Signup = () => {
     setEmailError(email === '' ? SignupError.EMAIL : SignupError.NONE)
     setPasswordError(password === '' ? SignupError.PASS : SignupError.NONE)
     if (name !== '' && email !== '' && password !== '' && isProfessor) {
-      dispatch(saveLogin(email))
+      //dispatch(saveLogin(email))
       history.push('/dashboard')
     }
   }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import {
@@ -11,6 +11,9 @@ import {
   DASHBOARD_PATH,
 } from '@core'
 import { PublicRoute, PrivateRoute } from '@core/Components'
+import { checkAuth, initializeFirebase } from '@fire'
+import { useAppDispatch } from '@redux/hooks'
+import { User, saveLogin } from '@redux/authSlice'
 
 import { Home } from 'Home'
 import { Login } from 'Login'
@@ -23,6 +26,15 @@ import { Dashboard } from 'Dashboard'
 import './App.css'
 
 const App = () => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    initializeFirebase()
+    checkAuth((userData: User) => {
+      dispatch(saveLogin(userData))
+    })
+  }, [])
+
   return (
     <Router>
       <Switch>

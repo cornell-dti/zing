@@ -6,6 +6,8 @@
       "@core": ["src/modules/Core/"],
       "@core/*": ["src/modules/Core/*"],
       "@redux/*": ["src/redux/*"],
+      "@fire": ["src/firebase/"],
+      "@fire/*": ["src/firebase/*"],
       "Home": ["src/modules/Home/"],
       "Home/*": ["src/modules/Home/*"],
       "CreateZing": ["src/modules/CreateZing/"],
