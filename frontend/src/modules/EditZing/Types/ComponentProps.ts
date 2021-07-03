@@ -1,4 +1,3 @@
-import React from 'react'
 import { Student } from './Student'
 
 export interface GroupGridProps {
@@ -23,11 +22,6 @@ export interface StudentGridProps {
   groupIndex: number
   /** index of the student in the inner array */
   studentIndex: number
-  moveStudentBetweenGrids: (
-    studentToMove: Student,
-    startingIndex: number,
-    destinationIndex: number
-  ) => void
   moveStudentWithinGrid: (
     studentToMove: Student,
     currentGroupIndex: number,
