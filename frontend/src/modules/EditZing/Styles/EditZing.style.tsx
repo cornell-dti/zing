@@ -1,4 +1,3 @@
-import React from 'react'
 import { colors, h3, StyledComponent } from '@core'
 import styled from 'styled-components'
 import logo from '@assets/img/purplelogo.svg'

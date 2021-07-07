@@ -1,5 +1,5 @@
 import React from 'react'
-import { StudentGrid } from 'EditZing/UIElements/StudentGrid'
+import { StudentGrid } from 'EditZing/Components/StudentGrid'
 import Grid from '@material-ui/core/Grid'
 import { GroupGridProps } from 'EditZing/Types/ComponentProps'
 import { useDrop } from 'react-dnd'
@@ -10,7 +10,7 @@ import {
   StyledGroupContainer,
   StyledMetricBox,
   StyledMetricText,
-} from 'EditZing/Styles/StudentAndGroupStyle.style'
+} from 'EditZing/Styles/StudentAndGroup.style'
 
 /** the equivalent of Column */
 export const GroupGrid = ({
@@ -21,16 +21,16 @@ export const GroupGrid = ({
 }: GroupGridProps) => {
   const [{ isOver }, drop] = useDrop({
     accept: STUDENT_TYPE,
-    drop: (item: DnDStudentTransferType, monitor) =>
-      // console.log('groupgrid'),
-      moveStudentBetweenGrids(item.studentToMove, item.groupIndex, groupIndex),
+    drop: (item: DnDStudentTransferType) => {
+      moveStudentBetweenGrids(item.studentToMove, item.groupIndex, groupIndex)
+    },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   })
 
   return (
-    <Grid item xs={3}>
+    <Grid item xs={12} sm={6} md={4} lg={3}>
       <StyledGroupContainer
         ref={drop}
         style={{ opacity: isOver ? '0.6' : '1' }}
@@ -45,7 +45,6 @@ export const GroupGrid = ({
           {studentList.map((student, index) => (
             <StudentGrid
               key={index}
-              moveStudentBetweenGrids={moveStudentBetweenGrids}
               moveStudentWithinGrid={moveStudentWithinGrid}
               studentIndex={index}
               groupIndex={groupIndex}

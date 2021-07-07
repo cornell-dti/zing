@@ -1,15 +1,11 @@
-import React, { useRef, useState, Fragment } from 'react'
+import React from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-import {
-  Student,
-  STUDENT_TYPE,
-  DnDStudentTransferType,
-} from 'EditZing/Types/Student'
+import { STUDENT_TYPE, DnDStudentTransferType } from 'EditZing/Types/Student'
 import { StudentGridProps } from 'EditZing/Types/ComponentProps'
 import { genderSVG } from 'EditZing/Styles/InlineSVGs'
-import { colors, montserratFont } from '@core'
+import { colors } from '@core'
 import { useDrop, useDrag } from 'react-dnd'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,7 +20,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: 'Montserrat',
       fontWeight: 700,
       fontSize: 14,
-      background: colors.verylightviolet,
       border: '0px solid rgba(205, 156, 242, 0.15)',
       boxShadow: '0px 2px 5px rgba(205, 156, 242, 0.2);',
       borderRadius: '10px',
@@ -35,10 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: 'Montserrat',
       fontWeight: 400,
       fontSize: 14,
-      background: colors.verylightviolet,
-      // border: '0px solid rgba(205, 156, 242, 0.15)',
-      // boxShadow: '0px 2px 5px rgba(205, 156, 242, 0.2);',
-      // borderRadius: '10px',
     },
   })
 )
@@ -48,10 +39,9 @@ export const StudentGrid = ({
   student,
   groupIndex,
   studentIndex,
-  moveStudentBetweenGrids,
   moveStudentWithinGrid,
 }: StudentGridProps) => {
-  const [isDragging, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag({
     item: {
       type: STUDENT_TYPE,
       groupIndex: groupIndex,
@@ -66,8 +56,7 @@ export const StudentGrid = ({
 
   const [{ isOver }, drop] = useDrop({
     accept: STUDENT_TYPE,
-    drop: (item: DnDStudentTransferType, monitor) => {
-      // console.log('studentgrid')
+    drop: (item: DnDStudentTransferType) => {
       moveStudentWithinGrid(item.studentToMove, groupIndex, studentIndex)
     },
     collect: (monitor) => ({
@@ -78,7 +67,7 @@ export const StudentGrid = ({
   const classes = useStyles()
 
   function determineOpacity() {
-    if (!isDragging) {
+    if (isDragging) {
       return '0'
     } else if (isOver) {
       return '0.9'
@@ -88,31 +77,27 @@ export const StudentGrid = ({
   }
 
   return (
-    <Fragment>
-      <Grid item xs={6} ref={drop}>
-        <div ref={drag}>
-          <Paper
+    <Grid item xs={6} ref={drop}>
+      <div ref={drag}>
+        <Paper
+          style={{
+            opacity: determineOpacity(),
+            background: isOver ? colors.lightviolet : colors.verylightviolet,
+          }}
+          className={classes.paper1}
+        >
+          {student.fullName}
+          <div
+            className={classes.paper2}
             style={{
               opacity: determineOpacity(),
               background: isOver ? colors.lightviolet : colors.verylightviolet,
             }}
-            className={classes.paper1}
           >
-            {student.fullName}
-            <div
-              className={classes.paper2}
-              style={{
-                opacity: determineOpacity(),
-                background: isOver
-                  ? colors.lightviolet
-                  : colors.verylightviolet,
-              }}
-            >
-              {genderSVG} {student.pronoun === 'a' ? 'Male' : 'Female'}
-            </div>
-          </Paper>
-        </div>
-      </Grid>
-    </Fragment>
+            {genderSVG} {student.pronoun === 'a' ? 'Male' : 'Female'}
+          </div>
+        </Paper>
+      </div>
+    </Grid>
   )
 }
