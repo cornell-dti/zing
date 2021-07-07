@@ -1,1 +1,1 @@
-export { Dashboard as EditZing } from 'EditZing/Components/Dashboard'
+export { EditZing } from 'EditZing/Components/EditZing'

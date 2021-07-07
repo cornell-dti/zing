@@ -1,5 +1,4 @@
-import React from 'react'
-import { colors, h3, h5, StyledComponent } from '@core'
+import { colors, h3, h5 } from '@core'
 import styled from 'styled-components'
 
 export const StyledContainer = styled.div`
