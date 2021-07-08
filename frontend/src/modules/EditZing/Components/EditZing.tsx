@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import {
   StyledContainer,
@@ -7,13 +7,28 @@ import {
   StyledText,
 } from 'EditZing/Styles/EditZing.style'
 import { GroupGrid } from 'EditZing/Components/GroupGrid'
-import { Student } from 'EditZing/Types/Student'
+import { Student, SingleGroup } from 'EditZing/Types/Student'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import { getZingGroups, saveSwapStudent } from './Helpers'
 
 export const EditZing = () => {
   const fakeStudentGroupsFromJson: Student[][] = require('EditZing/fakeData.json')
+  const [zingId, setZingId] = useState('z98mmggpO05931CviaUy')
   const [studentGroups, setStudentGroups] = useState(fakeStudentGroupsFromJson)
+  useEffect(() => {
+    async function fetchGroups(docId: string) {
+      let zing = await getZingGroups(docId)
+      const zingGroup = zing.group
+      let realData: Student[][] = []
+      for (var id in zingGroup) {
+        const studentList = zingGroup[id].members
+        realData.push(studentList)
+      }
+      setStudentGroups(realData)
+    }
+    fetchGroups(zingId)
+  }, [zingId])
 
   /** Move a student from one grid to a destination grid based
    * on a starting and destination grid index */
@@ -50,6 +65,12 @@ export const EditZing = () => {
           }
         })
       )
+      saveSwapStudent(
+        zingId,
+        studentToMove.studentId,
+        startingIndex + 1,
+        destinationIndex + 1
+      )
     }
   }
 
@@ -70,25 +91,33 @@ export const EditZing = () => {
   }
 
   // TODO: COURSE SHOULDN'T BE HARDCODED
-  return (
-    <StyledContainer>
-      <StyledLogoWrapper>
-        <StyledLogo />
-        <StyledText>ZING 1100</StyledText>
-      </StyledLogoWrapper>
-      <DndProvider backend={HTML5Backend}>
-        <Grid container spacing={1}>
-          {studentGroups.map((studentGroup, index) => (
-            <GroupGrid
-              key={index}
-              studentList={studentGroup}
-              groupIndex={index}
-              moveStudentBetweenGrids={moveStudentBetweenGrids}
-              moveStudentWithinGrid={moveStudentWithinGrid}
-            />
-          ))}
-        </Grid>
-      </DndProvider>
-    </StyledContainer>
-  )
+  if (studentGroups !== fakeStudentGroupsFromJson) {
+    return (
+      <StyledContainer>
+        <StyledLogoWrapper>
+          <StyledLogo />
+          <StyledText>ZING 1100</StyledText>
+        </StyledLogoWrapper>
+        <DndProvider backend={HTML5Backend}>
+          <Grid container spacing={1}>
+            {studentGroups.map((studentGroup, index) => (
+              <GroupGrid
+                key={index}
+                studentList={studentGroup}
+                groupIndex={index}
+                moveStudentBetweenGrids={moveStudentBetweenGrids}
+                moveStudentWithinGrid={moveStudentWithinGrid}
+              />
+            ))}
+          </Grid>
+        </DndProvider>
+      </StyledContainer>
+    )
+  } else {
+    return (
+      <StyledContainer>
+        <StyledText>Loading</StyledText>
+      </StyledContainer>
+    )
+  }
 }

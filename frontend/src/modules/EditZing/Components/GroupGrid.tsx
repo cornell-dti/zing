@@ -38,7 +38,7 @@ export const GroupGrid = ({
         <StyledGroupTextWrapper>
           <StyledGroupText>{'Group ' + String(groupIndex + 1)}</StyledGroupText>
           <StyledMetricBox>
-            <StyledMetricText>6.9</StyledMetricText>
+            <StyledMetricText>4.0</StyledMetricText>
           </StyledMetricBox>
         </StyledGroupTextWrapper>
         <Grid container spacing={2}>

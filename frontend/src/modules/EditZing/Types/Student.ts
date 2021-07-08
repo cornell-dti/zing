@@ -1,3 +1,26 @@
+export type FetchedZing = {
+  name: string
+  creator: string
+  dueDateStr: string
+  minGroupSize: string
+  courseId: string
+  survey: any // bad but lazy
+  group: Group
+}
+
+export type Group = {
+  [key: string]: SingleGroup
+}
+
+export type SingleGroup = {
+  groupData: GroupData
+  members: Student[]
+}
+
+export type GroupData = {
+  failed: string[]
+}
+
 export type Student = {
   college: string
   courseId: string
