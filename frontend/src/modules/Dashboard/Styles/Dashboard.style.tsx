@@ -24,7 +24,8 @@ export const StyledContainer = styled.div`
 export const StyledLogo = styled(Logo)``
 
 export const StyledOuterContainer = styled.div`
-  height: 100%;
+  min-height: 100%;
+  height: 1px;
   box-sizing: border-box;
 
   padding: 2.5rem;

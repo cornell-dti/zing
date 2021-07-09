@@ -25,6 +25,7 @@ export const StyledTitle = styled.div`
 export const StyledGroupArea = styled.div`
   display: flex;
   flex: 1;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -32,6 +33,7 @@ export const StyledGroupArea = styled.div`
 
 export const StyledGroupCardArea = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 `

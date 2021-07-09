@@ -17,10 +17,12 @@ import {
 import { SubmitButton } from './SubmitButton'
 import { colors } from '@core'
 import { createZing, PostData } from 'CreateZing/NetworkFunctions'
-import { group } from 'node:console'
+import { useAppSelector } from '@redux/hooks'
 
 export const CreateZingForm = () => {
   const history = useHistory()
+  const userEmail = useAppSelector((state) => state.auth.user?.email)
+
   const [dueDate, setDueDate] = useState<string>('')
   const [groupName, setGroupName] = useState('')
   const [totalPeople, setTotalPeople] = useState('')
@@ -102,12 +104,13 @@ export const CreateZingForm = () => {
       error4 = false
     }
     // now check if there are any outstanding errors
-    if (!error1 && !error2 && !error3 && !error4) {
+
+    if (!error1 && !error2 && !error3 && !error4 && userEmail) {
       const data: PostData = {
         name: groupName,
         minGroupSize: Number(studentsPerGroup),
         dueDate: dueObj.toString(),
-        userEmail: 'test@test.test', // TODO: make email not hardcoded
+        email: userEmail,
       }
       // if not go to dashboard and there will be notif waiting for them
       createZing(data)

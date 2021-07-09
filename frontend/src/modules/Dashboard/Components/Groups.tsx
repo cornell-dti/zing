@@ -1,4 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
+
+import { API_ROOT } from '@core/Constants'
+import { useAppSelector } from '@redux/hooks'
+
 import {
   StyledContainer,
   StyledTitle,
@@ -12,20 +17,13 @@ import { GroupCard } from 'Dashboard/Components/GroupCard'
 
 export const Groups = () => {
   const history = useHistory()
-  const groups = [
-    {
-      name: 'INFO 2300',
-      submitted: 300,
-      total: 400,
-      deadline: new Date(2021, 5, 5),
-    },
-    {
-      name: 'INFO 3300',
-      submitted: 300,
-      total: 400,
-      deadline: new Date(2021, 5, 6),
-    },
-  ]
+  const userEmail = useAppSelector((state) => state.auth.user?.email)
+
+  const [groups, setGroups] = useState<CourseInfo[]>([])
+
+  axios.get(`${API_ROOT}/instructor/${userEmail}/course`).then((res) => {
+    setGroups(res.data)
+  })
 
   return (
     <StyledContainer>
@@ -38,9 +36,9 @@ export const Groups = () => {
             <GroupCard
               key={i}
               name={g.name}
-              submitted={g.submitted}
-              total={g.total}
-              deadline={g.deadline}
+              submitted={300}
+              total={300}
+              deadline={new Date(g.dueDateStr)}
             />
           ))}
           <StyledAddButton onClick={() => history.push('/createZing')} />
@@ -51,4 +49,11 @@ export const Groups = () => {
       </StyledGroupArea>
     </StyledContainer>
   )
+}
+
+interface CourseInfo {
+  name: string
+  courseId: string
+  minGroupSize: number
+  dueDateStr: string
 }

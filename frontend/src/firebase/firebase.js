@@ -12,7 +12,7 @@ export const initializeFirebase = () => {
 }
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
-export const signInWithGoogle = (cb) => {
+export const signInWithGoogle = (cb, newUserCb) => {
   firebase
     .auth()
     .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
@@ -22,6 +22,7 @@ export const signInWithGoogle = (cb) => {
         .signInWithPopup(googleProvider)
         .then(async (res) => {
           const idToken = await res.user.getIdToken()
+          const { isNewUser } = res.additionalUserInfo
           const { displayName, email, refreshToken } = res.user
           cb({
             displayName,
@@ -29,6 +30,12 @@ export const signInWithGoogle = (cb) => {
             refreshToken,
             idToken,
           })
+          if (isNewUser) {
+            newUserCb({
+              name: displayName,
+              email,
+            })
+          }
         })
         .catch((error) => {
           console.log(error.message)
