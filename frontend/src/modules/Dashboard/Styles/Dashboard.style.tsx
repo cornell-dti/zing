@@ -56,3 +56,10 @@ export const StyledArrowDown = styled(BsChevronDown)`
   margin-left: 0.2rem;
   cursor: pointer;
 `
+
+export const StyledModalContainer = styled.div`
+  outline: 0;
+  width: 80%;
+  height: 95%;
+  overflow: auto;
+`

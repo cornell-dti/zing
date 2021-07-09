@@ -1,13 +1,7 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import {
-  HOME_PATH,
-  SURVEY_PATH,
-  CREATE_ZING_PATH,
-  EDIT_ZING_PATH,
-  DASHBOARD_PATH,
-} from '@core'
+import { HOME_PATH, SURVEY_PATH, EDIT_ZING_PATH, DASHBOARD_PATH } from '@core'
 import { PublicRoute, PrivateRoute } from '@core/Components'
 import { checkAuth, initializeFirebase } from '@fire'
 import { useAppDispatch } from '@redux/hooks'
@@ -37,7 +31,6 @@ const App = () => {
         <PublicRoute exact path={HOME_PATH} component={Home} />
         {/* Anyone should be able to access the survey, signed in or not */}
         <Route exact path={SURVEY_PATH} component={Survey} />
-        <PrivateRoute exact path={CREATE_ZING_PATH} component={CreateZing} />
         <PrivateRoute exact path={EDIT_ZING_PATH} component={EditZing} />
         <PrivateRoute exact path={DASHBOARD_PATH} component={Dashboard} />
       </Switch>

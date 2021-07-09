@@ -9,7 +9,7 @@ export type SurveyData = {
 
 export async function sendSurveyData(data: SurveyData) {
   axios
-    .post('https://us-central1-zing-backend.cloudfunctions.net/newSurvey', data)
+    .post('https://us-central1-zing-backend.cloudfunctions.net/survey', data)
     .then(
       (response: any) => {
         console.log(response)

@@ -16,6 +16,7 @@ export const StyledContainer = styled.div`
   flex: 1;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
 `
 
 export const StyledTitle = styled.div`

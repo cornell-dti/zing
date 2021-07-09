@@ -1,8 +1,4 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-
-import { API_ROOT } from '@core/Constants'
-import { useAppSelector } from '@redux/hooks'
+import React from 'react'
 
 import {
   StyledContainer,
@@ -12,19 +8,13 @@ import {
   StyledAddButton,
   StyledText,
 } from 'Dashboard/Styles/Groups.style'
-import { useHistory } from 'react-router-dom'
 import { GroupCard } from 'Dashboard/Components/GroupCard'
+import { CourseInfo } from 'Dashboard/Types'
 
-export const Groups = () => {
-  const history = useHistory()
-  const userEmail = useAppSelector((state) => state.auth.user?.email)
-
-  const [groups, setGroups] = useState<CourseInfo[]>([])
-
-  axios.get(`${API_ROOT}/instructor/${userEmail}/course`).then((res) => {
-    setGroups(res.data)
-  })
-
+export const Groups = ({
+  toggleModalOpen,
+  groups,
+}: ModalProps & GroupsProps) => {
   return (
     <StyledContainer>
       {groups.length === 0 && (
@@ -35,13 +25,14 @@ export const Groups = () => {
           {groups.map((g, i) => (
             <GroupCard
               key={i}
+              id={g.courseId}
               name={g.name}
               submitted={300}
               total={300}
               deadline={new Date(g.dueDateStr)}
             />
           ))}
-          <StyledAddButton onClick={() => history.push('/createZing')} />
+          <StyledAddButton onClick={() => toggleModalOpen()} />
         </StyledGroupCardArea>
         {groups.length === 0 && (
           <StyledText>Click "+" to create a new group.</StyledText>
@@ -51,9 +42,10 @@ export const Groups = () => {
   )
 }
 
-interface CourseInfo {
-  name: string
-  courseId: string
-  minGroupSize: number
-  dueDateStr: string
+interface ModalProps {
+  toggleModalOpen: () => void
+}
+
+interface GroupsProps {
+  groups: CourseInfo[]
 }

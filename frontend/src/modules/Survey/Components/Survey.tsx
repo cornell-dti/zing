@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory, useLocation } from 'react-router'
 
 import { StyledContainer1, StyledContainer2 } from 'Survey/Styles/Survey.style'
 import { StepTemplate } from 'Survey/Components/StepTemplate'
@@ -10,8 +11,20 @@ import {
   SurveyData,
 } from 'Survey/Components/FuncsAndConsts/SurveyFunctions'
 import { Question } from '@core/Types'
+import { useEffect } from 'react'
+import { HOME_PATH } from '@core/Constants'
 
 export const Survey = () => {
+  const { search } = useLocation()
+  const history = useHistory()
+
+  const query = new URLSearchParams(search)
+  const surveyId = query.get('id')
+
+  useEffect(() => {
+    if (!surveyId) history.push(HOME_PATH)
+  }, [])
+
   const [showError, setShowError] = useState(false)
   const [currStep, setCurrStep] = useState(0)
   // If there are custom questions the below will be a network call perhaps
@@ -36,12 +49,11 @@ export const Survey = () => {
       questions.map((question, index) => [question.questionId, answers[index]])
     )
     const surveyData: SurveyData = {
-      courseId: 'zf101-2021sp', // hard coded TODO implement this
+      courseId: surveyId!, // hard coded TODO implement this
       fullName: nameAnswer,
       email: emailAnswer,
       ...mcData,
     }
-    console.log('Finished survey', surveyData)
     sendSurveyData(surveyData)
     setCurrStep(currStep + 1)
   }
