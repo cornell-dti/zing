@@ -14,7 +14,7 @@ export type Group = {
   [key: string]: SingleGroup
 }
 
-// THIS is ACTUALLY group (singular) object
+// THIS is ACTUALLY a group (singular) object
 export type SingleGroup = {
   groupData: GroupData
   members: Student[]
