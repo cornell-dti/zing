@@ -8,13 +8,13 @@ export type FetchedZing = {
   group: Group
 }
 
-// really should be groups (plural), but following woosang's structure
+// really should be groups (plural), but is formatted this way to follow woosang's response structure
 // this is the KV pair GROUPS object where K are consecutive integers starting from 1 (i think)
 export type Group = {
   [key: string]: SingleGroup
 }
 
-// THIS is a really group (singular) object
+// THIS is ACTUALLY group (singular) object
 export type SingleGroup = {
   groupData: GroupData
   members: Student[]
