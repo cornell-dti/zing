@@ -5,5 +5,6 @@ export const DASHBOARD_PATH = '/dashboard'
 
 export const API_ROOT =
   'https://us-central1-zing-backend.cloudfunctions.net/api'
-export const CREATE_USER_API = '/instructor'
-export const CREATE_COURSE_API = '/course'
+export const USER_API = '/instructor'
+export const COURSE_API = '/course'
+export const SURVEY_API = '/survey'

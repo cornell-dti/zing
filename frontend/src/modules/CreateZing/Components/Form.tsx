@@ -15,7 +15,7 @@ import {
   StyledDueDateQuestion,
 } from '../Styles/FormStyle.style'
 import { SubmitButton } from './SubmitButton'
-import { colors, API_ROOT, CREATE_COURSE_API } from '@core'
+import { colors, API_ROOT, COURSE_API } from '@core'
 import { useAppSelector } from '@redux/hooks'
 import { CourseInfo } from 'Dashboard/Types'
 
@@ -113,7 +113,7 @@ export const CreateZingForm = ({ onSubmit }: FormProps) => {
         email: userEmail,
       }
       // if not go to dashboard and there will be notif waiting for them
-      axios.post(`${API_ROOT}${CREATE_COURSE_API}`, data).then((res) => {
+      axios.post(`${API_ROOT}${COURSE_API}`, data).then((res) => {
         const newGroup = {
           name: data.name,
           courseId: res.data,

@@ -15,7 +15,7 @@ import {
   StyledWelcomeText,
   StyledWhiteActionText,
 } from 'Home/Styles/Home.style'
-import { API_ROOT, CREATE_USER_API } from '@core/Constants'
+import { API_ROOT, USER_API } from '@core/Constants'
 import { signInWithGoogle } from '@fire'
 import { useAppDispatch } from '@redux/hooks'
 import { User, saveLogin } from '@redux/authSlice'
@@ -63,7 +63,7 @@ export const Home = () => {
                     history.push('/dashboard')
                   },
                   (info: BasicInfo) => {
-                    axios.post(`${API_ROOT}${CREATE_USER_API}`, info).then(
+                    axios.post(`${API_ROOT}${USER_API}`, info).then(
                       (response: any) => {
                         console.log(response)
                       },

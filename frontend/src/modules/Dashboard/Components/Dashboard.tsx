@@ -16,7 +16,7 @@ import {
 import { Groups } from 'Dashboard/Components/Groups'
 import { CourseInfo } from 'Dashboard/Types'
 import { useAppSelector } from '@redux/hooks'
-import { API_ROOT } from '@core/Constants'
+import { API_ROOT, COURSE_API, USER_API } from '@core/Constants'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,10 +34,12 @@ export const Dashboard = () => {
   const [groups, setGroups] = useState<CourseInfo[]>([])
 
   useEffect(() => {
-    axios.get(`${API_ROOT}/instructor/${userEmail}/course`).then((res) => {
-      setGroups(res.data)
-      console.log(res.data)
-    })
+    axios
+      .get(`${API_ROOT}${USER_API}/${userEmail}${COURSE_API}`)
+      .then((res) => {
+        setGroups(res.data)
+        console.log(res.data)
+      })
   }, [])
 
   return (

@@ -1,24 +1,4 @@
 import React from 'react'
-const axios = require('axios')
-
-export type SurveyData = {
-  courseId: string
-  fullName: string
-  [key: string]: string
-}
-
-export async function sendSurveyData(data: SurveyData) {
-  axios
-    .post('https://us-central1-zing-backend.cloudfunctions.net/survey', data)
-    .then(
-      (response: any) => {
-        console.log(response)
-      },
-      (error: any) => {
-        console.log(error)
-      }
-    )
-}
 
 export function getYoungestGradYear() {
   const now: Date = new Date()
