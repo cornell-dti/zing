@@ -9,7 +9,6 @@ export async function getZingGroups(docId: String): Promise<FetchedZing> {
       throw new Error(response.statusText)
     }
     const data = response.json()
-    console.log(data)
     return data
   })
 }

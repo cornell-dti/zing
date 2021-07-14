@@ -29,13 +29,13 @@ export const EditZing = () => {
   useEffect(() => {
     async function fetchGroups(zingId: string | null) {
       if (zingId) {
-        var zingData = await getZingGroups(zingId)
+        const zingData = await getZingGroups(zingId)
         setZingData(zingData)
 
         // parse out groups into Student[][]
         const zingGroup = zingData.group
         let realData: Student[][] = []
-        for (var id in zingGroup) {
+        for (let id in zingGroup) {
           const studentList = zingGroup[id].members
           realData.push(studentList)
         }
