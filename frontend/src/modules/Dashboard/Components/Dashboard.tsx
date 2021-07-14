@@ -38,9 +38,8 @@ export const Dashboard = () => {
       .get(`${API_ROOT}${USER_API}/${userEmail}${COURSE_API}`)
       .then((res) => {
         setGroups(res.data)
-        console.log(res.data)
       })
-  }, [])
+  }, [userEmail])
 
   return (
     <StyledOuterContainer>

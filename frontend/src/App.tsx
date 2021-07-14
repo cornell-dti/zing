@@ -9,7 +9,6 @@ import { User, saveLogin } from '@redux/authSlice'
 
 import { Home } from 'Home'
 import { Survey } from 'Survey'
-import { CreateZing } from 'CreateZing'
 import { EditZing } from 'EditZing'
 import { Dashboard } from 'Dashboard'
 

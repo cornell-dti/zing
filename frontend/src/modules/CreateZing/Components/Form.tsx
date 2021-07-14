@@ -1,6 +1,5 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
-import { useHistory } from 'react-router'
 import {
   StyledContainer,
   StyledFullPanel,
@@ -20,7 +19,6 @@ import { useAppSelector } from '@redux/hooks'
 import { CourseInfo } from 'Dashboard/Types'
 
 export const CreateZingForm = ({ onSubmit }: FormProps) => {
-  const history = useHistory()
   const userEmail = useAppSelector((state) => state.auth.user?.email)
 
   const [dueDate, setDueDate] = useState<string>('')

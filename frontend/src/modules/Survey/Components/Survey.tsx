@@ -20,7 +20,7 @@ export const Survey = () => {
 
   useEffect(() => {
     if (!surveyId) history.push(HOME_PATH)
-  }, [])
+  }, [surveyId])
 
   const [showError, setShowError] = useState(false)
   const [currStep, setCurrStep] = useState(0)

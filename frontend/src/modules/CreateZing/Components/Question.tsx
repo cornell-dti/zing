@@ -1,7 +1,5 @@
-
-import React, { useEffect, useState, FunctionComponent } from 'react'
-import { NameField, NumberField, colors } from '@core'
-import styled, { css } from 'styled-components'
+import React from 'react'
+import { NameField, NumberField } from '@core'
 import { HybridQuestionProps } from '../Types/QuestionType'
 import {
   StyledQuestionContainer,
