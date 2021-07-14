@@ -8,23 +8,31 @@ import {
   StyledText,
 } from 'EditZing/Styles/EditZing.style'
 import { GroupGrid } from 'EditZing/Components/GroupGrid'
-import { Student, SingleGroup } from 'EditZing/Types/Student'
+import { Student } from 'EditZing/Types/Student'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { getZingGroups, saveSwapStudent } from './Helpers'
+import { FetchedZing } from 'EditZing/Types/Student'
 
 export const EditZing = () => {
-  const fakeStudentGroupsFromJson: Student[][] = require('EditZing/fakeData.json')
+  // get param that was set from history using location
   const location = useLocation() as any
   const params = location.state.params
   const [zingId] = useState(params)
+
+  const fakeStudentGroupsFromJson: Student[][] = require('EditZing/fakeData.json')
+  // full fetched zing object
+  const [zingData, setZingData] = useState<FetchedZing | null>(null)
+  // student groups parsed out from zingData into a Student[][]
   const [studentGroups, setStudentGroups] = useState(fakeStudentGroupsFromJson)
   useEffect(() => {
     async function fetchGroups(zingId: string) {
-      console.log({ params })
       if (zingId !== undefined) {
-        var zing = await getZingGroups(zingId)
-        const zingGroup = zing.group
+        var zingData = await getZingGroups(zingId)
+        setZingData(zingData)
+
+        // parse out groups into Student[][]
+        const zingGroup = zingData.group
         let realData: Student[][] = []
         for (var id in zingGroup) {
           const studentList = zingGroup[id].members
@@ -96,13 +104,12 @@ export const EditZing = () => {
     setStudentGroups(groups)
   }
 
-  // TODO: COURSE SHOULDN'T BE HARDCODED
-  if (studentGroups !== fakeStudentGroupsFromJson) {
+  if (zingData) {
     return (
       <StyledContainer>
         <StyledLogoWrapper>
           <StyledLogo />
-          <StyledText>ZING 1100</StyledText>
+          <StyledText>{zingData.name}</StyledText>
         </StyledLogoWrapper>
         <DndProvider backend={HTML5Backend}>
           <Grid container spacing={1}>
