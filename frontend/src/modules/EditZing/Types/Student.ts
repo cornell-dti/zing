@@ -1,3 +1,30 @@
+export type FetchedZing = {
+  name: string
+  creator: string
+  dueDateStr: string
+  minGroupSize: string
+  courseId: string
+  survey: any // bad but lazy
+  group: Group
+}
+
+// really should be groups (plural), but is formatted this way to follow woosang's response structure
+// this is the KV pair GROUPS object where K are consecutive integers starting from 1 (i think)
+export type Group = {
+  [key: string]: SingleGroup
+}
+
+// THIS is ACTUALLY a group (singular) object
+export type SingleGroup = {
+  groupData: GroupData
+  members: Student[]
+}
+
+// represents what constraints were failed
+export type GroupData = {
+  failed: string[]
+}
+
 export type Student = {
   college: string
   courseId: string

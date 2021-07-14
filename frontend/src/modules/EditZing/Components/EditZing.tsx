@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import {
   StyledContainer,
@@ -10,10 +11,39 @@ import { GroupGrid } from 'EditZing/Components/GroupGrid'
 import { Student } from 'EditZing/Types/Student'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import { getZingGroups, saveSwapStudent } from './Helpers'
+import { FetchedZing } from 'EditZing/Types/Student'
 
 export const EditZing = () => {
+  // get param that was set from history using location
+  const { search } = useLocation()
+  const query = new URLSearchParams(search)
+  const id = query.get('id')
+  const [zingId] = useState(id)
+
   const fakeStudentGroupsFromJson: Student[][] = require('EditZing/fakeData.json')
+  // full fetched zing object
+  const [zingData, setZingData] = useState<FetchedZing | null>(null)
+  // student groups parsed out from zingData into a Student[][]
   const [studentGroups, setStudentGroups] = useState(fakeStudentGroupsFromJson)
+  useEffect(() => {
+    async function fetchGroups(zingId: string | null) {
+      if (zingId) {
+        const zingData = await getZingGroups(zingId)
+        setZingData(zingData)
+
+        // parse out groups into Student[][]
+        const zingGroup = zingData.group
+        let realData: Student[][] = []
+        for (let id in zingGroup) {
+          const studentList = zingGroup[id].members
+          realData.push(studentList)
+        }
+        setStudentGroups(realData)
+      }
+    }
+    fetchGroups(zingId)
+  }, [zingId])
 
   /** Move a student from one grid to a destination grid based
    * on a starting and destination grid index */
@@ -50,6 +80,12 @@ export const EditZing = () => {
           }
         })
       )
+      saveSwapStudent(
+        zingId,
+        studentToMove.studentId,
+        startingIndex + 1,
+        destinationIndex + 1
+      )
     }
   }
 
@@ -69,26 +105,33 @@ export const EditZing = () => {
     setStudentGroups(groups)
   }
 
-  // TODO: COURSE SHOULDN'T BE HARDCODED
-  return (
-    <StyledContainer>
-      <StyledLogoWrapper>
-        <StyledLogo />
-        <StyledText>ZING 1100</StyledText>
-      </StyledLogoWrapper>
-      <DndProvider backend={HTML5Backend}>
-        <Grid container spacing={1}>
-          {studentGroups.map((studentGroup, index) => (
-            <GroupGrid
-              key={index}
-              studentList={studentGroup}
-              groupIndex={index}
-              moveStudentBetweenGrids={moveStudentBetweenGrids}
-              moveStudentWithinGrid={moveStudentWithinGrid}
-            />
-          ))}
-        </Grid>
-      </DndProvider>
-    </StyledContainer>
-  )
+  if (zingData) {
+    return (
+      <StyledContainer>
+        <StyledLogoWrapper>
+          <StyledLogo />
+          <StyledText>{zingData.name}</StyledText>
+        </StyledLogoWrapper>
+        <DndProvider backend={HTML5Backend}>
+          <Grid container spacing={1}>
+            {studentGroups.map((studentGroup, index) => (
+              <GroupGrid
+                key={index}
+                studentList={studentGroup}
+                groupIndex={index}
+                moveStudentBetweenGrids={moveStudentBetweenGrids}
+                moveStudentWithinGrid={moveStudentWithinGrid}
+              />
+            ))}
+          </Grid>
+        </DndProvider>
+      </StyledContainer>
+    )
+  } else {
+    return (
+      <StyledContainer>
+        <StyledText>Loading</StyledText>
+      </StyledContainer>
+    )
+  }
 }
