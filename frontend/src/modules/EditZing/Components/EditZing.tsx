@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import {
   StyledContainer,
@@ -14,18 +15,23 @@ import { getZingGroups, saveSwapStudent } from './Helpers'
 
 export const EditZing = () => {
   const fakeStudentGroupsFromJson: Student[][] = require('EditZing/fakeData.json')
-  const [zingId, setZingId] = useState('z98mmggpO05931CviaUy')
+  const location = useLocation() as any
+  const params = location.state.params
+  const [zingId] = useState(params)
   const [studentGroups, setStudentGroups] = useState(fakeStudentGroupsFromJson)
   useEffect(() => {
-    async function fetchGroups(docId: string) {
-      let zing = await getZingGroups(docId)
-      const zingGroup = zing.group
-      let realData: Student[][] = []
-      for (var id in zingGroup) {
-        const studentList = zingGroup[id].members
-        realData.push(studentList)
+    async function fetchGroups(zingId: string) {
+      console.log({ params })
+      if (zingId !== undefined) {
+        var zing = await getZingGroups(zingId)
+        const zingGroup = zing.group
+        let realData: Student[][] = []
+        for (var id in zingGroup) {
+          const studentList = zingGroup[id].members
+          realData.push(studentList)
+        }
+        setStudentGroups(realData)
       }
-      setStudentGroups(realData)
     }
     fetchGroups(zingId)
   }, [zingId])

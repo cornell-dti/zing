@@ -94,7 +94,7 @@ export const StudentGrid = ({
               background: isOver ? colors.lightviolet : colors.verylightviolet,
             }}
           >
-            {genderSVG} {student.pronoun === 'a' ? 'Male' : 'Female'}
+            {genderSVG} {student.pronoun === 'She/Her' ? 'Female' : 'Male'}
           </div>
         </Paper>
       </div>
