@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components'
 import logo from '@assets/img/purplelogo.svg'
 import { colors, h3, StyledComponent } from '@core'
-import bg2 from '@assets/img/bg2.svg'
 import { Question } from '../Components/Question'
 import { DueDateQuestion } from 'CreateZing/Components/DueDateQuestion'
 import TextField from '@material-ui/core/TextField'
@@ -36,13 +35,13 @@ export const StyledFullPanelNoPadding = styled.div`
 `
 
 export const StyledContainer = styled.div`
-  height: 86%;
-  width: 80%;
   background-color: ${colors.white};
   box-shadow: -10px -10px 150px rgba(0, 0, 0, 0.1),
     10px 10px 150px rgba(0, 0, 0, 0.1);
-  overflow-y: scroll;
+
   display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export const StyledQuestionWrapper = styled.div`
@@ -72,16 +71,6 @@ export const StyledLogoWrapper = styled.div`
 `
 
 export const StyledLogo = styled(Logo)``
-
-export const StyledOuterContainer = styled.div`
-  height: 100%;
-  background-image: url(${bg2});
-  background-size: cover;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
 
 export const StyledText = styled.text`
   ${h3};

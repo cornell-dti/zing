@@ -1,17 +1,27 @@
 import React, { useState } from 'react'
+import { useHistory, useLocation } from 'react-router'
+import axios from 'axios'
 
 import { StyledContainer1, StyledContainer2 } from 'Survey/Styles/Survey.style'
 import { StepTemplate } from 'Survey/Components/StepTemplate'
 import { StepBegin } from 'Survey/Components/StepBegin'
 import { StepRadio } from 'Survey/Components/StepRadio'
 import { StepFinal } from 'Survey/Components/StepFinal'
-import {
-  sendSurveyData,
-  SurveyData,
-} from 'Survey/Components/FuncsAndConsts/SurveyFunctions'
 import { Question } from '@core/Types'
+import { useEffect } from 'react'
+import { API_ROOT, COURSE_API, HOME_PATH, SURVEY_API } from '@core/Constants'
 
 export const Survey = () => {
+  const { search } = useLocation()
+  const history = useHistory()
+
+  const query = new URLSearchParams(search)
+  const surveyId = query.get('id')
+
+  useEffect(() => {
+    if (!surveyId) history.push(HOME_PATH)
+  }, [surveyId])
+
   const [showError, setShowError] = useState(false)
   const [currStep, setCurrStep] = useState(0)
   // If there are custom questions the below will be a network call perhaps
@@ -36,13 +46,20 @@ export const Survey = () => {
       questions.map((question, index) => [question.questionId, answers[index]])
     )
     const surveyData: SurveyData = {
-      courseId: 'zf101-2021sp', // hard coded TODO implement this
       fullName: nameAnswer,
-      email: emailAnswer,
+      studentId: emailAnswer,
       ...mcData,
     }
-    console.log('Finished survey', surveyData)
-    sendSurveyData(surveyData)
+    axios
+      .post(`${API_ROOT}${COURSE_API}/${surveyId}${SURVEY_API}`, surveyData)
+      .then(
+        (response: any) => {
+          console.log(response)
+        },
+        (error: any) => {
+          console.log(error)
+        }
+      )
     setCurrStep(currStep + 1)
   }
 
@@ -87,4 +104,10 @@ export const Survey = () => {
       </StepTemplate>
     </StyledContainer2>
   )
+}
+
+interface SurveyData {
+  studentId: string
+  fullName: string
+  [key: string]: string
 }

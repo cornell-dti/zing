@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useState } from 'react'
-import { useHistory } from 'react-router'
+import React, { useState } from 'react'
+import axios from 'axios'
 import {
   StyledContainer,
   StyledFullPanel,
@@ -7,7 +7,6 @@ import {
   StyledLogoWrapper,
   StyledLogo,
   StyledQuestionWrapper,
-  StyledOuterContainer,
   StyledText,
   StyledTextWrapper,
   StyledQuestion,
@@ -15,12 +14,13 @@ import {
   StyledDueDateQuestion,
 } from '../Styles/FormStyle.style'
 import { SubmitButton } from './SubmitButton'
-import { colors } from '@core'
-import { createZing, PostData } from 'CreateZing/NetworkFunctions'
-import { group } from 'node:console'
+import { colors, API_ROOT, COURSE_API } from '@core'
+import { useAppSelector } from '@redux/hooks'
+import { CourseInfo } from 'Dashboard/Types'
 
-export const CreateZingForm = () => {
-  const history = useHistory()
+export const CreateZingForm = ({ onSubmit }: FormProps) => {
+  const userEmail = useAppSelector((state) => state.auth.user?.email)
+
   const [dueDate, setDueDate] = useState<string>('')
   const [groupName, setGroupName] = useState('')
   const [totalPeople, setTotalPeople] = useState('')
@@ -102,95 +102,113 @@ export const CreateZingForm = () => {
       error4 = false
     }
     // now check if there are any outstanding errors
-    if (!error1 && !error2 && !error3 && !error4) {
+
+    if (!error1 && !error2 && !error3 && !error4 && userEmail) {
       const data: PostData = {
         name: groupName,
         minGroupSize: Number(studentsPerGroup),
         dueDate: dueObj.toString(),
-        userEmail: 'test@test.test', // TODO: make email not hardcoded
+        email: userEmail,
       }
       // if not go to dashboard and there will be notif waiting for them
-      createZing(data)
-      history.push('/dashboard')
+      axios.post(`${API_ROOT}${COURSE_API}`, data).then((res) => {
+        const newGroup = {
+          name: data.name,
+          courseId: res.data,
+          creator: userEmail,
+          minGroupSize: data.minGroupSize,
+          dueDateStr: data.dueDate,
+        }
+        onSubmit(newGroup)
+      })
     } else {
       // else stay here and show errors
       console.warn('some kind of error')
     }
   }
   return (
-    <StyledOuterContainer>
-      <StyledContainer>
-        <StyledFullPanel>
-          <StyledLogoWrapper>
-            <StyledLogo />
-          </StyledLogoWrapper>
-          <StyledTextWrapper>
-            <StyledText>Let's create your Zing!</StyledText>
-          </StyledTextWrapper>
-          <StyledQuestionsWrapper>
-            <StyledQuestionWrapper
-              style={{ paddingBottom: q1Error === '' ? '1.4rem' : '0rem' }}
-            >
-              <StyledQuestion
-                error={q1Error}
+    <StyledContainer>
+      <StyledFullPanel>
+        <StyledLogoWrapper>
+          <StyledLogo />
+        </StyledLogoWrapper>
+        <StyledTextWrapper>
+          <StyledText>Let's create your Zing!</StyledText>
+        </StyledTextWrapper>
+        <StyledQuestionsWrapper>
+          <StyledQuestionWrapper
+            style={{ paddingBottom: q1Error === '' ? '1.4rem' : '0rem' }}
+          >
+            <StyledQuestion
+              error={q1Error}
+              fullWidth={true}
+              question={q1}
+              value={groupName}
+              setAnswer={(arg: string) => setGroupName(arg)}
+              placeholder={placeholder}
+              isNumber={false}
+              inputStyle={q1TextStyle}
+            />
+          </StyledQuestionWrapper>
+          <StyledQuestionWrapper
+            style={{ paddingBottom: q2Error === '' ? '1.4rem' : '0rem' }}
+          >
+            <StyledQuestion
+              fullWidth={true}
+              error={q2Error}
+              question={q2}
+              value={totalPeople}
+              setAnswer={(arg: string) => setTotalPeople(arg)}
+              placeholder={placeholder}
+              isNumber={true}
+              inputStyle={q2TextStyle}
+            />
+          </StyledQuestionWrapper>
+          <StyledQuestionWrapper
+            style={{ paddingBottom: q1Error === '' ? '1.4rem' : '0rem' }}
+          >
+            <StyledCalendarWrapper>
+              <StyledDueDateQuestion
                 fullWidth={true}
-                question={q1}
-                value={groupName}
-                setAnswer={(arg: string) => setGroupName(arg)}
+                error={q3Error}
+                question={q3}
+                value={dueDate}
+                setAnswer={(arg: string) => setDueDate(arg)}
                 placeholder={placeholder}
-                isNumber={false}
-                inputStyle={q1TextStyle}
-              />
-            </StyledQuestionWrapper>
-            <StyledQuestionWrapper
-              style={{ paddingBottom: q2Error === '' ? '1.4rem' : '0rem' }}
-            >
-              <StyledQuestion
-                fullWidth={true}
-                error={q2Error}
-                question={q2}
-                value={totalPeople}
-                setAnswer={(arg: string) => setTotalPeople(arg)}
-                placeholder={placeholder}
-                isNumber={true}
-                inputStyle={q2TextStyle}
-              />
-            </StyledQuestionWrapper>
-            <StyledQuestionWrapper
-              style={{ paddingBottom: q1Error === '' ? '1.4rem' : '0rem' }}
-            >
-              <StyledCalendarWrapper>
-                <StyledDueDateQuestion
-                  fullWidth={true}
-                  error={q3Error}
-                  question={q3}
-                  value={dueDate}
-                  setAnswer={(arg: string) => setDueDate(arg)}
-                  placeholder={placeholder}
-                ></StyledDueDateQuestion>
-              </StyledCalendarWrapper>
-            </StyledQuestionWrapper>
-            <StyledQuestionWrapper
-              style={{ paddingBottom: q4Error === '' ? '1.4rem' : '0rem' }}
-            >
-              <StyledQuestion
-                fullWidth={true}
-                error={q4Error}
-                question={q4}
-                value={studentsPerGroup}
-                setAnswer={(arg: string) => setStudentsPerGroup(arg)}
-                placeholder={placeholder}
-                isNumber={true}
-                inputStyle={q4TextStyle}
-              />
-            </StyledQuestionWrapper>
-            <SubmitButton onClick={handleSubmit} />
-          </StyledQuestionsWrapper>
-          {/* <p>{groupName}</p>
+              ></StyledDueDateQuestion>
+            </StyledCalendarWrapper>
+          </StyledQuestionWrapper>
+          <StyledQuestionWrapper
+            style={{ paddingBottom: q4Error === '' ? '1.4rem' : '0rem' }}
+          >
+            <StyledQuestion
+              fullWidth={true}
+              error={q4Error}
+              question={q4}
+              value={studentsPerGroup}
+              setAnswer={(arg: string) => setStudentsPerGroup(arg)}
+              placeholder={placeholder}
+              isNumber={true}
+              inputStyle={q4TextStyle}
+            />
+          </StyledQuestionWrapper>
+          <SubmitButton onClick={handleSubmit} />
+        </StyledQuestionsWrapper>
+        {/* <p>{groupName}</p>
           <p>{totalPeople}</p>
           <p>{studentsPerGroup}</p> */}
-        </StyledFullPanel>
-      </StyledContainer>
-    </StyledOuterContainer>
+      </StyledFullPanel>
+    </StyledContainer>
   )
+}
+
+interface FormProps {
+  onSubmit: (grp: CourseInfo) => void
+}
+
+interface PostData {
+  name: string
+  minGroupSize: number
+  dueDate: string
+  email: string
 }

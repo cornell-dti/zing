@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FunctionComponent } from 'react'
+import React from 'react'
 import { QuestionProps } from '../Types/QuestionType'
 import {
   StyledQuestionContainer,

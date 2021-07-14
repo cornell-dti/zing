@@ -15,10 +15,11 @@ import {
   StyledWelcomeText,
   StyledWhiteActionText,
 } from 'Home/Styles/Home.style'
-import { PrimaryGradientButton, WhiteButton } from '@core/Components'
+import { API_ROOT, USER_API } from '@core/Constants'
 import { signInWithGoogle } from '@fire'
 import { useAppDispatch } from '@redux/hooks'
 import { User, saveLogin } from '@redux/authSlice'
+import axios from 'axios'
 
 export const Home = () => {
   const history = useHistory()
@@ -56,10 +57,22 @@ export const Home = () => {
             <GoogleButton
               style={{ width: '100%' }}
               onClick={() => {
-                signInWithGoogle((userData: User) => {
-                  dispatch(saveLogin(userData))
-                  history.push('/dashboard')
-                })
+                signInWithGoogle(
+                  (userData: User) => {
+                    dispatch(saveLogin(userData))
+                    history.push('/dashboard')
+                  },
+                  (info: BasicInfo) => {
+                    axios.post(`${API_ROOT}${USER_API}`, info).then(
+                      (response: any) => {
+                        console.log(response)
+                      },
+                      (error: any) => {
+                        console.log(error)
+                      }
+                    )
+                  }
+                )
               }}
             />
           </StyledButtonsWrapper>
@@ -67,4 +80,9 @@ export const Home = () => {
       </StyledContainer>
     </StyledBackground>
   )
+}
+
+interface BasicInfo {
+  name: string
+  email: string
 }

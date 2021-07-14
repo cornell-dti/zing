@@ -24,7 +24,8 @@ export const StyledContainer = styled.div`
 export const StyledLogo = styled(Logo)``
 
 export const StyledOuterContainer = styled.div`
-  height: 100%;
+  min-height: 100%;
+  height: 1px;
   box-sizing: border-box;
 
   padding: 2.5rem;
@@ -54,4 +55,11 @@ export const StyledName = styled.div`
 export const StyledArrowDown = styled(BsChevronDown)`
   margin-left: 0.2rem;
   cursor: pointer;
+`
+
+export const StyledModalContainer = styled.div`
+  outline: 0;
+  width: 80%;
+  height: 95%;
+  overflow: auto;
 `

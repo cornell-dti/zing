@@ -1,4 +1,5 @@
 import React from 'react'
+
 import {
   StyledContainer,
   StyledTitle,
@@ -7,26 +8,13 @@ import {
   StyledAddButton,
   StyledText,
 } from 'Dashboard/Styles/Groups.style'
-import { useHistory } from 'react-router-dom'
 import { GroupCard } from 'Dashboard/Components/GroupCard'
+import { CourseInfo } from 'Dashboard/Types'
 
-export const Groups = () => {
-  const history = useHistory()
-  const groups = [
-    {
-      name: 'INFO 2300',
-      submitted: 300,
-      total: 400,
-      deadline: new Date(2021, 5, 5),
-    },
-    {
-      name: 'INFO 3300',
-      submitted: 300,
-      total: 400,
-      deadline: new Date(2021, 5, 6),
-    },
-  ]
-
+export const Groups = ({
+  toggleModalOpen,
+  groups,
+}: ModalProps & GroupsProps) => {
   return (
     <StyledContainer>
       {groups.length === 0 && (
@@ -37,13 +25,14 @@ export const Groups = () => {
           {groups.map((g, i) => (
             <GroupCard
               key={i}
+              id={g.courseId}
               name={g.name}
-              submitted={g.submitted}
-              total={g.total}
-              deadline={g.deadline}
+              submitted={300}
+              total={300}
+              deadline={new Date(g.dueDateStr)}
             />
           ))}
-          <StyledAddButton onClick={() => history.push('/createZing')} />
+          <StyledAddButton onClick={() => toggleModalOpen()} />
         </StyledGroupCardArea>
         {groups.length === 0 && (
           <StyledText>Click "+" to create a new group.</StyledText>
@@ -51,4 +40,12 @@ export const Groups = () => {
       </StyledGroupArea>
     </StyledContainer>
   )
+}
+
+interface ModalProps {
+  toggleModalOpen: () => void
+}
+
+interface GroupsProps {
+  groups: CourseInfo[]
 }
