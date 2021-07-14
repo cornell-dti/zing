@@ -66,7 +66,7 @@ export const GroupCard = ({
               fontSize: '1rem',
             }}
             onClick={() => {
-              history.push('/editZing', { params: 'z98mmggpO05931CviaUy' }) // TODO: @shichong replace with real docID
+              history.push(`/editZing/?id=${'z98mmggpO05931CviaUy'}`) // TODO: @shichong replace with real docID
             }}
             label={'Match'}
           />

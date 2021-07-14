@@ -21,11 +21,14 @@ interface SwapPostData {
 }
 
 export async function saveSwapStudent(
-  zingId: string,
+  zingId: string | null,
   studentId: string,
   baseGroupId: number,
   destGroupId: number
 ) {
+  if (!zingId) {
+    throw new Error('zingId cannot be null or undefined')
+  }
   const data: SwapPostData = {
     studentId: studentId,
     baseGroupId: baseGroupId,

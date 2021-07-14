@@ -16,9 +16,10 @@ import { FetchedZing } from 'EditZing/Types/Student'
 
 export const EditZing = () => {
   // get param that was set from history using location
-  const location = useLocation() as any
-  const params = location.state.params
-  const [zingId] = useState(params)
+  const { search } = useLocation()
+  const query = new URLSearchParams(search)
+  const id = query.get('id')
+  const [zingId] = useState(id)
 
   const fakeStudentGroupsFromJson: Student[][] = require('EditZing/fakeData.json')
   // full fetched zing object
@@ -26,8 +27,8 @@ export const EditZing = () => {
   // student groups parsed out from zingData into a Student[][]
   const [studentGroups, setStudentGroups] = useState(fakeStudentGroupsFromJson)
   useEffect(() => {
-    async function fetchGroups(zingId: string) {
-      if (zingId !== undefined) {
+    async function fetchGroups(zingId: string | null) {
+      if (zingId) {
         var zingData = await getZingGroups(zingId)
         setZingData(zingData)
 
