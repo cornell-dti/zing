@@ -27,7 +27,7 @@ export const postCourseCSV = async (req: Request, res: Response) => {
 			value: "surveyResponse.".concat(questionHash),
 		};
 	});
-	fields.push("studentId", "fullName");
+	fields.push("email", "fullName");
 
 	// convert docs to csv
 	const surveyColSnapshot = await courseDocRef.collection("survey").get();

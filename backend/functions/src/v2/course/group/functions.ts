@@ -3,7 +3,7 @@ import { getCourseRefByDocId } from "../../../common/utils";
 
 export const moveGroup = async (req: Request, res: Response) => {
 	const courseId = req.params.courseId;
-	const { studentId, baseGroupId, destGroupId } = req.body;
+	const { email, baseGroupId, destGroupId } = req.body;
 
 	const courseDocRef = (await getCourseRefByDocId(courseId).catch((err) => {
 		return res.status(404).send(err.toString());
@@ -14,13 +14,13 @@ export const moveGroup = async (req: Request, res: Response) => {
 	const baseStudentSnapshot = await groupColRef
 		.doc(baseGroupId.toString())
 		.collection("members")
-		.doc(studentId)
+		.doc(email)
 		.get();
 
 	if (!baseStudentSnapshot.exists) {
 		return res
 			.status(400)
-			.send(`Student ${studentId} does not exist on group ${baseGroupId}`);
+			.send(`Student ${email} does not exist on group ${baseGroupId}`);
 	}
 
 	// eslint-disable-next-line max-len
@@ -28,7 +28,7 @@ export const moveGroup = async (req: Request, res: Response) => {
 	const destStudentDocRef = groupColRef
 		.doc(destGroupId.toString())
 		.collection("members")
-		.doc(studentId);
+		.doc(email);
 	await destStudentDocRef.create(studentData);
 	await baseStudentSnapshot.ref.delete();
 
