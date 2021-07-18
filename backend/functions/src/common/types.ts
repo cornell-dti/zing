@@ -23,6 +23,7 @@ export type FirestoreCourseDoc = {
 	minGroupSize: number;
 	config: string | null;
 	question?: Object[];
+	count: number;
 };
 
 export type FirestoreUserDoc = {

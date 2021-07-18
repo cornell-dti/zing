@@ -28,7 +28,7 @@ export const postCourse = async (req: Request, res: Response) => {
 
 	// check for duplicate coursename under same instructor
 	const courseColRef = db.collection("course");
-	const docIdQuery = await courseColRef
+	const docIdQuery = courseColRef
 		.where("creator", "==", email)
 		.where("name", "==", name)
 		.limit(1);
@@ -46,6 +46,7 @@ export const postCourse = async (req: Request, res: Response) => {
 		dueDate: Timestamp.fromDate(new Date(dueDate)),
 		creator: email,
 		config: config ? config : "default",
+		count: 0,
 		completed: [],
 		question: defaultQuestions, // default question format
 	};

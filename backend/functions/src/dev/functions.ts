@@ -19,7 +19,7 @@ export const postSurveyBatch = async (req: Request, res: Response) => {
 	});
 	await batch.commit();
 
-	await courseDocRef.set({ submitted: sampleResponse.length }, { merge: true });
+	await courseDocRef.set({ count: sampleResponse.length }, { merge: true });
 
 	return res.status(201).send("successfully added sample survey response!");
 };
