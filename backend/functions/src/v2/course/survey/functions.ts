@@ -11,7 +11,7 @@ export const getSurvey = async (req: Request, res: Response) => {
 	const surveyColRef = courseDocRef.collection("survey");
 
 	const surveyQuery = await surveyColRef
-		.where("studentId", "==", email)
+		.where("email", "==", email)
 		.limit(1)
 		.get();
 
@@ -46,10 +46,10 @@ export const postSurvey = async (req: Request, res: Response) => {
 	if (isSurveyResponseInvalid(surveyResponse, question)) {
 		return res.status(400).send("Invalid survey response(s)");
 	}
-	// Check for existing survey response under studentId
+	// Check for existing survey response under email
 	const surveyColRef = courseDocRef.collection("survey");
 	const surveyQuery = await surveyColRef
-		.where("studentId", "==", email)
+		.where("email", "==", email)
 		.limit(1)
 		.get();
 	if (!surveyQuery.empty) {
@@ -60,7 +60,7 @@ export const postSurvey = async (req: Request, res: Response) => {
 	}
 	// Write valid surveyResponse to survey subcollection
 	const newSurveyDocRef = await surveyColRef.add({
-		studentId: email,
+		email,
 		fullName,
 		surveyResponse,
 	});

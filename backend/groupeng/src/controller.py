@@ -226,7 +226,7 @@ def group_to_firestore(groups, classname):
             group_number).collection("members"), 150)
         for student in g.students:
             student_data = student.data.copy()
-            student_id = student_data["studentId"]
+            student_id = student_data["email"]
             student_doc = student_data
             group_collection_ref.document(group_number) \
                 .collection("members") \

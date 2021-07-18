@@ -47,7 +47,7 @@ export type CoursePatchDoc = {
 // @deprecated.
 export type FirestoreSurveyDoc = {
 	fullName: string;
-	studentId: string;
+	email: string;
 	identity: "a" | "b" | "c" | "d" | "e" | "f" | "g";
 	pronoun: "a" | "b" | "c" | "d";
 	graduation: "a" | "b" | "c" | "d" | "e";

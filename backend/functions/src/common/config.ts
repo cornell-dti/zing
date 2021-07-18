@@ -2,7 +2,7 @@ export const defaultConfig = {
 	userEmail: "test@test.test",
 	size: 4,
 	overflow: true,
-	studentIdentifier: "studentId",
+	studentIdentifier: "email",
 	rules: [
 		{ attribute: "location", name: "aggregate" },
 		{ attribute: "mode", name: "aggregate" },

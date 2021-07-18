@@ -10,7 +10,7 @@ router.post("/", (req: Request, res: Response) => {
 	postSurvey(req, res).catch((err) => internalError(res, err));
 });
 
-router.get("/:studentId", (req: Request, res: Response) => {
+router.get("/:email", (req: Request, res: Response) => {
 	getSurvey(req, res).catch((err) => internalError(res, err));
 });
 
