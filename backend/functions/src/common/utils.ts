@@ -143,11 +143,12 @@ export const getBasicCourseById = async (courseId: string) => {
 		creator,
 		dueDate,
 		minGroupSize,
+		count,
 	} = courseDocSnapshot.data() as FirestoreCourseDoc;
 
 	const dueDateStr = (dueDate as FirebaseFirestore.Timestamp)
 		.toDate()
 		.toDateString();
 
-	return { name, creator, dueDateStr, minGroupSize, courseId };
+	return { name, creator, dueDateStr, minGroupSize, courseId, count };
 };

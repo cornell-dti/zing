@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { firestore } from "firebase-admin";
 import { SurveyQuestion, IIndex } from "../../../common/types";
 import { getCourseRefByDocId } from "../../../common/utils";
 
@@ -64,6 +65,8 @@ export const postSurvey = async (req: Request, res: Response) => {
 		fullName,
 		surveyResponse,
 	});
+	// Lastly, increment submission count
+	courseDocRef.update({ count: firestore.FieldValue.increment(1) });
 	return res.status(200).send(newSurveyDocRef.id);
 };
 
