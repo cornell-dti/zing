@@ -1,7 +1,5 @@
-/ui-debug.log
-/firebase-debug.log
-/firestore-debug.log
-functions/firestore-debug.log
+**/firestore-debug.log
+**/firestore-debug.log
 
 # Compiled JavaScript files
 functions/lib/**/*.js
@@ -13,9 +11,16 @@ functions/typings/
 # Node.js dependency directory
 functions/node_modules/
 
-functions/.env
-functions/firebase_config.json
-functions/service_account.json
+**/.env
+**/firebase_config.json
+**/service_account.json
+**/ui-debug.log
 
 # Groupeng code
 groupeng/src/__pycache__
+
+# Virtualenv
+**/venv
+
+# VSCode config
+.vscode
