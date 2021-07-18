@@ -59,7 +59,6 @@ def run(dek, classlist, classname):
     """
     try:
         dek['student_identifier'] = dek.pop('studentIdentifier')
-        dek['group_size'] = dek.pop('groupSize')
 
         students = load_classlist(classlist, dek.get('student_identifier'))
         logging.debug('read class list')
@@ -227,11 +226,11 @@ def group_to_firestore(groups, classname):
             group_number).collection("members"), 150)
         for student in g.students:
             student_data = student.data.copy()
-            student_full_name = student_data.pop("fullName")
+            student_id = student_data["studentId"]
             student_doc = student_data
             group_collection_ref.document(group_number) \
                 .collection("members") \
-                .document(student_full_name) \
+                .document(student_id) \
                 .set(student_doc)
 
 
