@@ -3,7 +3,7 @@ import { SurveyQuestion, IIndex } from "../../../common/types";
 import { getCourseRefByDocId } from "../../../common/utils";
 
 export const getSurvey = async (req: Request, res: Response) => {
-	const { courseId, studentId } = req.params;
+	const { courseId, email } = req.params;
 
 	const courseDocRef = (await getCourseRefByDocId(courseId).catch((err) => {
 		return res.status(404).send(err.toString());
@@ -11,29 +11,29 @@ export const getSurvey = async (req: Request, res: Response) => {
 	const surveyColRef = courseDocRef.collection("survey");
 
 	const surveyQuery = await surveyColRef
-		.where("studentId", "==", studentId)
+		.where("studentId", "==", email)
 		.limit(1)
 		.get();
 
 	if (surveyQuery.empty) {
 		return res
 			.status(404)
-			.send(`Survey for ${studentId} doesn't exist under course ${courseId}`);
+			.send(`Survey for ${email} doesn't exist under course ${courseId}`);
 	}
 	return res.status(200).send(surveyQuery.docs[0].data());
 };
 
 export const postSurvey = async (req: Request, res: Response) => {
 	const courseId = req.params.courseId;
-	const { studentId, fullName, surveyResponse } = req.body;
+	const { email, fullName, surveyResponse } = req.body;
 	// Check essential fields in request body
-	const isInvalidBody = [courseId, studentId, fullName, surveyResponse].some(
+	const isInvalidBody = [courseId, email, fullName, surveyResponse].some(
 		(v) => v === undefined
 	);
 	if (isInvalidBody) {
 		return res.status(400).send(
 			// eslint-disable-next-line max-len
-			"Invalid request: the required fields are: studentId, fullname, surveyResponse."
+			"Invalid request: the required fields are: email, fullname, surveyResponse."
 		);
 	}
 	// Get question "schema" from course doc
@@ -49,18 +49,18 @@ export const postSurvey = async (req: Request, res: Response) => {
 	// Check for existing survey response under studentId
 	const surveyColRef = courseDocRef.collection("survey");
 	const surveyQuery = await surveyColRef
-		.where("studentId", "==", studentId)
+		.where("studentId", "==", email)
 		.limit(1)
 		.get();
 	if (!surveyQuery.empty) {
 		return res.status(409).send(
 			// eslint-disable-next-line max-len
-			`Survey response for ${studentId} already exists! Use the PATCH endpoint instead.`
+			`Survey response for ${email} already exists! Use the PATCH endpoint instead.`
 		);
 	}
 	// Write valid surveyResponse to survey subcollection
 	const newSurveyDocRef = await surveyColRef.add({
-		studentId,
+		studentId: email,
 		fullName,
 		surveyResponse,
 	});
