@@ -9,5 +9,6 @@
     "target": "es2017"
   },
   "compileOnSave": true,
-  "include": ["src"]
+  "exclude": ["src/v1"],
+  "include": ["src/v2", "src/dev/","src/common","src/index.ts"]
 }
