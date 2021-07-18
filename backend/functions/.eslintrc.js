@@ -19,6 +19,7 @@ module.exports = {
 		tsconfigRootDir: __dirname,
 	},
 	ignorePatterns: [
+		"/src/v1/**/*",
 		"/lib/**/*", // Ignore built files.
 	],
 	plugins: ["@typescript-eslint", "import", "prettier"],
