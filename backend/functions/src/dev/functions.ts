@@ -14,8 +14,10 @@ export const postSurveyBatch = async (req: Request, res: Response) => {
 	const batch = db.batch();
 	// batched write can contain up to 500 operations
 	sampleResponse.forEach((doc) => {
+		const { surveyResponse, email, fullName } = doc;
+		const surveyDoc = { surveyResponse, fullName, studentId: email };
 		const surveyDocRef = surveyColRef.doc();
-		batch.set(surveyDocRef, doc);
+		batch.set(surveyDocRef, surveyDoc);
 	});
 	await batch.commit();
 
