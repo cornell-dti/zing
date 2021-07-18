@@ -48,7 +48,7 @@ export const Survey = () => {
     const surveyData: SurveyData = {
       fullName: nameAnswer,
       studentId: emailAnswer,
-      ...mcData,
+      surveyResponse: mcData,
     }
     axios
       .post(`${API_ROOT}${COURSE_API}/${surveyId}${SURVEY_API}`, surveyData)
@@ -109,5 +109,5 @@ export const Survey = () => {
 interface SurveyData {
   studentId: string
   fullName: string
-  [key: string]: string
+  surveyResponse: { [key: string]: string }
 }
