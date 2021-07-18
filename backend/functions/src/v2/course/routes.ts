@@ -1,26 +1,32 @@
 import * as express from "express";
-const router: express.Router = express.Router();
-import { addCourse, connectGroupConfig } from "./functions";
+import { postCourse, patchCourse, deleteCourse, getCourse } from "./functions";
+import { Request, Response } from "express";
+import { internalError } from "../../common/utils";
 
-router.post("/add", async (req: express.Request, res: express.Response) => {
-	const { name, minGroupSize, dueDate, userEmail } = req.body;
-	addCourse(name, minGroupSize, dueDate, userEmail)
-		.then(() =>
-			res.status(200).send(`Successfully created a document for ${name}`)
-		)
-		.catch((error) => res.status(409).send(error));
+// eslint-disable-next-line new-cap
+const router: express.Router = express.Router();
+
+router.post("/", (req: Request, res: Response) => {
+	postCourse(req, res).catch((err) => internalError(res, err));
 });
 
-router.post(
-	"/connect-config",
-	async (req: express.Request, res: express.Response) => {
-		const { userEmail, configName, courseId } = req.body;
-		connectGroupConfig(userEmail, configName, courseId)
-			.then(() =>
-				res.status(200).send(`Successfully connected config for ${courseId}`)
-			)
-			.catch((error) => res.status(409).send(error));
-	}
-);
+router
+	.get("/:courseId", async (req: Request, res: Response) => {
+		getCourse(req, res).catch((err) => internalError(res, err));
+	})
+	.delete("/:courseId", async (req: Request, res: Response) => {
+		deleteCourse(req, res).catch((err) => internalError(res, err));
+	})
+	.patch("/:courseId", async (req: Request, res: Response) => {
+		patchCourse(req, res).catch((err) => internalError(res, err));
+	});
+
+import csvRouter from "./csv/routes";
+import surveyRouter from "./survey/routes";
+import groupRouter from "./group/routes";
+
+router.use("/:courseId/csv", csvRouter);
+router.use("/:courseId/survey", surveyRouter);
+router.use("/:courseId/group", groupRouter);
 
 export default router;
