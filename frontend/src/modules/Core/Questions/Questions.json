@@ -37,7 +37,7 @@
   },
   {
     "question": "What year are you?",
-    "questionId": "year",
+    "questionId": "graduation",
     "answers": {
       "Freshman": "Freshman",
       "Sophomore": "Sophomore",
@@ -48,7 +48,7 @@
   },
   {
     "question": "Are you studying remotely this semester?",
-    "questionId": "remote",
+    "questionId": "location",
     "answers": {
       "No": "No, I'm on campus",
       "Other US": "Yes, I’m outside of Ithaca, but still in the US",
