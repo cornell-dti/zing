@@ -47,7 +47,7 @@ export const Survey = () => {
     )
     const surveyData: SurveyData = {
       fullName: nameAnswer,
-      studentId: emailAnswer,
+      email: emailAnswer,
       surveyResponse: mcData,
     }
     axios
@@ -107,7 +107,7 @@ export const Survey = () => {
 }
 
 interface SurveyData {
-  studentId: string
   fullName: string
+  email: string
   surveyResponse: { [key: string]: string }
 }
