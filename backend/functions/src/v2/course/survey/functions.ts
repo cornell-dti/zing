@@ -4,24 +4,16 @@ import { SurveyQuestion, IIndex } from "../../../common/types";
 import { getCourseRefByDocId } from "../../../common/utils";
 
 export const getSurvey = async (req: Request, res: Response) => {
-	const { courseId, email } = req.params;
-
+	const courseId = req.params.courseId;
 	const courseDocRef = (await getCourseRefByDocId(courseId).catch((err) => {
 		return res.status(404).send(err.toString());
 	})) as FirebaseFirestore.DocumentReference;
-	const surveyColRef = courseDocRef.collection("survey");
+	const courseDocSnapshot = await courseDocRef.get();
 
-	const surveyQuery = await surveyColRef
-		.where("email", "==", email)
-		.limit(1)
-		.get();
+	const dueDate = courseDocSnapshot.get("dueDate").toDate();
+	const questions = courseDocSnapshot.get("question");
 
-	if (surveyQuery.empty) {
-		return res
-			.status(404)
-			.send(`Survey for ${email} doesn't exist under course ${courseId}`);
-	}
-	return res.status(200).send(surveyQuery.docs[0].data());
+	return res.status(200).send({ dueDate, questions });
 };
 
 export const postSurvey = async (req: Request, res: Response) => {
@@ -68,6 +60,27 @@ export const postSurvey = async (req: Request, res: Response) => {
 	// Lastly, increment submission count
 	courseDocRef.update({ count: firestore.FieldValue.increment(1) });
 	return res.status(200).send(newSurveyDocRef.id);
+};
+
+export const getSurveyResponse = async (req: Request, res: Response) => {
+	const { courseId, email } = req.params;
+
+	const courseDocRef = (await getCourseRefByDocId(courseId).catch((err) => {
+		return res.status(404).send(err.toString());
+	})) as FirebaseFirestore.DocumentReference;
+	const surveyColRef = courseDocRef.collection("survey");
+
+	const surveyQuery = await surveyColRef
+		.where("email", "==", email)
+		.limit(1)
+		.get();
+
+	if (surveyQuery.empty) {
+		return res
+			.status(404)
+			.send(`Survey for ${email} doesn't exist under course ${courseId}`);
+	}
+	return res.status(200).send(surveyQuery.docs[0].data());
 };
 
 const isSurveyResponseInvalid = (
