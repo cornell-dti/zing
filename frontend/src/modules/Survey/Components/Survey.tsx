@@ -30,7 +30,6 @@ export const Survey = () => {
     const fetcher = async () => {
       axios.get(`${API_ROOT}${COURSE_API}/${surveyId}${SURVEY_API}`).then(
         (response: any) => {
-          console.log(response.data)
           setQuestions(response.data)
         },
         (error: any) => {
