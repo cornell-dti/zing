@@ -20,6 +20,7 @@ export interface StepProps {
 export interface StepBeginProps {
   setName: (arg: string) => void
   setEmail: (arg: string) => void
+  dueDate: string
   name: string
   email: string
   gotoNextStep: () => void

@@ -66,7 +66,7 @@ export const Survey = () => {
     )
     const surveyData: SurveyData = {
       fullName: nameAnswer,
-      studentId: emailAnswer, // why does this keep changing bruh
+      email: emailAnswer, // this could need to be changed back to studentId, but pending woosangs changes it should be email
       surveyResponse: mcData,
     }
     console.log(surveyData)
@@ -93,6 +93,7 @@ export const Survey = () => {
         email={emailAnswer}
         setName={(arg: string) => setNameAnswer(arg)}
         setEmail={(arg: string) => setEmailAnswer(arg)}
+        dueDate={questions.dueDate}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       />
     </StyledContainer1>
@@ -128,6 +129,6 @@ export const Survey = () => {
 
 interface SurveyData {
   fullName: string
-  studentId: string
+  email: string
   surveyResponse: { [key: string]: string }
 }
