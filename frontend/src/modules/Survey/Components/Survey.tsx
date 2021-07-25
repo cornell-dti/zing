@@ -7,7 +7,7 @@ import { StepTemplate } from 'Survey/Components/StepTemplate'
 import { StepBegin } from 'Survey/Components/StepBegin'
 import { StepRadio } from 'Survey/Components/StepRadio'
 import { StepFinal } from 'Survey/Components/StepFinal'
-import { Question } from '@core/Types'
+import { SurveyQuestions } from '@core/Types'
 import { useEffect } from 'react'
 import { API_ROOT, COURSE_API, HOME_PATH, SURVEY_API } from '@core/Constants'
 
@@ -20,20 +20,36 @@ export const Survey = () => {
 
   useEffect(() => {
     if (!surveyId) history.push(HOME_PATH)
-  }, [surveyId])
+  }, [surveyId, history])
 
   const [showError, setShowError] = useState(false)
   const [currStep, setCurrStep] = useState(0)
   // If there are custom questions the below will be a network call perhaps
-  const questions: Question[] = require('@core/Questions/Questions.json')
-  const numSpecialQuestions = 0 // In case there were special non-mc questions
-  const totalSteps = questions.length + numSpecialQuestions
+  // ^ here it is baby:
+  useEffect(() => {
+    const fetcher = async () => {
+      axios.get(`${API_ROOT}${COURSE_API}/${surveyId}${SURVEY_API}`).then(
+        (response: any) => {
+          console.log(response.data)
+          setQuestions(response.data)
+        },
+        (error: any) => {
+          console.log(error)
+        }
+      )
+    }
+    fetcher().then(() => console.log('fetcher called'))
+  }, [surveyId])
+  const defaultSurvey: SurveyQuestions = require('@core/Questions/DefaultSurvey.json')
+  const [questions, setQuestions] = useState<SurveyQuestions>(defaultSurvey)
+  // const numSpecialQuestions = 0 // don't think we need this anymore due to the api call
+  const totalSteps = questions.question.length
 
   // Form answer props
   const [nameAnswer, setNameAnswer] = useState('')
   const [emailAnswer, setEmailAnswer] = useState('')
   const [answers, setAnswers] = useState(
-    Array<string>(questions.length).fill('')
+    Array<string>(questions.question.length).fill('')
   ) // Will be in order of Qs
 
   const changeAnswer = (i: number, v: string) => {
@@ -43,13 +59,17 @@ export const Survey = () => {
   // last step's Next button handles sending data
   function finalNext() {
     const mcData = Object.fromEntries(
-      questions.map((question, index) => [question.questionId, answers[index]])
+      questions.question.map((question, index) => [
+        question.question.hash,
+        answers[index],
+      ])
     )
     const surveyData: SurveyData = {
       fullName: nameAnswer,
-      email: emailAnswer,
+      studentId: emailAnswer, // why does this keep changing bruh
       surveyResponse: mcData,
     }
+    console.log(surveyData)
     axios
       .post(`${API_ROOT}${COURSE_API}/${surveyId}${SURVEY_API}`, surveyData)
       .then(
@@ -63,7 +83,7 @@ export const Survey = () => {
     setCurrStep(currStep + 1)
   }
 
-  const multipleChoiceIndex = currStep - numSpecialQuestions - 1
+  const multipleChoiceIndex = currStep - 1
   const isStepValid = answers[multipleChoiceIndex] !== ''
 
   return currStep === 0 ? ( // Form landing
@@ -97,7 +117,7 @@ export const Survey = () => {
         <StepRadio
           showError={showError}
           currentAnswer={answers[multipleChoiceIndex]}
-          question={questions[multipleChoiceIndex]}
+          question={questions.question[multipleChoiceIndex]}
           setAnswer={(arg) => changeAnswer(multipleChoiceIndex, arg)}
           key={String(currStep)}
         />
@@ -108,6 +128,6 @@ export const Survey = () => {
 
 interface SurveyData {
   fullName: string
-  email: string
+  studentId: string
   surveyResponse: { [key: string]: string }
 }

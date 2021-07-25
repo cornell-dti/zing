@@ -9,6 +9,7 @@ import {
 } from 'Survey/Styles/StepRadio.style'
 import { RadioButton } from '@core'
 import { StepProps } from 'Survey/Types/StepProps'
+import { Option } from '@core/Types'
 
 export const StepRadio = ({
   showError,
@@ -18,7 +19,7 @@ export const StepRadio = ({
 }: StepProps) => {
   return (
     <StyledContainer>
-      <StyledQuestionText>{question.question}</StyledQuestionText>
+      <StyledQuestionText>{question.question.description}</StyledQuestionText>
       <StyledRadioButtonsWrapper>
         {showError ? (
           <StyledErrorWrapper>
@@ -27,16 +28,16 @@ export const StepRadio = ({
           </StyledErrorWrapper>
         ) : null}
         <StyledContainer>
-          {Object.entries(question.answers).map(([value, fullDescription]) => (
+          {Object.entries(question.options).map(([value, option]) => (
             <RadioButton
               currentAnswer={currentAnswer}
               onClick={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setAnswer(e.target.value)
               }
-              value={value}
-              label={fullDescription}
+              value={option.hash}
+              label={option.description}
               name="RadioButtons"
-              key={value}
+              key={option.hash}
             />
           ))}
         </StyledContainer>
