@@ -4,15 +4,14 @@ export interface IIndex {
 	[index: string]: any;
 }
 
-type SurveyField = {
+interface SurveyField {
 	hash: string;
 	description: string;
-};
+}
 
-export type SurveyQuestion = {
-	question: SurveyField;
+export interface SurveyQuestion extends SurveyField {
 	options: SurveyField[];
-};
+}
 
 export type FirestoreCourseDoc = {
 	// studentList: string[];
@@ -22,7 +21,7 @@ export type FirestoreCourseDoc = {
 	dueDate: Timestamp;
 	minGroupSize: number;
 	config: string | null;
-	question?: Object[];
+	questions?: Object[];
 	count: number;
 };
 

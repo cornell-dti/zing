@@ -11,7 +11,7 @@ export const getSurvey = async (req: Request, res: Response) => {
 	const courseDocSnapshot = await courseDocRef.get();
 
 	const dueDate = courseDocSnapshot.get("dueDate").toDate();
-	const questions = courseDocSnapshot.get("question");
+	const questions = courseDocSnapshot.get("questions");
 
 	return res.status(200).send({ dueDate, questions });
 };
@@ -34,9 +34,9 @@ export const postSurvey = async (req: Request, res: Response) => {
 		return res.status(404).send(err.toString());
 	})) as FirebaseFirestore.DocumentReference;
 	const courseDocSnapshot = await courseDocRef.get();
-	const question = courseDocSnapshot.get("question") as SurveyQuestion[];
+	const questions = courseDocSnapshot.get("questions") as SurveyQuestion[];
 	// Validate survey response against schema
-	if (isSurveyResponseInvalid(surveyResponse, question)) {
+	if (isSurveyResponseInvalid(surveyResponse, questions)) {
 		return res.status(400).send("Invalid survey response(s)");
 	}
 	// Check for existing survey response under email
@@ -93,7 +93,7 @@ const isSurveyResponseInvalid = (
 
 	const isInvalid = surveyTemplate.some((q) => {
 		// true if at least 1 invalid field exists
-		const questionHash = q.question.hash;
+		const questionHash = q.hash;
 		const optionHashes = q.options.map((field) => field.hash);
 
 		if (!Object.keys(surveyResponse).includes(questionHash)) return true;

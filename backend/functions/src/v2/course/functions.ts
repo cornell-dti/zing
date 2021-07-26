@@ -8,7 +8,7 @@ import {
 import { Timestamp, FieldValue } from "@google-cloud/firestore";
 import { db } from "../../common/db";
 import { Request, Response } from "express";
-import { defaultQuestions } from "../../common/question";
+import { defaultQuestions } from "../../common/questions";
 import {
 	getUserRefByEmail,
 	getCourseRefByDocId,
@@ -48,7 +48,7 @@ export const postCourse = async (req: Request, res: Response) => {
 		config: config ? config : "default",
 		count: 0,
 		completed: [],
-		question: defaultQuestions, // default question format
+		questions: defaultQuestions, // default question format
 	};
 
 	// add course document and update instructor courselist
@@ -126,14 +126,14 @@ export const getCourse = async (req: Request, res: Response) => {
 	})) as FirebaseFirestore.DocumentReference;
 
 	const courseData = await getBasicCourseById(courseId);
-	const question = (await courseDocRef
+	const questions = (await courseDocRef
 		.get()
-		.then((snapshot) => snapshot.get("question"))) as SurveyQuestion[];
+		.then((snapshot) => snapshot.get("questions"))) as SurveyQuestion[];
 	const surveyColRef = courseDocRef.collection("survey");
 	const groupColRef = courseDocRef.collection("group");
 
 	const surveyData = await getDocsDataByColRef(surveyColRef);
-	const groupData = await getGroupDataByColRef(groupColRef, question);
+	const groupData = await getGroupDataByColRef(groupColRef, questions);
 
 	const result = { ...courseData, survey: surveyData, group: groupData };
 	return res.status(200).send(result);
@@ -141,33 +141,33 @@ export const getCourse = async (req: Request, res: Response) => {
 
 const getGroupDataByColRef = async (
 	groupColRef: FirebaseFirestore.CollectionReference,
-	question: SurveyQuestion[]
+	questions: SurveyQuestion[]
 ) => {
 	const groupDocRefList = await groupColRef.listDocuments();
 	const allGroupsData: IIndex = {};
 	for (const docRef of groupDocRefList) {
 		const groupId = docRef.id;
-		allGroupsData[groupId] = await getGroupDataByDocRef(docRef, question);
+		allGroupsData[groupId] = await getGroupDataByDocRef(docRef, questions);
 	}
 	return allGroupsData;
 };
 
 const getGroupDataByDocRef = async (
 	groupDocRef: FirebaseFirestore.DocumentReference,
-	question: SurveyQuestion[]
+	questions: SurveyQuestion[]
 ) => {
 	const groupSnapshot = await groupDocRef.get();
 	const groupData = groupSnapshot.data();
 	const memberColRef = groupDocRef.collection("members");
-	const memberData = await getMemberDataByColRef(memberColRef, question);
+	const memberData = await getMemberDataByColRef(memberColRef, questions);
 	return { groupData, members: memberData };
 };
 
 const getMemberDataByColRef = async (
 	colRef: FirebaseFirestore.CollectionReference,
-	question: SurveyQuestion[]
+	questions: SurveyQuestion[]
 ) => {
-	const questionObj = getQuestionObj(question) as IIndex;
+	const questionObj = getQuestionObj(questions) as IIndex;
 	const questionHashes = Object.keys(questionObj);
 	const docRefList = await colRef.listDocuments();
 	const allDocsData = await Promise.all(
@@ -186,8 +186,8 @@ const getMemberDataByColRef = async (
 	return allDocsData;
 };
 
-const getQuestionObj = (question: SurveyQuestion[]) => {
-	const questionObj = question.reduce((acc, obj) => {
+const getQuestionObj = (questions: SurveyQuestion[]) => {
+	const questionObj = questions.reduce((acc, obj) => {
 		const optionsObj = obj.options.reduce((acc, obj) => {
 			return {
 				...acc,
@@ -196,7 +196,7 @@ const getQuestionObj = (question: SurveyQuestion[]) => {
 		}, {});
 		return {
 			...acc,
-			[obj.question.hash]: optionsObj,
+			[obj.hash]: optionsObj,
 		};
 	}, {});
 	return questionObj;
