@@ -15,16 +15,16 @@ def create_groups(request):
         else:
             return "Parameter className is not specified", 404
 
-        storage_client = storage.Client()
+        #storage_client = storage.Client()
         logging_client = google.cloud.logging.Client()
         logging_client.get_default_handler()
         logging_client.setup_logging()
 
-        student_file_name = class_name + ".csv"
-        source_bucket = storage_client.bucket(CLASS_BUCKET)
-        source_blob = source_bucket.blob(student_file_name)
-        source_file = f"/tmp/{student_file_name}"
-        source_blob.download_to_filename(source_file)
+        # student_file_name = class_name + ".csv"
+        # source_bucket = storage_client.bucket(CLASS_BUCKET)
+        # source_blob = source_bucket.blob(student_file_name)
+        # source_file = f"/tmp/{student_file_name}"
+        # source_blob.download_to_filename(source_file)
 
         db = firestore.Client()
         course_doc = db.collection("course").document(class_name).get()
@@ -47,7 +47,7 @@ def create_groups(request):
         config_data = config_doc.to_dict()
         config_data["group_size"] = str(minGroupSize) + "+"
 
-        status = controller.run(config_data, source_file, class_name)
+        status = controller.run(config_data, class_name)
         if not status:
             print('Could not completely meet all rules')
 

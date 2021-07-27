@@ -23,10 +23,9 @@ from google.cloud.firestore_v1 import collection
 from .group import make_initial_groups
 from .utility import mean, std
 from .rule import make_rule, apply_rules_list, Balance, Distribute
-from .student import load_classlist
+from .student import load_classlist, load_classlist_from_firestore
 from .course import Course, SubCourse, sizer_from_dek
 from google.cloud import firestore
-
 
 import logging
 
@@ -44,7 +43,7 @@ class UnevenGroups(Exception):
     pass
 
 
-def run(dek, classlist, classname):
+def run(dek, classname):
     """
     Run GroupEng as specified by dek
 
@@ -60,15 +59,17 @@ def run(dek, classlist, classname):
     try:
         dek['student_identifier'] = dek.pop('studentIdentifier')
 
-        students = load_classlist(classlist, dek.get('student_identifier'))
-        logging.debug('read class list')
+        # students = load_classlist(classlist, dek.get('student_identifier'))
+        students = load_classlist_from_firestore(classname,
+                                                 dek.get('student_identifier'))
+        print('read class list')
         identifier = students[0].identifier
         dek_rules = dek['rules']
         tries = 5
         if 'tries' in dek:
             tries = dek['tries']
         logging.debug('Allowing {} tries to get rules to work'.format(tries))
-        logging.debug("Using Rules: "+str(dek_rules))
+        logging.debug("Using Rules: " + str(dek_rules))
 
         # This adds support for a "Hard" aggregate. If your first rule is
         # aggregate, we split the class on that attribute and treat each
@@ -97,10 +98,8 @@ def run(dek, classlist, classname):
             logging.debug("Initialized Course")
             logging.debug(sizer.describe(len(students)))
 
-        class_name = os.path.splitext(classlist)[0]
-
         def outfile(o):
-            file_name = '{0}_{1}'.format(class_name, o)
+            file_name = '{0}_{1}'.format(classname, o)
             file_dir = os.path.join(tempfile.gettempdir(), file_name)
             return open(file_dir, 'w')
 
@@ -112,8 +111,8 @@ def run(dek, classlist, classname):
 
             balance_rules = filter(lambda x: isinstance(x, Balance), rules)
 
-            groups = make_initial_groups(
-                course, balance_rules, group_number_offset)
+            groups = make_initial_groups(course, balance_rules,
+                                         group_number_offset)
             group_number_offset += course.n_groups
             logging.debug("Made initial groups")
 
@@ -126,8 +125,10 @@ def run(dek, classlist, classname):
             # group.make_initial_groups so that it can see the phantoms
             rules = [Distribute(identifier, course, 'phantom')] + rules
 
-            suceeded, failed_total = apply_rules_list(
-                rules, groups, course.students, tries=tries)
+            suceeded, failed_total = apply_rules_list(rules,
+                                                      groups,
+                                                      course.students,
+                                                      tries=tries)
             print(f"suceeded: {suceeded}, failed_total: {failed_total}")
             logging.debug("applied rules")
 
@@ -138,11 +139,14 @@ def run(dek, classlist, classname):
 
             # now get rid of the phantoms so they don't affect the output
             for group in groups:
-                group.students = [s for s in group.students if s.data[identifier] !=
-                                  'phantom']
+                group.students = [
+                    s for s in group.students
+                    if s.data[identifier] != 'phantom'
+                ]
 
             course.students = [
-                s for s in course.students if s.data[identifier] != 'phantom']
+                s for s in course.students if s.data[identifier] != 'phantom'
+            ]
             logging.debug("removed phantoms")
 
             all_groups = all_groups + groups
@@ -178,10 +182,10 @@ def statistics(rules, groups, balance_rules, classname):
     for g in groups:
         group_document_ref = group_collection_ref.document(str(g.group_number))
         for r in balance_rules:
-            print('<{0} Mean: {1:3.2f}>'.format(
-                r.attribute, mean(g, r.get_strength)))
-            group_document_ref.set(
-                {r.attribute: mean(g, r.get_strength)}, merge=True)
+            print('<{0} Mean: {1:3.2f}>'.format(r.attribute,
+                                                mean(g, r.get_strength)))
+            group_document_ref.set({r.attribute: mean(g, r.get_strength)},
+                                   merge=True)
         failed_categories = []
         for r in rules:
             if not r.check(g):
@@ -201,9 +205,9 @@ def group_sort_key(g):
 def group_output(groups, outf, identifier, sep=', '):
     for g in groups:
         students = sorted(g.students, key=lambda x: x[identifier])
-        outf.write('Group {0}{1}{2}\n'.format(g.group_number, sep,
-                                              sep.join([str(s[identifier]) for s in
-                                                       students])))
+        outf.write('Group {0}{1}{2}\n'.format(
+            g.group_number, sep,
+            sep.join([str(s[identifier]) for s in students])))
 
 
 def group_to_firestore(groups, classname):
@@ -222,8 +226,9 @@ def group_to_firestore(groups, classname):
 
     for g in groups:
         group_number = str(g.group_number)
-        delete_collection(group_collection_ref.document(
-            group_number).collection("members"), 150)
+        delete_collection(
+            group_collection_ref.document(group_number).collection("members"),
+            150)
         for student in g.students:
             student_data = student.data.copy()
             student_id = student_data["email"]
@@ -257,13 +262,14 @@ def student_full_output(students, identifier, outf):
 def student_augmented_output(students, rules, outf):
     add_headers = ['']
     balance_rules = [r for r in rules if r.name == 'Balance']
-    add_headers += ["group {0} mean".format(r.attribute)
-                    for r in balance_rules]
+    add_headers += [
+        "group {0} mean".format(r.attribute) for r in balance_rules
+    ]
     add_headers += ["Rules Broken"]
     headers = students[0].headers
 
     writer = csv.writer(outf)
-    writer.writerow(headers+add_headers)
+    writer.writerow(headers + add_headers)
 
     group_number = students[0].group_number
     num_student_headers = len(students[0].headers)
@@ -271,13 +277,17 @@ def student_augmented_output(students, rules, outf):
         # write out a summary of the previous group if we have gone to the next
         # group
         if s.group_number != group_number:
-            group = students[i-1].group
+            group = students[i - 1].group
             summary = ['summary']
             summary += [''] * num_student_headers
-            summary += [str(mean(group.students, r.get_strength))
-                        for r in balance_rules]
-            summary += ["{}: {}".format(r.name, r.attribute) for r in rules if
-                        not r.check(group.students)]
+            summary += [
+                str(mean(group.students, r.get_strength))
+                for r in balance_rules
+            ]
+            summary += [
+                "{}: {}".format(r.name, r.attribute) for r in rules
+                if not r.check(group.students)
+            ]
             writer.writerow(summary)
             writer.writerow([])
             group_number = s.group_number

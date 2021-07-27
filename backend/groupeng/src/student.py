@@ -14,13 +14,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with GroupEng.  If not, see <http://www.gnu.org/licenses/>.
-
 """
 Student record.  Creating Student record from a csv (excel) file.
 
 .. moduleauthor:: Thomas G. Dimiduk tgd8@cornell.edu
 """
 from .utility import numberize
+from google.cloud import firestore
 
 import csv
 
@@ -30,7 +30,6 @@ group_number = 'Group Number'
 class Student(object):
     """
     """
-
     def __init__(self, data={}, headers=[], identifier=None):
         """
 
@@ -114,3 +113,30 @@ def load_classlist(filename, identifier):
             students.append(Student(d, list(headers), identifier))
 
     return students
+
+
+def load_classlist_from_firestore(classId, identifier):
+    """Loads all ungrouped student information from Firestore."""
+    survey_collection_ref = firestore.Client().collection("course").document(
+        classId).collection("survey")
+    survey_docs = survey_collection_ref.stream()
+    # students = list(
+    #    map(lambda x: construct_student_data(x, identifier), survey_docs))
+    students = []
+    for doc in survey_docs:
+        students.append(construct_student_data(doc, identifier))
+    return students
+
+
+def construct_student_data(docSnapshot, identifier):
+    """Creates student object from given dict of student info."""
+    student_dict = docSnapshot.to_dict()
+    # document has three base-level fields: fullName, email(identifier) and surveyResponse
+    data = {
+        'fullName': student_dict['fullName'],
+        identifier: student_dict[identifier],
+        **student_dict['surveyResponse']
+    }
+    headers = list(data.keys())
+    student = Student(data, headers, identifier)
+    return student
