@@ -1,6 +1,6 @@
 export const sampleResponse = [
 	{
-		surveryResponse: {
+		surveyResponse: {
 			identity: "xbelox",
 			pronoun: "gl21j2",
 			college: "arw6k0",
