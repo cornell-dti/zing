@@ -31,7 +31,8 @@ def create_groups(request):
         if not course_doc.exists:
             return "Given className does not exist", 404
         data = course_doc.to_dict()
-        creatorEmail, config = data["creator"], data["config"]
+        creatorEmail, config, minGroupSize = \
+            data["creator"], data["config"], data["minGroupSize"]
         creator_query_result = db.collection("userdata") \
             .where("email", "==", creatorEmail) \
             .stream()
@@ -44,14 +45,24 @@ def create_groups(request):
         if not config_doc.exists:
             return "The config assigned for the class does not exist", 404
         config_data = config_doc.to_dict()
+        config_data["group_size"] = str(minGroupSize) + "+"
 
         status = controller.run(config_data, source_file, class_name)
         if not status:
             print('Could not completely meet all rules')
+
+        # Cleanup: Remove survey documents
+        survey_docs = db.collection("course") \
+            .document(class_name).collection("survey").stream()
+
+        for doc in survey_docs:
+            doc.reference.delete()
+
         # file_name = '{0}_{1}'.format(class_name, "groups.csv")
         # file_dir = os.path.join(tempfile.gettempdir(), file_name)
         # destination_blob.upload_from_filename(file_dir)
         return 'Group generation complete', 200
+
     except Exception as e:
         print(e)
         return e, 500
