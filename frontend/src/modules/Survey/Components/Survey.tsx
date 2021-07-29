@@ -37,7 +37,6 @@ export const Survey = () => {
         }
       )
     }
-    fetcher().then(() => console.log('fetcher called'))
   }, [surveyId])
   const defaultSurvey: SurveyForm = require('@core/Questions/DefaultSurvey.json')
   const [questions, setQuestions] = useState<SurveyForm>(defaultSurvey)
