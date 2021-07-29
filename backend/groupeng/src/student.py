@@ -22,8 +22,6 @@ Student record.  Creating Student record from a csv (excel) file.
 from .utility import numberize
 from google.cloud import firestore
 
-import csv
-
 group_number = 'Group Number'
 
 
@@ -85,34 +83,6 @@ def attribute_match(attribute, value):
 
 def attribute_differs(attribute, value):
     return lambda x: x[attribute] != value
-
-
-def load_classlist(filename, identifier):
-    inf = csv.reader(open(filename, 'U'))
-
-    # csv api changed in python3, be compatible with both
-    try:
-        header_line = inf.__next__()
-    except AttributeError:
-        header_line = inf.next()
-
-    # Strip excess spaces from the header names, since this can lead to tricky
-    # bugs later
-    headers = [h.strip() for h in header_line if h.strip() != '']
-    # now make the students from the file
-    students = []
-    for s in inf:
-        if set(s).issubset(set(['', ' ', None])):
-            # skip blank lines
-            pass
-        else:
-            d = {}
-            for i, h in enumerate(headers):
-                d[h] = s[i].strip()
-            # make a copy of headers so Student doesn't change it
-            students.append(Student(d, list(headers), identifier))
-
-    return students
 
 
 def load_classlist_from_firestore(classId, identifier):

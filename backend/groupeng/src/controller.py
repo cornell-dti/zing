@@ -18,16 +18,16 @@
 import os
 import csv
 import tempfile
+import logging
 
-from google.cloud.firestore_v1 import collection
 from .group import make_initial_groups
-from .utility import mean, std
+from .utility import mean
 from .rule import make_rule, apply_rules_list, Balance, Distribute
-from .student import load_classlist, load_classlist_from_firestore
+from .student import load_classlist_from_firestore
 from .course import Course, SubCourse, sizer_from_dek
 from google.cloud import firestore
 
-import logging
+logger = logging.getLogger(__name__)
 
 
 class InputDeckError(Exception):
@@ -56,122 +56,113 @@ def run(dek, classname):
     ------
     Output files determined by Input deck
     """
-    try:
-        dek['student_identifier'] = dek.pop('studentIdentifier')
+    dek['student_identifier'] = dek.pop('studentIdentifier')
+    students = load_classlist_from_firestore(classname,
+                                             dek.get('student_identifier'))
+    identifier = students[0].identifier
+    dek_rules = dek['rules']
+    tries = 5
+    if 'tries' in dek:
+        tries = dek['tries']
+    logging.debug('Allowing {} tries to get rules to work'.format(tries))
+    logging.debug("Using Rules: " + str(dek_rules))
 
-        # students = load_classlist(classlist, dek.get('student_identifier'))
-        students = load_classlist_from_firestore(classname,
-                                                 dek.get('student_identifier'))
-        print('read class list')
-        identifier = students[0].identifier
-        dek_rules = dek['rules']
-        tries = 5
-        if 'tries' in dek:
-            tries = dek['tries']
-        logging.debug('Allowing {} tries to get rules to work'.format(tries))
-        logging.debug("Using Rules: " + str(dek_rules))
+    # This adds support for a "Hard" aggregate. If your first rule is
+    # aggregate, we split the class on that attribute and treat each
+    # value as a separate class. This ensures that we meet the rule
+    # exactly (adding extra phantoms as necessary). This is useful for
+    # things like needing all of the students in groups to be in the
+    # same recitation section.
 
-        # This adds support for a "Hard" aggregate. If your first rule is
-        # aggregate, we split the class on that attribute and treat each
-        # value as a separate class. This ensures that we meet the rule
-        # exactly (adding extra phantoms as necessary). This is useful for
-        # things like needing all of the students in groups to be in the
-        # same recitation section.
+    sizer = sizer_from_dek(dek)
+    logging.debug(sizer)
 
-        sizer = sizer_from_dek(dek)
-        logging.debug(sizer)
+    if dek_rules[0]['name'] == 'aggregate':
+        attribute = dek_rules[0]['attribute']
+        # Turn back into a list to make sure ordering is preserved when we use
+        # this in multiple places
+        split_values = list(set(s[attribute] for s in students))
+        subclasses = [[s for s in students if s[attribute] == value]
+                      for value in split_values]
+        subcourses = [SubCourse(sc, students, sizer) for sc in subclasses]
 
-        if dek_rules[0]['name'] == 'aggregate':
-            attribute = dek_rules[0]['attribute']
-            # Turn back into a list to make sure ordering is preserved when we use
-            # this in multiple places
-            split_values = list(set(s[attribute] for s in students))
-            subclasses = [[s for s in students if s[attribute] == value]
-                          for value in split_values]
-            subcourses = [SubCourse(sc, students, sizer) for sc in subclasses]
+        dek_rules = dek_rules[1:]
+        for s in subcourses:
+            logging.debug(sizer.describe(len(s.students_no_phantoms)))
+    else:
+        subcourses = [Course(students, sizer)]
+        logging.debug("Initialized Course")
+        logging.debug(sizer.describe(len(students)))
 
-            dek_rules = dek_rules[1:]
-            for s in subcourses:
-                logging.debug(sizer.describe(len(s.students_no_phantoms)))
-        else:
-            subcourses = [Course(students, sizer)]
-            logging.debug("Initialized Course")
-            logging.debug(sizer.describe(len(students)))
+    group_number_offset = 0
+    all_groups = []
+    for course in subcourses:
+        rules = [make_rule(r, course) for r in dek_rules]
+        logging.debug("Made rules")
 
-        def outfile(o):
-            file_name = '{0}_{1}'.format(classname, o)
-            file_dir = os.path.join(tempfile.gettempdir(), file_name)
-            return open(file_dir, 'w')
+        balance_rules = filter(lambda x: isinstance(x, Balance), rules)
 
-        group_number_offset = 0
-        all_groups = []
-        for course in subcourses:
-            rules = [make_rule(r, course) for r in dek_rules]
-            logging.debug("Made rules")
+        groups = make_initial_groups(course, balance_rules,
+                                     group_number_offset)
+        group_number_offset += course.n_groups
+        logging.debug("Made initial groups")
 
-            balance_rules = filter(lambda x: isinstance(x, Balance), rules)
+        def failures(r):
+            return sum(1 - r.check(g) for g in groups)
 
-            groups = make_initial_groups(course, balance_rules,
-                                         group_number_offset)
-            group_number_offset += course.n_groups
-            logging.debug("Made initial groups")
+        # Add a rule to distribute phantoms to avoid having more than one phantom
+        # per group, put it first so that it is highest priority
+        # we have to add this after the phantoms are created by
+        # group.make_initial_groups so that it can see the phantoms
+        rules = [Distribute(identifier, course, 'phantom')] + rules
 
-            def failures(r):
-                return sum(1 - r.check(g) for g in groups)
+        succeeded, failed_total = apply_rules_list(rules,
+                                                   groups,
+                                                   course.students,
+                                                   tries=tries)
+        print(f"succeeded: {succeeded}, failed_total: {failed_total}")
+        logging.debug("applied rules")
 
-            # Add a rule to distribute phantoms to avoid having more than one phantom
-            # per group, put it first so that it is highest priority
-            # we have to add this after the phantoms are created by
-            # group.make_initial_groups so that it can see the phantoms
-            rules = [Distribute(identifier, course, 'phantom')] + rules
+        groups.sort(key=group_sort_key)
 
-            suceeded, failed_total = apply_rules_list(rules,
-                                                      groups,
-                                                      course.students,
-                                                      tries=tries)
-            print(f"suceeded: {suceeded}, failed_total: {failed_total}")
-            logging.debug("applied rules")
+        if failures(rules[0]) != 0:
+            raise UnevenGroups()
 
-            groups.sort(key=group_sort_key)
-
-            if failures(rules[0]) != 0:
-                raise UnevenGroups()
-
-            # now get rid of the phantoms so they don't affect the output
-            for group in groups:
-                group.students = [
-                    s for s in group.students
-                    if s.data[identifier] != 'phantom'
-                ]
-
-            course.students = [
-                s for s in course.students if s.data[identifier] != 'phantom'
+        # now get rid of the phantoms so they don't affect the output
+        for group in groups:
+            group.students = [
+                s for s in group.students if s.data[identifier] != 'phantom'
             ]
-            logging.debug("removed phantoms")
+        course.students = [
+            s for s in course.students if s.data[identifier] != 'phantom'
+        ]
+        logging.debug("removed phantoms")
 
-            all_groups = all_groups + groups
+        all_groups = all_groups + groups
 
-        students = sorted(students, key=group_sort_key)
+    students = sorted(students, key=group_sort_key)
 
-        ########################################################################
-        # Output
-        ########################################################################
-        group_to_firestore(all_groups, classname)
-        group_output(all_groups, outfile('groups.csv'), identifier)
+    ########################################################################
+    # Output
+    ########################################################################
+    group_to_firestore(all_groups, classname)
 
-        try:
-            print('running statistics')
-            print(f'keys: {dek.keys()}')
-            statistics(rules, all_groups, balance_rules, classname)
-        except Exception as exc:
-            print(exc)
+    # Disable csv output for now
+    # group_output(all_groups, outfile('groups.csv'), identifier)
 
-        return suceeded
+    try:
+        logging.debug('running statistics')
+        logging.debug('keys: %s', str(dek.keys()))
+        statistics_to_firestore(rules, all_groups, balance_rules, classname)
     except Exception as exc:
+        logger.error(
+            "Following Exception occured while generating statistics: %s", exc)
         print(exc)
 
+    return succeeded
 
-def statistics(rules, groups, balance_rules, classname):
+
+def statistics_to_firestore(rules, groups, balance_rules, classname):
     print("Starting statistics generation:")
 
     group_collection_ref = firestore.Client() \
@@ -217,10 +208,8 @@ def group_to_firestore(groups, classname):
     groups -- result from GroupEng algorithm (list of class Group objects)
     classname -- name of the set of groups (aka "zing"s)
     """
-    group_collection_ref = firestore.Client() \
-        .collection("course") \
-        .document(classname) \
-        .collection("group")
+    group_collection_ref = firestore.Client().collection("course").document(
+        classname).collection("group")
 
     delete_collection(group_collection_ref, 150)
 
@@ -233,10 +222,8 @@ def group_to_firestore(groups, classname):
             student_data = student.data.copy()
             student_id = student_data["email"]
             student_doc = student_data
-            group_collection_ref.document(group_number) \
-                .collection("members") \
-                .document(student_id) \
-                .set(student_doc)
+            group_collection_ref.document(group_number).collection(
+                "members").document(student_id).set(student_doc)
 
 
 def delete_collection(coll_ref, batch_size):
