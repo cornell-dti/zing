@@ -15,9 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with GroupEng.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
 import csv
-import tempfile
 import logging
 
 from .group import make_initial_groups
