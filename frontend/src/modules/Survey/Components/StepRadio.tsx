@@ -19,7 +19,7 @@ export const StepRadio = ({
 }: StepProps) => {
   return (
     <StyledContainer>
-      <StyledQuestionText>{question.description}</StyledQuestionText>
+      <StyledQuestionText>{question.question.description}</StyledQuestionText>
       <StyledRadioButtonsWrapper>
         {showError ? (
           <StyledErrorWrapper>
