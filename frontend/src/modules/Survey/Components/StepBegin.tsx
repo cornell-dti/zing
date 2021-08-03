@@ -70,18 +70,15 @@ export const StepBegin = ({
   function handleNext() {
     // TODO: change this to some regex magic @Shi Chong
     if (name === '' && email === '') {
-      console.log('setting both red')
       setError(errorEnum.BOTH)
       return
     }
     if (name === '') {
-      console.log('setting name red')
       setError(errorEnum.NAME)
       return
     }
     // TODO: change this to some regex magic @Shi Chong
     if (email === '') {
-      console.log('setting email red')
       setError(errorEnum.EMAIL)
       return
     }

@@ -7,7 +7,7 @@ import { StepTemplate } from 'Survey/Components/StepTemplate'
 import { StepBegin } from 'Survey/Components/StepBegin'
 import { StepRadio } from 'Survey/Components/StepRadio'
 import { StepFinal } from 'Survey/Components/StepFinal'
-import { SurveyQuestions } from '@core/Types'
+import { SurveyForm } from '@core/Types'
 import { useEffect } from 'react'
 import { API_ROOT, COURSE_API, HOME_PATH, SURVEY_API } from '@core/Constants'
 
@@ -37,18 +37,17 @@ export const Survey = () => {
         }
       )
     }
-    fetcher().then(() => console.log('fetcher called'))
   }, [surveyId])
-  const defaultSurvey: SurveyQuestions = require('@core/Questions/DefaultSurvey.json')
-  const [questions, setQuestions] = useState<SurveyQuestions>(defaultSurvey)
+  const defaultSurvey: SurveyForm = require('@core/Questions/DefaultSurvey.json')
+  const [questions, setQuestions] = useState<SurveyForm>(defaultSurvey)
   // const numSpecialQuestions = 0 // don't think we need this anymore due to the api call
-  const totalSteps = questions.question.length
+  const totalSteps = questions.questions.length
 
   // Form answer props
   const [nameAnswer, setNameAnswer] = useState('')
   const [emailAnswer, setEmailAnswer] = useState('')
   const [answers, setAnswers] = useState(
-    Array<string>(questions.question.length).fill('')
+    Array<string>(questions.questions.length).fill('')
   ) // Will be in order of Qs
 
   const changeAnswer = (i: number, v: string) => {
@@ -58,8 +57,8 @@ export const Survey = () => {
   // last step's Next button handles sending data
   function finalNext() {
     const mcData = Object.fromEntries(
-      questions.question.map((question, index) => [
-        question.question.hash,
+      questions.questions.map((question, index) => [
+        question.hash,
         answers[index],
       ])
     )
@@ -68,7 +67,6 @@ export const Survey = () => {
       email: emailAnswer, // this could need to be changed back to studentId, but pending woosangs changes it should be email
       surveyResponse: mcData,
     }
-    console.log(surveyData)
     axios
       .post(`${API_ROOT}${COURSE_API}/${surveyId}${SURVEY_API}`, surveyData)
       .then(
@@ -117,7 +115,7 @@ export const Survey = () => {
         <StepRadio
           showError={showError}
           currentAnswer={answers[multipleChoiceIndex]}
-          question={questions.question[multipleChoiceIndex]}
+          question={questions.questions[multipleChoiceIndex]}
           setAnswer={(arg) => changeAnswer(multipleChoiceIndex, arg)}
           key={String(currStep)}
         />
