@@ -14,8 +14,6 @@ export interface SurveyForm {
 
 export interface Question {
   description: string
-  hash: string
-  options: Option[]
   question: QuestionMeta
 }
 
