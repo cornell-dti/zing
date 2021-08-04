@@ -24,30 +24,32 @@ export const Survey = () => {
 
   const [showError, setShowError] = useState(false)
   const [currStep, setCurrStep] = useState(0)
+  const defaultSurvey: SurveyForm = require('@core/Questions/DefaultSurvey.json')
+  const [survey, setSurvey] = useState<SurveyForm>(defaultSurvey)
+  // const numSpecialQuestions = 0 // don't think we need this anymore due to the api call
+  const totalSteps = survey.questions.length
+
   // If there are custom questions the below will be a network call perhaps
   // ^ here it is baby:
   useEffect(() => {
     const fetcher = async () => {
       axios.get(`${API_ROOT}${COURSE_API}/${surveyId}${SURVEY_API}`).then(
         (response: any) => {
-          setQuestions(response.data)
+          setSurvey(response.data)
         },
         (error: any) => {
           console.log(error)
         }
       )
     }
+    fetcher()
   }, [surveyId])
-  const defaultSurvey: SurveyForm = require('@core/Questions/DefaultSurvey.json')
-  const [questions, setQuestions] = useState<SurveyForm>(defaultSurvey)
-  // const numSpecialQuestions = 0 // don't think we need this anymore due to the api call
-  const totalSteps = questions.questions.length
 
   // Form answer props
   const [nameAnswer, setNameAnswer] = useState('')
   const [emailAnswer, setEmailAnswer] = useState('')
   const [answers, setAnswers] = useState(
-    Array<string>(questions.questions.length).fill('')
+    Array<string>(survey.questions.length).fill('')
   ) // Will be in order of Qs
 
   const changeAnswer = (i: number, v: string) => {
@@ -57,10 +59,7 @@ export const Survey = () => {
   // last step's Next button handles sending data
   function finalNext() {
     const mcData = Object.fromEntries(
-      questions.questions.map((question, index) => [
-        question.hash,
-        answers[index],
-      ])
+      survey.questions.map((question, index) => [question.hash, answers[index]])
     )
     const surveyData: SurveyData = {
       fullName: nameAnswer,
@@ -90,7 +89,7 @@ export const Survey = () => {
         email={emailAnswer}
         setName={(arg: string) => setNameAnswer(arg)}
         setEmail={(arg: string) => setEmailAnswer(arg)}
-        dueDate={questions.dueDate}
+        dueDate={survey.dueDate}
         gotoNextStep={() => setCurrStep((currStep) => currStep + 1)}
       />
     </StyledContainer1>
@@ -115,7 +114,7 @@ export const Survey = () => {
         <StepRadio
           showError={showError}
           currentAnswer={answers[multipleChoiceIndex]}
-          question={questions.questions[multipleChoiceIndex]}
+          question={survey.questions[multipleChoiceIndex]}
           setAnswer={(arg) => changeAnswer(multipleChoiceIndex, arg)}
           key={String(currStep)}
         />
