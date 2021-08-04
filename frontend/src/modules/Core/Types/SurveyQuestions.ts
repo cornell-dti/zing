@@ -1,11 +1,3 @@
-// export interface Question {
-//   question: string
-//   questionId: string
-//   answers: {
-//     [key: string]: string
-//   }
-// }
-
 // outermost object, survey form
 export interface SurveyForm {
   questions: Question[]
@@ -13,13 +5,9 @@ export interface SurveyForm {
 }
 
 export interface Question {
-  description: string
-  question: QuestionMeta
-}
-
-export interface QuestionMeta {
-  description: string
   hash: string
+  description: string
+  options: Option[]
 }
 
 export interface Option {

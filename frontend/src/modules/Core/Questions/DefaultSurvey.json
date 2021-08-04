@@ -1,4 +1,5 @@
 {
+  "dueDate": "2021-08-04T07:00:00.000Z",
   "questions": [
     {
       "options": [
@@ -7,8 +8,8 @@
           "hash": "jadvii"
         },
         {
-          "hash": "f4nyz7",
-          "description": "Asian"
+          "description": "Asian",
+          "hash": "f4nyz7"
         },
         {
           "hash": "lzrsqj",
@@ -23,18 +24,16 @@
           "hash": "gz2wfq"
         },
         {
-          "hash": "xbelox",
-          "description": "White"
+          "description": "White",
+          "hash": "xbelox"
         },
         {
           "hash": "pe49er",
           "description": "Other"
         }
       ],
-      "question": {
-        "hash": "identity",
-        "description": "What do you identify as?"
-      }
+      "hash": "identity",
+      "description": "What do you identify as?"
     },
     {
       "options": [
@@ -43,40 +42,35 @@
           "description": "She/Her"
         },
         {
-          "hash": "gl21j2",
-          "description": "He/Him"
+          "description": "He/Him",
+          "hash": "gl21j2"
         },
         {
           "hash": "rbymcm",
           "description": "They/them"
         },
         {
-          "description": "I prefer not to say",
-          "hash": "012aqt"
+          "hash": "012aqt",
+          "description": "I prefer not to say"
         }
       ],
-      "question": {
-        "hash": "pronoun",
-        "description": "What are your pronouns?"
-      }
+      "description": "What are your pronouns?",
+      "hash": "pronoun"
     },
     {
-      "question": {
-        "hash": "college",
-        "description": "What college are you in?"
-      },
+      "hash": "college",
       "options": [
         {
-          "hash": "ll123j",
-          "description": "Architecture, Art and Planning"
+          "description": "Architecture, Art and Planning",
+          "hash": "ll123j"
         },
         {
           "hash": "rlk121",
           "description": "Arts & Sciences"
         },
         {
-          "hash": "arw6k0",
-          "description": "Agriculture & Life Sciences"
+          "description": "Agriculture & Life Sciences",
+          "hash": "arw6k0"
         },
         {
           "description": "Arts & Sciences",
@@ -94,81 +88,74 @@
           "hash": "e12po0",
           "description": "Engineering"
         }
-      ]
+      ],
+      "description": "What college are you in?"
     },
     {
-      "question": {
-        "description": "Are you studying remotely this semester?",
-        "hash": "location"
-      },
+      "hash": "location",
+      "description": "Are you studying remotely this semester?",
       "options": [
         {
-          "hash": "wzb22o",
-          "description": "No, I'm on campus"
+          "description": "No, I'm on campus",
+          "hash": "wzb22o"
         },
         {
           "hash": "bapn22",
           "description": "Yes, I’m outside of Ithaca, but still in the US"
         },
         {
-          "hash": "wpoen",
-          "description": "Yes, I’m in a country outside the US"
+          "description": "Yes, I’m in a country outside the US",
+          "hash": "wpoen"
         }
       ]
     },
     {
-      "question": {
-        "description": "How do you prefer studying with groups this year?",
-        "hash": "mode"
-      },
+      "description": "How do you prefer studying with groups this year?",
+      "hash": "mode",
       "options": [
         {
           "hash": "nnwpo2",
           "description": "Online"
         },
         {
-          "description": "In-person",
-          "hash": "19wnbe"
+          "hash": "19wnbe",
+          "description": "In-person"
         },
         {
-          "hash": "vbpo2b",
-          "description": "both"
+          "description": "both",
+          "hash": "vbpo2b"
         }
       ]
     },
     {
-      "question": {
-        "hash": "time",
-        "description": "When do you prefer studying for this course?"
-      },
       "options": [
         {
           "hash": "anaw2k",
           "description": "Morning (8am-12pm)"
         },
         {
-          "hash": "ae12fb",
-          "description": "Early Afternoon (12pm-4pm)"
+          "description": "Early Afternoon (12pm-4pm)",
+          "hash": "ae12fb"
         },
         {
-          "hash": "xfn2j3",
-          "description": "Late Afternoon (4pm-8pm)"
+          "description": "Late Afternoon (4pm-8pm)",
+          "hash": "xfn2j3"
         },
         {
-          "hash": "apb112",
-          "description": "Evening (8pm-12am)"
+          "description": "Evening (8pm-12am)",
+          "hash": "apb112"
         },
         {
           "hash": "bpwon2",
           "description": "Late (12am-4am)"
         }
-      ]
+      ],
+      "hash": "time",
+      "description": "When do you prefer studying for this course?"
     },
     {
-      "question": {
-        "description": "You have an assignment. When do you start it?",
-        "hash": "start"
-      },
+      "description": "You have an assignment. When do you start it?",
+      "hash": "start",
       "options": [
         {
           "hash": "ssen2o",
@@ -195,8 +182,8 @@
     {
       "options": [
         {
-          "description": "2022",
-          "hash": "bp3on9"
+          "hash": "bp3on9",
+          "description": "2022"
         },
         {
           "hash": "eobb31",
@@ -215,11 +202,8 @@
           "description": "2026"
         }
       ],
-      "question": {
-        "hash": "graduation",
-        "description": "When are you graduating?"
-      }
+      "description": "When are you graduating?",
+      "hash": "graduation"
     }
-  ],
-  "dueDate": "2021-07-30T14:40:35.000Z"
+  ]
 }
