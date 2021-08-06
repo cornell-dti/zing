@@ -2,10 +2,8 @@ import { SurveyQuestion } from "./types";
 
 export const defaultQuestions: SurveyQuestion[] = [
 	{
-		question: {
-			hash: "identity",
-			description: "What do you identify as?",
-		},
+		hash: "identity",
+		description: "What do you identify as?",
 		options: [
 			{
 				hash: "jadvii",
@@ -38,10 +36,8 @@ export const defaultQuestions: SurveyQuestion[] = [
 		],
 	},
 	{
-		question: {
-			hash: "pronoun",
-			description: "What are your pronouns?",
-		},
+		hash: "pronoun",
+		description: "What are your pronouns?",
 		options: [
 			{
 				hash: "aw1j1l",
@@ -62,10 +58,8 @@ export const defaultQuestions: SurveyQuestion[] = [
 		],
 	},
 	{
-		question: {
-			hash: "college",
-			description: "What college are you in?",
-		},
+		hash: "college",
+		description: "What college are you in?",
 		options: [
 			{
 				hash: "ll123j",
@@ -98,10 +92,8 @@ export const defaultQuestions: SurveyQuestion[] = [
 		],
 	},
 	{
-		question: {
-			hash: "location",
-			description: "Are you studying remotely this semester?",
-		},
+		hash: "location",
+		description: "Are you studying remotely this semester?",
 		options: [
 			{
 				hash: "wzb22o",
@@ -118,10 +110,8 @@ export const defaultQuestions: SurveyQuestion[] = [
 		],
 	},
 	{
-		question: {
-			hash: "mode",
-			description: "How do you prefer studying with groups this year?",
-		},
+		hash: "mode",
+		description: "How do you prefer studying with groups this year?",
 		options: [
 			{
 				hash: "nnwpo2",
@@ -138,10 +128,8 @@ export const defaultQuestions: SurveyQuestion[] = [
 		],
 	},
 	{
-		question: {
-			hash: "time",
-			description: "When do you prefer studying for this course?",
-		},
+		hash: "time",
+		description: "When do you prefer studying for this course?",
 		options: [
 			{
 				hash: "anaw2k",
@@ -166,10 +154,8 @@ export const defaultQuestions: SurveyQuestion[] = [
 		],
 	},
 	{
-		question: {
-			hash: "start",
-			description: "You have an assignment. When do you start it?",
-		},
+		hash: "start",
+		description: "You have an assignment. When do you start it?",
 		options: [
 			{
 				hash: "ssen2o",
@@ -194,10 +180,8 @@ export const defaultQuestions: SurveyQuestion[] = [
 		],
 	},
 	{
-		question: {
-			hash: "graduation",
-			description: "When are you graduating?",
-		},
+		hash: "graduation",
+		description: "When are you graduating?",
 		options: [
 			{
 				hash: "bp3on9",

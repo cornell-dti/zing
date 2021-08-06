@@ -20,14 +20,14 @@ export const postCourseCSV = async (req: Request, res: Response) => {
 	const fields: (
 		| string
 		| FieldInfo<FirebaseFirestore.DocumentData>
-	)[] = (courseDocSnapshot.get("question") as SurveyQuestion[]).map((q) => {
-		const questionHash = q.question.hash;
+	)[] = (courseDocSnapshot.get("questions") as SurveyQuestion[]).map((q) => {
+		const questionHash = q.hash;
 		return {
 			label: questionHash,
 			value: "surveyResponse.".concat(questionHash),
 		};
 	});
-	fields.push("studentId", "fullName");
+	fields.push("email", "fullName");
 
 	// convert docs to csv
 	const surveyColSnapshot = await courseDocRef.collection("survey").get();

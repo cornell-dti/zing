@@ -4,15 +4,14 @@ export interface IIndex {
 	[index: string]: any;
 }
 
-type SurveyField = {
+interface SurveyField {
 	hash: string;
 	description: string;
-};
+}
 
-export type SurveyQuestion = {
-	question: SurveyField;
+export interface SurveyQuestion extends SurveyField {
 	options: SurveyField[];
-};
+}
 
 export type FirestoreCourseDoc = {
 	// studentList: string[];
@@ -22,7 +21,8 @@ export type FirestoreCourseDoc = {
 	dueDate: Timestamp;
 	minGroupSize: number;
 	config: string | null;
-	question?: Object[];
+	questions?: Object[];
+	count: number;
 };
 
 export type FirestoreUserDoc = {
@@ -47,7 +47,7 @@ export type CoursePatchDoc = {
 // @deprecated.
 export type FirestoreSurveyDoc = {
 	fullName: string;
-	studentId: string;
+	email: string;
 	identity: "a" | "b" | "c" | "d" | "e" | "f" | "g";
 	pronoun: "a" | "b" | "c" | "d";
 	graduation: "a" | "b" | "c" | "d" | "e";
