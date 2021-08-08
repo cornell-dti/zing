@@ -13,6 +13,12 @@ export interface SurveyQuestion extends SurveyField {
 	options: SurveyField[];
 }
 
+export type FirestoreSurveyResponseDoc = {
+	email: string;
+	fullName: string;
+	surveyResponse: IIndex;
+};
+
 export type FirestoreCourseDoc = {
 	// studentList: string[];
 	name: string;

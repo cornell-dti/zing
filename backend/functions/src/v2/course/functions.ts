@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin";
 import {
 	FirestoreCourseDoc,
+	FirestoreSurveyResponseDoc,
 	CoursePatchDoc,
 	IIndex,
 	SurveyQuestion,
@@ -14,7 +15,6 @@ import {
 	getCourseRefByDocId,
 	connectGroupConfig,
 	deleteCollectionByRef,
-	getDocsDataByColRef,
 	getBasicCourseById,
 } from "../../common/utils";
 
@@ -132,11 +132,37 @@ export const getCourse = async (req: Request, res: Response) => {
 	const surveyColRef = courseDocRef.collection("survey");
 	const groupColRef = courseDocRef.collection("group");
 
-	const surveyData = await getDocsDataByColRef(surveyColRef);
+	const surveyData = await getStudentDataByColRef(surveyColRef, questions);
 	const groupData = await getGroupDataByColRef(groupColRef, questions);
 
 	const result = { ...courseData, survey: surveyData, group: groupData };
 	return res.status(200).send(result);
+};
+
+const getStudentDataByColRef = async (
+	studentColRef: FirebaseFirestore.CollectionReference,
+	questions: SurveyQuestion[]
+) => {
+	// Fetch question template
+	const questionObj = getQuestionObj(questions) as IIndex;
+	const questionHashes = Object.keys(questionObj);
+	// Get student documents and swap hashes with actual string
+	const studentDocRefList = await studentColRef.listDocuments();
+	const allStudentsData = await Promise.all(
+		studentDocRefList.map(async (docRef) => {
+			const docSnapshot = (await docRef.get()) as IIndex;
+			const docData = docSnapshot.data() as FirestoreSurveyResponseDoc;
+			Object.keys(docData.surveyResponse).forEach((qHash) => {
+				if (questionHashes.includes(qHash)) {
+					const optionString =
+						questionObj[qHash][docData.surveyResponse[qHash]];
+					docData.surveyResponse[qHash] = optionString;
+				}
+			});
+			return docData;
+		})
+	);
+	return allStudentsData;
 };
 
 const getGroupDataByColRef = async (
