@@ -54,35 +54,39 @@ export const EditZing = () => {
   ): void {
     // only set new groups if actually changing index
     if (startingIndex !== destinationIndex) {
-      setStudentGroups(
-        studentGroups.map((studentList, index) => {
-          // case where the current iterated group is the starting index
-          if (index === startingIndex) {
-            // filter for only students with IDs that are not the studentToMove's
-            return studentGroups[startingIndex].filter(
-              (student) => student.studentId !== studentToMove.studentId
-            )
-          }
-          // case where the current iterated group is the destination index
-          else if (index === destinationIndex) {
-            /* based on how drop functions work, we need to first check if the 
-          destination group has the studentToMove in it first and skip it 
-          if it already contains it */
-            if (!studentGroups[destinationIndex].includes(studentToMove)) {
-              return studentGroups[destinationIndex].concat(studentToMove)
-            } else {
-              return studentList
-            }
-          }
-          // case where it is neither starting nor destination
-          else {
+      let newStudentGroups = studentGroups.map((studentList, index) => {
+        // case where the current iterated group is the starting index
+        if (index === startingIndex) {
+          // filter for only students with IDs that are not the studentToMove's
+          let a = studentGroups[startingIndex]
+          console.log(a)
+          let b = studentGroups[startingIndex].filter(
+            (student) => student.email !== studentToMove.email
+          )
+          console.log(b)
+          return b
+        }
+        // case where the current iterated group is the destination index
+        else if (index === destinationIndex) {
+          /* based on how drop functions work, we need to first check if the 
+        destination group has the studentToMove in it first and skip it 
+        if it already contains it */
+          if (!studentGroups[destinationIndex].includes(studentToMove)) {
+            return studentGroups[destinationIndex].concat(studentToMove)
+          } else {
             return studentList
           }
-        })
-      )
+        }
+        // case where it is neither starting nor destination
+        else {
+          return studentList
+        }
+      })
+      console.log(newStudentGroups)
+      setStudentGroups(newStudentGroups)
       saveSwapStudent(
         zingId,
-        studentToMove.studentId,
+        studentToMove.email,
         startingIndex + 1,
         destinationIndex + 1
       )
@@ -98,7 +102,7 @@ export const EditZing = () => {
     let groups = [...studentGroups]
     if (groups[currentGroupIndex].includes(studentToMove)) {
       groups[currentGroupIndex] = groups[currentGroupIndex].filter(
-        (student) => student.studentId !== studentToMove.studentId
+        (student) => student.email !== studentToMove.email
       )
     }
     groups[currentGroupIndex].splice(destinationStudentIndex, 0, studentToMove)

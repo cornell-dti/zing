@@ -35,7 +35,7 @@ export type Student = {
   pronoun: string
   remote: string
   start: string
-  studentId: string
+  email: string
   time: string
 }
 

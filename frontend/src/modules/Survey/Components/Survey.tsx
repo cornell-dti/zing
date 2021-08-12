@@ -63,7 +63,7 @@ export const Survey = () => {
     )
     const surveyData: SurveyData = {
       fullName: nameAnswer,
-      email: emailAnswer, // this could need to be changed back to studentId, but pending woosangs changes it should be email
+      email: emailAnswer,
       surveyResponse: mcData,
     }
     axios

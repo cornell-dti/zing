@@ -14,14 +14,14 @@ export async function getZingGroups(docId: String): Promise<FetchedZing> {
 }
 
 interface SwapPostData {
-  studentId: string
+  email: string
   baseGroupId: number
   destGroupId: number
 }
 
 export async function saveSwapStudent(
   zingId: string | null,
-  studentId: string,
+  email: string,
   baseGroupId: number,
   destGroupId: number
 ) {
@@ -29,9 +29,9 @@ export async function saveSwapStudent(
     throw new Error('zingId cannot be null or undefined')
   }
   const data: SwapPostData = {
-    studentId: studentId,
-    baseGroupId: baseGroupId,
-    destGroupId: destGroupId,
+    email,
+    baseGroupId,
+    destGroupId,
   }
   axios
     .post(

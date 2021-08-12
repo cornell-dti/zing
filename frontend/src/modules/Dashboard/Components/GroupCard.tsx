@@ -14,7 +14,17 @@ import {
   StyledText,
   StyledButtons,
 } from 'Dashboard/Styles/GroupCard.style'
-import { Button, colors, SURVEY_PATH } from '@core'
+import {
+  Button,
+  colors,
+  SURVEY_PATH,
+  API_ROOT,
+  COURSE_API,
+  CSV_API,
+  BACKEND_ROOT,
+  CREATE_GROUPS_API,
+} from '@core'
+import axios from 'axios'
 
 function Alert(props: any) {
   return <MuiAlert elevation={6} variant="filled" {...props} />
@@ -91,7 +101,19 @@ export const GroupCard = ({
               fontSize: '1rem',
             }}
             onClick={() => {
-              history.push(`/editZing/?id=${'z98mmggpO05931CviaUy'}`) // TODO: @shichong replace with real docID
+              axios.post(`${API_ROOT}${COURSE_API}/${id}${CSV_API}`).then(
+                (response: any) => {
+                  axios
+                    .post(`${BACKEND_ROOT}${CREATE_GROUPS_API}?className=${id}`)
+                    .catch((error: any) => {
+                      console.log(error)
+                    })
+                    .finally(() => history.push(`/editZing/?id=${id}`))
+                },
+                (error: any) => {
+                  console.log(error)
+                }
+              )
             }}
             label={'Match'}
           />
