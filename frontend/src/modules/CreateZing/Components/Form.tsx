@@ -77,12 +77,12 @@ export const CreateZingForm = ({ onSubmit }: FormProps) => {
     }
 
     // due date validation
-    const nowObj: number = Date.now()
+    const nowObj: number = new Date().getDate()
     const dueYear = Number(dueDate.substr(0, 4))
     const dueMonth = Number(dueDate.substr(5, 2)) - 1
     const dueDay = Number(dueDate.substr(8, 2))
     const dueObj = new Date(dueYear, dueMonth, dueDay)
-    if (dueObj.getTime() < nowObj) {
+    if (dueObj.getDate() < nowObj) {
       error3 = true
       setQ3Error('Due date has passed')
     } else {
