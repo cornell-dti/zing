@@ -3,6 +3,10 @@ import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 import { Modal } from '@material-ui/core'
 
+import Button from '@material-ui/core/Button'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+
 import { CreateZing } from 'CreateZing'
 import {
   StyledOuterContainer,
@@ -30,9 +34,20 @@ export const Dashboard = () => {
   const classes = useStyles()
   const [modalOpen, setModalOpen] = useState(false)
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
+  //const [isMenuOpen, setMenuOpen] = useState(false)
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
   const userEmail = useAppSelector((state) => state.auth.user?.email)
   const [groups, setGroups] = useState<CourseInfo[]>([])
 
+  var showMenu = false
   useEffect(() => {
     axios
       .get(`${API_ROOT}${USER_API}/${userEmail}${COURSE_API}`)
@@ -46,10 +61,38 @@ export const Dashboard = () => {
       <StyledContainer>
         <StyledHeaderMenu>
           <StyledLogo />
-          <StyledName>
-            {useAppSelector((state) => state.auth.user?.displayName)}
-            <StyledArrowDown />
-          </StyledName>
+          <Button
+            id="logout-button"
+            aria-controls="logout-menu"
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+          >
+            <StyledName>
+              {useAppSelector((state) => state.auth.user?.displayName)}
+              <StyledArrowDown />
+            </StyledName>
+          </Button>
+          <Menu
+            id="logout-menu"
+            anchorEl={anchorEl}
+            getContentAnchorEl={null}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'logout-button',
+            }}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <MenuItem onClick={handleClose}>Log Out</MenuItem>
+          </Menu>
         </StyledHeaderMenu>
         <Groups groups={groups} toggleModalOpen={() => setModalOpen(true)} />
       </StyledContainer>
