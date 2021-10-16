@@ -46,6 +46,10 @@ export const signInWithGoogle = (cb, newUserCb) => {
     })
 }
 
+export const logOutWithGoogle = () => {
+  firebase.auth().signOut()
+}
+
 export const checkAuth = (cb) => {
   firebase.auth().onAuthStateChanged(async (user) => {
     if (user) {

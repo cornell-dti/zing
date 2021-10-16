@@ -3,6 +3,8 @@ import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 import { Modal } from '@material-ui/core'
 
+import { logOutWithGoogle } from '@fire/firebase'
+
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -91,7 +93,7 @@ export const Dashboard = () => {
               horizontal: 'center',
             }}
           >
-            <MenuItem onClick={handleClose}>Log Out</MenuItem>
+            <MenuItem onClick={logOutWithGoogle}>Log Out</MenuItem>
           </Menu>
         </StyledHeaderMenu>
         <Groups groups={groups} toggleModalOpen={() => setModalOpen(true)} />
