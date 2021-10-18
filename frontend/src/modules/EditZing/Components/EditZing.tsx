@@ -60,7 +60,7 @@ export const EditZing = () => {
           if (index === startingIndex) {
             // filter for only students with IDs that are not the studentToMove's
             return studentGroups[startingIndex].filter(
-              (student) => student.studentId !== studentToMove.studentId
+              (student) => student.email !== studentToMove.email
             )
           }
           // case where the current iterated group is the destination index
@@ -82,7 +82,7 @@ export const EditZing = () => {
       )
       saveSwapStudent(
         zingId,
-        studentToMove.studentId,
+        studentToMove.email,
         startingIndex + 1,
         destinationIndex + 1
       )
@@ -98,7 +98,7 @@ export const EditZing = () => {
     let groups = [...studentGroups]
     if (groups[currentGroupIndex].includes(studentToMove)) {
       groups[currentGroupIndex] = groups[currentGroupIndex].filter(
-        (student) => student.studentId !== studentToMove.studentId
+        (student) => student.email !== studentToMove.email
       )
     }
     groups[currentGroupIndex].splice(destinationStudentIndex, 0, studentToMove)
