@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 import { Modal } from '@material-ui/core'
-
 import { logOutWithGoogle } from '@fire/firebase'
+
+import { createMuiTheme } from '@material-ui/core/styles'
+import { ThemeProvider } from '@material-ui/core/styles'
 
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
@@ -38,7 +40,7 @@ export const Dashboard = () => {
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-  //const [isMenuOpen, setMenuOpen] = useState(false)
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -57,6 +59,15 @@ export const Dashboard = () => {
         setGroups(res.data)
       })
   }, [userEmail])
+
+  const MenuItemtheme = createMuiTheme({
+    typography: {
+      fontSize: 16,
+      fontFamily: 'Montserrat',
+    },
+  })
+
+  const Menutheme = createMuiTheme({})
 
   return (
     <StyledOuterContainer>
@@ -93,7 +104,9 @@ export const Dashboard = () => {
               horizontal: 'center',
             }}
           >
-            <MenuItem onClick={logOutWithGoogle}>Log Out</MenuItem>
+            <ThemeProvider theme={MenuItemtheme}>
+              <MenuItem onClick={logOutWithGoogle}>Log Out</MenuItem>
+            </ThemeProvider>
           </Menu>
         </StyledHeaderMenu>
         <Groups groups={groups} toggleModalOpen={() => setModalOpen(true)} />
