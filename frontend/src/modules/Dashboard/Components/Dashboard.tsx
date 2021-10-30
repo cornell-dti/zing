@@ -51,7 +51,6 @@ export const Dashboard = () => {
   const userEmail = useAppSelector((state) => state.auth.user?.email)
   const [groups, setGroups] = useState<CourseInfo[]>([])
 
-  var showMenu = false
   useEffect(() => {
     axios
       .get(`${API_ROOT}${USER_API}/${userEmail}${COURSE_API}`)
@@ -60,14 +59,12 @@ export const Dashboard = () => {
       })
   }, [userEmail])
 
-  const MenuItemtheme = createMuiTheme({
+  const MenuItemTheme = createMuiTheme({
     typography: {
       fontSize: 16,
       fontFamily: 'Montserrat',
     },
   })
-
-  const Menutheme = createMuiTheme({})
 
   return (
     <StyledOuterContainer>
@@ -75,7 +72,6 @@ export const Dashboard = () => {
         <StyledHeaderMenu>
           <StyledLogo />
           <Button
-            id="logout-button"
             aria-controls="logout-menu"
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
@@ -87,7 +83,6 @@ export const Dashboard = () => {
             </StyledName>
           </Button>
           <Menu
-            id="logout-menu"
             anchorEl={anchorEl}
             getContentAnchorEl={null}
             open={open}
@@ -104,7 +99,7 @@ export const Dashboard = () => {
               horizontal: 'center',
             }}
           >
-            <ThemeProvider theme={MenuItemtheme}>
+            <ThemeProvider theme={MenuItemTheme}>
               <MenuItem onClick={logOutWithGoogle}>Log Out</MenuItem>
             </ThemeProvider>
           </Menu>
