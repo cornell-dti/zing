@@ -4,11 +4,20 @@ import logo from '@assets/img/purplelogo.svg'
 
 export const StyledContainer = styled.div`
   height: 100%;
-  flex-grow: 1,
+  margin: 3rem;
+`
+// this was in the above, but there was an error which prevented it from showing these styles
+// flex-grow: 1;
+// display: flex;
+// justify-content: center;
+// align-items: center;
+
+export const StyledFlexHeader = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
 `
 
 const Logo = ({ className }: StyledComponent) => (

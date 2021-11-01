@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import {
   StyledContainer,
+  StyledFlexHeader,
   StyledLogo,
   StyledLogoWrapper,
   StyledText,
@@ -13,6 +14,7 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { getZingGroups, saveSwapStudent } from './Helpers'
 import { FetchedZing } from 'EditZing/Types/Student'
+import { ExportButton } from 'EditZing/Components/ExportButton'
 
 export const EditZing = () => {
   // get param that was set from history using location
@@ -105,13 +107,21 @@ export const EditZing = () => {
     setStudentGroups(groups)
   }
 
+  // used for the export button
+  function exportTo() {
+    console.log('exporting')
+  }
+
   if (zingData) {
     return (
       <StyledContainer>
-        <StyledLogoWrapper>
-          <StyledLogo />
-          <StyledText>{zingData.name}</StyledText>
-        </StyledLogoWrapper>
+        <StyledFlexHeader>
+          <StyledLogoWrapper>
+            <StyledLogo />
+            <StyledText>{zingData.name}</StyledText>
+          </StyledLogoWrapper>
+          <ExportButton label="export" onClick={exportTo} />
+        </StyledFlexHeader>
         <DndProvider backend={HTML5Backend}>
           <Grid container spacing={1}>
             {studentGroups.map((studentGroup, index) => (
