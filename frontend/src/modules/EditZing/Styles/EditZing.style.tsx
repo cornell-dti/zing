@@ -4,7 +4,8 @@ import logo from '@assets/img/purplelogo.svg'
 
 export const StyledContainer = styled.div`
   height: 100%;
-  margin: 3rem;
+  //margin-top: 3rem;
+  //margin-bottom: 10rem;
 `
 // this was in the above, but there was an error which prevented it from showing these styles
 // flex-grow: 1;

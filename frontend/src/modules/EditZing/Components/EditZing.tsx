@@ -15,6 +15,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { getZingGroups, saveSwapStudent } from './Helpers'
 import { FetchedZing } from 'EditZing/Types/Student'
 import { ExportButton } from 'EditZing/Components/ExportButton'
+import { Box } from '@material-ui/core'
+import axios from 'axios'
+import { API_ROOT, CSV_API } from '@core'
 
 export const EditZing = () => {
   // get param that was set from history using location
@@ -22,6 +25,16 @@ export const EditZing = () => {
   const query = new URLSearchParams(search)
   const id = query.get('id')
   const [zingId] = useState(id)
+
+  // add types for export buttons?
+  // header, then the buttons
+
+  const exportButtons = [
+    {
+      title: 'Download all details:',
+      buttons: [{ type: 'csv', fun: exportDetailsToCSV }],
+    },
+  ]
 
   const fakeStudentGroupsFromJson: Student[][] = require('EditZing/fakeData.json')
   // full fetched zing object
@@ -107,20 +120,28 @@ export const EditZing = () => {
     setStudentGroups(groups)
   }
 
-  // used for the export button
-  function exportTo() {
+  // used for the export csv button
+  function exportDetailsToCSV() {
     console.log('exporting')
+    // axios
+    //   .post(`${API_ROOT}${CSV_API}/`, { courseId: id })
+    //   .then((response) => {})
+    //   .catch((err) => {
+    //     console.error(err)
+    //   })
+    // pass in courseId to the param?
   }
 
   if (zingData) {
+    // mui-fixed class is for the modal messing up the padding
     return (
-      <StyledContainer>
+      <Box m={4} paddingBottom={3} className="mui-fixed">
         <StyledFlexHeader>
           <StyledLogoWrapper>
             <StyledLogo />
             <StyledText>{zingData.name}</StyledText>
           </StyledLogoWrapper>
-          <ExportButton label="export" onClick={exportTo} />
+          <ExportButton label="export" options={exportButtons} />
         </StyledFlexHeader>
         <DndProvider backend={HTML5Backend}>
           <Grid container spacing={1}>
@@ -135,7 +156,7 @@ export const EditZing = () => {
             ))}
           </Grid>
         </DndProvider>
-      </StyledContainer>
+      </Box>
     )
   } else {
     return (

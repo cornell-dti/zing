@@ -1,4 +1,5 @@
 import { Student } from './Student'
+import React from 'react'
 
 export interface GroupGridProps {
   studentList: Student[]
@@ -27,4 +28,19 @@ export interface StudentGridProps {
     currentGroupIndex: number,
     destinationStudentIndex: number
   ) => void
+}
+
+export interface exportButtonType {
+  type: string
+  fun: () => void
+}
+
+export interface exportButtonsType {
+  title: string
+  buttons: exportButtonType[]
+}
+
+export interface ExportProps {
+  label: string
+  options: exportButtonsType[]
 }

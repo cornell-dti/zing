@@ -24,7 +24,7 @@ export const fullPanel = css`
 `
 
 export const StyledFullPanel = styled.div`
-  ${fullPanel}
+  ${fullPanel};
   box-sizing: border-box;
   padding: 1.5rem;
   position: relative;
