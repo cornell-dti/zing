@@ -14,15 +14,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with GroupEng.  If not, see <http://www.gnu.org/licenses/>.
-
 """
 Student record.  Creating Student record from a csv (excel) file.
 
 .. moduleauthor:: Thomas G. Dimiduk tgd8@cornell.edu
 """
 from .utility import numberize
-
-import csv
+from google.cloud import firestore
 
 group_number = 'Group Number'
 
@@ -30,7 +28,6 @@ group_number = 'Group Number'
 class Student(object):
     """
     """
-
     def __init__(self, data={}, headers=[], identifier=None):
         """
 
@@ -88,29 +85,28 @@ def attribute_differs(attribute, value):
     return lambda x: x[attribute] != value
 
 
-def load_classlist(filename, identifier):
-    inf = csv.reader(open(filename, 'U'))
-
-    # csv api changed in python3, be compatible with both
-    try:
-        header_line = inf.__next__()
-    except AttributeError:
-        header_line = inf.next()
-
-    # Strip excess spaces from the header names, since this can lead to tricky
-    # bugs later
-    headers = [h.strip() for h in header_line if h.strip() != '']
-    # now make the students from the file
+def load_classlist_from_firestore(classId, identifier):
+    """Loads all ungrouped student information from Firestore."""
+    survey_collection_ref = firestore.Client().collection("course").document(
+        classId).collection("survey")
+    survey_docs = survey_collection_ref.stream()
+    # students = list(
+    #    map(lambda x: construct_student_data(x, identifier), survey_docs))
     students = []
-    for s in inf:
-        if set(s).issubset(set(['', ' ', None])):
-            # skip blank lines
-            pass
-        else:
-            d = {}
-            for i, h in enumerate(headers):
-                d[h] = s[i].strip()
-            # make a copy of headers so Student doesn't change it
-            students.append(Student(d, list(headers), identifier))
-
+    for doc in survey_docs:
+        students.append(construct_student_data(doc, identifier))
     return students
+
+
+def construct_student_data(docSnapshot, identifier):
+    """Creates student object from given dict of student info."""
+    student_dict = docSnapshot.to_dict()
+    # document has three base-level fields: fullName, email(identifier) and surveyResponse
+    data = {
+        'fullName': student_dict['fullName'],
+        identifier: student_dict[identifier],
+        **student_dict['surveyResponse']
+    }
+    headers = list(data.keys())
+    student = Student(data, headers, identifier)
+    return student

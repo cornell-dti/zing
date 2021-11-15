@@ -26,7 +26,6 @@ import logging
 import random
 import re
 from collections import Counter, defaultdict
-from operator import itemgetter
 from .student import attribute_match
 from .group import valid_swap, swap
 from . import utility
