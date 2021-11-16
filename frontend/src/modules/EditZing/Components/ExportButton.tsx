@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { Button } from '@core/Components'
-import { ButtonProps } from '@core/Types/FormFieldProps'
 import { colors } from '@core/Constants'
 import { makeStyles } from '@material-ui/core/styles'
 import { Backdrop, Fade, Modal } from '@material-ui/core'
-import { ReactComponent as CSVExportImg } from '@assets/img/csvexport.svg'
 import {
   exportButtonsType,
   exportButtonType,
@@ -13,7 +11,6 @@ import {
 import { ExportFileIconButton } from 'EditZing/Components/ExportFileIconButton'
 
 // mixed styling lol
-
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -22,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: colors.white,
-    // boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     borderRadius: '20px',
     fontFamily: 'Montserrat',
@@ -88,20 +84,18 @@ export const ExportButton = ({ label, options }: ExportProps) => {
             <h2 className={classes.headingText}>
               Select a file below to download:
             </h2>
-            {options.map(({ title, buttons }: exportButtonsType) => {
+            {options.map(({ title, buttons }: exportButtonsType, index) => {
               return (
-                <>
-                  <h3>{title}</h3>
-                  {buttons.map(({ type, fun }: exportButtonType) => {
-                    return <ExportFileIconButton fun={fun} type={type} />
+                <div key={index}>
+                  <h3 key={index}>{title}</h3>
+                  {buttons.map(({ type, fun }: exportButtonType, index) => {
+                    return (
+                      <ExportFileIconButton key={index} fun={fun} type={type} />
+                    )
                   })}
-                </>
+                </div>
               )
             })}
-            {/*<h3 className={classes.subHeadingText}>Download all details:</h3>*/}
-            {/*/!*Make this a component*!/*/}
-            {/*<CSVExportImg />*/}
-            {/*/!*<h3 className={classes.subHeadingText}>Download group netids:</h3>*!/*/}
           </div>
         </Fade>
       </Modal>
