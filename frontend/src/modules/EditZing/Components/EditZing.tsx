@@ -25,10 +25,7 @@ export const EditZing = () => {
   const id = query.get('id')
   const [zingId] = useState(id)
 
-  // add types for export buttons?
-  // header, then the buttons
-
-  // there should be a second header for "Download group netids"
+  // buttons that are used for the "export" feature
   const exportButtons = [
     {
       title: 'Download all details:',

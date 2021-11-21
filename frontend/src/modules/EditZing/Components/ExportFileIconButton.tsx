@@ -3,8 +3,8 @@ import { ReactComponent as CSVExportImg } from '@assets/img/csvexport.svg'
 import { ExportFileIconButtonType } from 'EditZing/Types/ComponentProps'
 import { Button } from '@material-ui/core'
 import { CSV_FILE, DOWNLOAD_ALL, DOWNLOAD_NETIDS } from '@core'
-import { Student } from 'EditZing/Types/Student'
 import { CSVLink } from 'react-csv'
+import { Data } from 'react-csv/components/CommonPropTypes'
 
 // converts contents of the button depending on the type
 export const ExportFileIconButton = ({
@@ -12,30 +12,33 @@ export const ExportFileIconButton = ({
   data,
   downloadData,
 }: ExportFileIconButtonType) => {
-  // fix the typing here
-  const typeToSvg = (type: string, data: any[]) => {
+  // fix the typing for data here?
+  const typeToSvg = (
+    type: string,
+    generateData: { (): any[]; (): string | Data }
+  ) => {
     switch (type) {
       case CSV_FILE:
         return (
-          <CSVLink data={data} filename={'groups.csv'}>
+          <CSVLink data={generateData()} filename={'groups.csv'}>
             <CSVExportImg />
           </CSVLink>
         )
     }
   }
 
-  // may need to potentially generate a header here
-  // const generateHeaders = (data: Student[][]) => {
-  //   let firstEntry = data.length > 0 ? data[0] : null
-  //   if (firstEntry) {
-  //   }
-  // }
+  // gets the onclick behavior
+  const typeToOnClick = () => {
+    switch (type) {
+      case CSV_FILE:
+        // empty function
+        return () => {}
+    }
+  }
 
-  const generateData = (
-    type: string,
-    data: Student[][],
-    downloadData: string
-  ) => {
+  // may need to potentially generate a header as well
+  // generates data on the fly when button gets pressed
+  const generateData = () => {
     let newData: any[] = []
 
     switch (downloadData) {
@@ -59,8 +62,6 @@ export const ExportFileIconButton = ({
   }
 
   return (
-    <Button onClick={() => {}}>
-      {typeToSvg(type, generateData(type, data, downloadData))}
-    </Button>
+    <Button onClick={typeToOnClick()}>{typeToSvg(type, generateData)}</Button>
   )
 }
