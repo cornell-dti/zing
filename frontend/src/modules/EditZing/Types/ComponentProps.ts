@@ -30,17 +30,28 @@ export interface StudentGridProps {
   ) => void
 }
 
-export interface exportButtonType {
+export interface ExportFileIconButtonType {
   type: string
-  fun: () => void
+  data: Student[][]
+  downloadData: string
 }
 
-export interface exportButtonsType {
+export interface ExportButtonInformationType {
+  type: string
+  downloadData: string
+}
+
+export interface ExportButtonListType {
   title: string
-  buttons: exportButtonType[]
+  buttons: ExportButtonInformationType[]
 }
 
 export interface ExportProps {
   label: string
-  options: exportButtonsType[]
+  options: ExportButtonListType[]
+  data: Student[][]
 }
+
+// export interface ExportGroupsType extends Student {
+//   group: number
+// }

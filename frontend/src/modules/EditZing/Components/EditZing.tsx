@@ -16,8 +16,7 @@ import { getZingGroups, saveSwapStudent } from './Helpers'
 import { FetchedZing } from 'EditZing/Types/Student'
 import { ExportButton } from 'EditZing/Components/ExportButton'
 import { Box } from '@material-ui/core'
-import { API_ROOT, COURSE_API, CSV_API, CSV_FILE } from '@core'
-import { CSVDownload } from 'react-csv'
+import { CSV_FILE, DOWNLOAD_ALL } from '@core'
 
 export const EditZing = () => {
   // get param that was set from history using location
@@ -29,10 +28,11 @@ export const EditZing = () => {
   // add types for export buttons?
   // header, then the buttons
 
+  // there should be a second header for "Download group netids"
   const exportButtons = [
     {
       title: 'Download all details:',
-      buttons: [{ type: CSV_FILE, fun: exportDetailsToCSV }],
+      buttons: [{ type: CSV_FILE, downloadData: DOWNLOAD_ALL }],
     },
   ]
 
@@ -120,24 +120,6 @@ export const EditZing = () => {
     setStudentGroups(groups)
   }
 
-  // used for the export csv button
-  // this now uses react-csv library
-  function exportDetailsToCSV() {
-    console.log('exporting')
-    const data = [
-      { details: { firstName: 'Ahmed', lastName: 'Tomi' }, job: 'manager' },
-      { details: { firstName: 'John', lastName: 'Jones' }, job: 'developer' },
-    ]
-    return <CSVDownload data={data} target="_blank" />
-    // previous backend code
-    // axios
-    //   .post(`${API_ROOT}${COURSE_API}/${id}${CSV_API}`, { courseId: id })
-    //   .then((response) => console.log(response))
-    //   .catch((err) => {
-    //     console.error(err)
-    //   })
-  }
-
   if (zingData) {
     // mui-fixed class is for the modal messing up the padding
     return (
@@ -147,7 +129,11 @@ export const EditZing = () => {
             <StyledLogo />
             <StyledText>{zingData.name}</StyledText>
           </StyledLogoWrapper>
-          <ExportButton label="export" options={exportButtons} />
+          <ExportButton
+            label="export"
+            options={exportButtons}
+            data={studentGroups}
+          />
         </StyledFlexHeader>
         <DndProvider backend={HTML5Backend}>
           <Grid container spacing={1}>

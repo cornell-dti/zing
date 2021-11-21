@@ -4,8 +4,8 @@ import { colors } from '@core/Constants'
 import { makeStyles } from '@material-ui/core/styles'
 import { Backdrop, Fade, Modal } from '@material-ui/core'
 import {
-  exportButtonsType,
-  exportButtonType,
+  ExportButtonListType,
+  ExportButtonInformationType,
   ExportProps,
 } from 'EditZing/Types/ComponentProps'
 import { ExportFileIconButton } from 'EditZing/Components/ExportFileIconButton'
@@ -47,7 +47,7 @@ const buttonLabelStyle = {
   textTransform: 'none',
 }
 
-export const ExportButton = ({ label, options }: ExportProps) => {
+export const ExportButton = ({ label, options, data }: ExportProps) => {
   const classes = useStyles()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -68,6 +68,7 @@ export const ExportButton = ({ label, options }: ExportProps) => {
         onClick={handleOpen}
       />
       <Modal
+        id="button-modal"
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={`${classes.modal} mui-fixed`}
@@ -84,15 +85,25 @@ export const ExportButton = ({ label, options }: ExportProps) => {
             <h2 className={classes.headingText}>
               Select a file below to download:
             </h2>
-            {options.map(({ title, buttons }: exportButtonsType, index) => {
+            {options.map(({ title, buttons }: ExportButtonListType, index) => {
               return (
                 <div key={index}>
                   <h3 key={index}>{title}</h3>
-                  {buttons.map(({ type, fun }: exportButtonType, index) => {
-                    return (
-                      <ExportFileIconButton key={index} fun={fun} type={type} />
-                    )
-                  })}
+                  {buttons.map(
+                    (
+                      { type, downloadData }: ExportButtonInformationType,
+                      index
+                    ) => {
+                      return (
+                        <ExportFileIconButton
+                          key={index}
+                          type={type}
+                          data={data}
+                          downloadData={downloadData}
+                        />
+                      )
+                    }
+                  )}
                 </div>
               )
             })}
