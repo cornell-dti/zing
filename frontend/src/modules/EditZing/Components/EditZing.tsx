@@ -130,6 +130,7 @@ export const EditZing = () => {
             label="export"
             options={exportButtons}
             data={studentGroups}
+            zingName={zingData.name}
           />
         </StyledFlexHeader>
         <DndProvider backend={HTML5Backend}>

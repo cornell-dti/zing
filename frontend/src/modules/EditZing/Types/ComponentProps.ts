@@ -1,5 +1,4 @@
 import { Student } from './Student'
-import React from 'react'
 
 export interface GroupGridProps {
   studentList: Student[]
@@ -30,14 +29,17 @@ export interface StudentGridProps {
   ) => void
 }
 
+export type OutputFileType = 'csv' | 'xls' | 'pdf'
+
 export interface ExportFileIconButtonType {
-  type: string
+  type: OutputFileType
   data: Student[][]
   downloadData: string
+  zingName: string
 }
 
 export interface ExportButtonInformationType {
-  type: string
+  type: OutputFileType
   downloadData: string
 }
 
@@ -50,8 +52,5 @@ export interface ExportProps {
   label: string
   options: ExportButtonListType[]
   data: Student[][]
+  zingName: string
 }
-
-// export interface ExportGroupsType extends Student {
-//   group: number
-// }

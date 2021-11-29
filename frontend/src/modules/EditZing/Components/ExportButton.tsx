@@ -10,7 +10,7 @@ import {
 } from 'EditZing/Types/ComponentProps'
 import { ExportFileIconButton } from 'EditZing/Components/ExportFileIconButton'
 
-// mixed styling lol
+// MUI-based styling
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -27,9 +27,11 @@ const useStyles = makeStyles((theme) => ({
   headingText: {
     fontWeight: 400,
     textAlign: 'center',
+    fontSize: '24px',
   },
   subHeadingText: {
     fontWeight: 500,
+    fontSize: '18px',
   },
 }))
 
@@ -47,7 +49,12 @@ const buttonLabelStyle = {
   textTransform: 'none',
 }
 
-export const ExportButton = ({ label, options, data }: ExportProps) => {
+export const ExportButton = ({
+  label,
+  options,
+  data,
+  zingName,
+}: ExportProps) => {
   const classes = useStyles()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -69,8 +76,6 @@ export const ExportButton = ({ label, options, data }: ExportProps) => {
       />
       <Modal
         id="button-modal"
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
         className={`${classes.modal} mui-fixed`}
         open={isOpen}
         onClose={handleClose}
@@ -88,7 +93,9 @@ export const ExportButton = ({ label, options, data }: ExportProps) => {
             {options.map(({ title, buttons }: ExportButtonListType, index) => {
               return (
                 <div key={index}>
-                  <h3 key={index}>{title}</h3>
+                  <h3 className={classes.subHeadingText} key={index}>
+                    {title}
+                  </h3>
                   {buttons.map(
                     (
                       { type, downloadData }: ExportButtonInformationType,
@@ -100,6 +107,7 @@ export const ExportButton = ({ label, options, data }: ExportProps) => {
                           type={type}
                           data={data}
                           downloadData={downloadData}
+                          zingName={zingName}
                         />
                       )
                     }
