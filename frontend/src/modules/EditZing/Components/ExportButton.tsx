@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button } from '@core/Components'
 import { colors } from '@core/Constants'
 import { makeStyles } from '@material-ui/core/styles'
-import { Backdrop, Fade, Modal } from '@material-ui/core'
+import { Backdrop, Box, Fade, Modal } from '@material-ui/core'
 import {
   ExportButtonListType,
   ExportButtonInformationType,
@@ -19,7 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: colors.white,
-    padding: theme.spacing(2, 4, 3),
+    padding: theme.spacing(2, 5, 3),
+    [theme.breakpoints.up('md')]: {
+      minWidth: '420px',
+    },
     borderRadius: '20px',
     fontFamily: 'Montserrat',
     fontWeight: 'normal',
@@ -27,20 +30,21 @@ const useStyles = makeStyles((theme) => ({
   headingText: {
     fontWeight: 400,
     textAlign: 'center',
-    fontSize: '24px',
+    marginBottom: '1.8rem',
   },
   subHeadingText: {
     fontWeight: 500,
-    fontSize: '18px',
+    fontSize: '1.1rem',
   },
 }))
 
+// needed for the button styling (because this is a Zing component)
 const buttonContainerStyle = {
   background: colors.mediumviolet,
   boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.1)',
   padding: '0 20px',
   height: '40px',
-  borderRadius: '10px',
+  borderRadius: '12px',
 }
 
 const buttonLabelStyle = {
@@ -82,7 +86,8 @@ export const ExportButton = ({
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
-          timeout: 500,
+          timeout: 300,
+          style: { backgroundColor: 'rgba(0, 0, 0, 0.75)' },
         }}
       >
         <Fade in={isOpen}>
@@ -96,22 +101,24 @@ export const ExportButton = ({
                   <h3 className={classes.subHeadingText} key={index}>
                     {title}
                   </h3>
-                  {buttons.map(
-                    (
-                      { type, downloadData }: ExportButtonInformationType,
-                      index
-                    ) => {
-                      return (
-                        <ExportFileIconButton
-                          key={index}
-                          type={type}
-                          data={data}
-                          downloadData={downloadData}
-                          zingName={zingName}
-                        />
-                      )
-                    }
-                  )}
+                  <Box mx={2} display="flex" justifyContent="space-around">
+                    {buttons.map(
+                      (
+                        { type, downloadData }: ExportButtonInformationType,
+                        index
+                      ) => {
+                        return (
+                          <ExportFileIconButton
+                            key={index}
+                            type={type}
+                            data={data}
+                            downloadData={downloadData}
+                            zingName={zingName}
+                          />
+                        )
+                      }
+                    )}
+                  </Box>
                 </div>
               )
             })}
