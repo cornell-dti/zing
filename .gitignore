@@ -1,3 +1,6 @@
 # VSCode config
 /.vscode
 /backend/functions/firebase-debug.log
+
+# WebStorm config
+.idea

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import {
   StyledContainer,
+  StyledFlexHeader,
   StyledLogo,
   StyledLogoWrapper,
   StyledText,
@@ -13,6 +14,9 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { getZingGroups, saveSwapStudent } from './Helpers'
 import { FetchedZing } from 'EditZing/Types/Student'
+import { ExportButton } from 'EditZing/Components/ExportButton'
+import { Box } from '@material-ui/core'
+import { CSV_FILE, DOWNLOAD_ALL } from '@core'
 
 export const EditZing = () => {
   // get param that was set from history using location
@@ -20,6 +24,14 @@ export const EditZing = () => {
   const query = new URLSearchParams(search)
   const id = query.get('id')
   const [zingId] = useState(id)
+
+  // buttons that are used for the "export" feature
+  const exportButtons = [
+    {
+      title: 'Download all details:',
+      buttons: [{ type: CSV_FILE, downloadData: DOWNLOAD_ALL }],
+    },
+  ]
 
   const fakeStudentGroupsFromJson: Student[][] = require('EditZing/fakeData.json')
   // full fetched zing object
@@ -106,12 +118,21 @@ export const EditZing = () => {
   }
 
   if (zingData) {
+    // mui-fixed class is for the modal messing up the padding
     return (
-      <StyledContainer>
-        <StyledLogoWrapper>
-          <StyledLogo />
-          <StyledText>{zingData.name}</StyledText>
-        </StyledLogoWrapper>
+      <Box m={4} paddingBottom={3} className="mui-fixed">
+        <StyledFlexHeader>
+          <StyledLogoWrapper>
+            <StyledLogo />
+            <StyledText>{zingData.name}</StyledText>
+          </StyledLogoWrapper>
+          <ExportButton
+            label="export"
+            options={exportButtons}
+            data={studentGroups}
+            zingName={zingData.name}
+          />
+        </StyledFlexHeader>
         <DndProvider backend={HTML5Backend}>
           <Grid container spacing={1}>
             {studentGroups.map((studentGroup, index) => (
@@ -125,7 +146,7 @@ export const EditZing = () => {
             ))}
           </Grid>
         </DndProvider>
-      </StyledContainer>
+      </Box>
     )
   } else {
     return (
