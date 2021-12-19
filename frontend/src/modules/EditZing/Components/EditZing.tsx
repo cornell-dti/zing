@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, {
+  useState,
+  useEffect,
+  Component,
+  ReactComponentElement,
+} from 'react'
 import { useLocation } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import {
   StyledContainer,
+  StyledFiltersAndGrid,
+  StyledFilterContainer,
   StyledFlexHeader,
   StyledLogo,
   StyledLogoWrapper,
@@ -19,6 +26,7 @@ import { Box } from '@material-ui/core'
 import { CSV_FILE, DOWNLOAD_ALL } from '@core'
 
 export const EditZing = () => {
+  const [showFilters, setShowFilters] = useState<boolean>(true)
   // get param that was set from history using location
   const { search } = useLocation()
   const query = new URLSearchParams(search)
@@ -117,6 +125,18 @@ export const EditZing = () => {
     setStudentGroups(groups)
   }
 
+  function makeFilters() {
+    if (showFilters) {
+      return (
+        <StyledFilterContainer>
+          <p>hi</p>
+        </StyledFilterContainer>
+      )
+    } else {
+      return null
+    }
+  }
+
   if (zingData) {
     // mui-fixed class is for the modal messing up the padding
     return (
@@ -133,19 +153,22 @@ export const EditZing = () => {
             zingName={zingData.name}
           />
         </StyledFlexHeader>
-        <DndProvider backend={HTML5Backend}>
-          <Grid container spacing={1}>
-            {studentGroups.map((studentGroup, index) => (
-              <GroupGrid
-                key={index}
-                studentList={studentGroup}
-                groupIndex={index}
-                moveStudentBetweenGrids={moveStudentBetweenGrids}
-                moveStudentWithinGrid={moveStudentWithinGrid}
-              />
-            ))}
-          </Grid>
-        </DndProvider>
+        <StyledFiltersAndGrid>
+          {makeFilters()}
+          <DndProvider backend={HTML5Backend}>
+            <Grid container spacing={1}>
+              {studentGroups.map((studentGroup, index) => (
+                <GroupGrid
+                  key={index}
+                  studentList={studentGroup}
+                  groupIndex={index}
+                  moveStudentBetweenGrids={moveStudentBetweenGrids}
+                  moveStudentWithinGrid={moveStudentWithinGrid}
+                />
+              ))}
+            </Grid>
+          </DndProvider>
+        </StyledFiltersAndGrid>
       </Box>
     )
   } else {

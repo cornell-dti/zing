@@ -11,6 +11,16 @@ export const StyledContainer = styled.div`
 // justify-content: center;
 // align-items: center;
 
+export const StyledFiltersAndGrid = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+export const StyledFilterContainer = styled.div`
+  height: 100%;
+  width: 25rem;
+`
+
 export const StyledFlexHeader = styled.div`
   display: flex;
   flex-direction: row;
