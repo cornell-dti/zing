@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { makeStyles } from '@material-ui/core/styles'
-import { Modal } from '@material-ui/core'
+import { adaptV4Theme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
+import { Modal } from '@mui/material'
 import { logOutWithGoogle } from '@fire/firebase'
 
-import { createMuiTheme } from '@material-ui/core/styles'
-import { ThemeProvider } from '@material-ui/core/styles'
+import { createTheme } from '@mui/material/styles'
+import {
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider,
+} from '@mui/material/styles'
 
-import Button from '@material-ui/core/Button'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
+import Button from '@mui/material/Button'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 
 import { CreateZing } from 'CreateZing'
 import {
@@ -25,6 +30,11 @@ import { Groups } from 'Dashboard/Components/Groups'
 import { CourseInfo } from 'Dashboard/Types'
 import { useAppSelector } from '@redux/hooks'
 import { API_ROOT, COURSE_API, USER_API } from '@core/Constants'
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -59,12 +69,14 @@ export const Dashboard = () => {
       })
   }, [userEmail])
 
-  const MenuItemTheme = createMuiTheme({
-    typography: {
-      fontSize: 16,
-      fontFamily: 'Montserrat',
-    },
-  })
+  const MenuItemTheme = createTheme(
+    adaptV4Theme({
+      typography: {
+        fontSize: 16,
+        fontFamily: 'Montserrat',
+      },
+    })
+  )
 
   return (
     <StyledOuterContainer>
@@ -84,7 +96,7 @@ export const Dashboard = () => {
           </Button>
           <Menu
             anchorEl={anchorEl}
-            getContentAnchorEl={null}
+            // getContentAnchorEl={null}
             open={open}
             onClose={handleClose}
             MenuListProps={{
@@ -99,9 +111,11 @@ export const Dashboard = () => {
               horizontal: 'center',
             }}
           >
-            <ThemeProvider theme={MenuItemTheme}>
-              <MenuItem onClick={logOutWithGoogle}>Log Out</MenuItem>
-            </ThemeProvider>
+            <StyledEngineProvider injectFirst>
+              <ThemeProvider theme={MenuItemTheme}>
+                <MenuItem onClick={logOutWithGoogle}>Log Out</MenuItem>
+              </ThemeProvider>
+            </StyledEngineProvider>
           </Menu>
         </StyledHeaderMenu>
         <Groups groups={groups} toggleModalOpen={() => setModalOpen(true)} />

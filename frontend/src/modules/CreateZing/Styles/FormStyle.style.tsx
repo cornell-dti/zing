@@ -3,8 +3,8 @@ import logo from '@assets/img/purplelogo.svg'
 import { colors, h3, StyledComponent } from '@core'
 import { Question } from '../Components/Question'
 import { DueDateQuestion } from 'CreateZing/Components/DueDateQuestion'
-import TextField from '@material-ui/core/TextField'
-import { withStyles } from '@material-ui/core/styles'
+import TextField from '@mui/material/TextField'
+import withStyles from '@mui/styles/withStyles'
 
 const Logo = ({ className }: StyledComponent) => (
   <div className={className}>
@@ -100,7 +100,7 @@ export const StyledCalendarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: left;
-  align-items: left;
+  align-items: flex-start;
 `
 export const StyledTextField = withStyles({
   root: {

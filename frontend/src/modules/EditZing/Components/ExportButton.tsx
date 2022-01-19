@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Button } from '@core/Components'
 import { colors } from '@core/Constants'
-import { makeStyles } from '@material-ui/core/styles'
-import { Backdrop, Box, Fade, Modal } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles'
+import { Backdrop, Box, Fade, Modal } from '@mui/material'
 import {
   ExportButtonListType,
   ExportButtonInformationType,

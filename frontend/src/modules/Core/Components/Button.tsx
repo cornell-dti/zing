@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button as MaterialUIButton } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Button as MaterialUIButton } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { ButtonProps } from '@core/Types/FormFieldProps'
 import {
@@ -25,7 +25,7 @@ export const Button = ({
     <MaterialUIButton
       classes={{
         root: classes.container,
-        label: classes.input,
+        text: classes.input,
       }}
       onClick={onClick}
       disabled={disabled}

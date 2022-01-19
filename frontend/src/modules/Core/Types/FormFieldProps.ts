@@ -44,7 +44,7 @@ export interface SliderProps extends Common {
   step?: number
   marks?: boolean | Array<MarkProps>
   value: number | Array<number>
-  onChange: (e: React.ChangeEvent<any>, value: number | number[]) => void
+  onChange: (e: Event, value: number | number[]) => void
 }
 
 export interface GoToButtonProps extends Common {

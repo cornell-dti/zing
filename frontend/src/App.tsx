@@ -7,7 +7,12 @@ import { checkAuth, initializeFirebase } from '@fire'
 import { useAppDispatch } from '@redux/hooks'
 import { User, saveLogin } from '@redux/authSlice'
 
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import {
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider,
+  createTheme,
+} from '@mui/material/styles'
 
 import { Home } from 'Home'
 import { Survey } from 'Survey'
@@ -16,7 +21,12 @@ import { Dashboard } from 'Dashboard'
 
 import './App.css'
 
-const theme = createMuiTheme()
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+const theme = createTheme()
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -29,17 +39,19 @@ const App = () => {
   }, [dispatch])
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Switch>
-          <PublicRoute exact path={HOME_PATH} component={Home} />
-          {/* Anyone should be able to access the survey, signed in or not */}
-          <Route exact path={SURVEY_PATH} component={Survey} />
-          <PrivateRoute exact path={EDIT_ZING_PATH} component={EditZing} />
-          <PrivateRoute exact path={DASHBOARD_PATH} component={Dashboard} />
-        </Switch>
-      </Router>
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Switch>
+            <PublicRoute exact path={HOME_PATH} component={Home} />
+            {/* Anyone should be able to access the survey, signed in or not */}
+            <Route exact path={SURVEY_PATH} component={Survey} />
+            <PrivateRoute exact path={EDIT_ZING_PATH} component={EditZing} />
+            <PrivateRoute exact path={DASHBOARD_PATH} component={Dashboard} />
+          </Switch>
+        </Router>
+      </ThemeProvider>
+    </StyledEngineProvider>
   )
 }
 
