@@ -40,6 +40,8 @@ export const StudentGrid = ({
   groupIndex,
   studentIndex,
   moveStudentWithinGrid,
+  studentGroups,
+  setStudentGroups,
 }: StudentGridProps) => {
   const [{ isDragging }, drag] = useDrag({
     item: {
@@ -57,7 +59,13 @@ export const StudentGrid = ({
   const [{ isOver }, drop] = useDrop({
     accept: STUDENT_TYPE,
     drop: (item: DnDStudentTransferType) => {
-      moveStudentWithinGrid(item.studentToMove, groupIndex, studentIndex)
+      moveStudentWithinGrid(
+        item.studentToMove,
+        groupIndex,
+        studentIndex,
+        studentGroups,
+        setStudentGroups
+      )
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),

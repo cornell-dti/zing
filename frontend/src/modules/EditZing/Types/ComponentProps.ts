@@ -1,19 +1,28 @@
+import { GridSize } from '@material-ui/core/Grid'
 import { Student } from './Student'
 
 export interface GroupGridProps {
   studentList: Student[]
   /** for naming the group and maybe key?*/
   groupIndex: number
+  zingId: string | null
+  setStudentGroups: Function
+  studentGroups: Student[][]
   moveStudentBetweenGrids: (
     studentToMove: Student,
     startingIndex: number,
-    destinationIndex: number
+    destinationIndex: number,
+    setStudentGroups: Function,
+    zingId: string | null
   ) => void
   moveStudentWithinGrid: (
     studentToMove: Student,
     currentGroupIndex: number,
-    destinationStudentIndex: number
+    destinationStudentIndex: number,
+    studentGroups: Student[][],
+    setStudentGroups: Function
   ) => void
+  spacingConfig: GridSize[] // for changing the spacing between StudentGrids
 }
 
 export interface StudentGridProps {
@@ -25,8 +34,12 @@ export interface StudentGridProps {
   moveStudentWithinGrid: (
     studentToMove: Student,
     currentGroupIndex: number,
-    destinationStudentIndex: number
+    destinationStudentIndex: number,
+    studentGroups: Student[][],
+    setStudentGroups: Function
   ) => void
+  studentGroups: Student[][]
+  setStudentGroups: Function
 }
 
 export type OutputFileType = 'csv' | 'xls' | 'pdf'

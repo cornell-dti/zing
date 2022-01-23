@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react'
 import { StudentGrid } from 'EditZing/Components/StudentGrid'
 import Grid from '@material-ui/core/Grid'
 import { GroupGridProps } from 'EditZing/Types/ComponentProps'
@@ -16,13 +17,23 @@ import {
 export const GroupGrid = ({
   studentList,
   groupIndex,
+  zingId,
+  setStudentGroups,
+  studentGroups,
   moveStudentBetweenGrids,
   moveStudentWithinGrid,
+  spacingConfig,
 }: GroupGridProps) => {
   const [{ isOver }, drop] = useDrop({
     accept: STUDENT_TYPE,
     drop: (item: DnDStudentTransferType) => {
-      moveStudentBetweenGrids(item.studentToMove, item.groupIndex, groupIndex)
+      moveStudentBetweenGrids(
+        item.studentToMove,
+        item.groupIndex,
+        groupIndex,
+        setStudentGroups,
+        zingId
+      )
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -30,7 +41,13 @@ export const GroupGrid = ({
   })
 
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
+    <Grid
+      item
+      xs={12}
+      sm={spacingConfig[0]}
+      md={spacingConfig[1]}
+      lg={spacingConfig[2]}
+    >
       <StyledGroupContainer
         ref={drop}
         style={{ opacity: isOver ? '0.6' : '1' }}
@@ -49,6 +66,8 @@ export const GroupGrid = ({
               studentIndex={index}
               groupIndex={groupIndex}
               student={student}
+              studentGroups={studentGroups}
+              setStudentGroups={setStudentGroups}
             />
           ))}
         </Grid>
