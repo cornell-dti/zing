@@ -1,20 +1,29 @@
 import React from 'react'
 
+import { styled } from '@mui/material/styles'
+
 import { RadioButtonProps } from '@core/Types/FormFieldProps'
 import { StyledLabel, StyledContainer } from '@core/Styles/RadioButton.style'
 import Radio, { RadioProps } from '@mui/material/Radio'
 import { colors } from '@core'
-import withStyles from '@mui/styles/withStyles'
+const PREFIX = 'RadioButton'
 
-const PurpleRadio = withStyles({
-  root: {
+const classes = {
+  root: `${PREFIX}-root`,
+  checked: `${PREFIX}-checked`,
+}
+
+const StyledStyledLabel = styled(StyledLabel)({
+  [`& .${classes.root}`]: {
     color: colors.purple,
-    '&$checked': {
+    '&.Mui-checked': {
       color: colors.purple,
     },
   },
-  checked: {},
-})((props: RadioProps) => <Radio color="default" {...props} />)
+  [`& .${classes.checked}`]: {},
+})
+
+const PurpleRadio = (props: RadioProps) => <Radio color="default" {...props} />
 
 export const RadioButton = ({
   currentAnswer,
@@ -34,7 +43,7 @@ export const RadioButton = ({
   }
 
   return (
-    <StyledLabel>
+    <StyledStyledLabel>
       <StyledContainer style={containerStyle}>
         <PurpleRadio
           checked={value === currentAnswer}
@@ -42,9 +51,13 @@ export const RadioButton = ({
           value={value}
           name="radio-button-mui"
           inputProps={{ 'aria-label': value }}
+          classes={{
+            root: classes.root,
+            checked: classes.checked,
+          }}
         />
         <div>{label}</div>
       </StyledContainer>
-    </StyledLabel>
+    </StyledStyledLabel>
   )
 }

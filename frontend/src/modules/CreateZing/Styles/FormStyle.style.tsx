@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components'
+import { css } from 'styled-components'
 import logo from '@assets/img/purplelogo.svg'
 import { colors, h3, StyledComponent } from '@core'
 import { Question } from '../Components/Question'
 import { DueDateQuestion } from 'CreateZing/Components/DueDateQuestion'
 import TextField from '@mui/material/TextField'
-import withStyles from '@mui/styles/withStyles'
+import { styled } from '@mui/material/styles'
 
 const Logo = ({ className }: StyledComponent) => (
   <div className={className}>
@@ -23,28 +23,27 @@ export const fullPanel = css`
   width: 100%;
 `
 
-export const StyledFullPanel = styled.div`
+export const StyledFullPanel = styled('div')`
   ${fullPanel};
   box-sizing: border-box;
   padding: 1.5rem;
   position: relative;
 `
 
-export const StyledFullPanelNoPadding = styled.div`
+export const StyledFullPanelNoPadding = styled('div')`
   ${fullPanel}
 `
 
-export const StyledContainer = styled.div`
+export const StyledContainer = styled('div')`
   background-color: ${colors.white};
   box-shadow: -10px -10px 150px rgba(0, 0, 0, 0.1),
     10px 10px 150px rgba(0, 0, 0, 0.1);
-
   display: flex;
   justify-content: center;
   align-items: center;
 `
 
-export const StyledQuestionWrapper = styled.div`
+export const StyledQuestionWrapper = styled('div')`
   height: 88%;
   width: 80%;
   padding-left: 1.5rem;
@@ -57,28 +56,28 @@ export const StyledQuestionWrapper = styled.div`
   margin: 0.5rem;
 `
 
-export const StyledWrapper = styled.div`
+export const StyledWrapper = styled('div')`
   display: flex;
 `
-export const StyledHeaderWrapper = styled.div`
+export const StyledHeaderWrapper = styled('div')`
   height: 7%;
   display: flex;
   flex-direction: column;
 `
-export const StyledLogoWrapper = styled.div`
+export const StyledLogoWrapper = styled('div')`
   display: flex;
   flex-direction: row;
 `
 
 export const StyledLogo = styled(Logo)``
 
-export const StyledText = styled.text`
+export const StyledText = styled('div')`
   ${h3};
   font-weight: 500;
   line-height: 20px;
 `
 
-export const StyledTextWrapper = styled.div`
+export const StyledTextWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -89,21 +88,22 @@ export const StyledQuestion = styled(Question)``
 
 export const StyledDueDateQuestion = styled(DueDateQuestion)``
 
-export const StyledQuestionsWrapper = styled.div`
+export const StyledQuestionsWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   padding-top: 0.25rem;
   justify-content: center;
   align-items: center;
 `
-export const StyledCalendarWrapper = styled.div`
+export const StyledCalendarWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: left;
   align-items: flex-start;
 `
-export const StyledTextField = withStyles({
-  root: {
+
+export const StyledTextField = styled(TextField)({
+  '&.MuiTextField-root': {
     background: '#f6f3ff',
     borderRadius: 3,
     border: 0,
@@ -129,10 +129,10 @@ export const StyledTextField = withStyles({
       color: colors.lightviolet,
     },
   },
-})(TextField)
+})
 
-export const StyledTextFieldError = withStyles({
-  root: {
+export const StyledTextFieldError = styled(TextField)({
+  '&.MuiTextField-root': {
     background: '#f6f3ff',
     borderRadius: 3,
     border: 0,
@@ -158,4 +158,4 @@ export const StyledTextFieldError = withStyles({
       color: colors.red,
     },
   },
-})(TextField)
+})

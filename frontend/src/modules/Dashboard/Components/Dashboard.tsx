@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { adaptV4Theme } from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
 import { Modal } from '@mui/material'
 import { logOutWithGoogle } from '@fire/firebase'
-
-import { createTheme } from '@mui/material/styles'
-import {
-  ThemeProvider,
-  Theme,
-  StyledEngineProvider,
-} from '@mui/material/styles'
 
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
@@ -31,21 +22,13 @@ import { CourseInfo } from 'Dashboard/Types'
 import { useAppSelector } from '@redux/hooks'
 import { API_ROOT, COURSE_API, USER_API } from '@core/Constants'
 
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
+const PREFIX = 'Dashboard'
+
+const classes = {
+  modal: `${PREFIX}-modal`,
 }
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}))
-
 export const Dashboard = () => {
-  const classes = useStyles()
   const [modalOpen, setModalOpen] = useState(false)
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -68,15 +51,6 @@ export const Dashboard = () => {
         setGroups(res.data)
       })
   }, [userEmail])
-
-  const MenuItemTheme = createTheme(
-    adaptV4Theme({
-      typography: {
-        fontSize: 16,
-        fontFamily: 'Montserrat',
-      },
-    })
-  )
 
   return (
     <StyledOuterContainer>
@@ -111,11 +85,14 @@ export const Dashboard = () => {
               horizontal: 'center',
             }}
           >
-            <StyledEngineProvider injectFirst>
-              <ThemeProvider theme={MenuItemTheme}>
-                <MenuItem onClick={logOutWithGoogle}>Log Out</MenuItem>
-              </ThemeProvider>
-            </StyledEngineProvider>
+            <MenuItem
+              sx={{
+                fontSize: 16,
+              }}
+              onClick={logOutWithGoogle}
+            >
+              Log Out
+            </MenuItem>
           </Menu>
         </StyledHeaderMenu>
         <Groups groups={groups} toggleModalOpen={() => setModalOpen(true)} />
@@ -123,6 +100,11 @@ export const Dashboard = () => {
       <Modal
         className={classes.modal}
         open={modalOpen}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
         onClose={() => {
           setModalOpen(false)
         }}

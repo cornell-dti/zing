@@ -1,8 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import moment from 'moment'
-import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar'
-import MuiAlert from '@mui/material/Alert'
+import Snackbar from '@mui/material/Snackbar'
 
 import {
   StyledContainer,
@@ -25,10 +24,7 @@ import {
   CREATE_GROUPS_API,
 } from '@core'
 import axios from 'axios'
-
-function Alert(props: any) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />
-}
+import { Alert } from '@mui/material'
 
 export const GroupCard = ({
   key,
@@ -42,13 +38,13 @@ export const GroupCard = ({
   const [open, setOpen] = React.useState(false)
 
   const handleClose = (
-    // fixed type of event
-    event: React.SyntheticEvent<any> | Event,
-    reason: SnackbarCloseReason
+    event?: React.SyntheticEvent | Event,
+    reason?: string
   ) => {
     if (reason === 'clickaway') {
       return
     }
+
     setOpen(false)
   }
 
@@ -126,7 +122,16 @@ export const GroupCard = ({
         onClose={handleClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <Alert onClose={handleClose} severity="success">
+        <Alert
+          icon={false}
+          onClose={handleClose}
+          severity="success"
+          sx={{
+            backgroundColor: '#6FCF97',
+            color: colors.white,
+            fontWeight: 600,
+          }}
+        >
           Link for {name} copied to clipboard!
         </Alert>
       </Snackbar>

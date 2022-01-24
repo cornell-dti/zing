@@ -1,42 +1,13 @@
 import React, { useState } from 'react'
 import { Button } from '@core/Components'
 import { colors } from '@core/Constants'
-import makeStyles from '@mui/styles/makeStyles'
-import { Backdrop, Box, Fade, Modal } from '@mui/material'
+import { Box, Modal, Typography } from '@mui/material'
 import {
   ExportButtonListType,
   ExportButtonInformationType,
   ExportProps,
 } from 'EditZing/Types/ComponentProps'
 import { ExportFileIconButton } from 'EditZing/Components/ExportFileIconButton'
-
-// MUI-based styling
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: colors.white,
-    padding: theme.spacing(2, 5, 3),
-    [theme.breakpoints.up('md')]: {
-      minWidth: '420px',
-    },
-    borderRadius: '20px',
-    fontFamily: 'Montserrat',
-    fontWeight: 'normal',
-  },
-  headingText: {
-    fontWeight: 400,
-    textAlign: 'center',
-    marginBottom: '1.8rem',
-  },
-  subHeadingText: {
-    fontWeight: 500,
-    fontSize: '1.1rem',
-  },
-}))
 
 // needed for the button styling (because this is a Zing component)
 const buttonContainerStyle = {
@@ -59,7 +30,6 @@ export const ExportButton = ({
   data,
   zingName,
 }: ExportProps) => {
-  const classes = useStyles()
   const [isOpen, setIsOpen] = useState(false)
 
   const handleOpen = () => {
@@ -71,7 +41,7 @@ export const ExportButton = ({
   }
 
   return (
-    <>
+    <Box>
       <Button
         containerStyle={buttonContainerStyle}
         labelStyle={buttonLabelStyle}
@@ -80,51 +50,79 @@ export const ExportButton = ({
       />
       <Modal
         id="button-modal"
-        className={`${classes.modal} mui-fixed`}
+        className="mui-fixed"
         open={isOpen}
         onClose={handleClose}
         closeAfterTransition
-        BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 300,
           style: { backgroundColor: 'rgba(0, 0, 0, 0.75)' },
         }}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       >
-        <Fade in={isOpen}>
-          <div className={classes.paper}>
-            <h2 className={classes.headingText}>
-              Select a file below to download:
-            </h2>
-            {options.map(({ title, buttons }: ExportButtonListType, index) => {
-              return (
-                <div key={index}>
-                  <h3 className={classes.subHeadingText} key={index}>
-                    {title}
-                  </h3>
-                  <Box mx={2} display="flex" justifyContent="space-around">
-                    {buttons.map(
-                      (
-                        { type, downloadData }: ExportButtonInformationType,
-                        index
-                      ) => {
-                        return (
-                          <ExportFileIconButton
-                            key={index}
-                            type={type}
-                            data={data}
-                            downloadData={downloadData}
-                            zingName={zingName}
-                          />
-                        )
-                      }
-                    )}
-                  </Box>
-                </div>
-              )
-            })}
-          </div>
-        </Fade>
+        <Box
+          sx={{
+            backgroundColor: colors.white,
+            pt: 4,
+            px: 5,
+            pb: 2,
+            minWidth: { md: '500px' },
+            borderRadius: '20px',
+            fontWeight: 'normal',
+          }}
+        >
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: 400,
+              textAlign: 'center',
+              marginBottom: '1.8rem',
+              fontSize: 24,
+            }}
+          >
+            Select a file below to download:
+          </Typography>
+          {options.map(({ title, buttons }: ExportButtonListType, index) => {
+            return (
+              <div key={index}>
+                <Typography
+                  variant="h3"
+                  sx={{
+                    fontWeight: 500,
+                    fontSize: '1.1rem',
+                    mb: 2,
+                  }}
+                  key={index}
+                >
+                  {title}
+                </Typography>
+                <Box mx={2} display="flex" justifyContent="space-around">
+                  {buttons.map(
+                    (
+                      { type, downloadData }: ExportButtonInformationType,
+                      index
+                    ) => {
+                      return (
+                        <ExportFileIconButton
+                          key={index}
+                          type={type}
+                          data={data}
+                          downloadData={downloadData}
+                          zingName={zingName}
+                        />
+                      )
+                    }
+                  )}
+                </Box>
+              </div>
+            )
+          })}
+        </Box>
       </Modal>
-    </>
+    </Box>
   )
 }

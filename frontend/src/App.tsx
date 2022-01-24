@@ -1,7 +1,13 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import { HOME_PATH, SURVEY_PATH, EDIT_ZING_PATH, DASHBOARD_PATH } from '@core'
+import {
+  HOME_PATH,
+  SURVEY_PATH,
+  EDIT_ZING_PATH,
+  DASHBOARD_PATH,
+  montserratFont,
+} from '@core'
 import { PublicRoute, PrivateRoute } from '@core/Components'
 import { checkAuth, initializeFirebase } from '@fire'
 import { useAppDispatch } from '@redux/hooks'
@@ -9,7 +15,6 @@ import { User, saveLogin } from '@redux/authSlice'
 
 import {
   ThemeProvider,
-  Theme,
   StyledEngineProvider,
   createTheme,
 } from '@mui/material/styles'
@@ -20,13 +25,31 @@ import { EditZing } from 'EditZing'
 import { Dashboard } from 'Dashboard'
 
 import './App.css'
+import { CssBaseline } from '@mui/material'
 
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
-
-const theme = createTheme()
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Montserrat',
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+          @font-face: {
+            font-family: '${montserratFont.fontFamily}';
+            font-style: ${montserratFont.fontStyle};
+            font-display: ${montserratFont.fontDisplay}; 
+            font-weight: ${montserratFont.fontWeight};
+            src: ${montserratFont.src};
+           }
+        `,
+    },
+    MuiTextField: {
+      defaultProps: {
+        variant: 'standard',
+      },
+    },
+  },
+})
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -41,6 +64,7 @@ const App = () => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <Router>
           <Switch>
             <PublicRoute exact path={HOME_PATH} component={Home} />
