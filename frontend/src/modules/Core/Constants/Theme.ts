@@ -110,29 +110,30 @@ let theme = createTheme({
       light: '#CEF5D6',
     },
   },
+  typography: {
+    fontFamily: 'Montserrat',
+    fontWeightMedium: 600,
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+          @font-face: {
+            font-family: '${montserratFont.fontFamily}';
+            font-style: ${montserratFont.fontStyle};
+            font-display: ${montserratFont.fontDisplay}; 
+            font-weight: ${montserratFont.fontWeight};
+            src: ${montserratFont.src};
+           }
+        `,
+    },
+  },
 })
 
 export const themeFont = 'Montserrat, Arial, sans-serif'
 
 // this defines everything else
 theme = createTheme(theme, {
-  typography: {
-    fontFamily: themeFont,
-    fontWeightMedium: 600,
-  },
   components: {
-    MuiCssBaseline: {
-      // inject font face in to CSS
-      styleOverrides: `
-      @font-face {
-        font-family: ${montserratFont.fontFamily};
-        font-style: ${montserratFont.fontStyle};
-        font-display: ${montserratFont.fontDisplay};
-        font-weight: ${montserratFont.fontWeight};
-        src: ${montserratFont.src};
-      }
-    `,
-    },
     MuiTypography: {
       defaultProps: {
         fontFamily: themeFont,
