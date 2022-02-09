@@ -26,10 +26,13 @@ import { Dashboard } from 'Dashboard'
 
 import './App.css'
 import { CssBaseline } from '@mui/material'
+import Components from './Components'
 
+// when this theme is in, the default styles work though!!!
 const theme = createTheme({
   typography: {
     fontFamily: 'Montserrat',
+    fontWeightMedium: 600,
   },
   components: {
     MuiCssBaseline: {
@@ -72,6 +75,7 @@ const App = () => {
             <Route exact path={SURVEY_PATH} component={Survey} />
             <PrivateRoute exact path={EDIT_ZING_PATH} component={EditZing} />
             <PrivateRoute exact path={DASHBOARD_PATH} component={Dashboard} />
+            <Route exact path="/components" component={Components} />
           </Switch>
         </Router>
       </ThemeProvider>
