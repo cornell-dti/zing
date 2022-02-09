@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ReactComponent as CSVExportImg } from '@assets/img/csvexport.svg'
 import { ExportFileIconButtonType } from 'EditZing/Types/ComponentProps'
-import { Button } from '@material-ui/core'
+import { Button } from '@mui/material'
 import { CSV_FILE, DOWNLOAD_ALL, DOWNLOAD_NETIDS } from '@core'
 import { CSVLink } from 'react-csv'
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { styled } from '@mui/material/styles'
 import { QuestionProps } from '../Types/QuestionType'
 import {
   StyledQuestionContainer,
@@ -9,18 +10,19 @@ import {
   StyledTextFieldError,
   StyledTextField,
 } from '../Styles/FormStyle.style'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      width: 250,
-    },
-  })
-)
+
+const PREFIX = 'DueDateQuestion'
+
+const classes = {
+  container: `${PREFIX}-container`,
+}
+
+const StyledStyledQuestionContainer = styled(StyledQuestionContainer)`
+  & .${classes.container} {
+    display: flex;
+    flex-wrap: wrap;
+  }
+`
 
 export const DueDateQuestion = ({
   error,
@@ -29,9 +31,10 @@ export const DueDateQuestion = ({
   value,
   placeholder,
 }: QuestionProps) => {
-  const classes = useStyles()
+  const fieldWidth = '250px'
+
   return (
-    <StyledQuestionContainer>
+    <StyledStyledQuestionContainer>
       <StyledText>{question}</StyledText>
       <StyledCalendarWrapper>
         {error === '' ? (
@@ -40,7 +43,10 @@ export const DueDateQuestion = ({
               id="date"
               type="date"
               defaultValue={value}
-              className={classes.textField}
+              sx={{
+                width: fieldWidth,
+                fontFamily: 'Montserrat',
+              }}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -55,7 +61,10 @@ export const DueDateQuestion = ({
             id="date"
             type="date"
             defaultValue={value}
-            className={classes.textField}
+            sx={{
+              width: fieldWidth,
+              fontFamily: 'Montserrat',
+            }}
             InputLabelProps={{
               shrink: true,
             }}
@@ -66,6 +75,6 @@ export const DueDateQuestion = ({
           />
         )}
       </StyledCalendarWrapper>
-    </StyledQuestionContainer>
+    </StyledStyledQuestionContainer>
   )
 }

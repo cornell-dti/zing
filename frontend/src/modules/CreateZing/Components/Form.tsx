@@ -175,7 +175,7 @@ export const CreateZingForm = ({ onSubmit }: FormProps) => {
                 value={dueDate}
                 setAnswer={(arg: string) => setDueDate(arg)}
                 placeholder={placeholder}
-              ></StyledDueDateQuestion>
+              />
             </StyledCalendarWrapper>
           </StyledQuestionWrapper>
           <StyledQuestionWrapper

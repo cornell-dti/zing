@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 import {
   StyledContainer,
   StyledFlexHeader,
@@ -15,7 +15,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { getZingGroups, saveSwapStudent } from './Helpers'
 import { FetchedZing } from 'EditZing/Types/Student'
 import { ExportButton } from 'EditZing/Components/ExportButton'
-import { Box } from '@material-ui/core'
+import { Box } from '@mui/material'
 import { CSV_FILE, DOWNLOAD_ALL } from '@core'
 
 export const EditZing = () => {

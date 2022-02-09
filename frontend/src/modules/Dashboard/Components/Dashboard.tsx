@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { makeStyles } from '@material-ui/core/styles'
-import { Modal } from '@material-ui/core'
+import { Modal } from '@mui/material'
 import { logOutWithGoogle } from '@fire/firebase'
 
-import { createMuiTheme } from '@material-ui/core/styles'
-import { ThemeProvider } from '@material-ui/core/styles'
-
-import Button from '@material-ui/core/Button'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
+import Button from '@mui/material/Button'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 
 import { CreateZing } from 'CreateZing'
 import {
@@ -26,16 +22,13 @@ import { CourseInfo } from 'Dashboard/Types'
 import { useAppSelector } from '@redux/hooks'
 import { API_ROOT, COURSE_API, USER_API } from '@core/Constants'
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}))
+const PREFIX = 'Dashboard'
+
+const classes = {
+  modal: `${PREFIX}-modal`,
+}
 
 export const Dashboard = () => {
-  const classes = useStyles()
   const [modalOpen, setModalOpen] = useState(false)
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -59,13 +52,6 @@ export const Dashboard = () => {
       })
   }, [userEmail])
 
-  const MenuItemTheme = createMuiTheme({
-    typography: {
-      fontSize: 16,
-      fontFamily: 'Montserrat',
-    },
-  })
-
   return (
     <StyledOuterContainer>
       <StyledContainer>
@@ -84,7 +70,7 @@ export const Dashboard = () => {
           </Button>
           <Menu
             anchorEl={anchorEl}
-            getContentAnchorEl={null}
+            // getContentAnchorEl={null}
             open={open}
             onClose={handleClose}
             MenuListProps={{
@@ -99,9 +85,14 @@ export const Dashboard = () => {
               horizontal: 'center',
             }}
           >
-            <ThemeProvider theme={MenuItemTheme}>
-              <MenuItem onClick={logOutWithGoogle}>Log Out</MenuItem>
-            </ThemeProvider>
+            <MenuItem
+              sx={{
+                fontSize: 16,
+              }}
+              onClick={logOutWithGoogle}
+            >
+              Log Out
+            </MenuItem>
           </Menu>
         </StyledHeaderMenu>
         <Groups groups={groups} toggleModalOpen={() => setModalOpen(true)} />
@@ -109,6 +100,11 @@ export const Dashboard = () => {
       <Modal
         className={classes.modal}
         open={modalOpen}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
         onClose={() => {
           setModalOpen(false)
         }}
