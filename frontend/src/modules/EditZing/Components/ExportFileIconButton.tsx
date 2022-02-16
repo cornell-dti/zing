@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
 import { ReactComponent as CSVExportImg } from '@assets/img/csvexport.svg'
 import { ExportFileIconButtonType } from 'EditZing/Types/ComponentProps'
-import { Button } from '@mui/material'
+import { ButtonUnstyled } from '@mui/material'
 import { CSV_FILE, DOWNLOAD_ALL, DOWNLOAD_NETIDS } from '@core'
 import { CSVLink } from 'react-csv'
+import { styled } from '@mui/material/styles'
+
+const FileIconButton = styled('button')`
+  border: none;
+  background-color: transparent;
+`
 
 // converts contents of the button depending on the type
 export const ExportFileIconButton = ({
@@ -63,5 +69,9 @@ export const ExportFileIconButton = ({
     return newData
   }
 
-  return <Button onClick={typeToOnClick}>{typeToSvg()}</Button>
+  return (
+    <ButtonUnstyled onClick={typeToOnClick} component={FileIconButton}>
+      {typeToSvg()}
+    </ButtonUnstyled>
+  )
 }

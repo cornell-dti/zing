@@ -1,4 +1,3 @@
-import { responsiveFontSizes } from '@mui/material'
 import { montserratFont } from '@core/Constants/Typography'
 import { createTheme } from '@mui/material/styles'
 
@@ -134,11 +133,6 @@ let theme = createTheme({
 // this defines everything else
 theme = createTheme(theme, {
   components: {
-    MuiTypography: {
-      defaultProps: {
-        fontFamily: themeFont,
-      },
-    },
     MuiButton: {
       defaultProps: {
         // make the default contained
@@ -239,6 +233,7 @@ theme = createTheme(theme, {
   },
 })
 
-theme = responsiveFontSizes(theme)
+// this breaks things
+// theme = responsiveFontSizes(theme)
 
 export default theme

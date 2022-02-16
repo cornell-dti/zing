@@ -60,7 +60,7 @@ export const ExportButton = ({
               fontWeight: 400,
               textAlign: 'center',
               marginBottom: '1.8rem',
-              fontSize: 24,
+              fontSize: '1.6rem',
             }}
           >
             Select a file below to download:
@@ -72,7 +72,7 @@ export const ExportButton = ({
                   variant="h3"
                   sx={{
                     fontWeight: 500,
-                    fontSize: '1.1rem',
+                    fontSize: '1.2rem',
                     mb: 2,
                   }}
                   key={index}
