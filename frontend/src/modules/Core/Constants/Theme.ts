@@ -59,6 +59,8 @@ declare module '@mui/material/styles' {
   }
 }
 
+export const themeFont = 'Montserrat, Arial, sans-serif'
+
 // https://www.figma.com/file/5sae0s8rk6r9iVwpn74RY4/Zing-Components?node-id=804%3A10807
 // can pick the different colors with sx (e.g. color: 'purple.120')
 // essentials is all the blacks (white is located within "common")
@@ -111,7 +113,7 @@ let theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Montserrat',
+    fontFamily: themeFont,
     fontWeightMedium: 600,
   },
   components: {
@@ -128,8 +130,6 @@ let theme = createTheme({
     },
   },
 })
-
-export const themeFont = 'Montserrat, Arial, sans-serif'
 
 // this defines everything else
 theme = createTheme(theme, {

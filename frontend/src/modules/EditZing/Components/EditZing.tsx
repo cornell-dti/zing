@@ -127,7 +127,7 @@ export const EditZing = () => {
             <StyledText>{zingData.name}</StyledText>
           </StyledLogoWrapper>
           <ExportButton
-            label="export"
+            label="Export"
             options={exportButtons}
             data={studentGroups}
             zingName={zingData.name}

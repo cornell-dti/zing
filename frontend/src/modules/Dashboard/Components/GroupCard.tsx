@@ -14,7 +14,6 @@ import {
   StyledButtons,
 } from 'Dashboard/Styles/GroupCard.style'
 import {
-  Button,
   colors,
   SURVEY_PATH,
   API_ROOT,
@@ -24,7 +23,7 @@ import {
   CREATE_GROUPS_API,
 } from '@core'
 import axios from 'axios'
-import { Alert } from '@mui/material'
+import { Alert, Button } from '@mui/material'
 
 export const GroupCard = ({
   key,
@@ -63,39 +62,21 @@ export const GroupCard = ({
       </StyledRows>
       <StyledButtons>
         <Button
-          containerStyle={{
-            background: new Date() > deadline ? colors.white : colors.purple,
-            border:
-              new Date() > deadline ? `1px solid ${colors.purple}` : '0px',
-            width: '45%',
-            borderRadius: '40px',
-          }}
-          labelStyle={{
-            color: new Date() > deadline ? colors.purple : colors.white,
-            textTransform: 'none',
-            fontWeight: 600,
-            fontSize: '1rem',
-          }}
+          variant={new Date() > deadline ? 'outlined' : 'contained'}
+          color={new Date() > deadline ? 'secondary' : 'primary'}
           onClick={() => {
             const index = window.location.href.indexOf('/dashboard')
             const baseUrl = window.location.href.slice(0, index)
             navigator.clipboard.writeText(`${baseUrl}${SURVEY_PATH}?id=${id}`)
             setOpen(true)
           }}
-          label={'Copy link'}
-        />
+        >
+          Copy link
+        </Button>
         {new Date() > deadline && (
           <Button
-            containerStyle={{
-              background: colors.purple,
+            sx={{
               width: '45%',
-              borderRadius: '40px',
-            }}
-            labelStyle={{
-              color: colors.white,
-              textTransform: 'none',
-              fontWeight: 600,
-              fontSize: '1rem',
             }}
             onClick={() => {
               axios.post(`${API_ROOT}${COURSE_API}/${id}${CSV_API}`).then(
@@ -112,8 +93,9 @@ export const GroupCard = ({
                 }
               )
             }}
-            label={'Match'}
-          />
+          >
+            Match
+          </Button>
         )}
       </StyledButtons>
       <Snackbar

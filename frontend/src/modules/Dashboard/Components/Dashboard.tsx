@@ -61,16 +61,19 @@ export const Dashboard = () => {
             aria-controls="logout-menu"
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
+            variant="text"
+            sx={{
+              textTransform: 'capitalize',
+            }}
+            endIcon={<StyledArrowDown />}
             onClick={handleClick}
           >
             <StyledName>
               {useAppSelector((state) => state.auth.user?.displayName)}
-              <StyledArrowDown />
             </StyledName>
           </Button>
           <Menu
             anchorEl={anchorEl}
-            // getContentAnchorEl={null}
             open={open}
             onClose={handleClose}
             MenuListProps={{

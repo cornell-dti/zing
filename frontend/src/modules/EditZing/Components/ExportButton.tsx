@@ -1,28 +1,12 @@
 import React, { useState } from 'react'
-import { Button } from '@core/Components'
 import { colors } from '@core/Constants'
-import { Box, Modal, Typography } from '@mui/material'
+import { Box, Button, Modal, Typography } from '@mui/material'
 import {
   ExportButtonListType,
   ExportButtonInformationType,
   ExportProps,
 } from 'EditZing/Types/ComponentProps'
 import { ExportFileIconButton } from 'EditZing/Components/ExportFileIconButton'
-
-// needed for the button styling (because this is a Zing component)
-const buttonContainerStyle = {
-  background: colors.mediumviolet,
-  boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.1)',
-  padding: '0 20px',
-  height: '40px',
-  borderRadius: '12px',
-}
-
-const buttonLabelStyle = {
-  fontWeight: '600',
-  fontSize: '18px',
-  textTransform: 'none',
-}
 
 export const ExportButton = ({
   label,
@@ -42,12 +26,7 @@ export const ExportButton = ({
 
   return (
     <Box>
-      <Button
-        containerStyle={buttonContainerStyle}
-        labelStyle={buttonLabelStyle}
-        label={label}
-        onClick={handleOpen}
-      />
+      <Button onClick={handleOpen}>{label}</Button>
       <Modal
         id="button-modal"
         className="mui-fixed"
