@@ -43,6 +43,7 @@ declare module '@mui/material/styles' {
     50?: string
     30?: string
     25?: string
+    16?: string
     12?: string
     6?: string
   }
@@ -53,9 +54,31 @@ declare module '@mui/material/styles' {
     50?: string
     30?: string
     25?: string
+    16?: string
     12?: string
     6?: string
   }
+}
+
+// constants for colors in the case where theme is not accessible:
+export const purple = {
+  120: '#6D52AF',
+  100: '#815ED4',
+  75: '#A186DF',
+  50: '#C0AEEA',
+  30: '#D9CFF2',
+  25: '#DFD7F4',
+  16: '#EBE5F8',
+  12: '#F0ECFA',
+}
+
+export const essentials = {
+  100: '#2F2E41',
+  75: '#5C5B6A',
+  50: '#898992',
+  25: '#B8B7BC',
+  12: '#DBDBDD',
+  6: '#EDEDEE',
 }
 
 export const themeFont = 'Montserrat, Arial, sans-serif'
@@ -83,6 +106,7 @@ let theme = createTheme({
       50: '#C0AEEA',
       30: '#D9CFF2',
       25: '#DFD7F4',
+      16: '#EBE5F8',
       12: '#F0ECFA',
     },
     green: {
@@ -146,8 +170,8 @@ theme = createTheme(theme, {
           borderRadius: 40,
           paddingLeft: 16,
           paddingRight: 16,
-          paddingBottom: 8,
-          paddingTop: 8,
+          paddingBottom: 6,
+          paddingTop: 6,
           textTransform: 'initial',
           fontSize: '1.1rem',
         },
@@ -232,8 +256,5 @@ theme = createTheme(theme, {
     },
   },
 })
-
-// this breaks things
-// theme = responsiveFontSizes(theme)
 
 export default theme

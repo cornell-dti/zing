@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import { SearchBarProps } from '@core'
 
 // insert the correct props here
-const SearchBar = ({
+export const SearchBar = ({
   size = 'small',
   margin = 'none',
   minWidth,
@@ -14,6 +14,7 @@ const SearchBar = ({
       variant="outlined"
       sx={{
         minWidth: minWidth ? minWidth : 'initial',
+        ...props.sx,
       }}
       InputProps={{
         placeholder: 'Search...',
@@ -26,6 +27,7 @@ const SearchBar = ({
           '& .MuiOutlinedInput-input::placeholder': {
             fontWeight: 600,
           },
+          ...props.inputSx,
         },
         startAdornment: (
           <InputAdornment position="start">
@@ -39,5 +41,3 @@ const SearchBar = ({
     />
   )
 }
-
-export default SearchBar

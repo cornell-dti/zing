@@ -38,7 +38,7 @@ const NextButton = () => {
   return <PageNumberButton direction="right" />
 }
 
-const PageNumbers = ({
+export const PageNumbers = ({
   count = 1,
   boundaryCount = 1,
   defaultPage = 1,
@@ -48,7 +48,7 @@ const PageNumbers = ({
 }: PageNumberProps) => {
   return (
     <Pagination
-      sx={{ fontFamily: 'Montserrat' }}
+      sx={{ fontFamily: 'Montserrat', ...props.sx }}
       count={count}
       boundaryCount={boundaryCount}
       defaultPage={defaultPage}
@@ -62,13 +62,13 @@ const PageNumbers = ({
         return (
           <PaginationItem
             sx={{
-              fontFamily: 'Montserrat',
-              color: '#898992',
+              color: 'essentials.50',
               fontWeight: 600,
               '&.Mui-selected': {
                 backgroundColor: 'essentials.12',
                 color: 'black',
               },
+              ...props.itemSx,
             }}
             components={{
               previous: BackButton,
@@ -82,5 +82,3 @@ const PageNumbers = ({
     />
   )
 }
-
-export default PageNumbers
