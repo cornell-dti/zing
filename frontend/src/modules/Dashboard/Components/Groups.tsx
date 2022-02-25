@@ -5,11 +5,12 @@ import {
   StyledTitle,
   StyledGroupArea,
   StyledGroupCardArea,
-  StyledAddButton,
   StyledText,
 } from 'Dashboard/Styles/Groups.style'
 import { GroupCard } from 'Dashboard/Components/GroupCard'
 import { CourseInfo } from 'Dashboard/Types'
+import { IconButton } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
 
 export const Groups = ({
   toggleModalOpen,
@@ -32,7 +33,16 @@ export const Groups = ({
               deadline={new Date(g.dueDateStr)}
             />
           ))}
-          <StyledAddButton onClick={() => toggleModalOpen()} />
+          <IconButton
+            color="secondary"
+            size="large"
+            onClick={() => toggleModalOpen()}
+            sx={{
+              padding: 3,
+            }}
+          >
+            <AddIcon />
+          </IconButton>
         </StyledGroupCardArea>
         {groups.length === 0 && (
           <StyledText>Click "+" to create a new group.</StyledText>

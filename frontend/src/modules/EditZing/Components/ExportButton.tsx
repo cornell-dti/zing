@@ -1,28 +1,12 @@
 import React, { useState } from 'react'
-import { Button } from '@core/Components'
 import { colors } from '@core/Constants'
-import { Box, Modal, Typography } from '@mui/material'
+import { Box, Button, Modal, Typography } from '@mui/material'
 import {
   ExportButtonListType,
   ExportButtonInformationType,
   ExportProps,
 } from 'EditZing/Types/ComponentProps'
 import { ExportFileIconButton } from 'EditZing/Components/ExportFileIconButton'
-
-// needed for the button styling (because this is a Zing component)
-const buttonContainerStyle = {
-  background: colors.mediumviolet,
-  boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.1)',
-  padding: '0 20px',
-  height: '40px',
-  borderRadius: '12px',
-}
-
-const buttonLabelStyle = {
-  fontWeight: '600',
-  fontSize: '18px',
-  textTransform: 'none',
-}
 
 export const ExportButton = ({
   label,
@@ -42,12 +26,7 @@ export const ExportButton = ({
 
   return (
     <Box>
-      <Button
-        containerStyle={buttonContainerStyle}
-        labelStyle={buttonLabelStyle}
-        label={label}
-        onClick={handleOpen}
-      />
+      <Button onClick={handleOpen}>{label}</Button>
       <Modal
         id="button-modal"
         className="mui-fixed"
@@ -81,7 +60,7 @@ export const ExportButton = ({
               fontWeight: 400,
               textAlign: 'center',
               marginBottom: '1.8rem',
-              fontSize: 24,
+              fontSize: '1.6rem',
             }}
           >
             Select a file below to download:
@@ -93,7 +72,7 @@ export const ExportButton = ({
                   variant="h3"
                   sx={{
                     fontWeight: 500,
-                    fontSize: '1.1rem',
+                    fontSize: '1.2rem',
                     mb: 2,
                   }}
                   key={index}

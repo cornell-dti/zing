@@ -1,23 +1,13 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import {
-  HOME_PATH,
-  SURVEY_PATH,
-  EDIT_ZING_PATH,
-  DASHBOARD_PATH,
-  montserratFont,
-} from '@core'
+import { HOME_PATH, SURVEY_PATH, EDIT_ZING_PATH, DASHBOARD_PATH } from '@core'
 import { PublicRoute, PrivateRoute } from '@core/Components'
 import { checkAuth, initializeFirebase } from '@fire'
 import { useAppDispatch } from '@redux/hooks'
 import { User, saveLogin } from '@redux/authSlice'
 
-import {
-  ThemeProvider,
-  StyledEngineProvider,
-  createTheme,
-} from '@mui/material/styles'
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
 
 import { Home } from 'Home'
 import { Survey } from 'Survey'
@@ -26,30 +16,7 @@ import { Dashboard } from 'Dashboard'
 
 import './App.css'
 import { CssBaseline } from '@mui/material'
-
-const theme = createTheme({
-  typography: {
-    fontFamily: 'Montserrat',
-  },
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: `
-          @font-face: {
-            font-family: '${montserratFont.fontFamily}';
-            font-style: ${montserratFont.fontStyle};
-            font-display: ${montserratFont.fontDisplay}; 
-            font-weight: ${montserratFont.fontWeight};
-            src: ${montserratFont.src};
-           }
-        `,
-    },
-    MuiTextField: {
-      defaultProps: {
-        variant: 'standard',
-      },
-    },
-  },
-})
+import theme from '@core/Constants/Theme'
 
 const App = () => {
   const dispatch = useAppDispatch()
