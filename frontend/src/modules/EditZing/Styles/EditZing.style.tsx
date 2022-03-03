@@ -18,7 +18,7 @@ export const StyledFiltersAndGrid = styled.div`
 
 export const StyledFilterContainer = styled.div`
   height: 100%;
-  width: 25rem;
+  width: 400%;
 `
 
 export const StyledFlexHeader = styled.div`
@@ -27,6 +27,16 @@ export const StyledFlexHeader = styled.div`
   margin-bottom: 1rem;
   justify-content: space-between;
   align-items: flex-start;
+`
+
+export const StyledMainView = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const StyledFilterTitle = styled.div`
+  display: flex;
+  flex-direction: row;
 `
 
 const Logo = ({ className }: StyledComponent) => (

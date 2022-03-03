@@ -5,6 +5,7 @@ import {
   StyledContainer,
   StyledFiltersAndGrid,
   StyledFilterContainer,
+  StyledMainView,
   StyledFlexHeader,
   StyledLogo,
   StyledLogoWrapper,
@@ -26,8 +27,7 @@ import { Box } from '@material-ui/core'
 import { CSV_FILE, DOWNLOAD_ALL } from '@core'
 
 export const EditZing = () => {
-  const [showFilters, setShowFilters] = useState<boolean>(true)
-  const [spacingConfig, setSpacingConfig] = useState<GridSize[]>([7, 5, 4])
+  const [spacingConfig] = useState<GridSize[]>([7, 5, 4])
   // get param that was set from history using location
   const { search } = useLocation()
   const query = new URLSearchParams(search)
@@ -60,18 +60,6 @@ export const EditZing = () => {
     fetchGroups(zingId)
   }, [zingId])
 
-  function makeFilters() {
-    if (showFilters) {
-      return (
-        <StyledFilterContainer>
-          <p>hi</p>
-        </StyledFilterContainer>
-      )
-    } else {
-      return null
-    }
-  }
-
   if (zingData) {
     // mui-fixed class is for the modal messing up the padding
     return (
@@ -89,25 +77,29 @@ export const EditZing = () => {
           />
         </StyledFlexHeader>
         <StyledFiltersAndGrid>
-          {makeFilters()}
-          <DndProvider backend={HTML5Backend}>
-            <Grid container spacing={1}>
-              {studentGroups.map((studentGroup, index) => (
-                //  todo: pass in an xs prop that changes based on showfilter to make rows contain 3 instead of 4
-                <GroupGrid
-                  key={index}
-                  studentList={studentGroup}
-                  groupIndex={index}
-                  zingId={zingId}
-                  setStudentGroups={setStudentGroups}
-                  studentGroups={studentGroups}
-                  moveStudentBetweenGrids={moveStudentBetweenGrids}
-                  moveStudentWithinGrid={moveStudentWithinGrid}
-                  spacingConfig={spacingConfig}
-                />
-              ))}
-            </Grid>
-          </DndProvider>
+          <StyledFilterContainer>
+            <p>hi</p>
+          </StyledFilterContainer>
+          <StyledMainView>
+            {/* <Button /> */}
+            <DndProvider backend={HTML5Backend}>
+              <Grid container spacing={1}>
+                {studentGroups.map((studentGroup, index) => (
+                  <GroupGrid
+                    key={index}
+                    studentList={studentGroup}
+                    groupIndex={index}
+                    zingId={zingId}
+                    setStudentGroups={setStudentGroups}
+                    studentGroups={studentGroups}
+                    moveStudentBetweenGrids={moveStudentBetweenGrids}
+                    moveStudentWithinGrid={moveStudentWithinGrid}
+                    spacingConfig={spacingConfig}
+                  />
+                ))}
+              </Grid>
+            </DndProvider>
+          </StyledMainView>
         </StyledFiltersAndGrid>
       </Box>
     )
