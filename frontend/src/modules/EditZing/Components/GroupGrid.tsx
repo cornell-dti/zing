@@ -18,11 +18,20 @@ export const GroupGrid = ({
   groupIndex,
   moveStudentBetweenGrids,
   moveStudentWithinGrid,
+  zingId,
+  setStudentGroups,
+  studentGroups,
 }: GroupGridProps) => {
   const [{ isOver }, drop] = useDrop({
     accept: STUDENT_TYPE,
     drop: (item: DnDStudentTransferType) => {
-      moveStudentBetweenGrids(item.studentToMove, item.groupIndex, groupIndex)
+      moveStudentBetweenGrids(
+        item.studentToMove,
+        item.groupIndex,
+        groupIndex,
+        setStudentGroups,
+        zingId
+      )
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -49,6 +58,8 @@ export const GroupGrid = ({
               studentIndex={index}
               groupIndex={groupIndex}
               student={student}
+              studentGroups={studentGroups}
+              setStudentGroups={setStudentGroups}
             />
           ))}
         </Grid>

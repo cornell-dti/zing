@@ -12,7 +12,11 @@ import { GroupGrid } from 'EditZing/Components/GroupGrid'
 import { Student } from 'EditZing/Types/Student'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { getZingGroups, saveSwapStudent } from './Helpers'
+import {
+  getZingGroups,
+  moveStudentBetweenGrids,
+  moveStudentWithinGrid,
+} from './Helpers'
 import { FetchedZing } from 'EditZing/Types/Student'
 import { ExportButton } from 'EditZing/Components/ExportButton'
 import { Box } from '@mui/material'
@@ -57,66 +61,6 @@ export const EditZing = () => {
     fetchGroups(zingId)
   }, [zingId])
 
-  /** Move a student from one grid to a destination grid based
-   * on a starting and destination grid index */
-  function moveStudentBetweenGrids(
-    studentToMove: Student,
-    startingIndex: number,
-    destinationIndex: number
-  ): void {
-    // only set new groups if actually changing index
-    if (startingIndex !== destinationIndex) {
-      setStudentGroups(
-        studentGroups.map((studentList, index) => {
-          // case where the current iterated group is the starting index
-          if (index === startingIndex) {
-            // filter for only students with IDs that are not the studentToMove's
-            return studentGroups[startingIndex].filter(
-              (student) => student.email !== studentToMove.email
-            )
-          }
-          // case where the current iterated group is the destination index
-          else if (index === destinationIndex) {
-            /* based on how drop functions work, we need to first check if the 
-          destination group has the studentToMove in it first and skip it 
-          if it already contains it */
-            if (!studentGroups[destinationIndex].includes(studentToMove)) {
-              return studentGroups[destinationIndex].concat(studentToMove)
-            } else {
-              return studentList
-            }
-          }
-          // case where it is neither starting nor destination
-          else {
-            return studentList
-          }
-        })
-      )
-      saveSwapStudent(
-        zingId,
-        studentToMove.email,
-        startingIndex + 1,
-        destinationIndex + 1
-      )
-    }
-  }
-
-  /** This function rearranges a student within the grid it is currently in */
-  function moveStudentWithinGrid(
-    studentToMove: Student,
-    currentGroupIndex: number,
-    destinationStudentIndex: number
-  ): void {
-    let groups = [...studentGroups]
-    if (groups[currentGroupIndex].includes(studentToMove)) {
-      groups[currentGroupIndex] = groups[currentGroupIndex].filter(
-        (student) => student.email !== studentToMove.email
-      )
-    }
-    groups[currentGroupIndex].splice(destinationStudentIndex, 0, studentToMove)
-    setStudentGroups(groups)
-  }
-
   if (zingData) {
     // mui-fixed class is for the modal messing up the padding
     return (
@@ -140,6 +84,9 @@ export const EditZing = () => {
                 key={index}
                 studentList={studentGroup}
                 groupIndex={index}
+                zingId={zingId}
+                studentGroups={studentGroups}
+                setStudentGroups={setStudentGroups}
                 moveStudentBetweenGrids={moveStudentBetweenGrids}
                 moveStudentWithinGrid={moveStudentWithinGrid}
               />
