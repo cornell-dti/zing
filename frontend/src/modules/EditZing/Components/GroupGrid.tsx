@@ -1,6 +1,6 @@
-import React from 'react'
+import { useState } from 'react'
 import { StudentGrid } from 'EditZing/Components/StudentGrid'
-import Grid from '@mui/material/Grid'
+import Grid, { GridSize } from '@mui/material/Grid'
 import { GroupGridProps } from 'EditZing/Types/ComponentProps'
 import { useDrop } from 'react-dnd'
 import { STUDENT_TYPE, DnDStudentTransferType } from 'EditZing/Types/Student'
@@ -12,7 +12,6 @@ import {
   StyledMetricText,
 } from 'EditZing/Styles/StudentAndGroup.style'
 
-/** the equivalent of Column */
 export const GroupGrid = ({
   studentList,
   groupIndex,
@@ -21,7 +20,10 @@ export const GroupGrid = ({
   zingId,
   setStudentGroups,
   studentGroups,
+  filterMode,
 }: GroupGridProps) => {
+  // add useEffect to react to filterMode changes to alter breakpoints for grids
+  const [breakpoints] = useState<GridSize[]>([12, 7, 5, 4])
   const [{ isOver }, drop] = useDrop({
     accept: STUDENT_TYPE,
     drop: (item: DnDStudentTransferType) => {
@@ -39,7 +41,13 @@ export const GroupGrid = ({
   })
 
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
+    <Grid
+      item
+      xs={breakpoints[0]}
+      sm={breakpoints[1]}
+      md={breakpoints[2]}
+      lg={breakpoints[3]}
+    >
       <StyledGroupContainer
         ref={drop}
         style={{ opacity: isOver ? '0.6' : '1' }}

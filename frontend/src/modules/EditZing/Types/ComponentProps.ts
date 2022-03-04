@@ -21,6 +21,7 @@ export interface GroupGridProps {
     studentGroups: Student[][],
     setStudentGroups: Function
   ) => void
+  filterMode: boolean
 }
 
 export interface StudentGridProps {

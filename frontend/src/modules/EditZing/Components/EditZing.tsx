@@ -18,44 +18,37 @@ import {
   moveStudentWithinGrid,
 } from './Helpers'
 import { FetchedZing } from 'EditZing/Types/Student'
-import { ExportButton } from 'EditZing/Components/ExportButton'
+import { ExportButton, exportButtons } from 'EditZing/Components/ExportButton'
 import { Box } from '@mui/material'
-import { CSV_FILE, DOWNLOAD_ALL } from '@core'
 
 export const EditZing = () => {
-  // get param that was set from history using location
+  // get param that was set from history using location for zingId
   const { search } = useLocation()
   const query = new URLSearchParams(search)
   const id = query.get('id')
   const [zingId] = useState(id)
-
-  // buttons that are used for the "export" feature
-  const exportButtons = [
-    {
-      title: 'Download all details:',
-      buttons: [{ type: CSV_FILE, downloadData: DOWNLOAD_ALL }],
-    },
-  ]
+  // TODO: true for now since there's no toggle; will be false when toggle is added (or not necessary at all)
+  const [filterMode, setFilterMode] = useState(true)
 
   const fakeStudentGroupsFromJson: Student[][] = require('EditZing/fakeData.json')
-  // full fetched zing object
+  // actual data fetched from the server
   const [zingData, setZingData] = useState<FetchedZing | null>(null)
-  // student groups parsed out from zingData into a Student[][]
+  // a Student[][] instance derived from zingData, default is fake data
   const [studentGroups, setStudentGroups] = useState(fakeStudentGroupsFromJson)
+
   useEffect(() => {
     async function fetchGroups(zingId: string | null) {
       if (zingId) {
         const zingData = await getZingGroups(zingId)
         setZingData(zingData)
 
-        // parse out groups into Student[][]
         const zingGroup = zingData.group
-        let realData: Student[][] = []
+        let studentGroups: Student[][] = []
         for (let id in zingGroup) {
           const studentList = zingGroup[id].members
-          realData.push(studentList)
+          studentGroups.push(studentList)
         }
-        setStudentGroups(realData)
+        setStudentGroups(studentGroups)
       }
     }
     fetchGroups(zingId)
@@ -89,6 +82,7 @@ export const EditZing = () => {
                 setStudentGroups={setStudentGroups}
                 moveStudentBetweenGrids={moveStudentBetweenGrids}
                 moveStudentWithinGrid={moveStudentWithinGrid}
+                filterMode={filterMode}
               />
             ))}
           </Grid>
@@ -96,6 +90,7 @@ export const EditZing = () => {
       </Box>
     )
   } else {
+    // TODO: add a real loading screen asset later
     return (
       <StyledContainer>
         <StyledText>Loading</StyledText>

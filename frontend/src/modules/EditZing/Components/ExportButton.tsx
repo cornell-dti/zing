@@ -6,7 +6,16 @@ import {
   ExportButtonInformationType,
   ExportProps,
 } from 'EditZing/Types/ComponentProps'
+import { CSV_FILE, DOWNLOAD_ALL } from '@core'
 import { ExportFileIconButton } from 'EditZing/Components/ExportFileIconButton'
+
+// buttons that are used for the "export" feature
+export const exportButtons = [
+  {
+    title: 'Download all details:',
+    buttons: [{ type: CSV_FILE, downloadData: DOWNLOAD_ALL }],
+  },
+]
 
 export const ExportButton = ({
   label,
