@@ -25,18 +25,24 @@ export type GroupData = {
   failed: string[]
 }
 
+/*
+college: string
+courseId: string
+fullName: string
+graduation: string
+identity: string
+mode: string
+pronoun: string
+location: string
+start: string
+email: string
+time: string
+*/
 export type Student = {
-  college: string
   courseId: string
   fullName: string
-  graduation: string
-  identity: string
-  mode: string
-  pronoun: string
-  remote: string
-  start: string
   email: string
-  time: string
+  [key: string]: string
 }
 
 /** item type for drag and drop prop transfer via dnd */
@@ -52,11 +58,10 @@ export type DnDStudentTransferType = {
  */
 export const STUDENT_TYPE = 'Student'
 
-export type ShortenedSurveyAns = {
+export type ShortenedSurveyResponse = {
   [key: string]: string
 }
 
-export type ItemData = {
-  svg: JSX.Element
-  text: string
+export type ResponseToSVGIdx = {
+  [key: string]: number
 }

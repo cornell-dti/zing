@@ -1,60 +1,10 @@
-import React from 'react'
-import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
-import Grid from '@mui/material/Grid'
-import {
-  STUDENT_TYPE,
-  DnDStudentTransferType,
-  ItemData,
-  ShortenedSurveyAns,
-} from 'EditZing/Types/Student'
+import { STUDENT_TYPE, DnDStudentTransferType } from 'EditZing/Types/Student'
 import { StudentGridProps } from 'EditZing/Types/ComponentProps'
-import {
-  genderSVG,
-  collegeSVG,
-  modalitySVG,
-  raceSVG,
-  timeSVG,
-  workHabitsSVG,
-  yearSVG,
-} from 'EditZing/Styles/InlineSVGs'
 import { colors } from '@core'
 import { useDrop, useDrag } from 'react-dnd'
-import { makeItem } from './Helpers'
-
-const PREFIX = 'StudentGrid'
-
-const classes = {
-  root: `${PREFIX}-root`,
-  paper1: `${PREFIX}-paper1`,
-  paper2: `${PREFIX}-paper2`,
-}
-
-const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`& .${classes.root}`]: {
-    flexGrow: 1,
-  },
-
-  [`& .${classes.paper1}`]: {
-    padding: theme.spacing(2),
-    textAlign: 'left',
-    color: colors.black,
-    fontFamily: 'Montserrat',
-    fontWeight: 700,
-    fontSize: 14,
-    border: '0px solid rgba(205, 156, 242, 0.15)',
-    boxShadow: '0px 2px 5px rgba(205, 156, 242, 0.2);',
-    borderRadius: '10px',
-  },
-
-  [`& .${classes.paper2}`]: {
-    textAlign: 'left',
-    color: colors.black,
-    fontFamily: 'Montserrat',
-    fontWeight: 400,
-    fontSize: 14,
-  },
-}))
+import { classes, StyledGrid } from 'EditZing/Styles/StudentMUIStyle'
+import { makeItems } from './Helpers'
 
 /** the equivalent of MoveableItem */
 export const StudentGrid = ({
@@ -104,8 +54,6 @@ export const StudentGrid = ({
     }
   }
 
-  const shortenedSurveyAns: ShortenedSurveyAns = require('EditZing/shortenedSurveyAns.json')
-
   return (
     <StyledGrid item xs={6} ref={drop}>
       <div ref={drag}>
@@ -124,13 +72,7 @@ export const StudentGrid = ({
               background: isOver ? colors.lightviolet : colors.verylightviolet,
             }}
           >
-            {makeItem(genderSVG, student.pronoun, shortenedSurveyAns)}
-            {makeItem(collegeSVG, student.college, shortenedSurveyAns)}
-            {makeItem(modalitySVG, student.mode, shortenedSurveyAns)}
-            {makeItem(raceSVG, student.identity, shortenedSurveyAns)}
-            {makeItem(timeSVG, student.time, shortenedSurveyAns)}
-            {makeItem(workHabitsSVG, student.start, shortenedSurveyAns)}
-            {makeItem(yearSVG, student.graduation, shortenedSurveyAns)}
+            {makeItems(student)} {/* displays student response answers */}
           </div>
         </Paper>
       </div>

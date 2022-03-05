@@ -22,6 +22,7 @@ export interface GroupGridProps {
     setStudentGroups: Function
   ) => void
   filterMode: boolean
+  categoriesShown: string[]
 }
 
 export interface StudentGridProps {

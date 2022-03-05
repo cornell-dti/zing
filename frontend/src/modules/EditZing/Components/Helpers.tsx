@@ -1,31 +1,20 @@
 import {
   FetchedZing,
-  ShortenedSurveyAns,
+  ShortenedSurveyResponse,
   Student,
 } from 'EditZing/Types/Student'
+import {
+  genderSVG,
+  collegeSVG,
+  modalitySVG,
+  raceSVG,
+  timeSVG,
+  workHabitsSVG,
+  yearSVG,
+  otherSVG,
+} from 'EditZing/Styles/InlineSVGs'
 const axios = require('axios')
-
-// makes a div that contains a Gender: Female type beat thing for student grid
-export function makeItem(
-  svg: JSX.Element,
-  text: string,
-  shortenedSurveyAns: ShortenedSurveyAns
-) {
-  // case for where the text is a graduation year, since those fluctuate year by year, we don't want to access the json
-  if (String(Number(text)) === text) {
-    return (
-      <div>
-        {svg} {text}
-      </div>
-    )
-  }
-
-  return (
-    <div>
-      {svg} {shortenedSurveyAns[text]}
-    </div>
-  )
-}
+const shortenedSurveyResponse: ShortenedSurveyResponse = require('EditZing/shortenedSurveyResponse.json')
 
 export async function getZingGroups(docId: String): Promise<FetchedZing> {
   return fetch(
@@ -134,4 +123,64 @@ export async function saveSwapStudent(
         console.log(error)
       }
     )
+}
+
+// makes a div that contains a Gender: Female type beat thing for student grid
+export function makeItem(svg: JSX.Element, text: string) {
+  // case for where the text is a graduation year, since those fluctuate year by year, we don't want to access the json
+  if (String(Number(text)) === text) {
+    return (
+      <div>
+        {svg} {text}
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      {svg} {shortenedSurveyResponse[text]}
+    </div>
+  )
+}
+
+export function makeItems(student: Student) {
+  let arrItems: JSX.Element[] = []
+  Object.keys(student)
+    .sort() // must sort bc keys return in random order
+    .forEach((key) => {
+      // guard for not student response attributes properties
+      if (['email', 'fullName', 'courseId'].includes(key)) {
+        return
+      }
+
+      switch (key) {
+        case 'graduation':
+          arrItems.push(makeItem(yearSVG, student[key]))
+          break
+        case 'college':
+          arrItems.push(makeItem(collegeSVG, student[key]))
+          break
+        case 'identity':
+          arrItems.push(makeItem(raceSVG, student[key]))
+          break
+        case 'mode':
+          arrItems.push(makeItem(modalitySVG, student[key]))
+          break
+        case 'pronoun':
+          arrItems.push(makeItem(genderSVG, student[key]))
+          break
+        case 'location':
+          // i thought we got rid of if they're not on campus?
+          break
+        case 'start':
+          arrItems.push(makeItem(timeSVG, student[key]))
+          break
+        case 'time':
+          arrItems.push(makeItem(workHabitsSVG, student[key]))
+          break
+        default:
+          arrItems.push(makeItem(otherSVG, student[key]))
+      }
+    })
+  return arrItems
 }

@@ -35,6 +35,7 @@ export const EditZing = () => {
   const [zingData, setZingData] = useState<FetchedZing | null>(null)
   // a Student[][] instance derived from zingData, default is fake data
   const [studentGroups, setStudentGroups] = useState(fakeStudentGroupsFromJson)
+  const [categoriesShown, setCategoriesShown] = useState(['pronoun'])
 
   useEffect(() => {
     async function fetchGroups(zingId: string | null) {
@@ -83,6 +84,7 @@ export const EditZing = () => {
                 moveStudentBetweenGrids={moveStudentBetweenGrids}
                 moveStudentWithinGrid={moveStudentWithinGrid}
                 filterMode={filterMode}
+                categoriesShown={categoriesShown}
               />
             ))}
           </Grid>
