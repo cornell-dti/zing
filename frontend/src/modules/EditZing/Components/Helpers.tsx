@@ -1,5 +1,31 @@
-import { FetchedZing, Student } from 'EditZing/Types/Student'
+import {
+  FetchedZing,
+  ShortenedSurveyAns,
+  Student,
+} from 'EditZing/Types/Student'
 const axios = require('axios')
+
+// makes a div that contains a Gender: Female type beat thing for student grid
+export function makeItem(
+  svg: JSX.Element,
+  text: string,
+  shortenedSurveyAns: ShortenedSurveyAns
+) {
+  // case for where the text is a graduation year, since those fluctuate year by year, we don't want to access the json
+  if (String(Number(text)) === text) {
+    return (
+      <div>
+        {svg} {text}
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      {svg} {shortenedSurveyAns[text]}
+    </div>
+  )
+}
 
 export async function getZingGroups(docId: String): Promise<FetchedZing> {
   return fetch(

@@ -2,11 +2,25 @@ import React from 'react'
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
-import { STUDENT_TYPE, DnDStudentTransferType } from 'EditZing/Types/Student'
+import {
+  STUDENT_TYPE,
+  DnDStudentTransferType,
+  ItemData,
+  ShortenedSurveyAns,
+} from 'EditZing/Types/Student'
 import { StudentGridProps } from 'EditZing/Types/ComponentProps'
-import { genderSVG } from 'EditZing/Styles/InlineSVGs'
+import {
+  genderSVG,
+  collegeSVG,
+  modalitySVG,
+  raceSVG,
+  timeSVG,
+  workHabitsSVG,
+  yearSVG,
+} from 'EditZing/Styles/InlineSVGs'
 import { colors } from '@core'
 import { useDrop, useDrag } from 'react-dnd'
+import { makeItem } from './Helpers'
 
 const PREFIX = 'StudentGrid'
 
@@ -90,6 +104,8 @@ export const StudentGrid = ({
     }
   }
 
+  const shortenedSurveyAns: ShortenedSurveyAns = require('EditZing/shortenedSurveyAns.json')
+
   return (
     <StyledGrid item xs={6} ref={drop}>
       <div ref={drag}>
@@ -108,7 +124,13 @@ export const StudentGrid = ({
               background: isOver ? colors.lightviolet : colors.verylightviolet,
             }}
           >
-            {genderSVG} {student.pronoun === 'She/Her' ? 'Female' : 'Male'}
+            {makeItem(genderSVG, student.pronoun, shortenedSurveyAns)}
+            {makeItem(collegeSVG, student.college, shortenedSurveyAns)}
+            {makeItem(modalitySVG, student.mode, shortenedSurveyAns)}
+            {makeItem(raceSVG, student.identity, shortenedSurveyAns)}
+            {makeItem(timeSVG, student.time, shortenedSurveyAns)}
+            {makeItem(workHabitsSVG, student.start, shortenedSurveyAns)}
+            {makeItem(yearSVG, student.graduation, shortenedSurveyAns)}
           </div>
         </Paper>
       </div>

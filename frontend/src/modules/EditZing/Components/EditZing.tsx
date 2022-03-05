@@ -98,3 +98,15 @@ export const EditZing = () => {
     )
   }
 }
+
+/**
+ *
+ *
+ * Plan of action for this task:
+ *
+ * Collect all SVGs from Alyssa's folder and put them in an svg module that can be imported
+ * Edit studentGrid to hold these SVGs
+ * Display all of them by default to start
+ *
+ *
+ */

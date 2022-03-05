@@ -51,3 +51,12 @@ export type DnDStudentTransferType = {
  * this case, this is a movable student type
  */
 export const STUDENT_TYPE = 'Student'
+
+export type ShortenedSurveyAns = {
+  [key: string]: string
+}
+
+export type ItemData = {
+  svg: JSX.Element
+  text: string
+}
