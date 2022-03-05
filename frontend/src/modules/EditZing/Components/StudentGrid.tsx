@@ -14,6 +14,7 @@ export const StudentGrid = ({
   moveStudentWithinGrid,
   studentGroups,
   setStudentGroups,
+  categoriesShown,
 }: StudentGridProps) => {
   const [{ isDragging }, drag] = useDrag({
     item: {
@@ -53,7 +54,7 @@ export const StudentGrid = ({
       return '1.0'
     }
   }
-
+  console.log(categoriesShown)
   return (
     <StyledGrid item xs={6} ref={drop}>
       <div ref={drag}>
@@ -72,7 +73,8 @@ export const StudentGrid = ({
               background: isOver ? colors.lightviolet : colors.verylightviolet,
             }}
           >
-            {makeItems(student)} {/* displays student response answers */}
+            {/* displays student response answers */}
+            {makeItems(student, categoriesShown)}
           </div>
         </Paper>
       </div>

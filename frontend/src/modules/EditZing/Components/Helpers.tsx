@@ -143,13 +143,16 @@ export function makeItem(svg: JSX.Element, text: string) {
   )
 }
 
-export function makeItems(student: Student) {
+export function makeItems(student: Student, categoriesShown: string[]) {
   let arrItems: JSX.Element[] = []
   Object.keys(student)
-    .sort() // must sort bc keys return in random order
+    .sort() // sort bc keys return in random order
     .forEach((key) => {
-      // guard for not student response attributes properties
-      if (['email', 'fullName', 'courseId'].includes(key)) {
+      // guard for not student response attributes properties or not shown
+      if (
+        ['email', 'fullName', 'courseId'].includes(key) ||
+        !categoriesShown.includes(key)
+      ) {
         return
       }
 

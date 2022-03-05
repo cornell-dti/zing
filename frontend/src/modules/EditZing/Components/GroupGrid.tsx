@@ -21,6 +21,7 @@ export const GroupGrid = ({
   setStudentGroups,
   studentGroups,
   filterMode,
+  categoriesShown,
 }: GroupGridProps) => {
   // add useEffect to react to filterMode changes to alter breakpoints for grids
   const [breakpoints] = useState<GridSize[]>([12, 7, 5, 4])
@@ -68,6 +69,7 @@ export const GroupGrid = ({
               student={student}
               studentGroups={studentGroups}
               setStudentGroups={setStudentGroups}
+              categoriesShown={categoriesShown}
             />
           ))}
         </Grid>

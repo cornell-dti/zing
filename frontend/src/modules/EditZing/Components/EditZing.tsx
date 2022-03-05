@@ -59,6 +59,16 @@ export const EditZing = () => {
     // mui-fixed class is for the modal messing up the padding
     return (
       <Box m={4} paddingBottom={3} className="mui-fixed">
+        {/* <div
+          style={{ background: 'red', width: '100px', height: '100px' }}
+          onClick={() =>
+            categoriesShown.includes('college')
+              ? setCategoriesShown(['pronoun'])
+              : setCategoriesShown(['college'])
+          }
+        >
+          {String(categoriesShown)}
+        </div> */}
         <StyledFlexHeader>
           <StyledLogoWrapper>
             <StyledLogo />

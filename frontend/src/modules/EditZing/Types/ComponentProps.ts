@@ -40,6 +40,7 @@ export interface StudentGridProps {
     studentGroups: Student[][],
     setStudentGroups: Function
   ) => void
+  categoriesShown: string[]
 }
 
 export type OutputFileType = 'csv' | 'xls' | 'pdf'
