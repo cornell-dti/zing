@@ -22,7 +22,11 @@ export interface GroupGridProps {
     setStudentGroups: Function
   ) => void
   filterMode: boolean
-  categoriesShown: string[]
+  categoriesShown: CategoriesShown
+}
+
+export type CategoriesShown = {
+  [key: string]: boolean
 }
 
 export interface StudentGridProps {
@@ -40,7 +44,12 @@ export interface StudentGridProps {
     studentGroups: Student[][],
     setStudentGroups: Function
   ) => void
-  categoriesShown: string[]
+  categoriesShown: CategoriesShown
+}
+
+export interface FilterSidebarProps {
+  categoriesShown: CategoriesShown
+  setCategoriesShown: Function
 }
 
 export type OutputFileType = 'csv' | 'xls' | 'pdf'

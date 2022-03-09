@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import {
+  StyledGroupsContainer,
+  StyledFilterContainer,
+  StyledMainContainer,
   StyledContainer,
   StyledFlexHeader,
   StyledLogo,
   StyledLogoWrapper,
   StyledText,
 } from 'EditZing/Styles/EditZing.style'
+import { FilterSidebar } from 'EditZing/Components/FilterSidebar'
 import { GroupGrid } from 'EditZing/Components/GroupGrid'
 import { Student } from 'EditZing/Types/Student'
 import { DndProvider } from 'react-dnd'
@@ -35,7 +39,7 @@ export const EditZing = () => {
   const [zingData, setZingData] = useState<FetchedZing | null>(null)
   // a Student[][] instance derived from zingData, default is fake data
   const [studentGroups, setStudentGroups] = useState(fakeStudentGroupsFromJson)
-  const [categoriesShown, setCategoriesShown] = useState(['pronoun'])
+  const [categoriesShown, setCategoriesShown] = useState({})
 
   useEffect(() => {
     async function fetchGroups(zingId: string | null) {
@@ -50,6 +54,16 @@ export const EditZing = () => {
           studentGroups.push(studentList)
         }
         setStudentGroups(studentGroups)
+
+        let categoriesShown = {}
+        Object.keys(studentGroups[0][0]).forEach((category, _) => {
+          if (
+            !['courseId', 'fullName', 'email', 'location'].includes(category)
+          ) {
+            categoriesShown = { ...categoriesShown, [category]: true }
+          }
+        })
+        setCategoriesShown(categoriesShown)
       }
     }
     fetchGroups(zingId)
@@ -58,17 +72,7 @@ export const EditZing = () => {
   if (zingData) {
     // mui-fixed class is for the modal messing up the padding
     return (
-      <Box m={4} paddingBottom={3} className="mui-fixed">
-        {/* <div
-          style={{ background: 'red', width: '100px', height: '100px' }}
-          onClick={() =>
-            categoriesShown.includes('college')
-              ? setCategoriesShown(['pronoun'])
-              : setCategoriesShown(['college'])
-          }
-        >
-          {String(categoriesShown)}
-        </div> */}
+      <Box paddingBottom={3} className="mui-fixed">
         <StyledFlexHeader>
           <StyledLogoWrapper>
             <StyledLogo />
@@ -81,24 +85,35 @@ export const EditZing = () => {
             zingName={zingData.name}
           />
         </StyledFlexHeader>
-        <DndProvider backend={HTML5Backend}>
-          <Grid container spacing={1}>
-            {studentGroups.map((studentGroup, index) => (
-              <GroupGrid
-                key={index}
-                studentList={studentGroup}
-                groupIndex={index}
-                zingId={zingId}
-                studentGroups={studentGroups}
-                setStudentGroups={setStudentGroups}
-                moveStudentBetweenGrids={moveStudentBetweenGrids}
-                moveStudentWithinGrid={moveStudentWithinGrid}
-                filterMode={filterMode}
-                categoriesShown={categoriesShown}
-              />
-            ))}
-          </Grid>
-        </DndProvider>
+        <StyledMainContainer>
+          <StyledFilterContainer>
+            <FilterSidebar
+              categoriesShown={categoriesShown}
+              setCategoriesShown={setCategoriesShown}
+            />
+          </StyledFilterContainer>
+          <StyledGroupsContainer>
+            {/* <Button /> */}
+            <DndProvider backend={HTML5Backend}>
+              <Grid container spacing={1}>
+                {studentGroups.map((studentGroup, index) => (
+                  <GroupGrid
+                    key={index}
+                    studentList={studentGroup}
+                    groupIndex={index}
+                    zingId={zingId}
+                    setStudentGroups={setStudentGroups}
+                    studentGroups={studentGroups}
+                    moveStudentBetweenGrids={moveStudentBetweenGrids}
+                    moveStudentWithinGrid={moveStudentWithinGrid}
+                    filterMode={filterMode}
+                    categoriesShown={categoriesShown}
+                  />
+                ))}
+              </Grid>
+            </DndProvider>
+          </StyledGroupsContainer>
+        </StyledMainContainer>
       </Box>
     )
   } else {

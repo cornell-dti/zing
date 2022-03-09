@@ -13,6 +13,7 @@ import {
   yearSVG,
   otherSVG,
 } from 'EditZing/Styles/InlineSVGs'
+import { CategoriesShown } from 'EditZing/Types/ComponentProps'
 const axios = require('axios')
 const shortenedSurveyResponse: ShortenedSurveyResponse = require('EditZing/shortenedSurveyResponse.json')
 
@@ -143,46 +144,44 @@ export function makeItem(svg: JSX.Element, text: string) {
   )
 }
 
-export function makeItems(student: Student, categoriesShown: string[]) {
+export function makeItems(student: Student, categoriesShown: CategoriesShown) {
   let arrItems: JSX.Element[] = []
-  Object.keys(student)
+  Object.keys(categoriesShown)
     .sort() // sort bc keys return in random order
     .forEach((key) => {
       // guard for not student response attributes properties or not shown
       if (
-        ['email', 'fullName', 'courseId'].includes(key) ||
-        !categoriesShown.includes(key)
+        !['email', 'fullName', 'courseId'].includes(key) &&
+        categoriesShown[key]
       ) {
-        return
-      }
-
-      switch (key) {
-        case 'graduation':
-          arrItems.push(makeItem(yearSVG, student[key]))
-          break
-        case 'college':
-          arrItems.push(makeItem(collegeSVG, student[key]))
-          break
-        case 'identity':
-          arrItems.push(makeItem(raceSVG, student[key]))
-          break
-        case 'mode':
-          arrItems.push(makeItem(modalitySVG, student[key]))
-          break
-        case 'pronoun':
-          arrItems.push(makeItem(genderSVG, student[key]))
-          break
-        case 'location':
-          // i thought we got rid of if they're not on campus?
-          break
-        case 'start':
-          arrItems.push(makeItem(timeSVG, student[key]))
-          break
-        case 'time':
-          arrItems.push(makeItem(workHabitsSVG, student[key]))
-          break
-        default:
-          arrItems.push(makeItem(otherSVG, student[key]))
+        switch (key) {
+          case 'graduation':
+            arrItems.push(makeItem(yearSVG, student[key]))
+            break
+          case 'college':
+            arrItems.push(makeItem(collegeSVG, student[key]))
+            break
+          case 'identity':
+            arrItems.push(makeItem(raceSVG, student[key]))
+            break
+          case 'mode':
+            arrItems.push(makeItem(modalitySVG, student[key]))
+            break
+          case 'pronoun':
+            arrItems.push(makeItem(genderSVG, student[key]))
+            break
+          case 'location':
+            // i thought we got rid of if they're not on campus?
+            break
+          case 'start':
+            arrItems.push(makeItem(timeSVG, student[key]))
+            break
+          case 'time':
+            arrItems.push(makeItem(workHabitsSVG, student[key]))
+            break
+          default:
+            arrItems.push(makeItem(otherSVG, student[key]))
+        }
       }
     })
   return arrItems

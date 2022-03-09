@@ -11,12 +11,29 @@ export const StyledContainer = styled.div`
 // justify-content: center;
 // align-items: center;
 
+export const StyledGroupsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const StyledMainContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  border: 1px solid ${colors.lightgray};
+`
+
+export const StyledFilterContainer = styled.div`
+  height: 100%;
+  width: 400%;
+`
+
 export const StyledFlexHeader = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 1rem;
   justify-content: space-between;
   align-items: flex-start;
+  margin: 2rem 2rem 0;
 `
 
 const Logo = ({ className }: StyledComponent) => (
