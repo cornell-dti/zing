@@ -47,10 +47,7 @@ export interface StudentGridProps {
   categoriesShown: CategoriesShown
 }
 
-export interface FilterSidebarProps {
-  categoriesShown: CategoriesShown
-  setCategoriesShown: Function
-}
+export interface FilterSidebarProps {}
 
 export type OutputFileType = 'csv' | 'xls' | 'pdf'
 

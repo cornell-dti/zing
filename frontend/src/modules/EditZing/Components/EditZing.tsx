@@ -11,7 +11,6 @@ import {
   StyledLogoWrapper,
   StyledText,
 } from 'EditZing/Styles/EditZing.style'
-import { FilterSidebar } from 'EditZing/Components/FilterSidebar'
 import { GroupGrid } from 'EditZing/Components/GroupGrid'
 import { Student } from 'EditZing/Types/Student'
 import { DndProvider } from 'react-dnd'
@@ -86,12 +85,7 @@ export const EditZing = () => {
           />
         </StyledFlexHeader>
         <StyledMainContainer>
-          <StyledFilterContainer>
-            <FilterSidebar
-              categoriesShown={categoriesShown}
-              setCategoriesShown={setCategoriesShown}
-            />
-          </StyledFilterContainer>
+          <StyledFilterContainer>hi</StyledFilterContainer>
           <StyledGroupsContainer>
             {/* <Button /> */}
             <DndProvider backend={HTML5Backend}>
