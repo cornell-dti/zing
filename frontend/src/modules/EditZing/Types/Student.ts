@@ -58,7 +58,7 @@ export type DnDStudentTransferType = {
  */
 export const STUDENT_TYPE = 'Student'
 
-export type ShortenedSurveyResponse = {
+export type StringJSON = {
   [key: string]: string
 }
 

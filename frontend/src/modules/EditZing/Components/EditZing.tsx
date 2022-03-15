@@ -25,7 +25,6 @@ import {
 import { FetchedZing } from 'EditZing/Types/Student'
 import { ExportButton, exportButtons } from 'EditZing/Components/ExportButton'
 import { Box } from '@mui/material'
-import { ConstructionOutlined } from '@mui/icons-material'
 
 export const EditZing = () => {
   // get param that was set from history using location for zingId
@@ -62,11 +61,14 @@ export const EditZing = () => {
           if (
             !['courseId', 'fullName', 'email', 'location'].includes(category)
           ) {
-            categoriesShown = { ...categoriesShown, [category]: true }
+            categoriesShown = {
+              ...categoriesShown,
+              [category]: true,
+            }
           }
         })
+        console.warn(categoriesShown)
         setCategoriesShown(categoriesShown)
-        console.log(categoriesShown)
       }
     }
     fetchGroups(zingId)

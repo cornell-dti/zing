@@ -1,8 +1,4 @@
-import {
-  FetchedZing,
-  ShortenedSurveyResponse,
-  Student,
-} from 'EditZing/Types/Student'
+import { FetchedZing, StringJSON, Student } from 'EditZing/Types/Student'
 import {
   genderSVG,
   collegeSVG,
@@ -15,7 +11,7 @@ import {
 } from 'EditZing/Styles/InlineSVGs'
 import { CategoriesShown } from 'EditZing/Types/ComponentProps'
 const axios = require('axios')
-const shortenedSurveyResponse: ShortenedSurveyResponse = require('EditZing/shortenedSurveyResponse.json')
+const shortenedSurveyResponse: StringJSON = require('EditZing/shortenedSurveyResponse.json')
 
 export async function getZingGroups(docId: String): Promise<FetchedZing> {
   return fetch(
