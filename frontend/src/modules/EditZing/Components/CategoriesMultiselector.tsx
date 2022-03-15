@@ -18,7 +18,7 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
+      width: 400,
     },
   },
 }
@@ -66,45 +66,68 @@ export const CategoriesMultiselector = ({
     setCategoriesShown(newCategoriesShown)
   }
 
+  const handleDelete = (value: string) => {
+    const newCategoriesSelected = categoriesSelected.filter(
+      (category) => category !== value
+    )
+    setCategoriesSelected(newCategoriesSelected)
+    let newCategoriesShown = { ...categoriesShown }
+    for (let category of Object.keys(categoriesShown)) {
+      newCategoriesShown[category] = newCategoriesSelected.includes(category)
+    }
+    setCategoriesShown(newCategoriesShown)
+  }
+
   return (
-    <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">View Categories</InputLabel>
-        <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
-          multiple
-          value={categoriesSelected}
-          onChange={handleChange}
-          input={
-            <OutlinedInput id="select-multiple-chip" label="View Categories" />
-          }
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
-              {selected.map((value) => (
-                <Chip
-                  key={value}
-                  label={categoryNames[value] || value}
-                  style={{ background: colors.lightviolet }}
-                />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
-          {Object.keys(categoriesShown)
-            .sort()
-            .map((category) => (
-              <MenuItem
-                key={category}
-                value={category}
-                style={getStyles(category, categoriesSelected, theme)}
-              >
-                {categoryNames[category] || category}
-              </MenuItem>
+    <FormControl
+      sx={{
+        m: 1,
+        width: 400,
+        '& .MuiChip-root': {
+          borderRadius: '5px',
+        },
+      }}
+    >
+      <InputLabel id="demo-multiple-chip-label">View Categories</InputLabel>
+      <Select
+        labelId="demo-multiple-chip-label"
+        id="demo-multiple-chip"
+        multiple
+        value={categoriesSelected}
+        onChange={handleChange}
+        input={
+          <OutlinedInput id="select-multiple-chip" label="View Categories" />
+        }
+        renderValue={(selected) => (
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
+            {selected.sort().map((value) => (
+              <Chip
+                key={value}
+                label={categoryNames[value] || value}
+                sx={{ background: colors.lightviolet }}
+                onMouseDown={(event) => {
+                  event.stopPropagation()
+                }}
+                onDelete={() => handleDelete(value)}
+                deleteIcon={<span>&times;</span>}
+              />
             ))}
-        </Select>
-      </FormControl>
-    </div>
+          </Box>
+        )}
+        MenuProps={MenuProps}
+      >
+        {Object.keys(categoriesShown)
+          .sort()
+          .map((category) => (
+            <MenuItem
+              key={category}
+              value={category}
+              style={getStyles(category, categoriesSelected, theme)}
+            >
+              {categoryNames[category] || category}
+            </MenuItem>
+          ))}
+      </Select>
+    </FormControl>
   )
 }
