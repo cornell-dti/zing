@@ -37,7 +37,11 @@ const App = () => {
             <PublicRoute exact path={HOME_PATH} component={Home} />
             {/* Anyone should be able to access the survey, signed in or not */}
             <Route exact path={`${SURVEY_PATH}/:courseId`} component={Survey} />
-            <PrivateRoute exact path={EDIT_ZING_PATH} component={EditZing} />
+            <PrivateRoute
+              exact
+              path={`${EDIT_ZING_PATH}/:courseId`}
+              component={EditZing}
+            />
             <PrivateRoute exact path={DASHBOARD_PATH} component={Dashboard} />
           </Switch>
         </Router>
