@@ -10,9 +10,11 @@ import {
   StyledLogo,
   StyledLogoWrapper,
   StyledText,
+  StyledGroupsHeader,
 } from 'EditZing/Styles/EditZing.style'
 import { GroupGrid } from 'EditZing/Components/GroupGrid'
 import { Student } from 'EditZing/Types/Student'
+import { CategoriesMultiselector } from 'EditZing/Components/CategoriesMultiselector'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import {
@@ -23,6 +25,7 @@ import {
 import { FetchedZing } from 'EditZing/Types/Student'
 import { ExportButton, exportButtons } from 'EditZing/Components/ExportButton'
 import { Box } from '@mui/material'
+import { ConstructionOutlined } from '@mui/icons-material'
 
 export const EditZing = () => {
   // get param that was set from history using location for zingId
@@ -63,6 +66,7 @@ export const EditZing = () => {
           }
         })
         setCategoriesShown(categoriesShown)
+        console.log(categoriesShown)
       }
     }
     fetchGroups(zingId)
@@ -87,7 +91,12 @@ export const EditZing = () => {
         <StyledMainContainer>
           <StyledFilterContainer>hi</StyledFilterContainer>
           <StyledGroupsContainer>
-            {/* <Button /> */}
+            <StyledGroupsHeader>
+              <CategoriesMultiselector
+                categoriesShown={categoriesShown}
+                setCategoriesShown={setCategoriesShown}
+              />
+            </StyledGroupsHeader>
             <DndProvider backend={HTML5Backend}>
               <Grid container spacing={1}>
                 {studentGroups.map((studentGroup, index) => (

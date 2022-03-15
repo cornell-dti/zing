@@ -139,7 +139,7 @@ export function makeItem(svg: JSX.Element, text: string) {
 
   return (
     <div>
-      {svg} {shortenedSurveyResponse[text]}
+      {svg} {shortenedSurveyResponse[text] || text}
     </div>
   )
 }

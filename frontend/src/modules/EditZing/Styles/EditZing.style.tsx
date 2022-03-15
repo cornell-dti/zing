@@ -14,6 +14,7 @@ export const StyledContainer = styled.div`
 export const StyledGroupsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 0rem 1rem 1rem 1rem;
 `
 
 export const StyledMainContainer = styled.div`
@@ -25,6 +26,12 @@ export const StyledMainContainer = styled.div`
 export const StyledFilterContainer = styled.div`
   height: 100%;
   width: 400%;
+`
+
+export const StyledGroupsHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 `
 
 export const StyledFlexHeader = styled.div`

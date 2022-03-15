@@ -54,7 +54,6 @@ export const StudentGrid = ({
       return '1.0'
     }
   }
-  console.log(categoriesShown)
   return (
     <StyledGrid item xs={6} ref={drop}>
       <div ref={drag}>
@@ -70,7 +69,7 @@ export const StudentGrid = ({
             className={classes.paper2}
             style={{
               opacity: determineOpacity(),
-              background: isOver ? colors.lightviolet : colors.verylightviolet,
+              background: isOver ? colors.darkgreen : colors.verylightviolet,
             }}
           >
             {/* displays student response answers */}
