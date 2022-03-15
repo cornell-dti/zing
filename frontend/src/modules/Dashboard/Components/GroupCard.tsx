@@ -21,6 +21,7 @@ import {
   CSV_API,
   BACKEND_ROOT,
   CREATE_GROUPS_API,
+  DASHBOARD_PATH,
 } from '@core'
 import axios from 'axios'
 import { Alert, Button } from '@mui/material'
@@ -65,9 +66,9 @@ export const GroupCard = ({
           variant={new Date() > deadline ? 'outlined' : 'contained'}
           color={new Date() > deadline ? 'secondary' : 'primary'}
           onClick={() => {
-            const index = window.location.href.indexOf('/dashboard')
+            const index = window.location.href.indexOf(DASHBOARD_PATH)
             const baseUrl = window.location.href.slice(0, index)
-            navigator.clipboard.writeText(`${baseUrl}${SURVEY_PATH}?id=${id}`)
+            navigator.clipboard.writeText(`${baseUrl}${SURVEY_PATH}/${id}`)
             setOpen(true)
           }}
         >

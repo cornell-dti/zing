@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom'
+import { useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import {
@@ -24,6 +26,9 @@ export const EditZing = () => {
   const query = new URLSearchParams(search)
   const id = query.get('id')
   const [zingId] = useState(id)
+
+  // const { zingId } = useParams<{ id: string }>()
+  // const { courseId } = useParams<{ courseId: string }>()
 
   // buttons that are used for the "export" feature
   const exportButtons = [
