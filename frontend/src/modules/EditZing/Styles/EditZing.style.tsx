@@ -23,11 +23,6 @@ export const StyledMainContainer = styled.div`
   border: 1px solid ${colors.lightgray};
 `
 
-export const StyledFilterContainer = styled.div`
-  height: 100%;
-  width: 400%;
-`
-
 export const StyledGroupsHeader = styled.div`
   display: flex;
   flex-direction: row;
@@ -49,12 +44,12 @@ const Logo = ({ className }: StyledComponent) => (
   </div>
 )
 
-export const StyledText = styled.div`
+export const StyledClassName = styled.div`
   ${h3};
   font-weight: 400;
   line-height: 10px;
   text-align: center;
-  color: ${colors.mediumviolet};
+  color: ${colors.black};
   padding: 1.5rem;
 `
 

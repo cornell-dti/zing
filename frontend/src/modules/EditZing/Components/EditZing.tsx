@@ -3,13 +3,12 @@ import { useLocation } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import {
   StyledGroupsContainer,
-  StyledFilterContainer,
   StyledMainContainer,
   StyledContainer,
   StyledFlexHeader,
   StyledLogo,
   StyledLogoWrapper,
-  StyledText,
+  StyledClassName,
   StyledGroupsHeader,
 } from 'EditZing/Styles/EditZing.style'
 import { GroupGrid } from 'EditZing/Components/GroupGrid'
@@ -25,6 +24,7 @@ import {
 import { FetchedZing } from 'EditZing/Types/Student'
 import { ExportButton, exportButtons } from 'EditZing/Components/ExportButton'
 import { Box } from '@mui/material'
+import { FilterSidebar } from './FilterSidebar'
 
 export const EditZing = () => {
   // get param that was set from history using location for zingId
@@ -81,7 +81,7 @@ export const EditZing = () => {
         <StyledFlexHeader>
           <StyledLogoWrapper>
             <StyledLogo />
-            <StyledText>{zingData.name}</StyledText>
+            <StyledClassName>{zingData.name}</StyledClassName>
           </StyledLogoWrapper>
           <ExportButton
             label="Export"
@@ -91,7 +91,7 @@ export const EditZing = () => {
           />
         </StyledFlexHeader>
         <StyledMainContainer>
-          <StyledFilterContainer>hi</StyledFilterContainer>
+          <FilterSidebar />
           <StyledGroupsContainer>
             <StyledGroupsHeader>
               <CategoriesMultiselector
@@ -125,7 +125,7 @@ export const EditZing = () => {
     // TODO: add a real loading screen asset later
     return (
       <StyledContainer>
-        <StyledText>Loading</StyledText>
+        <StyledClassName>Loading</StyledClassName>
       </StyledContainer>
     )
   }
