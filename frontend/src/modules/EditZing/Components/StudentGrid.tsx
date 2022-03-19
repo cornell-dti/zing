@@ -61,6 +61,7 @@ export const StudentGrid = ({
           style={{
             opacity: determineOpacity(),
             background: isOver ? colors.lightviolet : colors.verylightviolet,
+            cursor: isDragging ? 'grabbing' : 'grab',
           }}
           className={classes.paper1}
         >
@@ -69,7 +70,8 @@ export const StudentGrid = ({
             className={classes.paper2}
             style={{
               opacity: determineOpacity(),
-              background: isOver ? colors.darkgreen : colors.verylightviolet,
+              background: isOver ? colors.lightviolet : colors.verylightviolet,
+              cursor: isDragging ? 'grabbing' : 'grab',
             }}
           >
             {/* displays student response answers */}

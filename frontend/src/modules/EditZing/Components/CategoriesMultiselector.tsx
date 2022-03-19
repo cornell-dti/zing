@@ -10,6 +10,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import Chip from '@mui/material/Chip'
 import { CategoriesMultiselectorProps } from 'EditZing/Types/ComponentProps'
 import { StringJSON } from 'EditZing/Types/Student'
+import { getChipIcon } from './Helpers'
 const categoryNames: StringJSON = require('EditZing/categoryNames')
 
 const ITEM_HEIGHT = 48
@@ -29,6 +30,7 @@ function getStyles(name: string, categoriesSelected: string[], theme: Theme) {
       categoriesSelected.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
+    height: ITEM_HEIGHT,
   }
 }
 
@@ -108,6 +110,7 @@ export const CategoriesMultiselector = ({
                 onMouseDown={(event) => {
                   event.stopPropagation()
                 }}
+                icon={getChipIcon(value)}
                 onDelete={() => handleDelete(value)}
                 deleteIcon={<span>&times;</span>}
               />
@@ -124,7 +127,7 @@ export const CategoriesMultiselector = ({
               value={category}
               style={getStyles(category, categoriesSelected, theme)}
             >
-              {categoryNames[category] || category}
+              {getChipIcon(category)} {categoryNames[category] || category}
             </MenuItem>
           ))}
       </Select>

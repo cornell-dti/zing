@@ -8,8 +8,8 @@ import {
   StyledGroupText,
   StyledGroupTextWrapper,
   StyledGroupContainer,
-  StyledMetricBox,
-  StyledMetricText,
+  // StyledMetricBox,
+  // StyledMetricText,
 } from 'EditZing/Styles/StudentAndGroup.style'
 
 export const GroupGrid = ({
@@ -55,9 +55,9 @@ export const GroupGrid = ({
       >
         <StyledGroupTextWrapper>
           <StyledGroupText>{'Group ' + String(groupIndex + 1)}</StyledGroupText>
-          <StyledMetricBox>
+          {/* <StyledMetricBox>
             <StyledMetricText>4.0</StyledMetricText>
-          </StyledMetricBox>
+          </StyledMetricBox> */}
         </StyledGroupTextWrapper>
         <Grid container spacing={2}>
           {studentList.map((student, index) => (
