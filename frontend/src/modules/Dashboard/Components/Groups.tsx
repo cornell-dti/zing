@@ -26,6 +26,7 @@ export const Groups = ({
           {groups.map((g, i) => (
             <GroupCard
               key={i}
+              componentKey={i}
               id={g.courseId}
               name={g.name}
               submitted={300}

@@ -26,7 +26,7 @@ import axios from 'axios'
 import { Alert, Button } from '@mui/material'
 
 export const GroupCard = ({
-  key,
+  componentKey,
   id,
   name,
   submitted,
@@ -48,7 +48,7 @@ export const GroupCard = ({
   }
 
   return (
-    <StyledContainer key={key}>
+    <StyledContainer key={componentKey}>
       <StyledName>{name}</StyledName>
       <StyledRows>
         <StyledRow>
@@ -122,7 +122,7 @@ export const GroupCard = ({
 }
 
 interface GroupCardProps {
-  key: number
+  componentKey: number
   id: string
   name: string
   submitted: number

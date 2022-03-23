@@ -5,7 +5,6 @@ import {
   FilterHeading,
   FilterHeadingContainer,
 } from 'EditZing/Styles/FilterSidebar.style'
-import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -19,16 +18,33 @@ export const FilterSidebar = ({
   filtersSelected,
   setFiltersSelected,
 }: FilterSidebarProps) => {
-  console.warn(filterData)
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
+      console.warn(filterData.identity.options)
       setFiltersSelected([...filtersSelected, event.target.name])
     } else {
       setFiltersSelected(
         filtersSelected.filter((name) => name !== event.target.name)
       )
     }
+  }
+
+  const filterComponent = (option: string) => {
+    return (
+      <FormControlLabel
+        key={option + '-filtercheckbox'}
+        control={
+          <Checkbox
+            checked={filtersSelected.includes(option)}
+            onChange={handleChange}
+            name={option}
+            value={option}
+            color="primary"
+          />
+        }
+        label={option}
+      />
+    )
   }
 
   const filterComponents = () => {
@@ -42,34 +58,22 @@ export const FilterSidebar = ({
                 {categoryNames[key] || filterData[key].questionDescription}
               </FilterHeading>
             </FilterHeadingContainer>
-            <Box sx={{ display: 'flex' }}>
-              <FormControl
-                sx={{ m: 3 }}
-                component="fieldset"
-                variant="standard"
-              >
-                <FormGroup>
-                  <FormControlLabel
-                    control={<Checkbox onChange={handleChange} name="gilad" />}
-                    label="Gilad Gray"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox onChange={handleChange} name="jason" />}
-                    label="Jason Killian"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox onChange={handleChange} name="antoine" />
-                    }
-                    label="Antoine Llorca"
-                  />
-                </FormGroup>
-              </FormControl>
-            </Box>
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormGroup>
+                {filterData[key].options.map((option) => {
+                  return filterComponent(option.description)
+                })}
+                <FormControlLabel
+                  control={<Checkbox onChange={handleChange} name="jason" />}
+                  label="Jason Killian"
+                />
+              </FormGroup>
+            </FormControl>
           </FilterContainer>
         )
       })
   }
+
   return (
     <FiltersContainer>
       <FilterContainer>

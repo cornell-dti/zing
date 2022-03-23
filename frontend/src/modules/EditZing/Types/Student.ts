@@ -10,9 +10,14 @@ export type FetchedZing = {
   group: Group
 }
 
+type Option = {
+  hash: string
+  description: string
+}
+
 type Question = {
   questionDescription: string
-  options: string[]
+  options: Option[]
 }
 
 export type FilterData = {
