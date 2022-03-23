@@ -1,17 +1,19 @@
 import { colors, h4 } from '@core'
 import styled from 'styled-components'
 
+export const FiltersContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+`
+
 export const FilterContainer = styled.div`
-  height: 100%;
-  width: 400%;
+  width: 20rem;
   padding: 1.5rem 0rem 1.5rem 2rem;
   border-bottom: 1px solid ${colors.lightgray};
 `
 
-export const FilterHeadingContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-`
+export const FilterHeadingContainer = styled.div``
 
 export const FilterHeading = styled.div`
   ${h4};

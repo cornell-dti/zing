@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router'
 import axios from 'axios'
 
@@ -8,7 +8,6 @@ import { StepBegin } from 'Survey/Components/StepBegin'
 import { StepRadio } from 'Survey/Components/StepRadio'
 import { StepFinal } from 'Survey/Components/StepFinal'
 import { SurveyForm } from '@core/Types'
-import { useEffect } from 'react'
 import { API_ROOT, COURSE_API, HOME_PATH, SURVEY_API } from '@core/Constants'
 
 export const Survey = () => {

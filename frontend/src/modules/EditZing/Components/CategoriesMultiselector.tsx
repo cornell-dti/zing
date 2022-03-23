@@ -108,7 +108,7 @@ export const CategoriesMultiselector = ({
                 label={categoryNames[value] || value}
                 sx={{ background: colors.lightviolet }}
                 onMouseDown={(event) => {
-                  event.stopPropagation()
+                  event.stopPropagation() // Prevent click from being captured by parent
                 }}
                 icon={getChipIcon(value)}
                 onDelete={() => handleDelete(value)}

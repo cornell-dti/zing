@@ -1,3 +1,5 @@
+// we should probably rename this module to models or data types or something
+
 export type FetchedZing = {
   name: string
   creator: string
@@ -6,6 +8,15 @@ export type FetchedZing = {
   courseId: string
   survey: any // bad but lazy
   group: Group
+}
+
+type Question = {
+  questionDescription: string
+  options: string[]
+}
+
+export type FilterData = {
+  [key: string]: Question
 }
 
 // really should be groups (plural), but is formatted this way to follow woosang's response structure

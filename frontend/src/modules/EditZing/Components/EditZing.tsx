@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import axios from 'axios'
 import Grid from '@mui/material/Grid'
 import {
   StyledGroupsContainer,
@@ -11,6 +12,8 @@ import {
   StyledClassName,
   StyledGroupsHeader,
 } from 'EditZing/Styles/EditZing.style'
+import { API_ROOT, COURSE_API, SURVEY_API } from '@core/Constants'
+import { FilterData } from 'EditZing/Types/Student'
 import { GroupGrid } from 'EditZing/Components/GroupGrid'
 import { Student } from 'EditZing/Types/Student'
 import { CategoriesMultiselector } from 'EditZing/Components/CategoriesMultiselector'
@@ -32,8 +35,6 @@ export const EditZing = () => {
   const query = new URLSearchParams(search)
   const id = query.get('id')
   const [zingId] = useState(id)
-  // TODO: true for now since there's no toggle; will be false when toggle is added (or not necessary at all)
-  const [filterMode, setFilterMode] = useState(true)
 
   const fakeStudentGroupsFromJson: Student[][] = require('EditZing/fakeData.json')
   // actual data fetched from the server
@@ -42,6 +43,9 @@ export const EditZing = () => {
   const [studentGroups, setStudentGroups] = useState(fakeStudentGroupsFromJson)
   const [categoriesShown, setCategoriesShown] = useState({})
 
+  const [filterData, setFilterData] = useState<FilterData>({})
+  const [filtersSelected, setFiltersSelected] = useState<string[]>([])
+
   useEffect(() => {
     async function fetchGroups(zingId: string | null) {
       if (zingId) {
@@ -49,11 +53,9 @@ export const EditZing = () => {
         setZingData(zingData)
 
         const zingGroup = zingData.group
-        let studentGroups: Student[][] = []
-        for (let id in zingGroup) {
-          const studentList = zingGroup[id].members
-          studentGroups.push(studentList)
-        }
+        const studentGroups: Student[][] = Object.keys(zingGroup).map(
+          (id) => zingGroup[id].members
+        )
         setStudentGroups(studentGroups)
 
         let categoriesShown = {}
@@ -67,11 +69,33 @@ export const EditZing = () => {
             }
           }
         })
-        console.warn(categoriesShown)
         setCategoriesShown(categoriesShown)
       }
     }
+
+    async function fetchSurvey(zingId: string | null) {
+      axios.get(`${API_ROOT}${COURSE_API}/${zingId}${SURVEY_API}`).then(
+        (response: any) => {
+          let filterData: FilterData = {}
+          response.data.questions.forEach((question: any) => {
+            filterData = {
+              ...filterData,
+              [question.hash]: {
+                questionDescription: question.description,
+                options: question.options,
+              },
+            }
+          })
+          setFilterData(filterData)
+          // console.log(response.data)
+        },
+        (error: any) => {
+          console.warn(error)
+        }
+      )
+    }
     fetchGroups(zingId)
+    fetchSurvey(zingId)
   }, [zingId])
 
   if (zingData) {
@@ -91,7 +115,12 @@ export const EditZing = () => {
           />
         </StyledFlexHeader>
         <StyledMainContainer>
-          <FilterSidebar />
+          <FilterSidebar
+            filterData={filterData}
+            setFilterData={setFilterData}
+            filtersSelected={filtersSelected}
+            setFiltersSelected={setFiltersSelected}
+          />
           <StyledGroupsContainer>
             <StyledGroupsHeader>
               <CategoriesMultiselector
@@ -111,7 +140,6 @@ export const EditZing = () => {
                     studentGroups={studentGroups}
                     moveStudentBetweenGrids={moveStudentBetweenGrids}
                     moveStudentWithinGrid={moveStudentWithinGrid}
-                    filterMode={filterMode}
                     categoriesShown={categoriesShown}
                   />
                 ))}

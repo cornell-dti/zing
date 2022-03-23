@@ -20,11 +20,8 @@ export const GroupGrid = ({
   zingId,
   setStudentGroups,
   studentGroups,
-  filterMode,
   categoriesShown,
 }: GroupGridProps) => {
-  // add useEffect to react to filterMode changes to alter breakpoints for grids
-  const [breakpoints] = useState<GridSize[]>([12, 7, 5, 4])
   const [{ isOver }, drop] = useDrop({
     accept: STUDENT_TYPE,
     drop: (item: DnDStudentTransferType) => {
@@ -42,13 +39,7 @@ export const GroupGrid = ({
   })
 
   return (
-    <Grid
-      item
-      xs={breakpoints[0]}
-      sm={breakpoints[1]}
-      md={breakpoints[2]}
-      lg={breakpoints[3]}
-    >
+    <Grid item xs={12} sm={7} md={5} lg={4}>
       <StyledGroupContainer
         ref={drop}
         style={{ opacity: isOver ? '0.6' : '1' }}
