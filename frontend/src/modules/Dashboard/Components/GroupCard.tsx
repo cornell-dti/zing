@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import moment from 'moment'
 import Snackbar from '@mui/material/Snackbar'
 
@@ -21,6 +21,7 @@ import {
   CSV_API,
   BACKEND_ROOT,
   CREATE_GROUPS_API,
+  DASHBOARD_PATH,
 } from '@core'
 import axios from 'axios'
 import { Alert, Button } from '@mui/material'
@@ -65,9 +66,9 @@ export const GroupCard = ({
           variant={new Date() > deadline ? 'outlined' : 'contained'}
           color={new Date() > deadline ? 'secondary' : 'primary'}
           onClick={() => {
-            const index = window.location.href.indexOf('/dashboard')
+            const index = window.location.href.indexOf(DASHBOARD_PATH)
             const baseUrl = window.location.href.slice(0, index)
-            navigator.clipboard.writeText(`${baseUrl}${SURVEY_PATH}?id=${id}`)
+            navigator.clipboard.writeText(`${baseUrl}${SURVEY_PATH}/${id}`)
             setOpen(true)
           }}
         >
@@ -86,7 +87,7 @@ export const GroupCard = ({
                     .catch((error: any) => {
                       console.log(error)
                     })
-                    .finally(() => history.push(`/editZing/?id=${id}`))
+                    .finally(() => history.push(`/edit/${id}`))
                 },
                 (error: any) => {
                   console.log(error)

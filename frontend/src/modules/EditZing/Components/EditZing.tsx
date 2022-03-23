@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import {
@@ -16,14 +18,38 @@ import { getZingGroups, saveSwapStudent } from './Helpers'
 import { FetchedZing } from 'EditZing/Types/Student'
 import { ExportButton } from 'EditZing/Components/ExportButton'
 import { Box } from '@mui/material'
-import { CSV_FILE, DOWNLOAD_ALL } from '@core'
+import { CSV_FILE, DOWNLOAD_ALL, HOME_PATH } from '@core'
+
+// import {
+//   CourseInfo,
+//   CourseInfoResponse,
+//   CourseStudentDataResponse,
+//   Group,
+// } from 'EditZing/Types/CourseInfo'
+// import axios, { AxiosResponse } from 'axios'
 
 export const EditZing = () => {
   // get param that was set from history using location
-  const { search } = useLocation()
-  const query = new URLSearchParams(search)
-  const id = query.get('id')
-  const [zingId] = useState(id)
+  const history = useHistory()
+  const { courseId } = useParams<{ courseId: string }>()
+
+  useEffect(() => {
+    if (!courseId) history.push(courseId)
+  }, [courseId, history])
+
+  // const [courseInfo, setCourseInfo] = useState<CourseInfo>()
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`${API_ROOT}${COURSE_API}/${courseId}`)
+  //     .then((res: AxiosResponse<CourseInfoResponse>) => {
+  //       setCourseInfo(res.data.data)
+  //     })
+  //     .catch((error) => {
+  //       console.error(error)
+  //       // setShowError(true)
+  //     })
+  // }, [courseId])
 
   // buttons that are used for the "export" feature
   const exportButtons = [
@@ -39,9 +65,9 @@ export const EditZing = () => {
   // student groups parsed out from zingData into a Student[][]
   const [studentGroups, setStudentGroups] = useState(fakeStudentGroupsFromJson)
   useEffect(() => {
-    async function fetchGroups(zingId: string | null) {
-      if (zingId) {
-        const zingData = await getZingGroups(zingId)
+    async function fetchGroups(courseId: string | null) {
+      if (courseId) {
+        const zingData = await getZingGroups(courseId)
         setZingData(zingData)
 
         // parse out groups into Student[][]
@@ -54,8 +80,8 @@ export const EditZing = () => {
         setStudentGroups(realData)
       }
     }
-    fetchGroups(zingId)
-  }, [zingId])
+    fetchGroups(courseId)
+  }, [courseId])
 
   /** Move a student from one grid to a destination grid based
    * on a starting and destination grid index */
@@ -93,7 +119,7 @@ export const EditZing = () => {
         })
       )
       saveSwapStudent(
-        zingId,
+        courseId,
         studentToMove.email,
         startingIndex + 1,
         destinationIndex + 1

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory, useLocation } from 'react-router'
+import { useHistory, useLocation, useParams } from 'react-router'
 import axios from 'axios'
 
 import { StyledContainer1, StyledContainer2 } from 'Survey/Styles/Survey.style'
@@ -12,15 +12,12 @@ import { useEffect } from 'react'
 import { API_ROOT, COURSE_API, HOME_PATH, SURVEY_API } from '@core/Constants'
 
 export const Survey = () => {
-  const { search } = useLocation()
   const history = useHistory()
-
-  const query = new URLSearchParams(search)
-  const surveyId = query.get('id')
+  const { courseId } = useParams<{ courseId: string }>()
 
   useEffect(() => {
-    if (!surveyId) history.push(HOME_PATH)
-  }, [surveyId, history])
+    if (!courseId) history.push(HOME_PATH)
+  }, [courseId, history])
 
   const [showError, setShowError] = useState(false)
   const [currStep, setCurrStep] = useState(0)
@@ -33,7 +30,7 @@ export const Survey = () => {
   // ^ here it is baby:
   useEffect(() => {
     const fetcher = async () => {
-      axios.get(`${API_ROOT}${COURSE_API}/${surveyId}${SURVEY_API}`).then(
+      axios.get(`${API_ROOT}${COURSE_API}/${courseId}${SURVEY_API}`).then(
         (response: any) => {
           setSurvey(response.data)
         },
@@ -43,7 +40,7 @@ export const Survey = () => {
       )
     }
     fetcher()
-  }, [surveyId])
+  }, [courseId])
 
   // Form answer props
   const [nameAnswer, setNameAnswer] = useState('')
@@ -67,7 +64,7 @@ export const Survey = () => {
       surveyResponse: mcData,
     }
     axios
-      .post(`${API_ROOT}${COURSE_API}/${surveyId}${SURVEY_API}`, surveyData)
+      .post(`${API_ROOT}${COURSE_API}/${courseId}${SURVEY_API}`, surveyData)
       .then(
         (response: any) => {
           console.log(response)

@@ -1,6 +1,6 @@
 export const HOME_PATH = '/'
 export const SURVEY_PATH = '/survey'
-export const EDIT_ZING_PATH = '/editZing'
+export const EDIT_ZING_PATH = '/edit'
 export const DASHBOARD_PATH = '/dashboard'
 
 export const BACKEND_ROOT =
