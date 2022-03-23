@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import moment from 'moment'
 import Snackbar from '@mui/material/Snackbar'
 
@@ -87,7 +87,7 @@ export const GroupCard = ({
                     .catch((error: any) => {
                       console.log(error)
                     })
-                    .finally(() => history.push(`/editZing/?id=${id}`))
+                    .finally(() => history.push(`/edit/${id}`))
                 },
                 (error: any) => {
                   console.log(error)

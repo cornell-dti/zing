@@ -20,14 +20,36 @@ import { ExportButton } from 'EditZing/Components/ExportButton'
 import { Box } from '@mui/material'
 import { CSV_FILE, DOWNLOAD_ALL, HOME_PATH } from '@core'
 
+// import {
+//   CourseInfo,
+//   CourseInfoResponse,
+//   CourseStudentDataResponse,
+//   Group,
+// } from 'EditZing/Types/CourseInfo'
+// import axios, { AxiosResponse } from 'axios'
+
 export const EditZing = () => {
   // get param that was set from history using location
   const history = useHistory()
   const { courseId } = useParams<{ courseId: string }>()
 
   useEffect(() => {
-    if (!courseId) history.push(HOME_PATH)
+    if (!courseId) history.push(courseId)
   }, [courseId, history])
+
+  // const [courseInfo, setCourseInfo] = useState<CourseInfo>()
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`${API_ROOT}${COURSE_API}/${courseId}`)
+  //     .then((res: AxiosResponse<CourseInfoResponse>) => {
+  //       setCourseInfo(res.data.data)
+  //     })
+  //     .catch((error) => {
+  //       console.error(error)
+  //       // setShowError(true)
+  //     })
+  // }, [courseId])
 
   // buttons that are used for the "export" feature
   const exportButtons = [
