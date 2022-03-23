@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Paper from '@mui/material/Paper'
 import { STUDENT_TYPE, DnDStudentTransferType } from 'EditZing/Types/Student'
 import { StudentGridProps } from 'EditZing/Types/ComponentProps'
@@ -15,6 +16,7 @@ export const StudentGrid = ({
   studentGroups,
   setStudentGroups,
   categoriesShown,
+  filtersSelected,
 }: StudentGridProps) => {
   const [{ isDragging }, drag] = useDrag({
     item: {
@@ -45,6 +47,37 @@ export const StudentGrid = ({
     }),
   })
 
+  const [selectedByFilter, setSelectedByFilter] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (Object.keys(filtersSelected).length === 0) {
+      setSelectedByFilter(false)
+      return
+    }
+    console.warn(filtersSelected)
+    // iterate through all categories with selected filters (AND)
+    let satisfiedAND = true
+    Object.values(filtersSelected).every((filterCriteriaList) => {
+      // for each category, iterate thru all selected filters (OR)
+      let satisfiedOR = false
+      for (let index in filterCriteriaList) {
+        const filterCriteria = filterCriteriaList[index]
+        satisfiedOR =
+          satisfiedOR || Object.values(student).includes(filterCriteria)
+      }
+      satisfiedAND = satisfiedAND && satisfiedOR
+      if (!satisfiedAND) {
+        return false // breaks out of every loop when falsy value is returned
+      }
+      return true // return non-falsy to continue
+    })
+    setSelectedByFilter(satisfiedAND)
+  }, [filtersSelected, student])
+
+  function determineBackground() {
+    return selectedByFilter ? colors.mediumviolet : colors.paleviolet
+  }
+
   function determineOpacity() {
     if (isDragging) {
       return '0'
@@ -60,7 +93,7 @@ export const StudentGrid = ({
         <Paper
           style={{
             opacity: determineOpacity(),
-            background: isOver ? colors.lightviolet : colors.verylightviolet,
+            background: determineBackground(),
             cursor: isDragging ? 'grabbing' : 'grab',
           }}
           className={classes.paper1}
@@ -70,7 +103,7 @@ export const StudentGrid = ({
             className={classes.paper2}
             style={{
               opacity: determineOpacity(),
-              background: isOver ? colors.lightviolet : colors.verylightviolet,
+              background: determineBackground(),
               cursor: isDragging ? 'grabbing' : 'grab',
             }}
           >

@@ -9,9 +9,7 @@ import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import Chip from '@mui/material/Chip'
 import { CategoriesMultiselectorProps } from 'EditZing/Types/ComponentProps'
-import { StringJSON } from 'EditZing/Types/Student'
 import { getChipIcon } from './Helpers'
-const categoryNames: StringJSON = require('EditZing/categoryNames')
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -105,7 +103,7 @@ export const CategoriesMultiselector = ({
             {selected.sort().map((value) => (
               <Chip
                 key={value}
-                label={categoryNames[value] || value}
+                label={value}
                 sx={{ background: colors.lightviolet }}
                 onMouseDown={(event) => {
                   event.stopPropagation() // Prevent click from being captured by parent
@@ -127,7 +125,7 @@ export const CategoriesMultiselector = ({
               value={category}
               style={getStyles(category, categoriesSelected, theme)}
             >
-              {getChipIcon(category)} {categoryNames[category] || category}
+              {getChipIcon(category)} {category}
             </MenuItem>
           ))}
       </Select>

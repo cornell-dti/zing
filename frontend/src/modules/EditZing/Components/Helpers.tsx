@@ -12,7 +12,6 @@ import {
 import { CategoriesShown } from 'EditZing/Types/ComponentProps'
 import { SvgIcon } from '@mui/material'
 const axios = require('axios')
-const shortenedSurveyResponse: StringJSON = require('EditZing/shortenedSurveyResponse.json')
 
 export async function getZingGroups(docId: String): Promise<FetchedZing> {
   return fetch(
@@ -136,7 +135,7 @@ export function makeItem(svg: JSX.Element, text: string) {
 
   return (
     <div>
-      {svg} {shortenedSurveyResponse[text] || text}
+      {svg} {text}
     </div>
   )
 }

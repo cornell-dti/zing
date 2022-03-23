@@ -21,6 +21,7 @@ export const GroupGrid = ({
   setStudentGroups,
   studentGroups,
   categoriesShown,
+  filtersSelected,
 }: GroupGridProps) => {
   const [{ isOver }, drop] = useDrop({
     accept: STUDENT_TYPE,
@@ -53,6 +54,7 @@ export const GroupGrid = ({
         <Grid container spacing={2}>
           {studentList.map((student, index) => (
             <StudentGrid
+              filtersSelected={filtersSelected}
               key={index}
               moveStudentWithinGrid={moveStudentWithinGrid}
               studentIndex={index}

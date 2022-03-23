@@ -13,7 +13,7 @@ import {
   StyledGroupsHeader,
 } from 'EditZing/Styles/EditZing.style'
 import { API_ROOT, COURSE_API, SURVEY_API } from '@core/Constants'
-import { FilterData } from 'EditZing/Types/Student'
+import { FilterData, FiltersSelected } from 'EditZing/Types/Student'
 import { GroupGrid } from 'EditZing/Components/GroupGrid'
 import { Student } from 'EditZing/Types/Student'
 import { CategoriesMultiselector } from 'EditZing/Components/CategoriesMultiselector'
@@ -44,7 +44,7 @@ export const EditZing = () => {
   const [categoriesShown, setCategoriesShown] = useState({})
 
   const [filterData, setFilterData] = useState<FilterData>({})
-  const [filtersSelected, setFiltersSelected] = useState<string[]>([])
+  const [filtersSelected, setFiltersSelected] = useState<FiltersSelected>({})
 
   useEffect(() => {
     async function fetchGroups(zingId: string | null) {
@@ -87,10 +87,9 @@ export const EditZing = () => {
             }
           })
           setFilterData(filterData)
-          // console.log(response.data)
         },
         (error: any) => {
-          console.warn(error)
+          alert(error)
         }
       )
     }
@@ -141,6 +140,7 @@ export const EditZing = () => {
                     moveStudentBetweenGrids={moveStudentBetweenGrids}
                     moveStudentWithinGrid={moveStudentWithinGrid}
                     categoriesShown={categoriesShown}
+                    filtersSelected={filtersSelected}
                   />
                 ))}
               </Grid>

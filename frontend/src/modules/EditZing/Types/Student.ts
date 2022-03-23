@@ -6,22 +6,8 @@ export type FetchedZing = {
   dueDateStr: string
   minGroupSize: string
   courseId: string
-  survey: any // bad but lazy
+  survey: any // bad but lazy; goddamnit sean
   group: Group
-}
-
-type Option = {
-  hash: string
-  description: string
-}
-
-type Question = {
-  questionDescription: string
-  options: Option[]
-}
-
-export type FilterData = {
-  [key: string]: Question
 }
 
 // really should be groups (plural), but is formatted this way to follow woosang's response structure
@@ -80,4 +66,22 @@ export type StringJSON = {
 
 export type ResponseToSVGIdx = {
   [key: string]: number
+}
+
+type Option = {
+  hash: string
+  description: string
+}
+
+type Question = {
+  questionDescription: string
+  options: Option[]
+}
+
+export type FilterData = {
+  [key: string]: Question
+}
+
+export type FiltersSelected = {
+  [key: string]: string[]
 }

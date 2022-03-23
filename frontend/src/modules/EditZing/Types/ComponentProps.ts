@@ -1,4 +1,4 @@
-import { Student, FilterData } from './Student'
+import { Student, FilterData, FiltersSelected } from './Student'
 
 export interface GroupGridProps {
   studentList: Student[]
@@ -22,6 +22,7 @@ export interface GroupGridProps {
     setStudentGroups: Function
   ) => void
   categoriesShown: CategoriesShown
+  filtersSelected: FiltersSelected
 }
 
 export type CategoriesShown = {
@@ -44,12 +45,13 @@ export interface StudentGridProps {
     setStudentGroups: Function
   ) => void
   categoriesShown: CategoriesShown
+  filtersSelected: FiltersSelected
 }
 
 export interface FilterSidebarProps {
   filterData: FilterData
   setFilterData: Function
-  filtersSelected: string[]
+  filtersSelected: FiltersSelected
   setFiltersSelected: Function
 }
 

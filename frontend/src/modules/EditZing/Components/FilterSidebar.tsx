@@ -10,7 +10,7 @@ import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import { StringJSON } from 'EditZing/Types/Student'
-const categoryNames: StringJSON = require('EditZing/categoryNames')
+import { useEffect } from 'react'
 
 export const FilterSidebar = ({
   filterData,
@@ -18,31 +18,45 @@ export const FilterSidebar = ({
   filtersSelected,
   setFiltersSelected,
 }: FilterSidebarProps) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      console.warn(filterData.identity.options)
-      setFiltersSelected([...filtersSelected, event.target.name])
-    } else {
-      setFiltersSelected(
-        filtersSelected.filter((name) => name !== event.target.name)
-      )
+  useEffect(() => {
+    console.log(filtersSelected)
+  }, [filtersSelected])
+  const filterComponent = (optionStr: string, category: string) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.checked) {
+        if (!filtersSelected[category]) {
+          setFiltersSelected({ ...filtersSelected, [category]: [optionStr] })
+        } else {
+          setFiltersSelected({
+            ...filtersSelected,
+            [category]: [...filtersSelected[category], optionStr],
+          })
+        }
+      } else {
+        let newFiltersSelected = {
+          ...filtersSelected,
+          [category]: filtersSelected[category].filter(
+            (option) => option !== optionStr
+          ),
+        }
+        if (newFiltersSelected[category].length === 0) {
+          delete newFiltersSelected[category]
+        }
+        setFiltersSelected(newFiltersSelected)
+      }
     }
-  }
-
-  const filterComponent = (option: string) => {
     return (
       <FormControlLabel
-        key={option + '-filtercheckbox'}
+        key={optionStr + '-filtercheckbox'}
         control={
           <Checkbox
-            checked={filtersSelected.includes(option)}
             onChange={handleChange}
-            name={option}
-            value={option}
+            name={optionStr}
+            value={optionStr}
             color="primary"
           />
         }
-        label={option}
+        label={optionStr}
       />
     )
   }
@@ -51,22 +65,21 @@ export const FilterSidebar = ({
     return Object.keys(filterData)
       .filter((key) => key !== 'location') // remove this once location is removed from backend as a default question
       .map((key) => {
+        const category: string = filterData[key].questionDescription
         return (
           <FilterContainer key={key}>
             <FilterHeadingContainer>
-              <FilterHeading>
-                {categoryNames[key] || filterData[key].questionDescription}
-              </FilterHeading>
+              <FilterHeading>{category}</FilterHeading>
             </FilterHeadingContainer>
-            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+            <FormControl
+              sx={{ m: 3, margin: '0.5rem 0 0 0' }}
+              component="fieldset"
+              variant="standard"
+            >
               <FormGroup>
                 {filterData[key].options.map((option) => {
-                  return filterComponent(option.description)
+                  return filterComponent(option.description, category)
                 })}
-                <FormControlLabel
-                  control={<Checkbox onChange={handleChange} name="jason" />}
-                  label="Jason Killian"
-                />
               </FormGroup>
             </FormControl>
           </FilterContainer>
