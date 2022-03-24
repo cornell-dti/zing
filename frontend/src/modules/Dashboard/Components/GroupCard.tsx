@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import moment from 'moment'
 import Snackbar from '@mui/material/Snackbar'
 
