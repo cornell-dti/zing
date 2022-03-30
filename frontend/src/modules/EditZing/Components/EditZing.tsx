@@ -20,6 +20,8 @@ import { ExportButton } from 'EditZing/Components/ExportButton'
 import { Box } from '@mui/material'
 import { CSV_FILE, DOWNLOAD_ALL, HOME_PATH } from '@core'
 
+import { MatchLoading } from './MatchLoading'
+
 export const EditZing = () => {
   // get param that was set from history using location
   const history = useHistory()
@@ -42,12 +44,16 @@ export const EditZing = () => {
   const [zingData, setZingData] = useState<FetchedZing | null>(null)
   // student groups parsed out from zingData into a Student[][]
   const [studentGroups, setStudentGroups] = useState(fakeStudentGroupsFromJson)
+
+  const [showMatchLoading, setShowMatchLoading] = useState(false)
+  const [isCurrentlyGrouping, setIsCurrentlyGrouping] = useState(false)
+
   useEffect(() => {
+    setShowMatchLoading(true)
     async function fetchGroups(courseId: string | null) {
       if (courseId) {
         const zingData = await getZingGroups(courseId)
         setZingData(zingData)
-
         // parse out groups into Student[][]
         const zingGroup = zingData.group
         let realData: Student[][] = []
@@ -125,6 +131,13 @@ export const EditZing = () => {
     // mui-fixed class is for the modal messing up the padding
     return (
       <Box m={4} paddingBottom={3} className="mui-fixed">
+        <MatchLoading
+          showMatchLoading={showMatchLoading}
+          isCurrentlyGrouping={isCurrentlyGrouping}
+          // numberGrouping={unmatchedStudents.length}
+          // courseNames={courseInfo.names}
+          setShowMatchLoading={setShowMatchLoading}
+        />
         <StyledFlexHeader>
           <StyledLogoWrapper>
             <StyledLogo />

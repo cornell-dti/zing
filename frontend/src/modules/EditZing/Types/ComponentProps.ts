@@ -54,3 +54,11 @@ export interface ExportProps {
   data: Student[][]
   zingName: string
 }
+
+export interface MatchLoadingProps {
+  showMatchLoading: boolean
+  isCurrentlyGrouping: boolean
+  // numberGrouping: number
+  // courseNames: string[]
+  setShowMatchLoading: (arg: boolean) => void
+}
