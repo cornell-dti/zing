@@ -49,8 +49,9 @@ export const EditZing = () => {
   const [isCurrentlyGrouping, setIsCurrentlyGrouping] = useState(false)
 
   useEffect(() => {
-    setShowMatchLoading(true)
     async function fetchGroups(courseId: string | null) {
+      setShowMatchLoading(true)
+      setIsCurrentlyGrouping(true)
       if (courseId) {
         const zingData = await getZingGroups(courseId)
         setZingData(zingData)
@@ -168,7 +169,9 @@ export const EditZing = () => {
   } else {
     return (
       <StyledContainer>
-        <StyledText>Loading</StyledText>
+        <StyledText>
+          Please wait while Zing is optimizing your groups.
+        </StyledText>
       </StyledContainer>
     )
   }
