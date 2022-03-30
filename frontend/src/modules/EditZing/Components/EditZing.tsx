@@ -28,6 +28,8 @@ export const EditZing = () => {
   const { courseId } = useParams<{ courseId: string }>()
 
   useEffect(() => {
+    setShowMatchLoading(true)
+    setIsCurrentlyGrouping(true)
     if (!courseId) history.push(courseId)
   }, [courseId, history])
 
@@ -50,8 +52,6 @@ export const EditZing = () => {
 
   useEffect(() => {
     async function fetchGroups(courseId: string | null) {
-      setShowMatchLoading(true)
-      setIsCurrentlyGrouping(true)
       if (courseId) {
         const zingData = await getZingGroups(courseId)
         setZingData(zingData)
@@ -169,9 +169,7 @@ export const EditZing = () => {
   } else {
     return (
       <StyledContainer>
-        <StyledText>
-          Please wait while Zing is optimizing your groups.
-        </StyledText>
+        <StyledText>Loading...</StyledText>
       </StyledContainer>
     )
   }

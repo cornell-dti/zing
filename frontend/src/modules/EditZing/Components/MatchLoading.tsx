@@ -56,9 +56,6 @@ export const MatchLoading = ({
       <StyledLoadingContainer>
         {isCurrentlyGrouping ? (
           <StyledCenterWrapper>
-            <StyledLoadingText>
-              Please wait while Zing is optimizing your groups.
-            </StyledLoadingText>
             <CircularProgress
               className={classes.progress}
               classes={{
@@ -67,6 +64,9 @@ export const MatchLoading = ({
               size={120}
               thickness={3}
             />
+            <StyledLoadingText>
+              <br></br>Please wait while Zing is optimizing your groups
+            </StyledLoadingText>
           </StyledCenterWrapper>
         ) : (
           <StyledCenterWrapper>

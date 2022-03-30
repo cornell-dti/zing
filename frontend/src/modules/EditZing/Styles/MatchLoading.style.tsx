@@ -12,8 +12,8 @@ import styled from 'styled-components'
 // export const StyledWellDoneImg = styled(WellDoneImg)``
 
 export const StyledLoadingContainer = styled.div`
-  height: 450px;
-  width: 600px;
+  height: 90vh;
+  width: 95vw;
   border-radius: 10px;
   background-color: ${colors.white};
 `
@@ -38,4 +38,5 @@ export const StyledCenterWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 2.5rem;
+  margin-top: 20rem;
 `
