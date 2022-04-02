@@ -50,7 +50,13 @@ export interface StudentGridProps {
 
 export interface FilterSidebarProps {
   filterData: FilterData
-  setFilterData: Function
+  filtersSelected: FiltersSelected
+  setFiltersSelected: Function
+}
+
+export interface FilterSectionProps {
+  optionStr: string
+  category: string
   filtersSelected: FiltersSelected
   setFiltersSelected: Function
 }

@@ -116,7 +116,6 @@ export const EditZing = () => {
         <StyledMainContainer>
           <FilterSidebar
             filterData={filterData}
-            setFilterData={setFilterData}
             filtersSelected={filtersSelected}
             setFiltersSelected={setFiltersSelected}
           />

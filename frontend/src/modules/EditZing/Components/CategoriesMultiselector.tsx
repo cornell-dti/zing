@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Theme, useTheme } from '@mui/material/styles'
 import { colors } from '@core'
+import { CategoriesMultiselectorProps } from 'EditZing/Types/ComponentProps'
+import { getChipIcon } from './Helpers'
+import { Theme, useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import InputLabel from '@mui/material/InputLabel'
@@ -8,21 +10,24 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import Chip from '@mui/material/Chip'
-import { CategoriesMultiselectorProps } from 'EditZing/Types/ComponentProps'
-import { getChipIcon } from './Helpers'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
+const ITEM_WIDTH = 400
 const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 400,
+      width: ITEM_WIDTH,
     },
   },
 }
 
-function getStyles(name: string, categoriesSelected: string[], theme: Theme) {
+function getMenuItemStyles(
+  name: string,
+  categoriesSelected: string[],
+  theme: Theme
+) {
   return {
     fontWeight:
       categoriesSelected.indexOf(name) === -1
@@ -82,7 +87,7 @@ export const CategoriesMultiselector = ({
     <FormControl
       sx={{
         m: 1,
-        width: 400,
+        width: ITEM_WIDTH,
         '& .MuiChip-root': {
           borderRadius: '5px',
         },
@@ -123,7 +128,7 @@ export const CategoriesMultiselector = ({
             <MenuItem
               key={category}
               value={category}
-              style={getStyles(category, categoriesSelected, theme)}
+              style={getMenuItemStyles(category, categoriesSelected, theme)}
             >
               {getChipIcon(category)} {category}
             </MenuItem>
