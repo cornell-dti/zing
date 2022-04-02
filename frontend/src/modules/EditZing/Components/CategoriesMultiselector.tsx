@@ -63,25 +63,25 @@ export const CategoriesMultiselector = ({
     } = event
 
     // On autofill we get a stringified value, must parse appropriately
-    const newCategoriesSelected =
+    const newCategoriesShownArr =
       typeof value === 'string' ? value.split(',') : value
 
-    setCategoriesShownArr(newCategoriesSelected)
+    setCategoriesShownArr(newCategoriesShownArr)
     let newCategoriesShown = { ...categoriesShown }
     for (let category of Object.keys(categoriesShown)) {
-      newCategoriesShown[category] = newCategoriesSelected.includes(category)
+      newCategoriesShown[category] = newCategoriesShownArr.includes(category)
     }
     setCategoriesShown(newCategoriesShown)
   }
 
   const handleDelete = (value: string) => {
-    const newCategoriesSelected = categoriesShownArr.filter(
+    const newCategoriesShownArr = categoriesShownArr.filter(
       (category) => category !== value
     )
-    setCategoriesShownArr(newCategoriesSelected)
+    setCategoriesShownArr(newCategoriesShownArr)
     let newCategoriesShown = { ...categoriesShown }
     for (let category of Object.keys(categoriesShown)) {
-      newCategoriesShown[category] = newCategoriesSelected.includes(category)
+      newCategoriesShown[category] = newCategoriesShownArr.includes(category)
     }
     setCategoriesShown(newCategoriesShown)
   }
