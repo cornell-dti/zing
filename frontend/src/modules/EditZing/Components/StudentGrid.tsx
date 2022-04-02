@@ -74,7 +74,7 @@ export const StudentGrid = ({
   }, [filtersSelected, student])
 
   function determineBackground() {
-    return selectedByFilter ? colors.mediumviolet : colors.paleviolet
+    return selectedByFilter ? colors.purple30 : colors.verylightviolet
   }
 
   function determineOpacity() {

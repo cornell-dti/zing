@@ -15,6 +15,7 @@ export const colors = {
   lightgreen: '#CEF5D6',
   darkgreen: '#157E2C',
   lightgray: '#E2E2E2',
+  purple30: '#D9CFF2',
 }
 
 // module augmentation, needed for TypeScript
