@@ -54,10 +54,10 @@ export const StudentGrid = ({
       setSelectedByFilter(false)
       return
     }
-    // iterate through all categories with selected filters (AND)
+    // AND together all categories with selected filters
     let satisfiedAND = true
     Object.values(filtersSelected).every((filterCriteriaList) => {
-      // for each category, iterate thru all selected filters (OR)
+      // OR all selected filters within each category
       let satisfiedOR = false
       for (let index in filterCriteriaList) {
         const filterCriteria = filterCriteriaList[index]
