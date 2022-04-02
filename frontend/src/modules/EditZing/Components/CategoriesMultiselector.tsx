@@ -109,7 +109,7 @@ export const CategoriesMultiselector = ({
               <Chip
                 key={value}
                 label={value}
-                sx={{ background: colors.lightviolet }}
+                sx={{ background: colors.purple30 }}
                 onMouseDown={(event) => {
                   event.stopPropagation() // Prevent click from being captured by parent
                 }}
