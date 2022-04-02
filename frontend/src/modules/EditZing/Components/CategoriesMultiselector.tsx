@@ -42,10 +42,13 @@ export const CategoriesMultiselector = ({
   setCategoriesShown,
 }: CategoriesMultiselectorProps) => {
   const theme = useTheme()
-  const [categoriesSelected, setCategoriesSelected] = useState<string[]>([])
+
+  // due to MUI api, we have to use an arrayified of categoriesShown
+  // so instead of { string: boolean } we have to format the data as string[]
+  const [categoriesShownArr, setCategoriesShownArr] = useState<string[]>([])
 
   useEffect(() => {
-    setCategoriesSelected(
+    setCategoriesShownArr(
       Object.keys(categoriesShown).filter(
         (category) => categoriesShown[category]
       )
@@ -53,7 +56,7 @@ export const CategoriesMultiselector = ({
   }, [categoriesShown])
 
   const handleChange = (
-    event: SelectChangeEvent<typeof categoriesSelected>
+    event: SelectChangeEvent<typeof categoriesShownArr>
   ) => {
     const {
       target: { value },
@@ -63,7 +66,7 @@ export const CategoriesMultiselector = ({
     const newCategoriesSelected =
       typeof value === 'string' ? value.split(',') : value
 
-    setCategoriesSelected(newCategoriesSelected)
+    setCategoriesShownArr(newCategoriesSelected)
     let newCategoriesShown = { ...categoriesShown }
     for (let category of Object.keys(categoriesShown)) {
       newCategoriesShown[category] = newCategoriesSelected.includes(category)
@@ -72,10 +75,10 @@ export const CategoriesMultiselector = ({
   }
 
   const handleDelete = (value: string) => {
-    const newCategoriesSelected = categoriesSelected.filter(
+    const newCategoriesSelected = categoriesShownArr.filter(
       (category) => category !== value
     )
-    setCategoriesSelected(newCategoriesSelected)
+    setCategoriesShownArr(newCategoriesSelected)
     let newCategoriesShown = { ...categoriesShown }
     for (let category of Object.keys(categoriesShown)) {
       newCategoriesShown[category] = newCategoriesSelected.includes(category)
@@ -98,7 +101,7 @@ export const CategoriesMultiselector = ({
         labelId="demo-multiple-chip-label"
         id="demo-multiple-chip"
         multiple
-        value={categoriesSelected}
+        value={categoriesShownArr}
         onChange={handleChange}
         input={
           <OutlinedInput id="select-multiple-chip" label="View Categories" />
@@ -128,7 +131,7 @@ export const CategoriesMultiselector = ({
             <MenuItem
               key={category}
               value={category}
-              style={getMenuItemStyles(category, categoriesSelected, theme)}
+              style={getMenuItemStyles(category, categoriesShownArr, theme)}
             >
               {getChipIcon(category)} {category}
             </MenuItem>
