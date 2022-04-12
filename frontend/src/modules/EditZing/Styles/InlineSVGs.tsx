@@ -1,7 +1,7 @@
-export const genderSvg = (size: number) => (
+export const genderSvg = (pxSize: number) => (
   <svg
-    width={size}
-    height={size}
+    width={pxSize}
+    height={pxSize}
     viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -15,10 +15,10 @@ export const genderSvg = (size: number) => (
   </svg>
 )
 
-export const collegeSvg = (size: number) => (
+export const collegeSvg = (pxSize: number) => (
   <svg
-    width={size}
-    height={size}
+    width={pxSize}
+    height={pxSize}
     viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -32,10 +32,10 @@ export const collegeSvg = (size: number) => (
   </svg>
 )
 
-export const modalitySvg = (size: number) => (
+export const modalitySvg = (pxSize: number) => (
   <svg
-    width={size}
-    height={size}
+    width={pxSize}
+    height={pxSize}
     viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -55,10 +55,10 @@ export const modalitySvg = (size: number) => (
   </svg>
 )
 
-export const raceSvg = (size: number) => (
+export const raceSvg = (pxSize: number) => (
   <svg
-    width={size}
-    height={size}
+    width={pxSize}
+    height={pxSize}
     viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -72,10 +72,10 @@ export const raceSvg = (size: number) => (
   </svg>
 )
 
-export const timeSvg = (size: number) => (
+export const timeSvg = (pxSize: number) => (
   <svg
-    width={size}
-    height={size}
+    width={pxSize}
+    height={pxSize}
     viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -89,10 +89,10 @@ export const timeSvg = (size: number) => (
   </svg>
 )
 
-export const workHabitsSvg = (size: number) => (
+export const workHabitsSvg = (pxSize: number) => (
   <svg
-    width={size}
-    height={size}
+    width={pxSize}
+    height={pxSize}
     viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -106,10 +106,10 @@ export const workHabitsSvg = (size: number) => (
   </svg>
 )
 
-export const yearSvg = (size: number) => (
+export const yearSvg = (pxSize: number) => (
   <svg
-    width={size}
-    height={size}
+    width={pxSize}
+    height={pxSize}
     viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -123,10 +123,10 @@ export const yearSvg = (size: number) => (
   </svg>
 )
 
-export const otherSvg = (size: number) => (
+export const otherSvg = (pxSize: number) => (
   <svg
-    width={size}
-    height={size}
+    width={pxSize}
+    height={pxSize}
     viewBox="0 0 14 2"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

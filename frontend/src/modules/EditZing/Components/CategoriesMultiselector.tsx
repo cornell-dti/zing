@@ -43,7 +43,7 @@ export const CategoriesMultiselector = ({
 }: CategoriesMultiselectorProps) => {
   const theme = useTheme()
 
-  // due to MUI api, we have to use an arrayified of categoriesShown
+  // due to MUI api, we have to use an arrayified categoriesShown
   // so instead of { string: boolean } we have to format the data as string[]
   const [categoriesShownArr, setCategoriesShownArr] = useState<string[]>([])
 
