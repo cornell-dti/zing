@@ -27,9 +27,12 @@ export const EditZing = () => {
   const history = useHistory()
   const { courseId } = useParams<{ courseId: string }>()
 
-  useEffect(() => {
+  const startLoading = function () {
     setShowMatchLoading(true)
     setIsCurrentlyGrouping(true)
+  }
+
+  useEffect(() => {
     if (!courseId) history.push(courseId)
   }, [courseId, history])
 

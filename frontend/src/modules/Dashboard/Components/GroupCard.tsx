@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import moment from 'moment'
 import Snackbar from '@mui/material/Snackbar'
@@ -25,6 +25,9 @@ import {
 } from '@core'
 import axios from 'axios'
 import { Alert, Button } from '@mui/material'
+
+import { MatchLoading } from 'EditZing/Components/MatchLoading'
+import { EditZing } from 'EditZing/Components/EditZing'
 
 export const GroupCard = ({
   key,
@@ -80,6 +83,7 @@ export const GroupCard = ({
               width: '45%',
             }}
             onClick={() => {
+              EditZing.startLoading()
               axios.post(`${API_ROOT}${COURSE_API}/${id}${CSV_API}`).then(
                 (response: any) => {
                   axios
