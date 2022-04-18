@@ -73,9 +73,13 @@ export const FilterSidebar = ({
   }
 
   const filterCheckboxes = (key: string, index: number, category: string) => {
-    return isSectionCollapsed(index) ? null : (
+    return (
       <FormControl
-        sx={{ m: 3, margin: '0.5rem 0 0 0' }}
+        sx={{
+          m: 3,
+          margin: '0.5rem 0 0 0',
+          display: isSectionCollapsed(index) ? 'none' : 'block',
+        }}
         component="fieldset"
         variant="standard"
       >
