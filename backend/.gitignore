@@ -24,3 +24,5 @@ groupeng/src/__pycache__
 
 # VSCode config
 .vscode
+
+*.log
