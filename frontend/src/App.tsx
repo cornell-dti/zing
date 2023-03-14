@@ -14,7 +14,6 @@ import { Survey } from 'Survey'
 import { EditZing } from 'EditZing'
 import { Dashboard } from 'Dashboard'
 
-import './App.css'
 import { CssBaseline } from '@mui/material'
 import theme from '@core/Constants/Theme'
 
