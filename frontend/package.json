@@ -74,6 +74,7 @@
     "customize-cra": "^1.0.0",
     "husky": "=4",
     "lint-staged": ">=10",
+    "node": "18",
     "prettier": "2.2.1",
     "react-app-rewired": "^2.1.8"
   },
