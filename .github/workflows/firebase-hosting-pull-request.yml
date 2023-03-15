@@ -9,8 +9,20 @@ jobs:
     if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: cd frontend && yarn install --frozen-lockfile && yarn build
+      - uses: actions/checkout@v3
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.16.0'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: cd frontend && yarn install --frozen-lockfile
+
+      - name: Build React App
+        run: yarn build
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
