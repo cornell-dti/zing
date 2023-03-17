@@ -18,6 +18,8 @@ import { ExportButton } from 'EditZing/Components/ExportButton'
 import { Box } from '@mui/material'
 import { CSV_FILE, DOWNLOAD_ALL } from '@core'
 
+import _fakeStudentGroupsFromJson from 'EditZing/fakeData.json'
+
 export const EditZing = () => {
   // get param that was set from history using location
   const history = useHistory()
@@ -35,7 +37,8 @@ export const EditZing = () => {
     },
   ]
 
-  const fakeStudentGroupsFromJson: Student[][] = require('EditZing/fakeData.json')
+  const fakeStudentGroupsFromJson = _fakeStudentGroupsFromJson as Student[][]
+
   // full fetched zing object
   const [zingData, setZingData] = useState<FetchedZing | null>(null)
   // student groups parsed out from zingData into a Student[][]
