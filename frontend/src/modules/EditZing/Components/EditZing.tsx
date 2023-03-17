@@ -37,7 +37,7 @@ export const EditZing = () => {
     },
   ]
 
-  const fakeStudentGroupsFromJson = _fakeStudentGroupsFromJson as Student[][]
+  const fakeStudentGroupsFromJson: Student[][] = _fakeStudentGroupsFromJson
 
   // full fetched zing object
   const [zingData, setZingData] = useState<FetchedZing | null>(null)
