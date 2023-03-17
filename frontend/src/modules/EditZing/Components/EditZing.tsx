@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ReactDOM from 'react-dom'
 import { useHistory, useParams } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import {
   StyledContainer,
@@ -18,7 +16,7 @@ import { getZingGroups, saveSwapStudent } from './Helpers'
 import { FetchedZing } from 'EditZing/Types/Student'
 import { ExportButton } from 'EditZing/Components/ExportButton'
 import { Box } from '@mui/material'
-import { CSV_FILE, DOWNLOAD_ALL, HOME_PATH } from '@core'
+import { CSV_FILE, DOWNLOAD_ALL } from '@core'
 
 export const EditZing = () => {
   // get param that was set from history using location

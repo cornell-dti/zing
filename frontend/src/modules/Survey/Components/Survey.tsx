@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory, useLocation, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import axios from 'axios'
 
 import { StyledContainer1, StyledContainer2 } from 'Survey/Styles/Survey.style'

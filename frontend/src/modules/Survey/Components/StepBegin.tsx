@@ -25,9 +25,10 @@ export const StepBegin = ({
   gotoNextStep,
 }: StepBeginProps) => {
   // find out if the survey is overdue
-  const nowUnix = Date.now()
-  const dueDateUnix = Date.parse(dueDate)
-  const [isOverdue] = useState(dueDateUnix - nowUnix < 0)
+
+  // const nowUnix = Date.now()
+  // const dueDateUnix = Date.parse(dueDate)
+  // const [isOverdue] = useState(dueDateUnix - nowUnix < 0)
 
   /** Enums for the 4 types of validation errors that can occur on step 0 **/
   const errorEnum = {

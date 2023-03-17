@@ -9,7 +9,6 @@ import {
 } from 'Survey/Styles/StepRadio.style'
 import { RadioButton } from '@core'
 import { StepProps } from 'Survey/Types/StepProps'
-import { Option } from '@core/Types'
 
 export const StepRadio = ({
   showError,
