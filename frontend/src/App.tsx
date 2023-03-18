@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { HOME_PATH, SURVEY_PATH, EDIT_ZING_PATH, DASHBOARD_PATH } from '@core'
@@ -14,7 +14,6 @@ import { Survey } from 'Survey'
 import { EditZing } from 'EditZing'
 import { Dashboard } from 'Dashboard'
 
-import './App.css'
 import { CssBaseline } from '@mui/material'
 import theme from '@core/Constants/Theme'
 
