@@ -1,5 +1,5 @@
 import { FetchedZing } from 'EditZing/Types/Student'
-const axios = require('axios')
+import axios from 'axios'
 
 export async function getZingGroups(docId: String): Promise<FetchedZing> {
   return fetch(

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory, useLocation, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import axios from 'axios'
 
 import { StyledContainer1, StyledContainer2 } from 'Survey/Styles/Survey.style'
@@ -11,6 +11,8 @@ import { SurveyForm } from '@core/Types'
 import { useEffect } from 'react'
 import { API_ROOT, COURSE_API, HOME_PATH, SURVEY_API } from '@core/Constants'
 
+import _defaultSurvey from '@core/Questions/DefaultSurvey.json'
+
 export const Survey = () => {
   const history = useHistory()
   const { courseId } = useParams<{ courseId: string }>()
@@ -21,7 +23,7 @@ export const Survey = () => {
 
   const [showError, setShowError] = useState(false)
   const [currStep, setCurrStep] = useState(0)
-  const defaultSurvey: SurveyForm = require('@core/Questions/DefaultSurvey.json')
+  const defaultSurvey: SurveyForm = _defaultSurvey
   const [survey, setSurvey] = useState<SurveyForm>(defaultSurvey)
   // const numSpecialQuestions = 0 // don't think we need this anymore due to the api call
   const totalSteps = survey.questions.length
